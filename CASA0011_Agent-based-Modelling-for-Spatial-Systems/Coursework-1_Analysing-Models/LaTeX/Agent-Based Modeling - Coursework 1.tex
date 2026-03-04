@@ -1,0 +1,434 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{float}
+
+% ----netlogo code chunk design----
+% ---------------------------------
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Define NetLogo language colors
+\definecolor{netlogo_comment}{RGB}{128, 128, 128} % Gray for comments
+\definecolor{netlogo_keyword}{RGB}{0, 0, 204}    % Blue for structural keywords
+\definecolor{netlogo_command}{RGB}{102, 0, 153}  % Purple for commands
+\definecolor{netlogo_string}{RGB}{153, 0, 0}     % Dark red for strings
+
+% Custom NetLogo language definition
+\lstdefinelanguage{NetLogo}{
+  % Structural keywords
+  morekeywords={to, end, extensions, globals, breed, turtles-own, patches-own, links-own}, 
+  % Primary commands
+  morekeywords=[2]{ask, tick, setup, go, update-plots, create-turtles, hatch, sprout, move-to, forward, fd, back, bk, left, lt, right, rt, set, let, ifelse, if, while, repeat, stop, report}, 
+  % Agents and variables
+  morekeywords=[3]{turtles, patches, links, world-width, world-height, count, any?, all?, one-of, n-of, with, neighbors, neighbors4}, 
+  sensitive=false,
+  morecomment=[l]{;}, % NetLogo uses semicolon for comments
+  morestring=[b]",    % Strings are enclosed in double quotes
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{netlogo_keyword}\bfseries,
+  keywordstyle=[2]\color{netlogo_command},
+  keywordstyle=[3]\color{teal},
+  commentstyle=\color{netlogo_comment}\itshape,
+  stringstyle=\color{netlogo_string},
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray}
+}
+% ---------------------------------
+% ---------------------------------
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\setstretch{1.15}
+
+\pagestyle{fancy}
+
+\fancyhf{}
+\rhead{\small CASA0011 --- Systematic Experimentation (SugarScape)}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\title{
+    \vspace{2cm}
+    \Huge \textbf{Agent-Based Modeling --- Coursework 1} \\[0.5cm]
+    \large CASA0011 --- Systematic Experimentation (SugarScape)\\[0.5cm]
+    \Large \textit{Evolutionary Dynamics of Market Competition: \\ From Individual Survival to Corporate Expansion} \\[1.5cm]
+    
+    \includegraphics[width=0.85\textwidth]{cover.jpg} \\[1cm]
+}
+
+\author{
+    \Large \textbf{Zhengpei Xu} \\[0.3cm]
+    \large Student Number: 25034404 \\[0.3cm]
+}
+
+\date{
+    \vfill
+    \large March 2026 \\[0.3cm]
+    \normalsize Word Count: 1487
+}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\newpage
+\pagenumbering{arabic}
+
+% ============================================================
+% 0. BACKGROUND 
+% ============================================================
+\section{Background}
+The SugarScape model (Epstein and Axtell, 1996) was originally designed to simulate how complex social phenomena emerge from simple interactions among heterogeneous individuals competing for limited resources. This logic translates naturally to firm-level market competition. Building on this, Park et al. (2024) adapted the SugarScape framework to model a housing market. Their results show that agents' vision range directly shapes competitive intensity and market outcomes. Yet the original model has a fundamental constraint: firms cannot grow. There is no expansion, no branching, no notion of a multi-unit organisation. This study addresses that gap.
+
+
+
+
+
+% ============================================================
+% 1. AIM 
+% ============================================================
+\section{Aim}
+
+This study reinterprets the SugarScape model 2 (Constant Growback) and 3 (Wealth Distribution) from the NetLogo Library (Wilensky, 1999a, 1999b) as models of firm-level market competition, where metabolism represents operating costs, vision represents market awareness, and accumulated sugar represents retained capital. Two progressive stages examine how competitive pressure and market structure jointly shape firm characteristics and market inequality.
+
+\textbf{Stage A (based on Model 2):} In a resource-limited market, how does firm density reshape the distribution of firm characteristics through competition? This stage examines whether a more crowded market systematically favours firms with lower operating costs (lower metabolism) and stronger market awareness (higher vision), and how this selection process shapes overall resource utilization and wealth inequality across firms.
+
+\textbf{Stage B (based on Model 3):} In a dynamic market with a brand expansion mechanism, how entry conditions for opening branch shape market structure through a filtering process. Does efficiency gain from enterprise scaling further concentrate wealth among dominant brands, creating a winner-takes-more market dynamic?
+
+Together, the two stages form a progressive comparative framework from static competition to dynamic expansion.
+
+% ============================================================
+% 2. METHOD (446 words)
+% ============================================================
+\section{Method}
+This study enhances two SugarScape models and conducts systematic parameter experiments with Netlogo BehaviorSpace. To ensure selection is entirely through market competition rather than lifespan randomness of the initial model, the sole exit mechanism for both is set as bankruptcy (retained capital falling to zero).
+
+The two stages jointly introduce market utilization ($U$) as a common benchmark for cross-phase market resource absorption efficiency, defined as follows: 
+
+\begin{equation}
+    U\footnote{In the Stage B secondary experiment, $U$ exceeding 100\% is because the introduction of the same-brand adjacency efficiency mechanism ($b$) improves firms' actual harvesting efficiency.} = \frac{\sum \text{operating cost of all firms}}{\sum \text{sugar regrown across all patches}} \times 100\%
+\end{equation}
+
+
+
+
+
+\subsection{Stage A: Static Competitive Market}
+
+Stage A extends the SugarScape 2 Constant Growback model with two additional reporters: market utilization and Gini coefficient\footnote{The Gini coefficient measures wealth inequality within a population, ranging from 0 (perfect equality, all firms hold equal wealth) to 1 (perfect inequality, one firm holds all wealth). A higher value indicates greater wealth concentration.} (measuring wealth distribution). The initial number of firms $N$ (market density) is the sole independent variable. Observed metrics are mean operating cost, mean market reach, market utilization, and Gini coefficient. Experimental parameters are detailed in Table~1.
+
+\subsection{Stage B: Dynamic Expansion Market}
+
+The original SugarScape 3 reproduction mechanism replaces each dying agent with a single offspring in the same location, modelling biological succession rather than organisational growth. Stage B therefore replaces it with a brand expansion mechanism, where successful firms open new branches within their own market reach, allowing geographic advantage to compound across generations. The mechanism comprises four rules:
+
+\begin{enumerate}
+    \item \textbf{Expansion Trigger:} When a firm's wealth exceeds the expansion threshold ET, it attempts to open a new branch each tick with probability $p$.
+    
+    \item \textbf{Capital Transfer:} The parent firm transfers a random amount drawn from $[\text{MW}, \text{ET}]$ (where MW is the minimum entry wealth and ET is the expansion threshold) to the new branch, reducing its own wealth accordingly.
+    
+    \item \textbf{Branch Initialization:} The new branch inherits the parent's brand identity, draws operating cost and market reach independently from the same initial distributions, and is placed on a random vacant patch within the parent's market reach (vision) range.
+    
+    \item \textbf{Adjacency Harvest Bonus:} If a firm has at least one same-brand neighbour (up/down/left/right), its actual sugar harvested is $S'_i = S_i \times (1 + b)$, where $b$ is the bonus parameter and $b = 0$ represents the no-scale-effect baseline.
+\end{enumerate}
+To form a dual-layer wealth distribution measurement system, two reporters market utilization and brand-level Gini coefficient (Gini of total wealth across brands) were added to the model. 
+
+The experiment is conducted through two sub-stages. The primary experiment adopts a full factorial design across ET and MW to examine the interaction effects of entry conditions. The secondary experiment fixes ET and MW and sweeps Adjacency Harvest Bonus (b) to isolate the effect of scale efficiency on market structure. Observed metrics across both experiments are mean operating cost, mean market reach, market utilization, individual-level Gini coefficient, and brand-level Gini coefficient. Full parameters are detailed in Table~1.
+
+
+
+\subsection{Stages Experiments Parameter Summary}
+
+\begin{table}[H]
+\begin{threeparttable}
+\centering
+\caption{Experiment Parameter Summary}
+\begin{tabularx}{\textwidth}{lXXX}
+\toprule
+\textbf{Stage} & \textbf{Parameter(s)} & \textbf{Values Tested} & \textbf{Fixed Parameters} \\
+\midrule
+\multicolumn{4}{l}{\textit{Universal constants: operating cost $\sim U(1,4)$, market reach $\sim U(1,6)$, sugar growback $= 1$}} \\
+\midrule
+A --- Model 2 & Initial number of firms $N$ (market density) & 10--2499 (15 levels, density-stratified sampling) & initial capital $\sim U(5,25)$ \\
+\addlinespace
+B --- Model 3 (primary) & Expansion threshold (ET) $\times$ Minimum entry wealth (MW) & ET: $\{10,20,30,40,50\}$; MW: $\{0,9,19,29,39,49\}$; ET $>$ MW (20 valid combinations) & $N=400$, $p=0.6$, $b=0$ \\
+\addlinespace
+B --- Model 3 (secondary) & Adjacency harvest bonus $b$ & 0--1.0 (step $= 0.1$) & $N=400$, $p=0.6$, ET $=20$, MW $=10$ \\
+\bottomrule
+\end{tabularx}
+\begin{tablenotes}
+\small
+\item \parbox{\dimexpr\textwidth-2em}{\textit{Note: All experiments were repeated 30 times. Stage A ran for 500 steps and Stage B for 1000 steps; pre-experiments confirm all parameter combinations reach steady state within these limits. Stage A adopts density-stratified sampling: $N \in \{10, 50, 100, 200, 300, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2499\}$, with finer intervals at low density ($N < 200$) to capture early competitive selection dynamics, and $N = 2499$ included to observe market behaviour at the firm population ceiling. MW is designed as $\{0, 9, 19, 29, 39, 49\}$ so that each ET level includes an MW $=$ ET$-1$ case, capturing the effect of a near-zero startup capital range. Branching probability $p = 0.6$ is validated by pre-experiments to ensure market convergence within the time limit and treated as a control parameter.}}
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+
+% ============================================================
+% 3. RESULTS
+% ============================================================
+\section{Results}
+
+\subsection{Stage A}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{stage_A_1.png}
+\end{figure}
+
+Figure 1 shows market utilization rising continuously with $N$, approaching 47.14\% at $N \approx 2000$. Even at the model ceiling of $N = 2499$, utilization fails to increase further, indicating a structural ceiling on resource absorption.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{stage_A_2.png}
+\end{figure}
+
+Figure 2 shows the Gini coefficient following a non-monotonic pattern. When $N < 100$, the standard deviation range is wide, reflecting highly random outcomes. The Gini then declines to approximately 0.30 at intermediate densities, peaks at 0.43 around $N \approx 1400$, and falls to approximately 0.33 at higher densities.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{stage_A_3.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{stage_A_4.png}
+\end{figure}
+
+
+Figure 3 shows mean operating cost declining from approximately 2.3 to 1.25 as $N$ increases. Mean market reach remains stable between 3.7 and 3.9 across all density levels. Figure 4 compares standard deviation bands at $N = 10$, $N = 100$, and $N = 2499$. At $N = 10$, the range of dispersion in operating costs and market coverage is extremely wide. When market density increases, values of both metrics become stable.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Stage B --- Primary Experiment (ET $\times$ MW)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{stage_B_1_1.png}
+\end{figure}
+Figure 5 shows that individual Gini rises with MW (minimum entry wealth) and broadly declines with ET (entry threshold). When the entry capital range $[\text{MW}, \text{ET}]$ narrows sharply, inequality intensifies further, peaking at 0.331 when ET $= 50$ and MW $= 49$.Brand Gini remains highly stable across all 20 valid combinations, ranging from 0.494 to 0.530. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{stage_B_combined_3d.png}
+\end{figure}
+
+Figure 6 shows market utilization is similarly insensitive to ET and MW, staying between 75.4\% and 76.0\%. 
+
+
+
+
+\begin{table}[H]
+\begin{threeparttable}
+\centering
+\caption{Mean Market Reach (Vision) by Entry Conditions (ET $\times$ MW), mean $\pm$ std}
+\label{tab:vision}
+\begin{tabularx}{\textwidth}{cYYYYYY}
+\toprule
+\textbf{ET $\backslash$ MW} & \textbf{0} & \textbf{9} & \textbf{19} & \textbf{29} & \textbf{39} & \textbf{49} \\
+\midrule
+\textbf{10} & $3.50\pm0.04$ & $3.50\pm0.05$ & --- & --- & --- & --- \\
+\textbf{20} & $3.50\pm0.06$ & $3.50\pm0.04$ & $3.51\pm0.04$ & --- & --- & --- \\
+\textbf{30} & $3.51\pm0.05$ & $3.50\pm0.05$ & $3.48\pm0.06$ & $3.52\pm0.05$ & --- & --- \\
+\textbf{40} & $3.52\pm0.05$ & $3.51\pm0.04$ & $3.50\pm0.04$ & $3.51\pm0.04$ & $3.52\pm0.03$ & --- \\
+\textbf{50} & $3.51\pm0.03$ & $3.50\pm0.04$ & $3.49\pm0.04$ & $3.49\pm0.03$ & $3.53\pm0.05$ & $3.52\pm0.04$ \\
+\bottomrule
+\end{tabularx}
+\begin{tablenotes}
+\small
+\item \textit{Note: Cells marked ``---'' represent invalid combinations where ET $\leq$ MW. All values rounded to 2 decimal places.}
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+
+\begin{table}[H]
+\begin{threeparttable}
+\centering
+\caption{Mean Operating Cost (Metabolism) by Entry Conditions (ET $\times$ MW), mean $\pm$ std}
+\label{tab:metabolism}
+\begin{tabularx}{\textwidth}{cYYYYYY}
+\toprule
+\textbf{ET $\backslash$ MW} & \textbf{0} & \textbf{9} & \textbf{19} & \textbf{29} & \textbf{39} & \textbf{49} \\
+\midrule
+\textbf{10} & $1.000\pm0.000$ & $1.000\pm0.000$ & --- & --- & --- & --- \\
+\textbf{20} & $1.000\pm0.000$ & $1.000\pm0.000$ & $1.000\pm0.001$ & --- & --- & --- \\
+\textbf{30} & $1.000\pm0.000$ & $1.001\pm0.001$ & $1.001\pm0.001$ & $1.004\pm0.002$ & --- & --- \\
+\textbf{40} & $1.001\pm0.001$ & $1.003\pm0.002$ & $1.006\pm0.003$ & $1.009\pm0.003$ & $1.018\pm0.005$ & --- \\
+\textbf{50} & $1.004\pm0.002$ & $1.006\pm0.003$ & $1.015\pm0.004$ & $1.023\pm0.006$ & $1.034\pm0.005$ & $1.044\pm0.007$ \\
+\bottomrule
+\end{tabularx}
+\begin{tablenotes}
+\small
+\item \textit{Note: Cells marked ``---'' represent invalid combinations where ET $\leq$ MW. Bold indicates the maximum observed deviation from the model floor. All values rounded to 3 decimal places.}
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+Tables 2 and 3 show mean market reach stable at $3.50 \pm 0.05$ and mean operating cost converging to the model floor of 1.00 under most conditions.
+
+
+
+\subsection{Stage B --- Secondary Experiment (Adjacency Harvest Bonus)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{stage_B_2_1.png}
+\end{figure}
+Figure 7 reveals contrasting patterns across the two Gini measures. Individual Gini rises from 0.205 at $b = 0$ to a peak of 0.610 at $b = 0.3$. It then declines to 0.428 at $b = 0.8$, before jumping again to 0.590 at $b = 1.0$. Brand Gini behaves differently. It jumps immediately from 0.512 to above 0.638 once $b > 0$, and continues rising to a peak of 0.839 when $b = 0.8$.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{stage_B_2_2.png}
+\end{figure}
+
+Figure 8 shows market utilisation rising steadily with $b$. It first exceeds 100\% at $b = 0.5$, reaching 131.7\% at $b = 1.0$. Table 4 shows mean market reach remaining between 3.47 and 3.51 across all $b$ values.
+
+% ============================================================
+% 4. DISCUSSION
+% ============================================================
+\section{Discussion}
+
+\subsection{Asymmetric Selection: Cost Over Awareness}
+
+Both stages show that operating cost declines significantly under competitive pressure, while market reach remains largely unchanged, indicating that high-cost firms are the first to go bankrupt and positional advantages are weakened as demand-rich patches become occupied in dense markets. In Stage B, the expansion mechanism drives operating costs to the model floor of 1.00, confirming that once market positions are captured, cost control becomes the primary condition for survival.
+
+\subsection{Structural Changes in Market Utilization}
+
+Stage A's utilization ceiling of approximately 47\% is independent of firm count, suggesting it is determined by the spatial distribution of market demand and the rate of demand renewal (sugar regeneration rate). In the Stage B primary experiment, the expansion mechanism sustains a steady-state firm population far exceeding the initial value, stabilising utilization at approximately 75.5\%. In the secondary experiment, utilization first exceeds 100\% and ultimately reaches 131.7\% as harvesting efficiency increases. These findings confirm a more scaled firm composition will drive expansion of market carrying capacity.
+
+\subsection{Decoupling of Two Forms of Inequality}
+
+In the Stage B primary experiment, when \textit{ET} and \textit{MW} are close in value, new firms enter with homogeneous startup capital. Entry position and firm-level randomness then become the primary determinants of outcomes, producing more polarised results at the aggregate level. When \textit{ET} substantially exceeds \textit{MW}, the wider capital range introduces heterogeneity. Competition disperses across tiers of individuals with different initial wealth, reducing individual-level inequality. Brand Gini remains approximately 0.51 across the entire parameter space, indicating that brand-level wealth distribution has decoupled from both entry conditions. This stability suggests that brand-level wealth divergence is driven by a mechanism that works independently of entry capital conditions, one that is examined in the following section.
+
+\subsection{The Cross-Stage Decisive Role of Pre-Entry Market Intelligence}
+
+The wide standard deviation bands at low density in Stage A indicate that a firm's ability to sense and occupy resource-rich locations upon entry exerts significantly greater influence on individual outcomes than intrinsic operational traits. Stage B corroborates this. The expansion mechanism transmits geographic advantage across generations, enabling dominant brands to accumulate wealth rapidly and becoming a primary structural source of brand-level inequality. The adjacency harvest bonus further amplifies this mechanism. Well-positioned clusters form first, adjacency gains raise their harvesting efficiency, and a positive feedback loop pushes brand Gini to its extreme peak of 0.839. Whether the market is static or dynamic, pre-entry market intelligence remains the decisive factor in determining firm and brand success.
+
+% ============================================================
+% 5. CONCLUSION
+% ============================================================
+\section{Conclusion}
+
+This study examines how competitive pressure and market structure jointly shape firm survival and wealth inequality across two progressive stages. In the static market, the selection mechanism eliminates high-cost firms first, not firms with weaker market awareness. In the dynamic expansion market, entry capital conditions (ET/MW) affect individual-level inequality through the startup capital range. Brand-level wealth divergence, however, originates from random geographic positioning upon entry and compounds across generations as branches inherit locational advantage, which entry capital cannot offset. When the adjacency harvest bonus is introduced, scale efficiency further raises market carrying capacity and reinforces the positive feedback loop of geographic first-mover advantage, pushing brand-level wealth concentration to an extreme. Taken together, the results suggest that a firm's ability to identify and occupy resource-rich locations upon entry is the fundamental determinant of long-run competitive position.
+
+% ============================================================
+% REFERENCES
+% ============================================================
+\newpage
+\begin{thebibliography}{99}
+
+\bibitem{epstein1996}
+Epstein, J. M. and Axtell, R. (1996)
+\textit{Growing Artificial Societies: Social Science from the Bottom Up}.
+MIT Press.
+
+\bibitem{wilensky1999a}
+Wilensky, U. (1999a)
+\textit{NetLogo Models Library: Sugarscape 2 Constant Growback}.
+Evanston, IL: Center for Connected Learning and Computer-Based Modeling,
+Northwestern University.
+Available at: \url{https://ccl.northwestern.edu/netlogo/models/Sugarscape2ConstantGrowback}
+
+\bibitem{wilensky1999b}
+Wilensky, U. (1999b)
+\textit{NetLogo Models Library: Sugarscape 3 Wealth Distribution}.
+Evanston, IL: Center for Connected Learning and Computer-Based Modeling,
+Northwestern University.
+Available at: \url{https://ccl.northwestern.edu/netlogo/models/Sugarscape3WealthDistribution}
+
+\bibitem{park2024}
+Park, D., Hong, J. and Ryu, D. (2024)
+`Heterogeneous expectations in the housing market: a sugarscape agent-based model',
+\textit{Journal of Housing and the Built Environment}, 39, pp. 1465--1489.
+
+\end{thebibliography}
+
+
+
+
+% ============================================================
+% APPENDIX
+% ============================================================
+\newpage
+\section*{Appendix}
+
+
+\addcontentsline{toc}{section}{Appendix}
+
+\subsection*{B. NetLogo Simulation Code}
+
+\begin{lstlisting}[language=NetLogo, caption={ABM simulation for cycling infrastructure impact}]
+; Initial setup of the environment
+to setup
+  clear-all
+  setup-patches
+  setup-turtles
+  reset-ticks
+end
+
+to go
+  if ticks >= 500 [ stop ]
+  ask turtles [
+    move-forward
+    avoid-traffic
+  ]
+  tick
+end
+
+; Movement logic for cycling agents
+to move-forward
+  fd 1
+end
+\end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
