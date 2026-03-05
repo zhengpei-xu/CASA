@@ -144,7 +144,7 @@ end
 
 
 ;; -------------------addition part 1---------------------
-;; ------------reportor for market-utilization------------
+;; ------------reporter for market-utilization------------
 to-report get-market-utilization
   ;; 1. calculating the total metabolism of agents (total cost every tick)
   let total-demand sum [metabolism] of turtles
@@ -197,7 +197,7 @@ to distribute-brands
     
     ;; Set a unique color based on the Brand ID to visualize diversity
     ;; The modulo operator ensures colors stay within the NetLogo visible range.
-    ;; gemini used here to asign color
+    ;; Gemini used here to asign color
     set color (5 + (brand * 13) mod 135) 
     
     ;; Call the general turtle setup for traits and positioning

@@ -195,7 +195,7 @@ end
 to distribute-brands
   ;; Create the initial population based on the UI slider
   create-turtles initial-population [
-    ;; Assign the unique 'who' number as the Brand ID [cite: 2026-02-25]
+    ;; Assign the unique 'who' number as the Brand ID 
     set brand who 
     
     ;; Set a unique color based on the Brand ID to visualize diversity
@@ -221,7 +221,7 @@ to handle-life-cycle ;; turtle procedure
     
     ;; Safety Buffer: Assets after cost must exceed 1 tick of metabolism
     if (sugar - birth-cost > metabolism) [
-      let target-patch one-of neighbors with [not any? turtles-here]
+      let target-patch one-of neighbors4 with [not any? turtles-here]
       
       if (random-float 1.0 < birth-rate) and (target-patch != nobody) [
         set sugar (sugar - birth-cost)
@@ -275,14 +275,14 @@ end
 
 
 ;; -------------------addition part 4---------------------
-;; ------------reportor for market-utilization------------
+;; ------------reporter for market-utilization------------
 to-report get-market-utilization
   ;; 1. calculating the total metabolism of agents (total cost every tick)
   let total-demand sum [metabolism] of turtles
   
   ;; 2. caculating total Theoretical Maximum output (potential total market output)
   ; because the potential recovery value of each sugar mine is 1/tick
-  ; now can use the number of mines to represent potential total market output (2069)
+  ; now can also use the number of mines to represent potential total market output (2069)
   let total-supply count patches with [max-psugar > 0]
   
   ; solving Zero Division Error
@@ -311,15 +311,15 @@ to update-brand-lorenz-and-gini
   
   let wealth-sum-so-far 0
   let index 0
-  set brand-gini-index-reserve 0    ;; Start clean
-  set brand-lorenz-points []        ;; Start clean
+  set brand-gini-index-reserve 0    
+  set brand-lorenz-points []       
   
   repeat num-brands [
     set wealth-sum-so-far (wealth-sum-so-far + item index sorted-wealths)
-    ;; Updating brand-specific lorenz list [cite: 2026-01-12]
+    ;; Updating brand-specific lorenz list 
     set brand-lorenz-points lput ((wealth-sum-so-far / total-wealth) * 100) brand-lorenz-points
     set index (index + 1)
-    ;; Calculating the specific reserve for brands [cite: 2026-02-21]
+    ;; Calculating the specific reserve for brands 
     set brand-gini-index-reserve
       brand-gini-index-reserve +
       (index / num-brands) -
