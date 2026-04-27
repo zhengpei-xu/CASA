@@ -1,15 +1,15 @@
 [0] Config.pm:328> INFO - This is Biber 2.21
 [0] Config.pm:331> INFO - Logfile is 'Agent-Based Modeling - Coursework 2.blg'
-[127] biber-MSWIN64:342> INFO - === 
-[177] Biber.pm:421> INFO - Reading 'Agent-Based Modeling - Coursework 2.bcf'
-[301] Biber.pm:1002> INFO - Found 11 citekeys in bib section 0
-[323] Biber.pm:4487> INFO - Processing section 0
-[339] Biber.pm:4678> INFO - Looking for bibtex file 'references.bib' for section 0
-[410] bibtex.pm:1713> INFO - LaTeX decoding ...
-[428] bibtex.pm:1519> INFO - Found BibTeX data source 'references.bib'
-[557] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[557] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[558] Biber.pm:4307> INFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'en-US'
-[558] Biber.pm:4313> INFO - No sort tailoring available for locale 'en-US'
-[578] bbl.pm:676> INFO - Writing 'Agent-Based Modeling - Coursework 2.bbl' with encoding 'UTF-8'
-[598] bbl.pm:779> INFO - Output to Agent-Based Modeling - Coursework 2.bbl
+[118] biber-MSWIN64:342> INFO - === 
+[153] Biber.pm:421> INFO - Reading 'Agent-Based Modeling - Coursework 2.bcf'
+[257] Biber.pm:1002> INFO - Found 11 citekeys in bib section 0
+[272] Biber.pm:4487> INFO - Processing section 0
+[283] Biber.pm:4678> INFO - Looking for bibtex file 'references.bib' for section 0
+[322] bibtex.pm:1713> INFO - LaTeX decoding ...
+[339] bibtex.pm:1519> INFO - Found BibTeX data source 'references.bib'
+[457] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[457] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[458] Biber.pm:4307> INFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[458] Biber.pm:4313> INFO - No sort tailoring available for locale 'en-US'
+[476] bbl.pm:676> INFO - Writing 'Agent-Based Modeling - Coursework 2.bbl' with encoding 'UTF-8'
+[492] bbl.pm:779> INFO - Output to Agent-Based Modeling - Coursework 2.bbl
