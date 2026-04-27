@@ -1,0 +1,1623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model version="NetLogo 7.0.3" snapToGrid="true">
+  <code><![CDATA[;;============================================================
+;; VISCO-CRUISE MODEL
+;; Agent-Based Model of Taxi and FHV Vacant Cruising Behaviour
+;; Stylised Midtown Manhattan Grid
+;; Author: Zhengpei Xu      Date: 14/4/2026
+;;============================================================
+
+
+breed [vehicles vehicle]
+breed [passengers passenger]
+
+globals [
+  ;; --- Agentsets ---
+  intersections 
+  roads
+
+  ;; --- Traffic Signals ---
+  signal-posts
+  
+  row-signals 
+  col-signals
+  
+  row-green? 
+  col-green?
+  
+  ;; --- Traffic Lights Intervals ---
+  ;; the time is not consistent with 
+  ;; real world traffic lights length (30s for example)
+  ;; to avoid the corner congestion arising from limiting space
+  ; length-of-green-light      ; controlled by slider
+  
+  ;; --- Total vehicle number ---
+  ; num-cars                   ; controlled by slider
+  
+  ;; --- Taxi & FHV & Background Traffic Split Controller ---
+  ; commercial-vehicle-ratio   ; controlled by slider
+  ; Taxi-vs-FHV-split          ; controlled by slider
+
+  ;; --- Passenger Demand Rate ---
+  ; max-passengers             ; controlled by slider
+  
+  ;; --- Performance Metrics ---
+  taxi-dead-miles 
+  FHV-dead-miles       
+  
+  taxi-trips 
+  FHV-trips
+  ;------------------------
+  avg-taxi-dead-miles 
+  avg-FHV-dead-miles
+  
+  avg-taxi-dead-per-trip 
+  avg-FHV-dead-per-trip
+  ;--------------------------
+  global-average-speed
+  
+  baseline-speed-value
+]
+
+vehicles-own [
+  vehicle-type         ; "background traffic", "taxi", or "for hire vehicle (FHV)"
+  reaction-delay       ; Stochastic timer for gridlock/signal recovery
+  has-passenger?       ; True if carrying a passenger
+  target-patch         ; Passenger destination
+  is-congested?        ; Blocked by another vehicle
+  blocked-by-signal?   ; Blocked by red light
+  did-move?            ; Flag for movement in current tick (for caculating Speed)
+]
+
+patches-own [
+  is-road? 
+  is-intersection? 
+  
+  is-signal-here? 
+  is-green?
+  
+  ;; --- for constructing Manhattan One Way Road System ---
+  can-go-north? 
+  can-go-south? 
+  can-go-east? 
+  can-go-west?
+  
+  ;; --- for generting passengers and cruising visco ---
+  demand-intensity     ; Heatmap: 1.0 (High), 0.5 (Mid), 0.2 (Low)
+]
+
+passengers-own [ destination-patch ]
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 1. SETUP PROCEDURES
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+to setup
+  clear-all
+  setup-environment
+  setup-manhattan-basemap
+  setup-signals 
+  setup-demand-zones 
+  setup-population 
+  reset-ticks
+end
+
+to setup-environment
+  ;; --- initializing traffic lights status ---
+  set row-green? true 
+  set col-green? false
+  
+  ;; --- initializing taxi and FHV deadmile ---
+  set taxi-dead-miles 0 
+  set FHV-dead-miles 0
+end
+
+to setup-manhattan-basemap
+  ;; --- define grid structure ---
+  resize-world -60 60 -42 35 ; (0,0) representing TIMES SQUARE
+
+  ask patches [
+    set pcolor [207 207 207]
+    set is-road? false 
+    set is-intersection? false
+    set is-signal-here? false
+  ]
+  
+  ;; --- setup Manhattan Road structure (based on real world)---
+  ;; from 10th to Park AVE
+  ;; to simplify the road system
+  ;; the Broadway (which is non-orthogonal) is not covered 
+  let ave-x-ranges [
+    [-60 -59]          ; 10th Avenue
+    [-40 -39]          ; 9th Avenue
+    [-20 -19]          ; 8th Avenue
+    [0 1]              ; 7th Avenue
+    [20 21]            ; 6th Avenue
+    [40 41]            ; 5th Avenue
+    [49 50]            ; Madison Avenue
+    [59 60]            ; Park Avenue
+  ]
+  
+  ; from 50th to 39th Streets
+  let street-y-coords [35 28 21 14 7 0 -7 -14 -21 -28 -35 -42] 
+  
+  ;; --- defining road status ---
+  foreach ave-x-ranges [ r ->
+    ask patches with [pxcor >= first r and pxcor <= last r] [ set is-road? true set pcolor black ]
+  ]
+  foreach street-y-coords [ y ->
+    ask patches with [pycor = y] [ set is-road? true set pcolor black ]
+  ]
+    set roads patches with [is-road?]
+  
+  ;; --- defining road intersections ---
+  ;; this variable will be used later to make sure
+  ;; no passengers and passenger destinations on the intersections
+  foreach street-y-coords [ y ->
+    foreach ave-x-ranges [ r ->
+      ask patches with [pxcor >= first r and pxcor <= last r and pycor = y] [ set is-intersection? true ]
+    ]
+  ]
+  set intersections patches with [is-intersection?]
+
+  ;; --- adding Manhattan Oneway road logic ---
+  ;; based on the real world moving logic
+  ask patches with [is-road?] [
+    set can-go-north? (pxcor = -60 or pxcor = -59 or pxcor = -20 or pxcor = -19 or pxcor = 20 or pxcor = 21 or pxcor = 49 or pxcor = 50)
+    set can-go-south? (pxcor = -40 or pxcor = -39 or pxcor = 0 or pxcor = 1 or pxcor = 40 or pxcor = 41 or pxcor = 59 or pxcor = 60)
+    let east-y [35 21 7 -7 -21 -35]
+    let west-y [28 14 0 -14 -28 -42]
+    ;; setting directions
+    set can-go-east? member? pycor east-y 
+    set can-go-west? member? pycor west-y
+    ;; setting boundaries (with a not wrap map)
+    if pycor >= 35 [ set can-go-north? false ] if pycor <= -42 [ set can-go-south? false ]
+    if pxcor <= -60 [ set can-go-west? false ] if pxcor >= 60 [ set can-go-east? false ]
+  ]
+  
+  ;; --- drawing road dividers (for aesthetic purposes only) ---
+  ;; drawing vertical avenue dividers
+  foreach (reduce sentence ave-x-ranges) [ x ->
+    create-turtles 1 [
+      setxy x -42 hide-turtle 
+      set color white 
+      set heading 0
+      pen-down repeat 77 [ pen-up forward 0.5 pen-down forward 0.5 ] die
+    ]
+  ]
+  ;; drawing horizontal street dividers
+  foreach street-y-coords [ y ->
+    create-turtles 1 [
+      setxy -60 y hide-turtle 
+      set color white 
+      set heading 90
+      pen-down repeat 120 [ pen-up forward 0.5 pen-down forward 0.5 ] die
+    ]
+  ]
+  
+end
+
+to setup-signals
+  ask intersections [
+    ask neighbors4 with [not is-intersection? and is-road?] [ set is-signal-here? true ]
+  ]
+  set signal-posts patches with [is-signal-here?]
+  let street-y [35 28 21 14 7 0 -7 -14 -21 -28 -35 -42]
+  set row-signals signal-posts with [member? pycor street-y]
+  set col-signals signal-posts with [not member? pycor street-y]
+end
+
+;; --- Setting demand zone for generating passengers and cruising viscosity ---
+;; Demand zones are calibrated from TLC Trip Record Data (Jan 2025),
+;; filtered to evening rush hour (17:00–18:00) yellow taxi pickups.
+;; Pickup density per zone is projected to three demand-intensity tiers:
+;;   1.0 (High) — 6th Ave to Park Ave corridor (highest pickup density)
+;;   0.5 (Mid)  — 8th Ave to 6th Ave midtown core
+;;   0.2 (Low)  — peripheral avenues (10th–9th Ave)
+;; These values drive two mechanisms:
+;;   1. Stochastic passenger spawning rate in generate-demand
+;;   2. Taxi cruising viscosity (slower speed in denser zones) in taxi-speed-report
+to setup-demand-zones
+  ;; --- Non-road patches: background colour only (no demand logic) ---
+  ;; Three-tier shading echoes the demand gradient for visual consistency
+  ask patches with [not is-road?] [
+    set demand-intensity 0
+    set pcolor [255 245 220]          ; base cream — low-demand periphery
+  ]
+  ask patches with [not is-road? and pxcor >= -18 and pxcor <= 58 and pycor >= -20 and pycor < 35] [
+    set pcolor [255 230 190]          ; warm sand — mid-demand area
+  ]
+  ask patches with [not is-road? and pxcor >= 22 and pxcor <= 58 and pycor >= -20 and pycor <= 34] [
+    set pcolor [255 210 160]          ; amber — high-demand area
+  ]
+
+  ;; --- Road patches: assign demand-intensity values ---
+  ask roads [
+    set demand-intensity 0.2
+    if pxcor >= -20 and pxcor <= 19 and pycor >= -21 and pycor <= 35 [ set demand-intensity 0.5 ]
+    if pxcor >= 20 and pxcor <= 60 and pycor >= -21 and pycor <= 35 [ set demand-intensity 1.0 ]
+  ]
+end
+
+to setup-population
+  create-vehicles num-cars [
+    set size 1
+    
+    ;; initial start-up delay 
+    ;; !!! which is different from the dynamic delay used during congestion recovery !!!
+    set reaction-delay 2 
+    
+    set has-passenger? false
+    set blocked-by-signal? false
+    
+    ;; --- dividing the vehicle type: --- 
+    ;; "backgrounnd"; "taxi"; "FHV"
+    ifelse random-float 1.0 < commercial-vehicle-ratio [
+      ifelse random-float 1.0 < Taxi-vs-FHV-split [ set vehicle-type "taxi" set color yellow ]
+      [ set vehicle-type "FHV" set color cyan ]
+    ] [ set vehicle-type "background traffic" set color blue ]
+    move-to one-of roads with [not any? vehicles-here]
+    
+    ;; based on the road direction feature, setuping initial heading
+    set-initial-heading
+  ]
+end
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 2. RUNTIME PROCEDURES
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to go
+  manage-signals
+  generate-demand
+  
+  ;; checking if there is passenger every tick first
+  ask vehicles [
+    check-for-pickup
+    check-for-arrival
+    execute-motion-logic
+  ]
+  
+  update-average-stats 
+  
+  update-baseline-speed
+  
+  tick
+end
+
+to manage-signals
+  if ticks mod length-of-green-light = 0 [ set row-green? not row-green? set col-green? not col-green? ]
+  
+  ;; --- updating traffic light visuals ---
+  ask row-signals [ set is-green? row-green? set pcolor ifelse-value is-green? [ green ] [ red ] ]
+  ask col-signals [ set is-green? col-green? set pcolor ifelse-value is-green? [ green ] [ red ] ]
+end
+
+to generate-demand  
+  ;; giving a suitable possibility to
+  ;; generate pickup demand
+  let base-spawn-rate 0.05
+  
+  ;; the slider "max-passenger" controls
+  ;; how many pickup-demands one second 
+  ;; the model can generate
+  if count passengers >= max-passengers [ stop ]
+  
+  ;; ---- !!! only roads which are not intersections can generate passengers !!! ---
+  ask roads with [not is-intersection?] [
+    if random-float 1.0 < (base-spawn-rate * demand-intensity) [    
+      sprout-passengers 1 [ 
+        set shape "person" 
+        set color white 
+        set size 1 
+        set destination-patch one-of roads with [
+          ;; !!! the destination can not either be intersections !!!
+          not is-intersection? and self != myself] 
+      ]
+    ]
+  ]
+end
+
+to check-for-pickup
+  if vehicle-type != "background traffic" and not has-passenger? [
+    if any? passengers-here [
+      let p one-of passengers-here      
+      set target-patch [destination-patch] of p
+      ;; --- giving both taxis and FHVs with passengers color red ---
+      ;; (with color red they sharing the same moving logic) 
+      set has-passenger? true set color red
+      ;; --- adding trips counts ---
+      ;; for caculating avg deadmile later
+      if vehicle-type = "taxi" [ set taxi-trips taxi-trips + 1 ]
+      if vehicle-type = "FHV" [ set FHV-trips FHV-trips + 1 ]
+      ask p [ die ]
+    ]
+  ]
+end
+
+to check-for-arrival
+  if has-passenger? and patch-here = target-patch [
+    
+    ;; recovering the road color after dropping off the passenger
+    ask patch-here [if is-road?  [ set pcolor black ]]
+
+    set has-passenger? false 
+    set target-patch nobody
+    
+    ;; recovering the color of taxis and FHVs with no passenger
+    ;; (!!! with different colors, their crusing logic is different !!!)
+    set color ifelse-value (vehicle-type = "taxi") [ yellow ] [ cyan ]
+  ]
+end
+
+;; --- Main per-tick movement procedure for each vehicle ---
+;; Flow: reset state → safety checks → assign speed & heading by vehicle type
+;;       → probabilistic speed filter → signal/congestion physics → move or wait
+;;
+;; Speed is modelled as a per-tick movement probability (move-prob):
+;;   1.0 = always move ≈ 36.6 km/h (close to Midtown's 40 km/h limit)
+;;   Lower values = fewer moves per tick = slower effective speed
+;; This lets different vehicle types cruise at different speeds
+;; without changing the discrete 1-patch-per-move grid mechanics
+to execute-motion-logic  
+  ;; --- Moving State Reset ---
+  set is-congested? false 
+  set blocked-by-signal? false 
+  set did-move? false
+  
+  ;; --- location initialization (on the road) ---
+  if not [is-road?] of patch-here [ move-to one-of roads with [not any? vehicles-here] set-initial-heading stop ]
+  ;; making reaction delay work
+  if reaction-delay > 0 [ set reaction-delay reaction-delay - 1 stop ]
+
+  ;; --- Initializing Speed and Direction ---
+  ;; !!! here i use moving probability every tick to control speed !!!  
+  ;; background vehicles or vehicles when delivering will use this fastest speed (highest move-prob)!
+  ;; and the highest speed of 1 is abt 36.6 km/h in real world, very close to Manhattan Midtown 40 km/h speed limit
+  let move-prob 1.0 
+  let chosen-h heading
+  
+  ;; --- !!! core mechanism !!!: filtering vehicle type and pickup status ---
+  ;; then assigning driving status
+  ifelse has-passenger? [ set chosen-h decide-delivery-heading-report ]
+  [
+    if vehicle-type = "taxi" [ set move-prob taxi-speed-report 
+      set chosen-h taxi-direction-report ]
+    if vehicle-type = "FHV" [ set move-prob FHV-speed-report 
+      set chosen-h FHV-direction-report ]
+    if vehicle-type = "background traffic" [ set chosen-h background-traffic-direction-report ]
+  ]
+
+  ;; --- Probabilistic Speed Filter ---  
+  if random-float 1.0 > move-prob [ stop ]
+
+  ;; --- !!! Physics Check !!! ---
+  ;; checking traffic signals at intersections and vehicle blocking ahead
+  let ahead patch-at-heading-and-distance chosen-h 1
+  if ahead != nobody [
+    if [is-intersection?] of ahead [
+      if (chosen-h = 90 or chosen-h = 270) and not row-green? [ set blocked-by-signal? true ]
+      if (chosen-h = 0 or chosen-h = 180) and not col-green? [ set blocked-by-signal? true ]
+    ]
+    if any? vehicles-on ahead [ set is-congested? true ]
+  ]
+
+  ;; --- Movement Execution ---
+  ifelse ahead != nobody and not blocked-by-signal? and not is-congested? [
+    set heading chosen-h forward 1 set did-move? true
+    ;; Dead miles: only counting taxis and FHVs without passengers
+    ;; background vehcile deadmile not counted
+    if not has-passenger? and vehicle-type != "background traffic" [
+      if vehicle-type = "taxi" [ set taxi-dead-miles taxi-dead-miles + 1 ]
+      if vehicle-type = "FHV" [ set FHV-dead-miles FHV-dead-miles + 1 ]
+    ]
+  ] [
+    ;; --- adding reaction and start-up delay ---
+    ;; human reaction decay is abt 0.5-1s
+    ;; with 1-1.5s start-up delay
+    if reaction-delay = 0 [ set reaction-delay (1 + random 2) ]
+  ]
+end
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 3. STRATEGIES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; --- giving road direction based on the one way direction feature ---
+to-report get-available-headings
+  let avail []
+  if can-go-north? [ set avail lput 0 avail ]
+  if can-go-south? [ set avail lput 180 avail ]
+  if can-go-west? [ set avail lput 270 avail ]
+  if can-go-east? [ set avail lput 90 avail ]
+  report avail
+end
+
+;; --- setup initial direction ----
+to set-initial-heading
+  let avail get-available-headings
+  if not empty? avail [ set heading one-of avail ]
+end
+
+;; --- Background traffic follows random routing behaviour ---
+;; chooses a random available heading constrained by road directionality
+to-report background-traffic-direction-report
+  let avail get-available-headings
+  report ifelse-value (not empty? avail) [ one-of avail ] [ heading ]
+end
+
+;; --- !!! taxi viscous cruising speed behaviour: !!! ---
+;; taxis move slower in higher demand zones (more stopping and slower speed)
+;; the speed was set based on the demand-density heatmap which was calibrated by TLC pickup data (Jan 2025)
+;; so here i can model a relative real-world visco for taxis cruising
+;; at highest demand zone, with a speed of 0.4 (abt 14.4 km/h in real world)
+;; at medium demand zone, with a speed of 0.6 (abt 21.6 km/h in real world)
+;; at low demand zone, with a speed of 0.8 (abt 28.8 km/h in real world)
+to-report taxi-speed-report
+  let d [demand-intensity] of patch-here
+  report ifelse-value (d >= 1.0) [ 0.4 ] [ ifelse-value (d >= 0.5) [ 0.6 ] [ 0.8 ] ]
+end
+
+;; --- !!! taxi viscous cruising direction choosing behaviour: !!! ---
+;; taxis trying to head higher demand zones
+;; based on drivers pick-up experience
+to-report taxi-direction-report
+  ;; filtering the directions can be choosed first
+  let avail get-available-headings
+  ;; if no directions available, keeping moving
+  if empty? avail [ report heading ]
+
+  ;; --- taxis turning logic when at intersections---
+  let best-h nobody
+  let best-d 0
+  foreach avail [ h ->
+    ;; temporary variables for caculating total demand density in each direction
+    let total-d 0
+    let dist 1
+    
+    ;; here i gave a vision of 10 patches (100m in real world)
+    while [dist <= 10] [
+      let target-patch-taxi patch-at-heading-and-distance h dist
+      if target-patch-taxi != nobody and [is-road?] of target-patch-taxi [
+        set total-d total-d + [demand-intensity] of target-patch-taxi
+      ]
+      set dist dist + 1
+    ]
+    ;; best-h (best-heading) will be the one with highest total demand density in 10 patches
+    if total-d > best-d [ set best-d total-d set best-h h ]
+  ]
+  
+  ;; taxis have a possibility of 0.8 for choosing the best-h (best-heading) 
+  ifelse best-h != nobody and random-float 1.0 < 0.8
+    [ report best-h ]
+    [ report one-of avail ]
+end
+
+;; --- !!! FHV viscous cruising speed behaviour: !!! ---
+;; in real world, FHVs will choosing parking or relatively slower speed when cruising
+;; however there will be expensive or no room for parking to wait passengers in Manhattan midtown
+;; so in this model FHVs will only cruising at speed 0f 0.8 (abt 28.8km/h in real world)
+;; (a little bit slower than background vehicles and delivering passengers speed (speed of 1))
+to-report FHV-speed-report
+  report 0.8
+end
+
+;; --- !!! FHVs viscous cruising direction choosing behaviour: !!! ---
+;; FHVs have platform-assigned orders, 
+;; they do not need to adopt a behavior pattern of flooding into high-demand areas
+;; so they will just choose directions based on the oneway road system, waiting for the platform to assign an order
+
+;; It is worth noting that this model does not include a platform dispatch mechanism for FHVs, 
+;; because this mechanism has been proven to easily cause an imbalance in the competition between FHVs and taxis.
+
+to-report FHV-direction-report
+  let avail get-available-headings
+  report ifelse-value (not empty? avail) [ one-of avail ] [ heading ]
+end
+
+;; --- greedy grid navigation algorithm for delivering passengers ---
+;; While adhering to traffic rules, prioritize directions that shorten the distance to the target
+;; if that's not possible, randomly select a legal direction.
+to-report decide-delivery-heading-report
+  let potential get-available-headings
+  if empty? potential [ report heading ]
+  let tx [pxcor] of target-patch 
+  let ty [pycor] of target-patch
+  let best []
+  if (tx > pxcor) and (member? 90 potential) [ set best lput 90 best ]
+  if (tx < pxcor) and (member? 270 potential) [ set best lput 270 best ]
+  if (ty > pycor) and (member? 0 potential) [ set best lput 0 best ]
+  if (ty < pycor) and (member? 180 potential) [ set best lput 180 best ]
+  report ifelse-value (not empty? best) [ one-of best ] [ one-of potential ]
+end
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 4. METRICS 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to update-average-stats
+  ;; deadmile metrics: per trip deadmile  
+  ifelse taxi-trips > 0
+    [ set avg-taxi-dead-per-trip (taxi-dead-miles / taxi-trips) ]
+    [ set avg-taxi-dead-per-trip 0 ]
+  ifelse FHV-trips > 0
+    [ set avg-FHV-dead-per-trip (FHV-dead-miles / FHV-trips) ]
+    [ set avg-FHV-dead-per-trip 0 ]
+  
+  ;; congestion metrics: global-average-speed
+  if not any? vehicles [
+    set global-average-speed 0
+    stop
+  ]
+  set global-average-speed (count vehicles with [did-move?] / count vehicles)
+end
+
+;; --- adding baseline speed ---
+;; here i used BehaivorSpeed to loop the Avg Speed with all num-cars parameters 
+;; and keep all vehciles background type and traffic light interval is locked at 5  
+
+;; with this, now can easily comparing the negative influence of taxis and FHVs cruising
+
+to update-baseline-speed
+  if num-cars = 200 [ set baseline-speed-value 0.70 ]
+  if num-cars = 300 [ set baseline-speed-value 0.60 ]
+  if num-cars = 400 [ set baseline-speed-value 0.51 ]
+  if num-cars = 500 [ set baseline-speed-value 0.46 ]
+  if num-cars = 600 [ set baseline-speed-value 0.42 ]
+  if num-cars = 700 [ set baseline-speed-value 0.39 ]
+  if num-cars = 800 [ set baseline-speed-value 0.36 ]
+  if num-cars = 900 [ set baseline-speed-value 0.34 ]
+  if num-cars = 1000 [ set baseline-speed-value 0.31 ]
+  if num-cars = 1100 [ set baseline-speed-value 0.29 ]
+  if num-cars = 1200 [ set baseline-speed-value 0.26 ]
+  if num-cars = 1300 [ set baseline-speed-value 0.24 ]
+  if num-cars = 1400 [ set baseline-speed-value 0.22 ]
+  if num-cars = 1500 [ set baseline-speed-value 0.20 ]
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></code>
+  <widgets>
+    <view x="300" wrappingAllowedX="false" y="20" frameRate="30.0" minPycor="-42" height="529" showTickCounter="true" patchSize="6.74" fontSize="10" wrappingAllowedY="false" width="819" tickCounterLabel="ticks" maxPycor="35" updateMode="0" maxPxcor="60" minPxcor="-60"></view>
+    <slider x="40" step="100" y="20" max="1500" width="250" display="num-cars" height="50" min="200" direction="Horizontal" default="1000.0" variable="num-cars"></slider>
+    <plot x="1130" autoPlotX="true" yMax="10.0" autoPlotY="true" yAxis="Speed (m/s)" y="335" xMin="0.0" height="215" legend="true" xMax="10.0" yMin="0.0" width="280" xAxis="Time (s)" display="Global Avg Speed">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="Global Avg Speed" color="-16777216" legend="true">
+        <setup></setup>
+        <update><![CDATA[if ticks > 5 [ plot global-average-speed * 10 ]]]></update>
+      </pen>
+      <pen interval="1.0" mode="0" display="Baseline" color="-2674135" legend="true">
+        <setup></setup>
+        <update><![CDATA[if ticks > 5 [ plot baseline-speed-value * 10 ]]]></update>
+      </pen>
+    </plot>
+    <plot x="1415" autoPlotX="true" yMax="2.0" autoPlotY="true" y="335" xMin="0.0" height="215" legend="true" xMax="10.0" yMin="0.0" width="275" xAxis="Time (ticks)" display="Speed Ratio (vs Baseline)">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="Ratio" color="-16777216" legend="true">
+        <setup></setup>
+        <update><![CDATA[if ticks > 5 [ plot global-average-speed / baseline-speed-value ]]]></update>
+      </pen>
+      <pen interval="1.0" mode="0" display="No Impact ( =1)" color="-2674135" legend="true">
+        <setup></setup>
+        <update>plot 1</update>
+      </pen>
+    </plot>
+    <monitor x="1130" precision="17" y="265" height="60" fontSize="11" width="185" display="Vacant Taxi Hotspot Ratio"><![CDATA[(count vehicles with [vehicle-type = "taxi" and not has-passenger? and [demand-intensity] of patch-here >= 1.0]) 
+/ 
+(count vehicles with [vehicle-type = "taxi" and not has-passenger?] + 0.0001)]]></monitor>
+    <monitor x="1320" precision="17" y="265" height="60" fontSize="11" width="185" display="Vacant FHV Hotspot Radio"><![CDATA[(count vehicles with [vehicle-type = "FHV" and not has-passenger? and [demand-intensity] of patch-here >= 1.0]) 
+/ 
+(count vehicles with [vehicle-type = "FHV" and not has-passenger?] + 0.0001)]]></monitor>
+    <monitor x="1510" precision="17" y="265" height="60" fontSize="11" width="180" display="Avg Cruising Distance (m)">10 * (taxi-dead-miles + FHV-dead-miles) /  (taxi-trips + FHV-trips + 0.00001)</monitor>
+    <plot x="1130" autoPlotX="true" yMax="10.0" autoPlotY="true" yAxis="Distance (m)" y="20" xMin="0.0" height="235" legend="true" xMax="10.0" yMin="0.0" width="280" xAxis="Time (s)" display="Total Service Dead Distance">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="Total" color="-16777216" legend="true">
+        <setup></setup>
+        <update>plot (taxi-dead-miles + FHV-dead-miles) * 10</update>
+      </pen>
+      <pen interval="1.0" mode="0" display="Taxi" color="-1184463" legend="true">
+        <setup></setup>
+        <update>plot taxi-dead-miles * 10</update>
+      </pen>
+      <pen interval="1.0" mode="0" display="FHV" color="-13791810" legend="true">
+        <setup></setup>
+        <update>plot FHV-dead-miles * 10</update>
+      </pen>
+    </plot>
+    <plot x="1415" autoPlotX="true" yMax="10.0" autoPlotY="true" yAxis="Distance (m)" y="20" xMin="0.0" height="235" legend="true" xMax="10.0" yMin="0.0" width="275" xAxis="Time (s)" display="Average Dead Distance">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="Avg Taxi" color="-1184463" legend="true">
+        <setup></setup>
+        <update>plot avg-taxi-dead-per-trip * 10</update>
+      </pen>
+      <pen interval="1.0" mode="0" display="Avg FHV" color="-11221820" legend="true">
+        <setup></setup>
+        <update>plot avg-FHV-dead-per-trip * 10</update>
+      </pen>
+    </plot>
+    <slider x="40" step="1" y="500" max="60" width="250" display="max-passengers" height="50" min="0" direction="Horizontal" default="30.0" variable="max-passengers"></slider>
+    <button x="40" y="75" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="70">setup
+</button>
+    <button x="115" y="75" height="40" disableUntilTicks="false" forever="true" kind="Observer" width="85">go</button>
+    <button x="205" y="75" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="85" display="go once">go</button>
+    <note x="40" y="120" backgroundDark="0" fontSize="12" width="250" markdown="true" height="91" textColorDark="-4539718" textColorLight="-16777216" backgroundLight="-3026479">To avoid congestion in corners due to limited space, traffic light intervals should be shorter than in the real world(45-90s for example).</note>
+    <slider x="40" step="1" y="215" max="10" width="250" display="length-of-green-light" height="50" min="1" direction="Horizontal" default="5.0" variable="length-of-green-light"></slider>
+    <slider x="40" step="0.05" y="445" max="1" width="250" display="Taxi-vs-FHV-split" height="50" min="0" direction="Horizontal" default="0.2" variable="Taxi-vs-FHV-split"></slider>
+    <slider x="40" step="0.05" y="390" max="1" width="250" display="commercial-vehicle-ratio" height="50" min="0" direction="Horizontal" default="0.5" variable="commercial-vehicle-ratio"></slider>
+    <note x="40" y="270" backgroundDark="0" fontSize="12" width="250" markdown="true" height="115" textColorDark="-1" textColorLight="-16777216" backgroundLight="-4539718">To approximate real-world traffic composition, set:
+- commercial-vehicle-ratio ≈ 0.52 (MTA 2023)
+- Taxi-vs-FHV-split ≈ 0.20 (TLC 2025)</note>
+  </widgets>
+  <info># ODD Protocol Description
+
+## 1.1 Purpose and Patterns
+
+This model addresses the following research question: How do the **heterogeneous vacant-cruising strategies** of taxis and for-hire vehicles (e.g. Uber, Lyft) differentially shape traffic congestion within Midtown Manhattan's CBD?
+
+In this context, *cruising* refers to the movement of vacant for-hire vehicles searching for passengers — a behaviour distinct from directed trip delivery and responsible for a significant share of urban vehicle kilometres travelled (Schaller 2017). Taxi drivers' cruising strategy is rooted in local spatial experience: they deliberately head for and slow down in high-demand zones to scan the kerbside for passengers. In contrast, FHV drivers primarily navigate under platform allocation mechanisms with more direct trajectories (Millard-Ball et al. 2023). The validity of this model can be verified through the following emergent patterns:
+
+- **Strategic Clustering:** Taxis manifest intense spatial clustering in high-demand zones due to strategic cruising, whereas FHVs maintain a stochastic, uniform distribution, validating the emergent impact of heterogeneous cruising strategies.
+- **Asymmetric Congestion Sensitivity:** As total vehicle number increases, average network speed should decrease. Moreover, increasing the number of taxis should disproportionately reduce average system speed relative to an equivalent increase in FHVs.
+- **Demand–Efficiency Coupling:** Increased pickup demand should reduce competitive cruising and raise `global-average-speed` as agents transition from low-speed cruising to full-speed delivery.
+
+These patterns collectively reflect three core ODD Design Concepts. Strategic Clustering emerges from **sensing**: vacant taxis scan a 10-patch ahead radius and bias their heading toward high `demand-intensity` zones, a local perception mechanism absent in FHVs. Asymmetric Congestion Sensitivity reflects **interaction**: all vehicles are subject to occupancy-based blocking, so the denser spatial clustering of taxis propagates congestion shockwaves more intensely than the uniform distribution of FHVs. Demand–Efficiency Coupling is driven by **stochasticity**: passenger spawning is probabilistic and calibrated to TLC demand tiers, meaning supply–demand balance fluctuates each tick and produces the observed speed recovery under high demand.
+
+---
+
+## 1.2 Entities, State Variables, and Scales
+
+The model consists of three primary entity types: **Vehicles** (background traffic, taxis, and FHVs), **Passengers** (pickup demand), and **Patches** (Manhattan grid topology). Global variables monitor aggregate performance.
+
+The world spans 121 × 78 square cells (origin (0,0) representing Times Square), each 10 m × 10 m, simulating the most congested part of Midtown Manhattan. Eight north–south avenue corridors (10th Avenue to Park Avenue) and twelve east–west streets (50th to 39th Street) form the grid. The model uses a bounded, non-toroidal space to prevent wrap-around shortcuts. Each tick represents one second in the real world. The traffic signal cycle is shortened to a default of 5 ticks (vs. real-world 45–90 s) to prevent artificial gridlock at corners caused by the model's limited spatial extent. Park Avenue (pxcor 59–60) is modelled as southbound-only; bidirectional flow caused persistent corner gridlock in initial tests. Global variables track cumulative dead miles by vehicle type, trip counts, and speed metrics.
+
+---
+
+## 1.3 Process Overview and Scheduling
+
+The model operates in discrete-time execution, with each tick proceeding through four synchronised phases:
+
+1. **Environment update** — signal switching and stochastic passenger spawning
+2. **Agent decision-making** — type-specific cruising logic for vacant vehicles, greedy routing for occupied ones
+3. **Physical execution** — probabilistic movement with occupancy-based blocking
+4. **Data logging** — updating all global performance metrics
+
+Execution order within each agent class is randomised each tick to prevent artefacts from fixed scheduling.
+
+---
+
+In January 2025, New York City introduced congestion pricing for its Central Business District, reducing vehicle entries by 11% (Cook et al. 2025). Ostrovsky and Yang (2024) show this reduction is driven predominantly by private vehicles. Taxis and FHVs, which are responsible for over 52% of CBD traffic (Traffic Mobility Review Board 2023) and unoccupied nearly half the time (Cramer and Krueger 2016), face lower per-trip charges and remain largely unaffected. Schaller (2017) estimates that eliminating unnecessary cruising of taxis and FHVs could reduce total CBD VMT6 by 7–11%, highlighting vacant cruising as a significant lever for congestion relief. However, aggregate metrics such as VMT fail to capture the impact of taxis and FHVs cruising, because congestion is a highly dynamic process shaped by real-time driver behaviour and spatial structure. In this context, agent-based modelling with its bottom-up architecture can provide a powerful framework to simulate these individual-level behaviours and observe how they evolve into system-wide congestion. 
+Existing agent-based models have been applied to simulate taxi pickup-dropoff cycles and fleet efficiency (Salanova Grau et al. 2013; Ranjit et al. 2018), and to assess the system-wide VMT impacts of autonomous vehicle rebalancing (Fagnant and Kockelman 2014; Azevedo et al. 2020). Neither strand models human driven fleets with heterogeneous cruising strategies on a congested network. Building on the taxi pickup-dropoff paradigm, this Visco-Cruising model fills that gap by embedding distinct taxi and FHV cruising behaviours within a calibrated Manhattan grid and TLC demand data, revealing how bottom-up search strategies shape macro-level traffic and informing mixed-fleet policy decisions.
+Following the ODD Design Concepts framework (Grimm et al. 2020), this model can be framed as:
+
+**Emergence.** The macro-level congestion differential between taxi-heavy and FHV-heavy fleets is not prescribed but emerges from the interaction of three micro-level rules: taxi demand-biased heading selection, probabilistic speed reduction in high-demand zones, and occupancy-based blocking propagation. No agent has knowledge of the global traffic state; system-level speed differences arise purely from local sensing and movement decisions.
+
+**Adaptation.** Taxis adapt their heading each tick based on a 10-patch lookahead over the local `demand-intensity` field. When locally detected demand shifts (e.g. as competing taxis deplete a zone), the heading preference updates accordingly. Vehicles also adapt to congestion through the `reaction-delay` mechanism: when blocked, a stochastic 1–2 tick delay is set before the next movement attempt, representing human start-up inertia and preventing synchronised wave artefacts.
+
+**Sensing.** Vacant taxis scan up to 10 patches (100 m) ahead in each available direction and aggregate the cumulative `demand-intensity` along each corridor. The heading with the highest total demand is selected with probability 0.8; the remaining 0.2 probability produces random exploration. FHVs and background traffic have no sensing capability and select headings uniformly at random from the legal one-way options.
+
+**Interaction.** Vehicles interact exclusively through physical occupancy: if the patch immediately ahead is occupied by another vehicle, the following vehicle sets `is-congested?` = true and waits. This local cell-blocking rule produces emergent stop-and-go shockwaves that propagate backward through queues without any explicit queue-management logic.
+
+**Stochasticity.** Four stochastic processes operate each tick: (i) passenger spawning, where each non-intersection road patch generates a passenger with probability p = 0.05 × `demand-intensity`; (ii) taxi heading selection, with 20% random exploration; (iii) the probabilistic speed filter, where a vehicle moves only if `random-float 1.0` ≤ `move-prob`; and (iv) reaction-delay recovery, drawn uniformly from {1, 2} ticks.
+
+**Observation.** The primary outcome metric is `global-average-speed`, defined as the fraction of vehicles that successfully moved in a given tick (= |{v : did-move?}| / N). This is plotted as a Speed Ratio against `baseline-speed-value` — the pre-calibrated steady-state speed under background traffic only at the same `num-cars` setting. Secondary metrics are `avg-taxi-dead-per-trip` and `avg-FHV-dead-per-trip`, tracking operational efficiency by vehicle type.
+
+---
+
+## 1.5 Initialisation
+
+At t = 0, the environment is initialised as a 121 × 78 grid. Patches are assigned road (including intersection) or building attributes; road patches receive directional flags enforcing Manhattan's one-way system and a `demand-intensity` value derived from TLC data (Section 1.6). Signal patches are identified as road patches adjacent to (but not including) intersections, placing stop lines at each junction entry. Row signals (east–west streets) are initialised green; column signals (north–south avenues) are initialised red.
+
+A total of `num-cars` vehicles (default 1000) are randomly distributed across road patches with no initial overlap, each beginning in a vacant state (`has-passenger?` = false). Vehicle type is assigned stochastically: with probability `commercial-vehicle-ratio` (default 0.5) a vehicle is commercial, and among commercial vehicles, probability `Taxi-vs-FHV-split` (default 0.2) determines whether it is a taxi or FHV. Each vehicle is assigned an initial heading consistent with the one-way constraints of its starting patch and a synchronisation `reaction-delay` of 2 ticks to stagger start-up. This initial 2-tick delay is a synchronisation buffer distinct from the dynamic 1–2 tick `reaction-delay` applied during congestion recovery. All global performance metrics are reset to zero.
+
+---
+
+## 1.6 Input Data
+
+The model incorporates static spatial input derived from the TLC Trip Record Data. January 2025 yellow taxi trip records were filtered for evening rush hour (17:00–18:00) and aggregated by avenue corridor, producing three discrete `demand-intensity` tiers (1.0 / 0.5 / 0.2) that drive both stochastic passenger spawning and taxi cruising viscosity. The three-tier abstraction preserves the east–west demand gradient of Midtown while keeping the model computationally tractable.
+
+---
+
+## 1.7 Submodels
+
+**Signal Management.** Every `length-of-green-light` ticks, the global Boolean flags `row-green?` and `col-green?` toggle simultaneously, so east–west streets and north–south avenues always hold opposite phases. Signal patches update their colour (green/red) accordingly each tick. At initialisation, east–west streets hold green and north–south avenues hold red.
+
+**Demand Spawning, Selection, and Delivery.** Every tick, each non-intersection road patch generates a passenger with probability p = 0.05 × `demand-intensity`, subject to a system-wide cap of `max-passengers`. When a vacant taxi or FHV occupies a patch holding a passenger, it sets `has-passenger?` = true, records the passenger's `destination-patch` as its `target-patch`, increments the appropriate trip counter, and removes the passenger agent. Occupied vehicles navigate using a greedy algorithm that at each step selects from available one-way headings those that reduce the Manhattan distance (L₁ = |x₂ − x₁| + |y₂ − y₁|) to `target-patch`; if no progress-making heading is available due to one-way constraints, a random legal heading is chosen to resolve the local dead-end.
+
+**Heterogeneous Cruising.** Vacant taxis scan up to 10 patches ahead in each available direction and accumulate the `demand-intensity` of all road patches encountered. The heading with the highest cumulative demand is adopted with probability 0.8; with probability 0.2 a random legal heading is chosen (exploration). Taxi speed is modulated by local demand: `move-prob` = 0.4 at `demand-intensity` ≥ 1.0 (≈14.4 km/h), 0.6 at ≥ 0.5 (≈21.6 km/h), and 0.8 otherwise (≈28.8 km/h), producing the cruising viscosity that gives the model its name. Vacant FHVs maintain undirected cruising at a constant `move-prob` = 0.8, reflecting passive platform dispatch. Background traffic moves at full speed (`move-prob` = 1.0) with random legal heading selection.
+
+**Physical Congestion.** All movement is subject to two blocking conditions checked each tick. (i) *Signal blocking*: if the patch immediately ahead is an intersection and the relevant signal phase is red for the current heading direction, `blocked-by-signal?` is set true. (ii) *Occupancy blocking*: if any vehicle currently occupies the patch immediately ahead, `is-congested?` is set true. If either condition holds, the vehicle remains stationary and its `reaction-delay` is reset to a random value in {1, 2} ticks, simulating human start-up inertia and producing emergent stop-and-go shockwaves that propagate backward through queues.
+</info>
+  <turtleShapes>
+    <shape name="default" rotatable="true" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="150" y="5"></point>
+        <point x="40" y="250"></point>
+        <point x="150" y="205"></point>
+        <point x="260" y="250"></point>
+      </polygon>
+    </shape>
+    <shape name="airplane" rotatable="true" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="150" y="0"></point>
+        <point x="135" y="15"></point>
+        <point x="120" y="60"></point>
+        <point x="120" y="105"></point>
+        <point x="15" y="165"></point>
+        <point x="15" y="195"></point>
+        <point x="120" y="180"></point>
+        <point x="135" y="240"></point>
+        <point x="105" y="270"></point>
+        <point x="120" y="285"></point>
+        <point x="150" y="270"></point>
+        <point x="180" y="285"></point>
+        <point x="210" y="270"></point>
+        <point x="165" y="240"></point>
+        <point x="180" y="180"></point>
+        <point x="285" y="195"></point>
+        <point x="285" y="165"></point>
+        <point x="180" y="105"></point>
+        <point x="180" y="60"></point>
+        <point x="165" y="15"></point>
+      </polygon>
+    </shape>
+    <shape name="arrow" rotatable="true" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="150" y="0"></point>
+        <point x="0" y="150"></point>
+        <point x="105" y="150"></point>
+        <point x="105" y="293"></point>
+        <point x="195" y="293"></point>
+        <point x="195" y="150"></point>
+        <point x="300" y="150"></point>
+      </polygon>
+    </shape>
+    <shape name="box" rotatable="false" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="150" y="285"></point>
+        <point x="285" y="225"></point>
+        <point x="285" y="75"></point>
+        <point x="150" y="135"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="150" y="135"></point>
+        <point x="15" y="75"></point>
+        <point x="150" y="15"></point>
+        <point x="285" y="75"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="15" y="75"></point>
+        <point x="15" y="225"></point>
+        <point x="150" y="285"></point>
+        <point x="150" y="135"></point>
+      </polygon>
+      <line endX="150" startY="285" marked="false" color="255" endY="135" startX="150"></line>
+      <line endX="15" startY="135" marked="false" color="255" endY="75" startX="150"></line>
+      <line endX="285" startY="135" marked="false" color="255" endY="75" startX="150"></line>
+    </shape>
+    <shape name="bug" rotatable="true" editableColorIndex="0">
+      <circle x="96" y="182" marked="true" color="-1920102913" diameter="108" filled="true"></circle>
+      <circle x="110" y="127" marked="true" color="-1920102913" diameter="80" filled="true"></circle>
+      <circle x="110" y="75" marked="true" color="-1920102913" diameter="80" filled="true"></circle>
+      <line endX="80" startY="100" marked="true" color="-1920102913" endY="30" startX="150"></line>
+      <line endX="220" startY="100" marked="true" color="-1920102913" endY="30" startX="150"></line>
+    </shape>
+    <shape name="butterfly" rotatable="true" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="150" y="165"></point>
+        <point x="209" y="199"></point>
+        <point x="225" y="225"></point>
+        <point x="225" y="255"></point>
+        <point x="195" y="270"></point>
+        <point x="165" y="255"></point>
+        <point x="150" y="240"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="150" y="165"></point>
+        <point x="89" y="198"></point>
+        <point x="75" y="225"></point>
+        <point x="75" y="255"></point>
+        <point x="105" y="270"></point>
+        <point x="135" y="255"></point>
+        <point x="150" y="240"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="139" y="148"></point>
+        <point x="100" y="105"></point>
+        <point x="55" y="90"></point>
+        <point x="25" y="90"></point>
+        <point x="10" y="105"></point>
+        <point x="10" y="135"></point>
+        <point x="25" y="180"></point>
+        <point x="40" y="195"></point>
+        <point x="85" y="194"></point>
+        <point x="139" y="163"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="162" y="150"></point>
+        <point x="200" y="105"></point>
+        <point x="245" y="90"></point>
+        <point x="275" y="90"></point>
+        <point x="290" y="105"></point>
+        <point x="290" y="135"></point>
+        <point x="275" y="180"></point>
+        <point x="260" y="195"></point>
+        <point x="215" y="195"></point>
+        <point x="162" y="165"></point>
+      </polygon>
+      <polygon color="255" filled="true" marked="false">
+        <point x="150" y="255"></point>
+        <point x="135" y="225"></point>
+        <point x="120" y="150"></point>
+        <point x="135" y="120"></point>
+        <point x="150" y="105"></point>
+        <point x="165" y="120"></point>
+        <point x="180" y="150"></point>
+        <point x="165" y="225"></point>
+      </polygon>
+      <circle x="135" y="90" marked="false" color="255" diameter="30" filled="true"></circle>
+      <line endX="195" startY="105" marked="false" color="255" endY="60" startX="150"></line>
+      <line endX="105" startY="105" marked="false" color="255" endY="60" startX="150"></line>
+    </shape>
+    <shape name="car" rotatable="false" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="300" y="180"></point>
+        <point x="279" y="164"></point>
+        <point x="261" y="144"></point>
+        <point x="240" y="135"></point>
+        <point x="226" y="132"></point>
+        <point x="213" y="106"></point>
+        <point x="203" y="84"></point>
+        <point x="185" y="63"></point>
+        <point x="159" y="50"></point>
+        <point x="135" y="50"></point>
+        <point x="75" y="60"></point>
+        <point x="0" y="150"></point>
+        <point x="0" y="165"></point>
+        <point x="0" y="225"></point>
+        <point x="300" y="225"></point>
+        <point x="300" y="180"></point>
+      </polygon>
+      <circle x="180" y="180" marked="false" color="255" diameter="90" filled="true"></circle>
+      <circle x="30" y="180" marked="false" color="255" diameter="90" filled="true"></circle>
+      <polygon color="255" filled="true" marked="false">
+        <point x="162" y="80"></point>
+        <point x="132" y="78"></point>
+        <point x="134" y="135"></point>
+        <point x="209" y="135"></point>
+        <point x="194" y="105"></point>
+        <point x="189" y="96"></point>
+        <point x="180" y="89"></point>
+      </polygon>
+      <circle x="47" y="195" marked="true" color="-1920102913" diameter="58" filled="true"></circle>
+      <circle x="195" y="195" marked="true" color="-1920102913" diameter="58" filled="true"></circle>
+    </shape>
+    <shape name="circle" rotatable="false" editableColorIndex="0">
+      <circle x="0" y="0" marked="true" color="-1920102913" diameter="300" filled="true"></circle>
+    </shape>
+    <shape name="circle 2" rotatable="false" editableColorIndex="0">
+      <circle x="0" y="0" marked="true" color="-1920102913" diameter="300" filled="true"></circle>
+      <circle x="30" y="30" marked="false" color="255" diameter="240" filled="true"></circle>
+    </shape>
+    <shape name="cow" rotatable="false" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="200" y="193"></point>
+        <point x="197" y="249"></point>
+        <point x="179" y="249"></point>
+        <point x="177" y="196"></point>
+        <point x="166" y="187"></point>
+        <point x="140" y="189"></point>
+        <point x="93" y="191"></point>
+        <point x="78" y="179"></point>
+        <point x="72" y="211"></point>
+        <point x="49" y="209"></point>
+        <point x="48" y="181"></point>
+        <point x="37" y="149"></point>
+        <point x="25" y="120"></point>
+        <point x="25" y="89"></point>
+        <point x="45" y="72"></point>
+        <point x="103" y="84"></point>
+        <point x="179" y="75"></point>
+        <point x="198" y="76"></point>
+        <point x="252" y="64"></point>
+        <point x="272" y="81"></point>
+        <point x="293" y="103"></point>
+        <point x="285" y="121"></point>
+        <point x="255" y="121"></point>
+        <point x="242" y="118"></point>
+        <point x="224" y="167"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="73" y="210"></point>
+        <point x="86" y="251"></point>
+        <point x="62" y="249"></point>
+        <point x="48" y="208"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="25" y="114"></point>
+        <point x="16" y="195"></point>
+        <point x="9" y="204"></point>
+        <point x="23" y="213"></point>
+        <point x="25" y="200"></point>
+        <point x="39" y="123"></point>
+      </polygon>
+    </shape>
+    <shape name="cylinder" rotatable="false" editableColorIndex="0">
+      <circle x="0" y="0" marked="true" color="-1920102913" diameter="300" filled="true"></circle>
+    </shape>
+    <shape name="dot" rotatable="false" editableColorIndex="0">
+      <circle x="90" y="90" marked="true" color="-1920102913" diameter="120" filled="true"></circle>
+    </shape>
+    <shape name="face happy" rotatable="false" editableColorIndex="0">
+      <circle x="8" y="8" marked="true" color="-1920102913" diameter="285" filled="true"></circle>
+      <circle x="60" y="75" marked="false" color="255" diameter="60" filled="true"></circle>
+      <circle x="180" y="75" marked="false" color="255" diameter="60" filled="true"></circle>
+      <polygon color="255" filled="true" marked="false">
+        <point x="150" y="255"></point>
+        <point x="90" y="239"></point>
+        <point x="62" y="213"></point>
+        <point x="47" y="191"></point>
+        <point x="67" y="179"></point>
+        <point x="90" y="203"></point>
+        <point x="109" y="218"></point>
+        <point x="150" y="225"></point>
+        <point x="192" y="218"></point>
+        <point x="210" y="203"></point>
+        <point x="227" y="181"></point>
+        <point x="251" y="194"></point>
+        <point x="236" y="217"></point>
+        <point x="212" y="240"></point>
+      </polygon>
+    </shape>
+    <shape name="face neutral" rotatable="false" editableColorIndex="0">
+      <circle x="8" y="7" marked="true" color="-1920102913" diameter="285" filled="true"></circle>
+      <circle x="60" y="75" marked="false" color="255" diameter="60" filled="true"></circle>
+      <circle x="180" y="75" marked="false" color="255" diameter="60" filled="true"></circle>
+      <rectangle endX="240" startY="195" marked="false" color="255" endY="225" startX="60" filled="true"></rectangle>
+    </shape>
+    <shape name="face sad" rotatable="false" editableColorIndex="0">
+      <circle x="8" y="8" marked="true" color="-1920102913" diameter="285" filled="true"></circle>
+      <circle x="60" y="75" marked="false" color="255" diameter="60" filled="true"></circle>
+      <circle x="180" y="75" marked="false" color="255" diameter="60" filled="true"></circle>
+      <polygon color="255" filled="true" marked="false">
+        <point x="150" y="168"></point>
+        <point x="90" y="184"></point>
+        <point x="62" y="210"></point>
+        <point x="47" y="232"></point>
+        <point x="67" y="244"></point>
+        <point x="90" y="220"></point>
+        <point x="109" y="205"></point>
+        <point x="150" y="198"></point>
+        <point x="192" y="205"></point>
+        <point x="210" y="220"></point>
+        <point x="227" y="242"></point>
+        <point x="251" y="229"></point>
+        <point x="236" y="206"></point>
+        <point x="212" y="183"></point>
+      </polygon>
+    </shape>
+    <shape name="fish" rotatable="false" editableColorIndex="0">
+      <polygon color="-1" filled="true" marked="false">
+        <point x="44" y="131"></point>
+        <point x="21" y="87"></point>
+        <point x="15" y="86"></point>
+        <point x="0" y="120"></point>
+        <point x="15" y="150"></point>
+        <point x="0" y="180"></point>
+        <point x="13" y="214"></point>
+        <point x="20" y="212"></point>
+        <point x="45" y="166"></point>
+      </polygon>
+      <polygon color="-1" filled="true" marked="false">
+        <point x="135" y="195"></point>
+        <point x="119" y="235"></point>
+        <point x="95" y="218"></point>
+        <point x="76" y="210"></point>
+        <point x="46" y="204"></point>
+        <point x="60" y="165"></point>
+      </polygon>
+      <polygon color="-1" filled="true" marked="false">
+        <point x="75" y="45"></point>
+        <point x="83" y="77"></point>
+        <point x="71" y="103"></point>
+        <point x="86" y="114"></point>
+        <point x="166" y="78"></point>
+        <point x="135" y="60"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="30" y="136"></point>
+        <point x="151" y="77"></point>
+        <point x="226" y="81"></point>
+        <point x="280" y="119"></point>
+        <point x="292" y="146"></point>
+        <point x="292" y="160"></point>
+        <point x="287" y="170"></point>
+        <point x="270" y="195"></point>
+        <point x="195" y="210"></point>
+        <point x="151" y="212"></point>
+        <point x="30" y="166"></point>
+      </polygon>
+      <circle x="215" y="106" marked="false" color="255" diameter="30" filled="true"></circle>
+    </shape>
+    <shape name="flag" rotatable="false" editableColorIndex="0">
+      <rectangle endX="75" startY="15" marked="true" color="-1920102913" endY="300" startX="60" filled="true"></rectangle>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="90" y="150"></point>
+        <point x="270" y="90"></point>
+        <point x="90" y="30"></point>
+      </polygon>
+      <line endX="90" startY="135" marked="true" color="-1920102913" endY="135" startX="75"></line>
+      <line endX="90" startY="45" marked="true" color="-1920102913" endY="45" startX="75"></line>
+    </shape>
+    <shape name="flower" rotatable="false" editableColorIndex="0">
+      <polygon color="1504722175" filled="true" marked="false">
+        <point x="135" y="120"></point>
+        <point x="165" y="165"></point>
+        <point x="180" y="210"></point>
+        <point x="180" y="240"></point>
+        <point x="150" y="300"></point>
+        <point x="165" y="300"></point>
+        <point x="195" y="240"></point>
+        <point x="195" y="195"></point>
+        <point x="165" y="135"></point>
+      </polygon>
+      <circle x="85" y="132" marked="true" color="-1920102913" diameter="38" filled="true"></circle>
+      <circle x="130" y="147" marked="true" color="-1920102913" diameter="38" filled="true"></circle>
+      <circle x="192" y="85" marked="true" color="-1920102913" diameter="38" filled="true"></circle>
+      <circle x="85" y="40" marked="true" color="-1920102913" diameter="38" filled="true"></circle>
+      <circle x="177" y="40" marked="true" color="-1920102913" diameter="38" filled="true"></circle>
+      <circle x="177" y="132" marked="true" color="-1920102913" diameter="38" filled="true"></circle>
+      <circle x="70" y="85" marked="true" color="-1920102913" diameter="38" filled="true"></circle>
+      <circle x="130" y="25" marked="true" color="-1920102913" diameter="38" filled="true"></circle>
+      <circle x="96" y="51" marked="true" color="-1920102913" diameter="108" filled="true"></circle>
+      <circle x="113" y="68" marked="false" color="255" diameter="74" filled="true"></circle>
+      <polygon color="1504722175" filled="true" marked="false">
+        <point x="189" y="233"></point>
+        <point x="219" y="188"></point>
+        <point x="249" y="173"></point>
+        <point x="279" y="188"></point>
+        <point x="234" y="218"></point>
+      </polygon>
+      <polygon color="1504722175" filled="true" marked="false">
+        <point x="180" y="255"></point>
+        <point x="150" y="210"></point>
+        <point x="105" y="210"></point>
+        <point x="75" y="240"></point>
+        <point x="135" y="240"></point>
+      </polygon>
+    </shape>
+    <shape name="house" rotatable="false" editableColorIndex="0">
+      <rectangle endX="255" startY="120" marked="true" color="-1920102913" endY="285" startX="45" filled="true"></rectangle>
+      <rectangle endX="180" startY="210" marked="false" color="255" endY="285" startX="120" filled="true"></rectangle>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="15" y="120"></point>
+        <point x="150" y="15"></point>
+        <point x="285" y="120"></point>
+      </polygon>
+      <line endX="270" startY="120" marked="false" color="255" endY="120" startX="30"></line>
+    </shape>
+    <shape name="leaf" rotatable="false" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="150" y="210"></point>
+        <point x="135" y="195"></point>
+        <point x="120" y="210"></point>
+        <point x="60" y="210"></point>
+        <point x="30" y="195"></point>
+        <point x="60" y="180"></point>
+        <point x="60" y="165"></point>
+        <point x="15" y="135"></point>
+        <point x="30" y="120"></point>
+        <point x="15" y="105"></point>
+        <point x="40" y="104"></point>
+        <point x="45" y="90"></point>
+        <point x="60" y="90"></point>
+        <point x="90" y="105"></point>
+        <point x="105" y="120"></point>
+        <point x="120" y="120"></point>
+        <point x="105" y="60"></point>
+        <point x="120" y="60"></point>
+        <point x="135" y="30"></point>
+        <point x="150" y="15"></point>
+        <point x="165" y="30"></point>
+        <point x="180" y="60"></point>
+        <point x="195" y="60"></point>
+        <point x="180" y="120"></point>
+        <point x="195" y="120"></point>
+        <point x="210" y="105"></point>
+        <point x="240" y="90"></point>
+        <point x="255" y="90"></point>
+        <point x="263" y="104"></point>
+        <point x="285" y="105"></point>
+        <point x="270" y="120"></point>
+        <point x="285" y="135"></point>
+        <point x="240" y="165"></point>
+        <point x="240" y="180"></point>
+        <point x="270" y="195"></point>
+        <point x="240" y="210"></point>
+        <point x="180" y="210"></point>
+        <point x="165" y="195"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="135" y="195"></point>
+        <point x="135" y="240"></point>
+        <point x="120" y="255"></point>
+        <point x="105" y="255"></point>
+        <point x="105" y="285"></point>
+        <point x="135" y="285"></point>
+        <point x="165" y="240"></point>
+        <point x="165" y="195"></point>
+      </polygon>
+    </shape>
+    <shape name="line" rotatable="true" editableColorIndex="0">
+      <line endX="150" startY="0" marked="true" color="-1920102913" endY="300" startX="150"></line>
+    </shape>
+    <shape name="line half" rotatable="true" editableColorIndex="0">
+      <line endX="150" startY="0" marked="true" color="-1920102913" endY="150" startX="150"></line>
+    </shape>
+    <shape name="pentagon" rotatable="false" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="150" y="15"></point>
+        <point x="15" y="120"></point>
+        <point x="60" y="285"></point>
+        <point x="240" y="285"></point>
+        <point x="285" y="120"></point>
+      </polygon>
+    </shape>
+    <shape name="person" rotatable="false" editableColorIndex="0">
+      <circle x="110" y="5" marked="true" color="-1920102913" diameter="80" filled="true"></circle>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="105" y="90"></point>
+        <point x="120" y="195"></point>
+        <point x="90" y="285"></point>
+        <point x="105" y="300"></point>
+        <point x="135" y="300"></point>
+        <point x="150" y="225"></point>
+        <point x="165" y="300"></point>
+        <point x="195" y="300"></point>
+        <point x="210" y="285"></point>
+        <point x="180" y="195"></point>
+        <point x="195" y="90"></point>
+      </polygon>
+      <rectangle endX="172" startY="79" marked="true" color="-1920102913" endY="94" startX="127" filled="true"></rectangle>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="195" y="90"></point>
+        <point x="240" y="150"></point>
+        <point x="225" y="180"></point>
+        <point x="165" y="105"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="105" y="90"></point>
+        <point x="60" y="150"></point>
+        <point x="75" y="180"></point>
+        <point x="135" y="105"></point>
+      </polygon>
+    </shape>
+    <shape name="plant" rotatable="false" editableColorIndex="0">
+      <rectangle endX="165" startY="90" marked="true" color="-1920102913" endY="300" startX="135" filled="true"></rectangle>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="135" y="255"></point>
+        <point x="90" y="210"></point>
+        <point x="45" y="195"></point>
+        <point x="75" y="255"></point>
+        <point x="135" y="285"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="165" y="255"></point>
+        <point x="210" y="210"></point>
+        <point x="255" y="195"></point>
+        <point x="225" y="255"></point>
+        <point x="165" y="285"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="135" y="180"></point>
+        <point x="90" y="135"></point>
+        <point x="45" y="120"></point>
+        <point x="75" y="180"></point>
+        <point x="135" y="210"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="165" y="180"></point>
+        <point x="165" y="210"></point>
+        <point x="225" y="180"></point>
+        <point x="255" y="120"></point>
+        <point x="210" y="135"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="135" y="105"></point>
+        <point x="90" y="60"></point>
+        <point x="45" y="45"></point>
+        <point x="75" y="105"></point>
+        <point x="135" y="135"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="165" y="105"></point>
+        <point x="165" y="135"></point>
+        <point x="225" y="105"></point>
+        <point x="255" y="45"></point>
+        <point x="210" y="60"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="135" y="90"></point>
+        <point x="120" y="45"></point>
+        <point x="150" y="15"></point>
+        <point x="180" y="45"></point>
+        <point x="165" y="90"></point>
+      </polygon>
+    </shape>
+    <shape name="sheep" rotatable="false" editableColorIndex="15">
+      <circle x="203" y="65" marked="true" color="-1" diameter="88" filled="true"></circle>
+      <circle x="70" y="65" marked="true" color="-1" diameter="162" filled="true"></circle>
+      <circle x="150" y="105" marked="true" color="-1" diameter="120" filled="true"></circle>
+      <polygon color="-1920102913" filled="true" marked="false">
+        <point x="218" y="120"></point>
+        <point x="240" y="165"></point>
+        <point x="255" y="165"></point>
+        <point x="278" y="120"></point>
+      </polygon>
+      <circle x="214" y="72" marked="false" color="-1920102913" diameter="67" filled="true"></circle>
+      <rectangle endX="179" startY="223" marked="true" color="-1" endY="298" startX="164" filled="true"></rectangle>
+      <polygon color="-1" filled="true" marked="true">
+        <point x="45" y="285"></point>
+        <point x="30" y="285"></point>
+        <point x="30" y="240"></point>
+        <point x="15" y="195"></point>
+        <point x="45" y="210"></point>
+      </polygon>
+      <circle x="3" y="83" marked="true" color="-1" diameter="150" filled="true"></circle>
+      <rectangle endX="80" startY="221" marked="true" color="-1" endY="296" startX="65" filled="true"></rectangle>
+      <polygon color="-1" filled="true" marked="true">
+        <point x="195" y="285"></point>
+        <point x="210" y="285"></point>
+        <point x="210" y="240"></point>
+        <point x="240" y="210"></point>
+        <point x="195" y="210"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="false">
+        <point x="276" y="85"></point>
+        <point x="285" y="105"></point>
+        <point x="302" y="99"></point>
+        <point x="294" y="83"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="false">
+        <point x="219" y="85"></point>
+        <point x="210" y="105"></point>
+        <point x="193" y="99"></point>
+        <point x="201" y="83"></point>
+      </polygon>
+    </shape>
+    <shape name="square" rotatable="false" editableColorIndex="0">
+      <rectangle endX="270" startY="30" marked="true" color="-1920102913" endY="270" startX="30" filled="true"></rectangle>
+    </shape>
+    <shape name="square 2" rotatable="false" editableColorIndex="0">
+      <rectangle endX="270" startY="30" marked="true" color="-1920102913" endY="270" startX="30" filled="true"></rectangle>
+      <rectangle endX="240" startY="60" marked="false" color="255" endY="240" startX="60" filled="true"></rectangle>
+    </shape>
+    <shape name="star" rotatable="false" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="151" y="1"></point>
+        <point x="185" y="108"></point>
+        <point x="298" y="108"></point>
+        <point x="207" y="175"></point>
+        <point x="242" y="282"></point>
+        <point x="151" y="216"></point>
+        <point x="59" y="282"></point>
+        <point x="94" y="175"></point>
+        <point x="3" y="108"></point>
+        <point x="116" y="108"></point>
+      </polygon>
+    </shape>
+    <shape name="target" rotatable="false" editableColorIndex="0">
+      <circle x="0" y="0" marked="true" color="-1920102913" diameter="300" filled="true"></circle>
+      <circle x="30" y="30" marked="false" color="255" diameter="240" filled="true"></circle>
+      <circle x="60" y="60" marked="true" color="-1920102913" diameter="180" filled="true"></circle>
+      <circle x="90" y="90" marked="false" color="255" diameter="120" filled="true"></circle>
+      <circle x="120" y="120" marked="true" color="-1920102913" diameter="60" filled="true"></circle>
+    </shape>
+    <shape name="tree" rotatable="false" editableColorIndex="0">
+      <circle x="118" y="3" marked="true" color="-1920102913" diameter="94" filled="true"></circle>
+      <rectangle endX="180" startY="195" marked="false" color="-1653716737" endY="300" startX="120" filled="true"></rectangle>
+      <circle x="65" y="21" marked="true" color="-1920102913" diameter="108" filled="true"></circle>
+      <circle x="116" y="41" marked="true" color="-1920102913" diameter="127" filled="true"></circle>
+      <circle x="45" y="90" marked="true" color="-1920102913" diameter="120" filled="true"></circle>
+      <circle x="104" y="74" marked="true" color="-1920102913" diameter="152" filled="true"></circle>
+    </shape>
+    <shape name="triangle" rotatable="false" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="150" y="30"></point>
+        <point x="15" y="255"></point>
+        <point x="285" y="255"></point>
+      </polygon>
+    </shape>
+    <shape name="triangle 2" rotatable="false" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="150" y="30"></point>
+        <point x="15" y="255"></point>
+        <point x="285" y="255"></point>
+      </polygon>
+      <polygon color="255" filled="true" marked="false">
+        <point x="151" y="99"></point>
+        <point x="225" y="223"></point>
+        <point x="75" y="224"></point>
+      </polygon>
+    </shape>
+    <shape name="truck" rotatable="false" editableColorIndex="0">
+      <rectangle endX="195" startY="45" marked="true" color="-1920102913" endY="187" startX="4" filled="true"></rectangle>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="296" y="193"></point>
+        <point x="296" y="150"></point>
+        <point x="259" y="134"></point>
+        <point x="244" y="104"></point>
+        <point x="208" y="104"></point>
+        <point x="207" y="194"></point>
+      </polygon>
+      <rectangle endX="195" startY="60" marked="false" color="-1" endY="105" startX="195" filled="true"></rectangle>
+      <polygon color="255" filled="true" marked="false">
+        <point x="238" y="112"></point>
+        <point x="252" y="141"></point>
+        <point x="219" y="141"></point>
+        <point x="218" y="112"></point>
+      </polygon>
+      <circle x="234" y="174" marked="false" color="255" diameter="42" filled="true"></circle>
+      <rectangle endX="214" startY="185" marked="true" color="-1920102913" endY="194" startX="181" filled="true"></rectangle>
+      <circle x="144" y="174" marked="false" color="255" diameter="42" filled="true"></circle>
+      <circle x="24" y="174" marked="false" color="255" diameter="42" filled="true"></circle>
+      <circle x="24" y="174" marked="true" color="-1920102913" diameter="42" filled="false"></circle>
+      <circle x="144" y="174" marked="true" color="-1920102913" diameter="42" filled="false"></circle>
+      <circle x="234" y="174" marked="true" color="-1920102913" diameter="42" filled="false"></circle>
+    </shape>
+    <shape name="turtle" rotatable="true" editableColorIndex="0">
+      <polygon color="1504722175" filled="true" marked="false">
+        <point x="215" y="204"></point>
+        <point x="240" y="233"></point>
+        <point x="246" y="254"></point>
+        <point x="228" y="266"></point>
+        <point x="215" y="252"></point>
+        <point x="193" y="210"></point>
+      </polygon>
+      <polygon color="1504722175" filled="true" marked="false">
+        <point x="195" y="90"></point>
+        <point x="225" y="75"></point>
+        <point x="245" y="75"></point>
+        <point x="260" y="89"></point>
+        <point x="269" y="108"></point>
+        <point x="261" y="124"></point>
+        <point x="240" y="105"></point>
+        <point x="225" y="105"></point>
+        <point x="210" y="105"></point>
+      </polygon>
+      <polygon color="1504722175" filled="true" marked="false">
+        <point x="105" y="90"></point>
+        <point x="75" y="75"></point>
+        <point x="55" y="75"></point>
+        <point x="40" y="89"></point>
+        <point x="31" y="108"></point>
+        <point x="39" y="124"></point>
+        <point x="60" y="105"></point>
+        <point x="75" y="105"></point>
+        <point x="90" y="105"></point>
+      </polygon>
+      <polygon color="1504722175" filled="true" marked="false">
+        <point x="132" y="85"></point>
+        <point x="134" y="64"></point>
+        <point x="107" y="51"></point>
+        <point x="108" y="17"></point>
+        <point x="150" y="2"></point>
+        <point x="192" y="18"></point>
+        <point x="192" y="52"></point>
+        <point x="169" y="65"></point>
+        <point x="172" y="87"></point>
+      </polygon>
+      <polygon color="1504722175" filled="true" marked="false">
+        <point x="85" y="204"></point>
+        <point x="60" y="233"></point>
+        <point x="54" y="254"></point>
+        <point x="72" y="266"></point>
+        <point x="85" y="252"></point>
+        <point x="107" y="210"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="119" y="75"></point>
+        <point x="179" y="75"></point>
+        <point x="209" y="101"></point>
+        <point x="224" y="135"></point>
+        <point x="220" y="225"></point>
+        <point x="175" y="261"></point>
+        <point x="128" y="261"></point>
+        <point x="81" y="224"></point>
+        <point x="74" y="135"></point>
+        <point x="88" y="99"></point>
+      </polygon>
+    </shape>
+    <shape name="wheel" rotatable="false" editableColorIndex="0">
+      <circle x="3" y="3" marked="true" color="-1920102913" diameter="294" filled="true"></circle>
+      <circle x="30" y="30" marked="false" color="255" diameter="240" filled="true"></circle>
+      <line endX="150" startY="285" marked="true" color="-1920102913" endY="15" startX="150"></line>
+      <line endX="285" startY="150" marked="true" color="-1920102913" endY="150" startX="15"></line>
+      <circle x="120" y="120" marked="true" color="-1920102913" diameter="60" filled="true"></circle>
+      <line endX="79" startY="40" marked="true" color="-1920102913" endY="269" startX="216"></line>
+      <line endX="269" startY="84" marked="true" color="-1920102913" endY="221" startX="40"></line>
+      <line endX="269" startY="216" marked="true" color="-1920102913" endY="79" startX="40"></line>
+      <line endX="221" startY="40" marked="true" color="-1920102913" endY="269" startX="84"></line>
+    </shape>
+    <shape name="wolf" rotatable="false" editableColorIndex="0">
+      <polygon color="255" filled="true" marked="false">
+        <point x="253" y="133"></point>
+        <point x="245" y="131"></point>
+        <point x="245" y="133"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="2" y="194"></point>
+        <point x="13" y="197"></point>
+        <point x="30" y="191"></point>
+        <point x="38" y="193"></point>
+        <point x="38" y="205"></point>
+        <point x="20" y="226"></point>
+        <point x="20" y="257"></point>
+        <point x="27" y="265"></point>
+        <point x="38" y="266"></point>
+        <point x="40" y="260"></point>
+        <point x="31" y="253"></point>
+        <point x="31" y="230"></point>
+        <point x="60" y="206"></point>
+        <point x="68" y="198"></point>
+        <point x="75" y="209"></point>
+        <point x="66" y="228"></point>
+        <point x="65" y="243"></point>
+        <point x="82" y="261"></point>
+        <point x="84" y="268"></point>
+        <point x="100" y="267"></point>
+        <point x="103" y="261"></point>
+        <point x="77" y="239"></point>
+        <point x="79" y="231"></point>
+        <point x="100" y="207"></point>
+        <point x="98" y="196"></point>
+        <point x="119" y="201"></point>
+        <point x="143" y="202"></point>
+        <point x="160" y="195"></point>
+        <point x="166" y="210"></point>
+        <point x="172" y="213"></point>
+        <point x="173" y="238"></point>
+        <point x="167" y="251"></point>
+        <point x="160" y="248"></point>
+        <point x="154" y="265"></point>
+        <point x="169" y="264"></point>
+        <point x="178" y="247"></point>
+        <point x="186" y="240"></point>
+        <point x="198" y="260"></point>
+        <point x="200" y="271"></point>
+        <point x="217" y="271"></point>
+        <point x="219" y="262"></point>
+        <point x="207" y="258"></point>
+        <point x="195" y="230"></point>
+        <point x="192" y="198"></point>
+        <point x="210" y="184"></point>
+        <point x="227" y="164"></point>
+        <point x="242" y="144"></point>
+        <point x="259" y="145"></point>
+        <point x="284" y="151"></point>
+        <point x="277" y="141"></point>
+        <point x="293" y="140"></point>
+        <point x="299" y="134"></point>
+        <point x="297" y="127"></point>
+        <point x="273" y="119"></point>
+        <point x="270" y="105"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="-1" y="195"></point>
+        <point x="14" y="180"></point>
+        <point x="36" y="166"></point>
+        <point x="40" y="153"></point>
+        <point x="53" y="140"></point>
+        <point x="82" y="131"></point>
+        <point x="134" y="133"></point>
+        <point x="159" y="126"></point>
+        <point x="188" y="115"></point>
+        <point x="227" y="108"></point>
+        <point x="236" y="102"></point>
+        <point x="238" y="98"></point>
+        <point x="268" y="86"></point>
+        <point x="269" y="92"></point>
+        <point x="281" y="87"></point>
+        <point x="269" y="103"></point>
+        <point x="269" y="113"></point>
+      </polygon>
+    </shape>
+    <shape name="x" rotatable="false" editableColorIndex="0">
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="270" y="75"></point>
+        <point x="225" y="30"></point>
+        <point x="30" y="225"></point>
+        <point x="75" y="270"></point>
+      </polygon>
+      <polygon color="-1920102913" filled="true" marked="true">
+        <point x="30" y="75"></point>
+        <point x="75" y="30"></point>
+        <point x="270" y="225"></point>
+        <point x="225" y="270"></point>
+      </polygon>
+    </shape>
+  </turtleShapes>
+  <linkShapes>
+    <shape name="default" curviness="0.0">
+      <lines>
+        <line x="-0.2" visible="false">
+          <dash value="0.0"></dash>
+          <dash value="1.0"></dash>
+        </line>
+        <line x="0.0" visible="true">
+          <dash value="1.0"></dash>
+          <dash value="0.0"></dash>
+        </line>
+        <line x="0.2" visible="false">
+          <dash value="0.0"></dash>
+          <dash value="1.0"></dash>
+        </line>
+      </lines>
+      <indicator>
+        <shape name="link direction" rotatable="true" editableColorIndex="0">
+          <line endX="90" startY="150" marked="true" color="-1920102913" endY="180" startX="150"></line>
+          <line endX="210" startY="150" marked="true" color="-1920102913" endY="180" startX="150"></line>
+        </shape>
+      </indicator>
+    </shape>
+  </linkShapes>
+  <previewCommands>setup repeat 75 [ go ]</previewCommands>
+  <experiments>
+    <experiment name="experiment-baseline-speed" repetitions="10" sequentialRunOrder="true" runMetricsEveryStep="true" timeLimit="500">
+      <setup>setup</setup>
+      <go>go</go>
+      <metrics>
+        <metric>global-average-speed</metric>
+      </metrics>
+      <constants>
+        <enumeratedValueSet variable="num-cars">
+          <value value="200"></value>
+          <value value="300"></value>
+          <value value="400"></value>
+          <value value="500"></value>
+          <value value="600"></value>
+          <value value="700"></value>
+          <value value="800"></value>
+          <value value="900"></value>
+          <value value="1000"></value>
+          <value value="1100"></value>
+          <value value="1200"></value>
+          <value value="1300"></value>
+          <value value="1400"></value>
+          <value value="1500"></value>
+        </enumeratedValueSet>
+        <enumeratedValueSet variable="length-of-green-light">
+          <value value="5"></value>
+        </enumeratedValueSet>
+        <enumeratedValueSet variable="max-passengers">
+          <value value="0"></value>
+        </enumeratedValueSet>
+        <enumeratedValueSet variable="Taxi-vs-FHV-split">
+          <value value="0"></value>
+        </enumeratedValueSet>
+        <enumeratedValueSet variable="commercial-vehicle-ratio">
+          <value value="0"></value>
+        </enumeratedValueSet>
+      </constants>
+    </experiment>
+  </experiments>
+</model>
