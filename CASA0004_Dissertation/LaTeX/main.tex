@@ -1,0 +1,179 @@
+% ============================================================
+% CASA MRes Dissertation Template
+% Zhengpei (Pippin) Xu, 2025/26
+% Compile: pdflatex -> biber -> pdflatex -> pdflatex
+% (or just use latexmk / LaTeX Workshop default recipe)
+% ============================================================
+
+\documentclass[11pt, a4paper]{report}
+
+% ---------- Encoding and base layout ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{microtype}
+
+% ---------- Graphics, tables, maths ----------
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage[bottom]{footmisc}
+
+% ---------- Colours (load xcolor before hyperref) ----------
+\usepackage{xcolor}
+
+% ---------- Hyperref: teal coloured links ----------
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=teal,      % footnotes, equations, cross-references
+    citecolor=teal,      % bibliography citations
+    urlcolor=teal        % external URLs
+}
+
+% ---------- Captions ----------
+\usepackage{caption}
+\captionsetup{
+  font={footnotesize, color=gray, it},
+  labelfont={bf, color=gray},
+  justification=centering,
+  labelsep=period
+}
+
+% ---------- Headers and footers ----------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\nouppercase{\leftmark}}   % current chapter
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+% Plain style (chapter opening pages): page number only
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \cfoot{\small\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% ---------- Chapter and section heading style ----------
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]
+  {\normalfont\Large\bfseries}
+  {\thechapter}{1em}{}
+\titleformat{name=\chapter,numberless}[hang]
+  {\normalfont\Large\bfseries}
+  {}{0pt}{}
+\titleformat{\section}
+  {\normalfont\large\bfseries}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}
+  {\thesubsection}{1em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{30pt}
+
+% ---------- Footnotes restart each chapter (handbook 4.8) ----------
+\usepackage{chngcntr}
+\counterwithin*{footnote}{chapter}
+
+% ---------- Figure/table numbering: sequential across document ----------
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+
+% ---------- Bibliography: Harvard author-year via biblatex ----------
+\usepackage[backend=biber, style=authoryear, maxcitenames=2, maxbibnames=99, uniquename=false, uniquelist=false]{biblatex}
+\addbibresource{references.bib}
+
+% ---------- Python / general code chunk design ----------
+\usepackage{listings}
+
+\definecolor{code_comment}{RGB}{128, 128, 128}
+\definecolor{code_keyword}{RGB}{0, 0, 204}
+\definecolor{code_string}{RGB}{153, 0, 0}
+\definecolor{code_bg}{RGB}{245, 245, 245}
+
+\lstdefinestyle{pythonstyle}{
+  backgroundcolor  = \color{code_bg},
+  basicstyle       = \ttfamily\small,
+  keywordstyle     = \color{code_keyword}\bfseries,
+  commentstyle     = \color{code_comment}\itshape,
+  stringstyle      = \color{code_string},
+  numbers          = left,
+  numberstyle      = \tiny\color{gray},
+  stepnumber       = 1,
+  breaklines       = true,
+  frame            = single,
+  language         = Python
+}
+\lstset{style=pythonstyle}
+
+% ---------- Custom column type ----------
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+% ---------- Line spacing ----------
+\setstretch{1.3}
+
+% ---------- Metadata ----------
+\newcommand{\dissertationtitle}{Adapting Level of Traffic Stress for England: A Network-Scale Cycling Infrastructure Assessment in the West Midlands}
+\newcommand{\authorname}{Zhengpei Xu}
+\newcommand{\studentnumber}{25034404}
+\newcommand{\modulecode}{CASA0004}   
+\newcommand{\moduletitle}{MRes Dissertation}
+\newcommand{\supervisorname}{Prof Duncan Smith}
+\newcommand{\submissiondate}{August 2026}
+\newcommand{\wordcount}{XX,XXX}
+\newcommand{\repourl}{https://github.com/zhengpei-xu/...}
+
+% ============================================================
+\begin{document}
+
+% ---------- Preamble pages (roman numerals) ----------
+\pagenumbering{roman}
+
+\input{frontmatter/titlepage}
+\input{frontmatter/abstract}
+\input{frontmatter/declaration}
+\input{frontmatter/acknowledgements}
+
+\tableofcontents
+\newpage
+
+\listoffigures
+\listoftables
+\newpage
+
+\input{frontmatter/abbreviations}
+
+% ---------- Main text (arabic numerals) ----------
+\clearpage
+\pagenumbering{arabic}
+
+\input{chapters/01-introduction}
+\input{chapters/02-literature-review}
+\input{chapters/03-study-area-and-data}
+\input{chapters/04-methodology}
+\input{chapters/05-results}
+\input{chapters/06-discussion}
+\input{chapters/07-conclusion}
+
+% ---------- Bibliography ----------
+\clearpage
+\printbibliography[heading=bibintoc, title={Bibliography}]
+
+% ---------- Appendices ----------
+\appendix
+\input{appendices/A-Appendix}
+\input{appendices/B-research-log}
+
+\end{document}

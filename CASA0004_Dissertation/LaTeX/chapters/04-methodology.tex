@@ -1,0 +1,94 @@
+% ============================================================
+% CHAPTER 4: METHODOLOGY
+% ============================================================
+\chapter{Methodology}
+\label{ch:methodology}
+
+This section presents the analytical framework for classifying and evaluating the West Midlands cycling network by Level of Traffic Stress (Figure~\ref{fig:methods}). Sections 4.1-4.3 construct the directed, stress-classified network: extracting cyclable segments from OS NGD, assigning link-level LTS, and propagating junction stress with LTN 1/20's criteria. Section 4.4 uses this network to test connectivity against LTN 1/20's “Cycling for all” principle through density, fragmentation, and reach analyses. Section 4.5 compares three network growth strategies to inform upgrade prioritisation.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{Figure/methods.jpg}
+  \caption{Analytical framework. LTN 1/20 design criteria (left) supply the classification thresholds operationalised on OS NGD Transport data (right) through Sections 4.1–4.3. The classified network is then evaluated against LTN 1/20's "Cycling for All" principle through connectivity analysis (Section 4.4) and network growth simulation (Section 4.5).}
+  \label{fig:methods}
+\end{figure}
+
+\section{Cyclable Network Extraction and Infrastructure Classification}
+\label{sec:method-extraction}
+
+The first stage of the classification process extracts all legally and practically cyclable segments from the West Midlands transport network. Cyclable infrastructure is represented in two feature collections under OS NGD Transport Theme: Road Links, which encode the carriageway network where cyclists may share space with motor vehicles \parencite{ordnancesurvey2026a}, and Path Links, which encode routes that are topologically independent from the carriageway, captured where they provide connectivity that cannot be inferred from the road network \parencite{ordnancesurvey2026b}. The legal cyclability of segments is firstly checked through the Highway Dedication feature collection, which provides an indication of the type of highway user who has access to each section of the network, recording one of eight designation types \parencite{ordnancesurvey2026}. Five of the seven designation types permit cycling under UK highway law, while `Motorway' and `Pedestrian Way Or Footpath' are excluded as non-cyclable (Table~\ref{tab:highway-dedication}).
+ 
+\begin{table}[htbp]
+  \centering
+  \caption{Highway Dedication types and legal cyclability under UK highway law.}
+  \label{tab:highway-dedication}
+  \small
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    Highway Dedication & Cyclable? & Legal Basis \\
+    \midrule
+    All Vehicles & Yes & Cycling permitted on public roads by default \\
+    Cycle Track or Cycle Way & Yes & Cycle Tracks Act 1984 \\
+    Bridleway & Yes & Countryside Act 1968, s.30 \\
+    Restricted Byway & Yes & Countryside and Rights of Way Act 2000 \\
+    Byway Open to All Traffic & Yes & Wildlife and Countryside Act 1981, s.66(1) \\
+    Motorway & No & Motorways Traffic (England and Wales) Regulations 1982 \\
+    Pedestrian Way or Footpath & No & No public right of way for cycling (cf.\ Highways Act 1835, s.72) \\
+    \bottomrule
+  \end{tabularx}
+  \par\smallskip
+  \footnotesize\textit{Note:} The eighth type, `No Dedication Or Dedication Unknown', is neither cyclable nor explicitly non-cyclable and is addressed through the description-based fallback classification for Road Links.
+\end{table}
+ 
+For Road Links, Highway Dedication covers most of the segments. Where a dedication record is absent or recorded as `No Dedication Or Dedication Unknown', a fallback classification retains segments whose physical description feature indicates a carriageway type (`Single Carriageway', `Dual Carriageway', `Roundabout', `Slip Road', `Shared Use Carriageway', `Traffic Island Link At Junction', and `Traffic Island Link'). Segments classified as `Motorway' are excluded regardless of dedication status. This process yields 212,551 cyclable Road Links (97.8\%), of which 84.2\% are identified through Highway Dedication and 15.8\% through the description fallback. For Path Links, Highway Dedication coverage is substantially lower, identifying only 10.1\% of cyclable paths. A second layer retains paths where the feature data detects cycling infrastructure through its `presenceofcyclelane' attribute, contributing a further 1.0\%. No attribute in the OS NGD Path Link schema, however, provides a direct cyclability indicator. The Department for Transport's transport connectivity metric reflects a comparable data source choice: while it constructs its driving network from Ordnance Survey data, it uses OpenStreetMap for cycling and walking networks, relying on OSM tags to determine which links can be walked or cycled on \parencite{dft2025}. Following this, a third layer performs spatial cross-validation against the OpenStreetMap cycling network, matching remaining paths without Highway Dedication or cycle lane presence to OSM cycling geometries within a 5-metre nearest-neighbour spatial join and recovering an additional 40,035 paths. Paths with explicitly non-cyclable Highway Dedications are excluded at all layers. This process yields 45,023 cyclable Path Links (40.3\% of the total collection). Each segment is then expanded into directed edges, and cycle lane records are joined only to the edge whose travel direction aligns with the lane's placement side, capturing the inherently asymmetric distribution of cycling infrastructure and avoiding overestimation of facility provision.
+ 
+Each directed cyclable segment is then classified into one of eight facility types derived from LTN~1/20's design hierarchy (Table~\ref{tab:facility-types}). The OS NGD Cycle Lane dataset, whose type definitions are aligned to LTN~1/20, records dedicated cycling infrastructure as separate features referencing their parent Road Link \parencite{ordnancesurvey2026c,ordnancesurvey2026d}. A Road Link with a matching Cycle Lane record is classified according to its cycle lane description; where multiple records exist for the same link, the more protective facility governs. Road Links without a matching record, or where the cycle lane type is recorded as `Unknown Type Of Cycle Track Or Lane', default to Mixed Traffic. All cyclable Path Links are classified as `Off-Road', as they are topologically independent from the road network and carry no motor traffic speed or volume attributes \parencite{ordnancesurvey2026b}. Following classification, Road Links and Path Links are merged into a single unified and directed network for use in the subsequent LTS assessment.
+ 
+\begin{table}[htbp]
+  \centering
+  \caption{Facility type classification derived from LTN~1/20 design hierarchy, mapped to OS NGD data sources.}
+  \label{tab:facility-types}
+  \begin{tabular}{lll}
+    \toprule
+    Facility Type & OS NGD Source & Classification Feature \\
+    \midrule
+    Off-Road & Path Link & Cyclable Path Links \\
+    Shared Use & Cycle Lane & `Unsegregated Shared Use Cycle Facility' / \\
+     & & `Segregated Shared Use Cycle Track' \\
+    Fully Kerbed Cycle Track & Cycle Lane & `Fully Segregated Cycle Track' \\
+    Stepped Cycle Track & Cycle Lane & `Stepped Cycle Track Along Road' \\
+    Light Segregation & Cycle Lane & `Lightly Segregated Cycle Lane On Road' \\
+    Mandatory Cycle Lane & Cycle Lane & `Mandatory Cycle Lane On Road' \\
+    Advisory Cycle Lane & Cycle Lane & `Advisory Cycle Lane On Road' \\
+    Mixed Traffic & Road Link (main) & `Unknown Type Of Cycle Track Or Lane' or \\
+     & & no matching Cycle Lane record \\
+    \bottomrule
+  \end{tabular}
+  \par\smallskip
+  \footnotesize\textit{Note:} Some facility types overlap conceptually. Off-Road paths may in practice function as shared-use routes or as kerbed cycle tracks. This does not affect the subsequent LTS classification, as all such facilities are fully separated from motor traffic.
+\end{table}
+
+
+\section{Link-level LTS classification}
+\label{sec:method-linklts}
+
+% TODO: LTN 1/20 CLoS criteria, worst-indicator-wins logic
+
+\section{Junction LTS Classification}
+\label{sec:method-junctionlts}
+
+% TODO: bearing-based conflict detection, JAT criteria
+
+\section{Stress-Based Network Connectivity Evaluation}
+\label{sec:method-analysis}
+
+% TODO: fragmentation, reach, OD connectivity, betweenness,
+% growth simulation
+
+\section{Network Growth Simulation}
+\label{sec:method-growth}
+
+% REQUIRED (handbook 2.14.1). Aggregate/anonymous public data:
+% brief reference to how disclosure and privacy issues are handled.
+% Note interviews are reported in the commercial report, not here,
+% unless any interview material enters the dissertation.

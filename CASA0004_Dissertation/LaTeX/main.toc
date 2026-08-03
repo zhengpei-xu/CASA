@@ -1,0 +1,37 @@
+\contentsline {chapter}{Abstract}{i}{chapter*.1}%
+\contentsline {chapter}{Declaration}{ii}{chapter*.2}%
+\contentsline {chapter}{Acknowledgements}{iii}{chapter*.3}%
+\contentsline {chapter}{List of Acronyms and Abbreviations}{viii}{chapter*.7}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Literature Review}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Infrastructure Quality, Perceived Safety, and Cycling Participation}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}LTN 1/20: Design Standards for Cycling Infrastructure in England}{4}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Level of Traffic Stress: Origins, Framework, and Applications }{6}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Growing Fragmented Cycling Networks}{7}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Research Gap and Questions}{8}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Study Area and Data}{10}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Study Area: The West Midlands}{10}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Data Sources: Overview}{11}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Methodology}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Cyclable Network Extraction and Infrastructure Classification}{13}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Link-level LTS classification}{15}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Junction LTS Classification}{15}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Stress-Based Network Connectivity Evaluation}{15}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Network Growth Simulation}{15}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Results}{16}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Network Composition and LTS Distribution}{16}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Data Source Comparison}{16}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Fragmentation}{16}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Reach and Accessibility}{16}{section.5.4}%
+\contentsline {section}{\numberline {5.5}OD Connectivity}{16}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Network Growth Simulation}{16}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Discussion}{17}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Evaluating the Cycling for All Principle}{17}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Junction Stress as a Structural Barrier}{17}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Implications for Network Planning}{17}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Limitations}{17}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Future Work}{17}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Conclusion}{18}{chapter.7}%
+\contentsline {chapter}{Bibliography}{19}{chapter*.16}%
+\contentsline {chapter}{\numberline {A}Supplementary Material}{27}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Research Log}{28}{appendix.B}%
