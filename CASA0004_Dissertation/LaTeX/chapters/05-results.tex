@@ -4,22 +4,35 @@
 \chapter{Results}
 \label{ch:results}
 
-% Handbook: be selective; provide a narrative, not result after result.
+% Replaced hardcoded section numbers with dynamic \ref{} commands
+% Added non-breaking spaces (~) to prevent awkward line breaks
+This chapter reports the results of applying the framework from Chapter 4 to the West Midlands cycling network. Sections~\ref{sec:results-composition}--\ref{sec:results-lts} profile the classified network by facility type and LTS level. Sections~\ref{sec:results-density}--\ref{sec:results-reach} evaluate connectivity against LTN 1/20's "Cycling for all" principle through density, fragmentation, and reach analyses, and Section~\ref{sec:results-growth} compares three network growth strategies to inform upgrade prioritisation.
 
-\section{Network Composition and LTS Distribution}
+\section{Cyclable Network and Infrastructure Profile}
 \label{sec:results-composition}
 
-\section{Data Source Comparison}
-\label{sec:results-comparison}
+The directed cyclable network for the West Midlands comprises 23{,}301 km of edges across 480{,}228 directed links (bidirectional segments counted once per direction), derived from OS NGD Transport Network filtered by the cyclability criteria described in Section~\ref{sec:method-extraction}. Figure~\ref{fig:wm_facility_types} maps the network coloured by facility type. Mixed Traffic dominates at 18{,}935 km (81.3\%), followed by Off-Road paths at 4{,}014 km (17.2\%), comprising segments with little or no motor vehicle traffic. Active investment in dedicated cycling facilities is minimal: the three physically separated types (fully kerbed cycle track, stepped cycle track, and light segregation) total just 49.7 km, accounting for 0.2\% of the network. Paint-only provision (advisory and mandatory cycle lanes) adds a further 63.1 km (0.3\%) but offers no physical protection from motor traffic (likely an underestimate, see Section~\ref{sec:disc-osvalidation}).
 
-\section{Fragmentation}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{Figure/wm_facility_types.png}
+  \caption{Directed cyclable network of the West Midlands Combined Authority by facility type. Where a road segment carries different provision by direction, the facility with the greater degree of separation from motor traffic is shown. The network is dominated by mixed traffic (grey) and off-road paths (purple). Physically separated infrastructure (blue) is concentrated along radial corridors into Birmingham and Coventry. }
+  \label{fig:wm_facility_types}
+\end{figure}
+
+Spatially, dedicated facilities are concentrated in Birmingham, where fragments of fully kerbed track are visible along radial corridors into the city centre. Coventry, the birthplace of the modern safety bicycle, shows the second-longest continuous stretches of separated infrastructure, a product of its Local Air Quality Action Plan which funded fully segregated cycleways to avoid introducing a Clean Air Zone charging scheme \parencite{chaplin2021,coventrycitycouncil2023}. Elsewhere the picture is stark: Sandwell, Dudley, Walsall, and Wolverhampton show very little physically separated provision, and Solihull's network outside its town centre is entirely mixed traffic. Beyond segregated provision, off-road corridors such as greenways and residential streets are prevalent across the conurbation's urban areas but thin markedly toward the rural fringe, while the low-stress network elsewhere depends largely on residential streets. This spatial inequality in low-stress infrastructure provision is a recurring theme in the connectivity analysis that follows in Section~\ref{sec:results-reach}.
+
+\section{LTS Classification}
+\label{sec:results-lts}
+
+\section{Stress-Based Network Density}
+\label{sec:results-density}
+
+\section{Stress-Based Network Fragmentation}
 \label{sec:results-fragmentation}
 
-\section{Reach and Accessibility}
+\section{Stress-Based Network Reach}
 \label{sec:results-reach}
 
-\section{OD Connectivity}
-\label{sec:results-od}
-
-\section{Network Growth Simulation}
+\section{Network Growth}
 \label{sec:results-growth}

@@ -2484,6 +2484,15 @@
     <bcf:citekey order="69" intorder="1">ordnancesurvey2026c</bcf:citekey>
     <bcf:citekey order="69" intorder="2">ordnancesurvey2026d</bcf:citekey>
     <bcf:citekey order="70" intorder="1">ordnancesurvey2026b</bcf:citekey>
+    <bcf:citekey order="71" intorder="1">mekuria2012a</bcf:citekey>
+    <bcf:citekey order="72" intorder="1">crow2016</bcf:citekey>
+    <bcf:citekey order="73" intorder="1">fitzpatrick2003</bcf:citekey>
+    <bcf:citekey order="73" intorder="2">europeancommission2021</bcf:citekey>
+    <bcf:citekey order="73" intorder="3">departmentfortransport2025b</bcf:citekey>
+    <bcf:citekey order="74" intorder="1">nationalhighways2019</bcf:citekey>
+    <bcf:citekey order="75" intorder="1">morley2016</bcf:citekey>
+    <bcf:citekey order="76" intorder="1">chaplin2021</bcf:citekey>
+    <bcf:citekey order="76" intorder="2">coventrycitycouncil2023</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

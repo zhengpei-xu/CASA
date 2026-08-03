@@ -15,23 +15,23 @@
 \contentsline {chapter}{\numberline {4}Methodology}{13}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Cyclable Network Extraction and Infrastructure Classification}{13}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Link-level LTS classification}{15}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Junction LTS Classification}{15}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Stress-Based Network Connectivity Evaluation}{15}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Network Growth Simulation}{15}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Results}{16}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Network Composition and LTS Distribution}{16}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Data Source Comparison}{16}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Fragmentation}{16}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Reach and Accessibility}{16}{section.5.4}%
-\contentsline {section}{\numberline {5.5}OD Connectivity}{16}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Network Growth Simulation}{16}{section.5.6}%
-\contentsline {chapter}{\numberline {6}Discussion}{17}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Evaluating the Cycling for All Principle}{17}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Junction Stress as a Structural Barrier}{17}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Implications for Network Planning}{17}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Limitations}{17}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Future Work}{17}{section.6.5}%
-\contentsline {chapter}{\numberline {7}Conclusion}{18}{chapter.7}%
-\contentsline {chapter}{Bibliography}{19}{chapter*.16}%
-\contentsline {chapter}{\numberline {A}Supplementary Material}{27}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Research Log}{28}{appendix.B}%
+\contentsline {section}{\numberline {4.3}Junction LTS Classification}{17}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Stress-Based Network Connectivity Evaluation}{17}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Network Growth Simulation}{17}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Results}{18}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Cyclable Network and Infrastructure Profile}{18}{section.5.1}%
+\contentsline {section}{\numberline {5.2}LTS Classification}{19}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Stress-Based Network Density}{19}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Stress-Based Network Fragmentation}{19}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Stress-Based Network Reach}{19}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Network Growth}{19}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Discussion}{20}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Evaluating "Cycling for All": Network Connectivity Against LTN 1/20 Objectives}{20}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Junction Stress and the Structural Severance of the Low-Stress Network}{20}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Network Growth and Implications for Investment Coordination}{20}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Assessing OS NGD Cycle Lane Data: A First Independent Comparison with OpenStreetMap}{20}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Limitations and Future Work}{20}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Conclusion}{21}{chapter.7}%
+\contentsline {chapter}{Bibliography}{22}{chapter*.18}%
+\contentsline {chapter}{\numberline {A}Supplementary Material}{30}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Research Log}{31}{appendix.B}%

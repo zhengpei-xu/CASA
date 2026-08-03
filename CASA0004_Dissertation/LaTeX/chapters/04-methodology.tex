@@ -4,7 +4,7 @@
 \chapter{Methodology}
 \label{ch:methodology}
 
-This section presents the analytical framework for classifying and evaluating the West Midlands cycling network by Level of Traffic Stress (Figure~\ref{fig:methods}). Sections 4.1-4.3 construct the directed, stress-classified network: extracting cyclable segments from OS NGD, assigning link-level LTS, and propagating junction stress with LTN 1/20's criteria. Section 4.4 uses this network to test connectivity against LTN 1/20's “Cycling for all” principle through density, fragmentation, and reach analyses. Section 4.5 compares three network growth strategies to inform upgrade prioritisation.
+This chapter presents the analytical framework for classifying and evaluating the West Midlands cycling network by Level of Traffic Stress (Figure~\ref{fig:methods}). Sections~\ref{sec:method-extraction}--\ref{sec:method-junctionlts} construct the directed, stress-classified network: extracting cyclable segments from OS NGD, assigning link-level LTS, and propagating junction stress with LTN 1/20's criteria. Section~\ref{sec:method-analysis} uses this network to test connectivity against LTN 1/20's “Cycling for all” principle through density, fragmentation, and reach analyses. Section~\ref{sec:method-growth} compares three network growth strategies to inform upgrade prioritisation.
 
 \begin{figure}[htbp]
   \centering
@@ -44,7 +44,7 @@ For Road Links, Highway Dedication covers most of the segments. Where a dedicati
  
 Each directed cyclable segment is then classified into one of eight facility types derived from LTN~1/20's design hierarchy (Table~\ref{tab:facility-types}). The OS NGD Cycle Lane dataset, whose type definitions are aligned to LTN~1/20, records dedicated cycling infrastructure as separate features referencing their parent Road Link \parencite{ordnancesurvey2026c,ordnancesurvey2026d}. A Road Link with a matching Cycle Lane record is classified according to its cycle lane description; where multiple records exist for the same link, the more protective facility governs. Road Links without a matching record, or where the cycle lane type is recorded as `Unknown Type Of Cycle Track Or Lane', default to Mixed Traffic. All cyclable Path Links are classified as `Off-Road', as they are topologically independent from the road network and carry no motor traffic speed or volume attributes \parencite{ordnancesurvey2026b}. Following classification, Road Links and Path Links are merged into a single unified and directed network for use in the subsequent LTS assessment.
  
-\begin{table}[htbp]
+\begin{table}[h]
   \centering
   \caption{Facility type classification derived from LTN~1/20 design hierarchy, mapped to OS NGD data sources.}
   \label{tab:facility-types}
@@ -72,7 +72,64 @@ Each directed cyclable segment is then classified into one of eight facility typ
 \section{Link-level LTS classification}
 \label{sec:method-linklts}
 
-% TODO: LTN 1/20 CLoS criteria, worst-indicator-wins logic
+To address the absence of an England-calibrated LTS classification identified in Section~\ref{sec:lit-lts}, the link-level LTS classification adapts the \parencite{mekuria2012a} framework by replacing its North American thresholds with those from LTN~1/20, the statutory design standard for cycling infrastructure in England and Northern Ireland. Although the Cycling Level of Service (CLoS) tool embedded in LTN~1/20 uses compensatory scoring across heterogeneous subcriteria, which prevents it from isolating population-level acceptability (see Section~\ref{sec:lit-ltn}), the core Safety subcriteria addressing motor traffic speed (Criterion~10), volume (Criterion~11), segregation provision and carriageway width (Criterion~12) are themselves non-compensatory stress determinants constructed on CROW-derived logic \parencite{crow2016}, directly consistent with the LTS framework. It is this subset that the present study selects for link-level LTS assignment. LTN~1/20 further provides a speed--volume--facility matrix that grades traffic conditions by the population they accommodate. This study maps that graduated logic onto the LTS framework: conditions suitable for all users including children correspond to LTS~1; those acceptable only to confident cyclists correspond to LTS~2; those suitable for few correspond to LTS~3; and conditions triggering a critical safety failure correspond to LTS~4 (Figure~\ref{fig:lts_matrix}).
+
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[h]
+\centering
+\caption{Link-level LTS classification matrix derived from LTN~1/20 Safety subcriteria.}
+\label{tab:lts_matrix}
+\footnotesize
+\begin{tabularx}{\textwidth}{
+  >{\raggedright\arraybackslash}p{2.8cm}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+}
+\toprule
+\textbf{Facility type} & \textbf{LTS~1} & \textbf{LTS~2} & \textbf{LTS~3} & \textbf{LTS~4} \\
+\midrule
+Off-Road              & All conditions & ---  & ---  & ---  \\
+Shared Use            & All conditions & ---  & ---  & ---  \\
+Fully Kerbed Cycle Track & All conditions & --- & --- & ---  \\[3pt]
+Stepped cycle track   & $V_{85} \leq 30$\,mph & $V_{85}$ 30--37\,mph & $\geq 37$\,mph & --- \\
+Light segregation     & $V_{85} \leq 30$\,mph & $V_{85}$ 30--37\,mph & $\geq 37$\,mph & --- \\[3pt]
+Mandatory cycle lane  &
+  Width $\geq 1.8$\,m,\newline $V_{85} \leq 20$\,mph,\newline AADT $\leq 5{,}000$ &
+  Width $\geq 1.8$\,m,\newline $V_{85}$ 20--30\,mph,\newline AADT $\leq 5{,}000$ &
+  Width $< 1.8$\,m; or\newline $V_{85}$ 30--37\,mph; or\newline AADT 5,000--10,000 &
+  $V_{85} \geq 37$\,mph; or\newline AADT $\geq 10{,}000$ \\[3pt]
+Advisory cycle lane   &
+  Width $\geq 1.8$\,m,\newline $V_{85} \leq 20$\,mph,\newline AADT $\leq 5{,}000$ &
+  Width $\geq 1.8$\,m,\newline $V_{85}$ 20--30\,mph,\newline AADT $\leq 5{,}000$ &
+  Width $< 1.8$\,m; or\newline $V_{85}$ 30--37\,mph; or\newline AADT 5,000--10,000 &
+  $V_{85} \geq 37$\,mph; or\newline AADT $\geq 10{,}000$ \\[3pt]
+Mixed traffic         &
+  $V_{85} \leq 20$\,mph,\newline AADT $\leq 2{,}500$ &
+  $V_{85}$ 20--30\,mph,\newline AADT 2,500--5,000 &
+  $V_{85}$ 30--37\,mph; or\newline AADT 5,000--10,000 &
+  $V_{85} \geq 37$\,mph; or\newline AADT $\geq 10{,}000$; or\newline nearside lane 3.2--3.9\,m\newline and AADT $\geq 5{,}000$ \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.5em}
+\footnotesize
+\noindent\textit{Notes:}
+\begin{enumerate}[nosep, leftmargin=*, label=\arabic*.]
+    \item Where multiple criteria apply to a single segment, the overall LTS is determined by the worst-performing criterion (non-compensatory).
+    \item Thresholds are derived from the CLoS Safety subcriteria (Criteria 9--12, 15) in LTN~1/20 Appendix~A, supplemented by the speed--volume--facility matrix in Figure~4.1, which the CLoS itself references as complementary guidance for determining appropriate separation levels.
+    \item Motor traffic volume is expressed as Annual Average Daily Traffic (AADT), used as a proxy for the passenger car unit (PCU) thresholds specified in LTN~1/20 Criterion~11. LTN~1/20 additionally specifies HGV composition thresholds ($>5\%$ for critical fail, 2--5\% for score~0); these could not be applied due to the absence of network-wide vehicle composition data and are acknowledged as a limitation (see section~\ref{sec:disc-limitations}).
+    \item Rural exception: mixed traffic segments with $V_{85} \leq 30$\,mph and AADT $\leq 1{,}000$ are classified as LTS~1, following LTN~1/20 Figure~4.1 Note~3.
+\end{enumerate}
+\end{table}
+\renewcommand{\arraystretch}{1.0}
+
+The link-level LTS classification begins with facility type and proceeds through three primary variables: prevailing speed, road width, and motor traffic volume. OS~NGD provides carriageway or cycle lane width at the link level through average and minimum width attributes. For cycle lanes, this study uses the separately recorded modal lane width rather than the minimum, as it better captures typical conditions along a segment. For mixed traffic on single carriageways, average road width is used to assess the critical nearside lane width range of 3.2 to 3.9\,m associated with elevated close-pass risk.\footnote{On one-way roads, total width serves directly as lane width; on two-way roads, lane width is approximated as half the total width, with the override applied only where AADT exceeds 5,000, as lower volumes allow drivers to overtake via the opposing lane.} Segments triggering this override are classified as LTS~4.
+
+Prevailing speed is represented by the estimated 85th percentile speed ($V_{85}$), consistent with the measurement basis specified in LTN~1/20. $V_{85}$ is preferred over posted speed limits because actual operating speeds frequently diverge from the limit depending on road geometry and enforcement, offering a more reliable measure of cycling stress \parencite{fitzpatrick2003, europeancommission2021, departmentfortransport2025b}. $V_{85}$ was estimated from the OS~NGD average speed dataset (RAMI), which provides mean vehicle speeds derived from probe vehicle data across multiple time periods. The mean of observed average speeds across all available time periods was used as the representative link speed, and $V_{85}$ was calculated by applying a 7/6 multiplier derived from CA~185 \textit{Vehicle speed measurement} \parencite{nationalhighways2019}, which defines $V_{85}$ as the mean speed plus one standard deviation and estimates the standard deviation as approximately one-sixth of the mean under the assumption of a normal speed distribution.
+
+OS~NGD does not include motor traffic volume attributes. To address this, major road volumes were obtained directly from DfT annual average daily traffic (AADT) count point data, while minor road volumes were estimated following the methodology of \parencite{morley2016}. A Poisson GLM was constructed using road network characteristics extracted via pgRouting on the England OSM network as predictors and DfT count point observations as the dependent variable. Five-fold cross-validation ($n = 3{,}695$ count points) yields an $R^2$ of $0.604 \pm 0.019$ and Spearman's $\rho$ of $0.803 \pm 0.015$, considered sufficient for the coarse-grained LTS classification task. Predicted and observed AADT values were assigned to OS~NGD links via nearest-network spatial join. For the small number of links where no match was achieved, volume was imputed using the median AADT of the corresponding road classification to ensure network-wide coverage.
 
 \section{Junction LTS Classification}
 \label{sec:method-junctionlts}

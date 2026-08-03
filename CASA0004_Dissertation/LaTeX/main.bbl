@@ -521,6 +521,57 @@
       \endverb
       \keyw{Built environment,Cycling,Journeys to work,Land-use planning,Travel demand modelling,Zero inflated beta regression}
     \endentry
+    \entry{chaplin2021}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=1fbc80c02d1aae74de8e99d5beeb74c3}{%
+           family={Chaplin},
+           familyi={C\bibinitperiod},
+           given={Neil},
+           giveni={N\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Coventry}%
+      }
+      \list{organization}{1}{%
+        {Coventry City Council}%
+      }
+      \list{publisher}{1}{%
+        {Coventry City Council}%
+      }
+      \strng{namehash}{1fbc80c02d1aae74de8e99d5beeb74c3}
+      \strng{fullhash}{1fbc80c02d1aae74de8e99d5beeb74c3}
+      \strng{fullhashraw}{1fbc80c02d1aae74de8e99d5beeb74c3}
+      \strng{bibnamehash}{1fbc80c02d1aae74de8e99d5beeb74c3}
+      \strng{authorbibnamehash}{1fbc80c02d1aae74de8e99d5beeb74c3}
+      \strng{authornamehash}{1fbc80c02d1aae74de8e99d5beeb74c3}
+      \strng{authorfullhash}{1fbc80c02d1aae74de8e99d5beeb74c3}
+      \strng{authorfullhashraw}{1fbc80c02d1aae74de8e99d5beeb74c3}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Air quality in Coventry.}
+      \field{annotation}{Last Modified: 2010-12-09}
+      \field{langid}{english}
+      \field{title}{Coventry {{Local Air Quality Action Plan}}}
+      \field{urlday}{9}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/7YXYPEV3/2.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.coventry.gov.uk/pollution-1/air-quality/2
+      \endverb
+      \verb{url}
+      \verb https://www.coventry.gov.uk/pollution-1/air-quality/2
+      \endverb
+    \endentry
     \entry{chaurand2013}{article}{}{}
       \name{author}{2}{}{%
         {{hash=c5542884a9125d8497ac258edf840514}{%
@@ -578,6 +629,45 @@
       \verb https://www.sciencedirect.com/science/article/pii/S0001457512003120
       \endverb
       \keyw{Cyclists,Drivers,Perceived risk,Perceived skill,Road interactions}
+    \endentry
+    \entry{coventrycitycouncil2023}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=e280d0364a4467a9c6e506c67f85b205}{%
+           family={{Coventry City Council}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {UK Parliament}%
+      }
+      \strng{namehash}{e280d0364a4467a9c6e506c67f85b205}
+      \strng{fullhash}{e280d0364a4467a9c6e506c67f85b205}
+      \strng{fullhashraw}{e280d0364a4467a9c6e506c67f85b205}
+      \strng{bibnamehash}{e280d0364a4467a9c6e506c67f85b205}
+      \strng{authorbibnamehash}{e280d0364a4467a9c6e506c67f85b205}
+      \strng{authornamehash}{e280d0364a4467a9c6e506c67f85b205}
+      \strng{authorfullhash}{e280d0364a4467a9c6e506c67f85b205}
+      \strng{authorfullhashraw}{e280d0364a4467a9c6e506c67f85b205}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{title}{Written Evidence Submitted by {{Coventry City Council}} ({{AIR0070}})}
+      \field{type}{Written evidence to the Environmental Audit Committee}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/QRYSBKWV/pdf.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://committees.parliament.uk/writtenevidence/121579/pdf/
+      \endverb
+      \verb{url}
+      \verb https://committees.parliament.uk/writtenevidence/121579/pdf/
+      \endverb
     \endentry
     \entry{crow2016}{book}{}{}
       \name{author}{1}{}{%
@@ -839,6 +929,61 @@
       \verb https://www.gov.uk/government/publications/transport-connectivity-metric/transport-connectivity-metric
       \endverb
     \endentry
+    \entry{departmentfortransport2025b}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=2c2b0e48dc97b685b8d4ccb853b67efb}{%
+           family={{Department for Transport}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \name{shortauthor}{1}{}{%
+        {{hash=a70502ecbbaa9be1e8abad503e4ad7e5}{%
+           family={{DfT}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {GOV.UK}%
+      }
+      \strng{namehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \strng{fullhash}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{fullhashraw}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{bibnamehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \strng{authorbibnamehash}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{authornamehash}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{authorfullhash}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{authorfullhashraw}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{shortauthorbibnamehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \strng{shortauthornamehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \strng{shortauthorfullhash}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \strng{shortauthorfullhashraw}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \field{extraname}{4}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradate}{3}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{shortauthor}
+      \field{labeltitlesource}{shorttitle}
+      \field{day}{25}
+      \field{langid}{english}
+      \field{month}{6}
+      \field{shorttitle}{Vehicle Speed Compliance Statistics for {{Great Britain}}}
+      \field{title}{Vehicle Speed Compliance Statistics for {{Great Britain}}: 2024}
+      \field{urlday}{25}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/DFHT63DA/vehicle-speed-compliance-statistics-for-great-britain-2024.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.gov.uk/government/statistics/vehicle-speed-compliance-statistics-for-great-britain-2024/vehicle-speed-compliance-statistics-for-great-britain-2024
+      \endverb
+      \verb{url}
+      \verb https://www.gov.uk/government/statistics/vehicle-speed-compliance-statistics-for-great-britain-2024/vehicle-speed-compliance-statistics-for-great-britain-2024
+      \endverb
+    \endentry
     \entry{dill2013}{article}{}{}
       \name{author}{2}{}{%
         {{hash=845db3900eacd9e19aa3abff4b38a7e8}{%
@@ -966,6 +1111,45 @@
       \endverb
       \keyw{Economic crisis,government policy,industrial decline,investment,market share,mergers and acquisitions}
     \endentry
+    \entry{europeancommission2021}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=a1b813a6e85874b4c945aec2cdbea74c}{%
+           family={{European Commission}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {European Commission, Directorate General for Transport}%
+      }
+      \list{location}{1}{%
+        {Brussels}%
+      }
+      \strng{namehash}{a1b813a6e85874b4c945aec2cdbea74c}
+      \strng{fullhash}{a1b813a6e85874b4c945aec2cdbea74c}
+      \strng{fullhashraw}{a1b813a6e85874b4c945aec2cdbea74c}
+      \strng{bibnamehash}{a1b813a6e85874b4c945aec2cdbea74c}
+      \strng{authorbibnamehash}{a1b813a6e85874b4c945aec2cdbea74c}
+      \strng{authornamehash}{a1b813a6e85874b4c945aec2cdbea74c}
+      \strng{authorfullhash}{a1b813a6e85874b4c945aec2cdbea74c}
+      \strng{authorfullhashraw}{a1b813a6e85874b4c945aec2cdbea74c}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Road {{Safety Thematic Report}} – {{Speeding}}}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/JQVCMM6D/road_safety_thematic_report_speeding.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://road-safety.transport.ec.europa.eu/system/files/2021-07/road_safety_thematic_report_speeding.pdf
+      \endverb
+      \verb{url}
+      \verb https://road-safety.transport.ec.europa.eu/system/files/2021-07/road_safety_thematic_report_speeding.pdf
+      \endverb
+    \endentry
     \entry{eu2024}{report}{}{}
       \name{author}{1}{}{%
         {{hash=158562a5e9dc942912330c711ca123ca}{%
@@ -1007,6 +1191,48 @@
       \verb{url}
       \verb https://transport.ec.europa.eu/transport-themes/urban-transport/european-declaration-cycling_en
       \endverb
+    \endentry
+    \entry{fitzpatrick2003}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=ba715e02d66fa1b847c8fbe5c99053f3}{%
+           family={Fitzpatrick},
+           familyi={F\bibinitperiod},
+           given={Kay},
+           giveni={K\bibinitperiod}}}%
+        {{hash=0932fc5c8206aa955a49177cb81ca91e}{%
+           family={Program},
+           familyi={P\bibinitperiod},
+           given={National\bibnamedelimb Cooperative\bibnamedelimb Highway\bibnamedelima Research},
+           giveni={N\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Transportation Research Board}%
+      }
+      \strng{namehash}{fabcd4c61a0ebe4f8d7ef020efceb435}
+      \strng{fullhash}{fabcd4c61a0ebe4f8d7ef020efceb435}
+      \strng{fullhashraw}{fabcd4c61a0ebe4f8d7ef020efceb435}
+      \strng{bibnamehash}{fabcd4c61a0ebe4f8d7ef020efceb435}
+      \strng{authorbibnamehash}{fabcd4c61a0ebe4f8d7ef020efceb435}
+      \strng{authornamehash}{fabcd4c61a0ebe4f8d7ef020efceb435}
+      \strng{authorfullhash}{fabcd4c61a0ebe4f8d7ef020efceb435}
+      \strng{authorfullhashraw}{fabcd4c61a0ebe4f8d7ef020efceb435}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{googlebooks}
+      \field{isbn}{978-0-309-08767-4}
+      \field{langid}{english}
+      \field{pagetotal}{103}
+      \field{title}{Design {{Speed}}, {{Operating Speed}}, and {{Posted Speed Practices}}}
+      \field{year}{2003}
+      \field{dateera}{ce}
+      \verb{eprint}
+      \verb RcF8obMw6egC
+      \endverb
+      \keyw{Technology & Engineering / Civil / Highway & Traffic,Technology & Engineering / Engineering (General)}
     \endentry
     \entry{furth2018}{article}{}{}
       \name{author}{3}{}{%
@@ -2152,6 +2378,63 @@
       \endverb
       \keyw{Built environment,Causal effects,Cycling,Inequalities,Methodologies,Natural experiments}
     \endentry
+    \entry{morley2016}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=a8d71b7dc305e848c71bfc9d0a884623}{%
+           family={Morley},
+           familyi={M\bibinitperiod},
+           given={David\bibnamedelima W.},
+           giveni={D\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=6fd38652909f641b55405e8309505772}{%
+           family={Gulliver},
+           familyi={G\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{e63ef53b1e6c93412fee7370fd004b08}
+      \strng{fullhash}{e63ef53b1e6c93412fee7370fd004b08}
+      \strng{fullhashraw}{e63ef53b1e6c93412fee7370fd004b08}
+      \strng{bibnamehash}{e63ef53b1e6c93412fee7370fd004b08}
+      \strng{authorbibnamehash}{e63ef53b1e6c93412fee7370fd004b08}
+      \strng{authornamehash}{e63ef53b1e6c93412fee7370fd004b08}
+      \strng{authorfullhash}{e63ef53b1e6c93412fee7370fd004b08}
+      \strng{authorfullhashraw}{e63ef53b1e6c93412fee7370fd004b08}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Address-level estimates of exposure to road traffic noise for epidemiological studies are dependent on obtaining data on annual average daily traffic (AADT) flows that is both accurate and with good geographical coverage. National agencies often have reliable traffic count data for major roads, but for residential areas served by minor roads, especially at national scale, such information is often not available or incomplete. Here we present a method to predict AADT at the national scale for minor roads, using a routing algorithm within a geographical information system (GIS) to rank roads by importance based on simulated journeys through the road network. From a training set of known minor road AADT, routing importance is used to predict AADT on all UK minor roads in a regression model along with the road class, urban or rural location and AADT on the nearest major road. Validation with both independent traffic counts and noise measurements show that this method gives a considerable improvement in noise prediction capability when compared to models that do not give adequate consideration to minor road variability (Spearman’s rho. increases from 0.46 to 0.72). This has significance for epidemiological cohort studies attempting to link noise exposure to adverse health outcomes.}
+      \field{day}{1}
+      \field{issn}{0269-7491}
+      \field{journaltitle}{Environmental Pollution}
+      \field{month}{9}
+      \field{shortjournal}{Environmental Pollution}
+      \field{title}{Methods to Improve Traffic Flow and Noise Exposure Estimation on Minor Roads}
+      \field{urlday}{25}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{volume}{216}
+      \field{year}{2016}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{746\bibrangedash 754}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1016/j.envpol.2016.06.042
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/5XV7T24G/Morley and Gulliver - 2016 - Methods to improve traffic flow and noise exposure estimation on minor roads.pdf;/Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/AUKG65IV/S0269749116305280.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0269749116305280
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0269749116305280
+      \endverb
+      \keyw{CNOSSOS-EU,Geospatial routing,Minor roads,Noise exposure,OpenStreetMap,Road traffic}
+    \endentry
     \entry{murphy2019}{article}{}{}
       \name{author}{2}{}{%
         {{hash=b0e20e5ae6e1892a688dfba455fc907d}{%
@@ -2281,6 +2564,45 @@
       \endverb
       \verb{url}
       \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC7813224/
+      \endverb
+    \endentry
+    \entry{nationalhighways2019}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=ff32c101e1589e4ca6ac98e4eb8cf1ce}{%
+           family={{National Highways}},
+           familyi={N\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {National Highways}%
+      }
+      \strng{namehash}{ff32c101e1589e4ca6ac98e4eb8cf1ce}
+      \strng{fullhash}{ff32c101e1589e4ca6ac98e4eb8cf1ce}
+      \strng{fullhashraw}{ff32c101e1589e4ca6ac98e4eb8cf1ce}
+      \strng{bibnamehash}{ff32c101e1589e4ca6ac98e4eb8cf1ce}
+      \strng{authorbibnamehash}{ff32c101e1589e4ca6ac98e4eb8cf1ce}
+      \strng{authornamehash}{ff32c101e1589e4ca6ac98e4eb8cf1ce}
+      \strng{authorfullhash}{ff32c101e1589e4ca6ac98e4eb8cf1ce}
+      \strng{authorfullhashraw}{ff32c101e1589e4ca6ac98e4eb8cf1ce}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{british}
+      \field{number}{CA 185 (Revision 0)}
+      \field{title}{Vehicle Speed Measurement}
+      \field{type}{Design Manual for Roads and Bridges (DMRB)}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/3PMRZV5B/CA 185 Vehicle speed measurement-web.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.standardsforhighways.co.uk/tses/attachments/by-attachment-id/335c228a-473d-4fd5-b884-d4c3eb149023?inline=true
+      \endverb
+      \verb{url}
+      \verb https://www.standardsforhighways.co.uk/tses/attachments/by-attachment-id/335c228a-473d-4fd5-b884-d4c3eb149023?inline=true
       \endverb
     \endentry
     \entry{officefornationalstatistics2025}{online}{}{}
@@ -3407,7 +3729,7 @@
       \strng{shortauthornamehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
       \strng{shortauthorfullhash}{a70502ecbbaa9be1e8abad503e4ad7e5}
       \strng{shortauthorfullhashraw}{a70502ecbbaa9be1e8abad503e4ad7e5}
-      \field{extraname}{4}
+      \field{extraname}{5}
       \field{sortinit}{T}
       \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
       \field{extradate}{2}
