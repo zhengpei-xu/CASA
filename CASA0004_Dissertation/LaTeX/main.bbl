@@ -53,6 +53,7 @@
       \strng{authornamehash}{80ea1c42ecd6645fd65db245f1395cf9}
       \strng{authorfullhash}{6d62d1d433aa827bb690ea92276aedf9}
       \strng{authorfullhashraw}{6d62d1d433aa827bb690ea92276aedf9}
+      \field{extraname}{1}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{extradatescope}{labelyear}
@@ -93,6 +94,73 @@
       \verb https://doi.org/10.1080/01441647.2016.1200156
       \endverb
       \keyw{age,Cycling,equity,gender,systematic review}
+    \endentry
+    \entry{aldred2021}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=f72d71886b6d7fdf288b1fb1e62cff55}{%
+           family={Aldred},
+           familyi={A\bibinitperiod},
+           given={Rachel},
+           giveni={R\bibinitperiod}}}%
+        {{hash=4e856e1ff8f80e7ca56217af0700b41b}{%
+           family={Kapousizis},
+           familyi={K\bibinitperiod},
+           given={Georgios},
+           giveni={G\bibinitperiod}}}%
+        {{hash=36f8490517c1fa0e0bf9e17026e485ba}{%
+           family={Goodman},
+           familyi={G\bibinitperiod},
+           given={Anna},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Multidisciplinary Digital Publishing Institute}%
+      }
+      \strng{namehash}{80ea1c42ecd6645fd65db245f1395cf9}
+      \strng{fullhash}{0ad026bb140e23afcf1c2c0355b593e7}
+      \strng{fullhashraw}{0ad026bb140e23afcf1c2c0355b593e7}
+      \strng{bibnamehash}{0ad026bb140e23afcf1c2c0355b593e7}
+      \strng{authorbibnamehash}{0ad026bb140e23afcf1c2c0355b593e7}
+      \strng{authornamehash}{80ea1c42ecd6645fd65db245f1395cf9}
+      \strng{authorfullhash}{0ad026bb140e23afcf1c2c0355b593e7}
+      \strng{authorfullhashraw}{0ad026bb140e23afcf1c2c0355b593e7}
+      \field{extraname}{2}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Objective: This paper examines infrastructural and route environment correlates of cycling injury risk in Britain for commuters riding in the morning peak. Methods: The study uses a case-crossover design which controls for exposure. Control sites from modelled cyclist routes (matched on intersection status) were compared with sites where cyclists were injured. Conditional logistic regression for matched case–control groups was used to compare characteristics of control and injury sites. Results: High streets (defined by clustering of retail premises) raised injury odds by 32\%. Main (Class A or primary) roads were riskier than other road types, with injury odds twice that for residential roads. Wider roads, and those with lower gradients increased injury odds. Guard railing raised injury odds by 18\%, and petrol stations or car parks by 43\%. Bus lanes raised injury odds by 84\%. As in other studies, there was a ‘safety in numbers’ effect from more cyclists. Contrary to other analysis, including two recent studies in London, we did not find a protective effect from cycle infrastructure and the presence of painted cycle lanes raised injury odds by 54\%. At intersections, both standard and mini roundabouts were associated with injury odds several times higher than other intersections. Presence of traffic signals, with or without an Advanced Stop Line (‘bike box’), had no impact on injury odds. For a cyclist on a main road, intersections with minor roads were riskier than intersections with other main roads. Conclusions: Typical cycling environments in Britain put cyclists at risk, and infrastructure must be improved, particularly on busy main roads, high streets, and bus routes.}
+      \field{issn}{1660-4601}
+      \field{journaltitle}{International Journal of Environmental Research and Public Health}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{6}
+      \field{shorttitle}{Association of {{Infrastructure}} and {{Route Environment Factors}} with {{Cycling Injury Risk}} at {{Intersection}} and {{Non-Intersection Locations}}}
+      \field{title}{Association of {{Infrastructure}} and {{Route Environment Factors}} with {{Cycling Injury Risk}} at {{Intersection}} and {{Non-Intersection Locations}}: {{A Case-Crossover Study}} of {{Britain}}}
+      \field{urlday}{2}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{volume}{18}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{3060}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/ijerph18063060
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/YLZZJU6D/Aldred et al. - 2021 - Association of Infrastructure and Route Environment Factors with Cycling Injury Risk at Intersection.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/1660-4601/18/6/3060
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/1660-4601/18/6/3060
+      \endverb
+      \keyw{case-crossover,cycling,infrastructure,injury,intersections,route environment}
     \endentry
     \entry{barthelemy2009}{article}{}{}
       \name{author}{2}{}{%
@@ -630,6 +698,50 @@
       \endverb
       \keyw{Cyclists,Drivers,Perceived risk,Perceived skill,Road interactions}
     \endentry
+    \entry{conveyal2015}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=8c327590fc940ace27e2be7734a7c7ac}{%
+           family={{Conveyal}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Better Measures of Bike Accessibility}%
+      }
+      \strng{namehash}{8c327590fc940ace27e2be7734a7c7ac}
+      \strng{fullhash}{8c327590fc940ace27e2be7734a7c7ac}
+      \strng{fullhashraw}{8c327590fc940ace27e2be7734a7c7ac}
+      \strng{bibnamehash}{8c327590fc940ace27e2be7734a7c7ac}
+      \strng{authorbibnamehash}{8c327590fc940ace27e2be7734a7c7ac}
+      \strng{authornamehash}{8c327590fc940ace27e2be7734a7c7ac}
+      \strng{authorfullhash}{8c327590fc940ace27e2be7734a7c7ac}
+      \strng{authorfullhashraw}{8c327590fc940ace27e2be7734a7c7ac}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Better Measures of Bike Accessibility Better Measures of Bike Accessibility Here at Conveyal, we do a lot of transport analysis using accessibility metrics, which are simply measures of how many …}
+      \field{day}{15}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{title}{Better {{Measures}} of {{Bike Accessibility}}}
+      \field{urlday}{2}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{year}{2015}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/KBKA6LGP/better-measures-of-bike-accessibility-d875ae5ed831.html
+      \endverb
+      \verb{urlraw}
+      \verb https://medium.com/conveyal-blog/better-measures-of-bike-accessibility-d875ae5ed831
+      \endverb
+      \verb{url}
+      \verb https://medium.com/conveyal-blog/better-measures-of-bike-accessibility-d875ae5ed831
+      \endverb
+    \endentry
     \entry{coventrycitycouncil2023}{report}{}{}
       \name{author}{1}{}{%
         {{hash=e280d0364a4467a9c6e506c67f85b205}{%
@@ -697,6 +809,120 @@
       \field{labeltitlesource}{title}
       \field{title}{Design Manual for Bicycle Traffic}
       \field{year}{2016}
+    \endentry
+    \entry{daniels2009}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=40f313b8566d1daa8e0afe2d2139989d}{%
+           family={Daniels},
+           familyi={D\bibinitperiod},
+           given={Stijn},
+           giveni={S\bibinitperiod}}}%
+        {{hash=f496685949aa3bcaee2418cfb7fffeb0}{%
+           family={Brijs},
+           familyi={B\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod}}}%
+        {{hash=5cec6e7689ec409ae8c6a05d2a63f8ea}{%
+           family={Nuyts},
+           familyi={N\bibinitperiod},
+           given={Erik},
+           giveni={E\bibinitperiod}}}%
+        {{hash=29f4d625c6f532d06cd087edb31c9c24}{%
+           family={Wets},
+           familyi={W\bibinitperiod},
+           given={Geert},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{27100de4e9d320c940d61e6baad7d91b}
+      \strng{fullhash}{ba5bec62af337b16952b20037f3b8588}
+      \strng{fullhashraw}{ba5bec62af337b16952b20037f3b8588}
+      \strng{bibnamehash}{ba5bec62af337b16952b20037f3b8588}
+      \strng{authorbibnamehash}{ba5bec62af337b16952b20037f3b8588}
+      \strng{authornamehash}{27100de4e9d320c940d61e6baad7d91b}
+      \strng{authorfullhash}{ba5bec62af337b16952b20037f3b8588}
+      \strng{authorfullhashraw}{ba5bec62af337b16952b20037f3b8588}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Problem Previous research indicated that conversions of intersections into roundabouts appear to increase the number of injury crashes with bicyclists. However, it was assumed that the effectiveness of roundabouts could vary according to some differences in design types of cycle, facilities and other geometrical factors. Method Regression analyses on effectiveness-indices resulting from a before-and-after study of injury crashes with bicyclists at 90 roundabouts in Flanders, Belgium. Results Regarding all injury crashes with bicyclists, roundabouts with cycle lanes appear to perform significantly worse compared to three other design types (mixed traffic, separate cycle paths, and grade-separated cycle paths). Nevertheless, an increase of the severest crashes was noticed, regardless of the design type of the cycle facilities. Roundabouts that are replacing signal-controlled intersections seem to have had a worse evolution compared to roundabouts on other types of intersections. Impact on industry The results might affect design guidelines for roundabouts, particularly for the accommodation of bicyclists.}
+      \field{day}{1}
+      \field{issn}{0022-4375}
+      \field{journaltitle}{Journal of Safety Research}
+      \field{month}{1}
+      \field{number}{2}
+      \field{shortjournal}{Journal of Safety Research}
+      \field{shorttitle}{Injury Crashes with Bicyclists at Roundabouts}
+      \field{title}{Injury Crashes with Bicyclists at Roundabouts: Influence of Some Location Characteristics and the Design of Cycle Facilities}
+      \field{urlday}{2}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{volume}{40}
+      \field{year}{2009}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{141\bibrangedash 148}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1016/j.jsr.2009.02.004
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/3MVSECSE/Daniels et al. - 2009 - Injury crashes with bicyclists at roundabouts influence of some location characteristics and the de.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0022437509000279
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0022437509000279
+      \endverb
+      \keyw{bicyclist,crash,design,Roundabout,safety}
+    \endentry
+    \entry{davies1997}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=370c137c8bf1bb48556a8ff522232ee7}{%
+           family={Davies},
+           familyi={D\bibinitperiod},
+           given={D.G.},
+           giveni={D\bibinitperiod}}}%
+        {{hash=b771eb5f047542f813f360648fab7b4f}{%
+           family={Taylor},
+           familyi={T\bibinitperiod},
+           given={M.C.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d5b525b56b4d0b1e600fb22f3a0f5a0b}{%
+           family={Ryley},
+           familyi={R\bibinitperiod},
+           given={T.J.},
+           giveni={T\bibinitperiod}}}%
+        {{hash=6599cbf4dda08ac19ad363b5e0b1bef3}{%
+           family={Halliday},
+           familyi={H\bibinitperiod},
+           given={M.E.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{afae54897da4b7bf32e98f8221586109}
+      \strng{fullhash}{d268d2edb4fe381a470e25700770dcfd}
+      \strng{fullhashraw}{d268d2edb4fe381a470e25700770dcfd}
+      \strng{bibnamehash}{d268d2edb4fe381a470e25700770dcfd}
+      \strng{authorbibnamehash}{d268d2edb4fe381a470e25700770dcfd}
+      \strng{authornamehash}{afae54897da4b7bf32e98f8221586109}
+      \strng{authorfullhash}{d268d2edb4fe381a470e25700770dcfd}
+      \strng{authorfullhashraw}{d268d2edb4fe381a470e25700770dcfd}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Transport Research Laboratory}
+      \field{title}{Cyclists at Roundabouts—the Effects of ‘{{Continental}}’Design on Predicted Safety and Capacity}
+      \field{year}{1997}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/PDJUHASD/TRL285.pdf
+      \endverb
     \endentry
     \entry{delclos-alio2024}{article}{}{}
       \name{author}{2}{}{%
@@ -817,6 +1043,64 @@
       \verb https://www.gov.uk/government/publications/cycle-infrastructure-design-ltn-120
       \endverb
     \endentry
+    \entry{departmentfortransport2024}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=2c2b0e48dc97b685b8d4ccb853b67efb}{%
+           family={{Department for Transport}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \name{shortauthor}{1}{}{%
+        {{hash=a70502ecbbaa9be1e8abad503e4ad7e5}{%
+           family={{DfT}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {London}%
+      }
+      \list{organization}{1}{%
+        {GOV.UK}%
+      }
+      \list{publisher}{1}{%
+        {Department for Transport}%
+      }
+      \strng{namehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \strng{fullhash}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{fullhashraw}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{bibnamehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \strng{authorbibnamehash}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{authornamehash}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{authorfullhash}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{authorfullhashraw}{2c2b0e48dc97b685b8d4ccb853b67efb}
+      \strng{shortauthorbibnamehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \strng{shortauthornamehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \strng{shortauthorfullhash}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \strng{shortauthorfullhashraw}{a70502ecbbaa9be1e8abad503e4ad7e5}
+      \field{extraname}{2}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{shortauthor}
+      \field{labeltitlesource}{shorttitle}
+      \field{langid}{english}
+      \field{shorttitle}{Reported Road Casualties in {{Great Britain}}}
+      \field{title}{Reported Road Casualties in {{Great Britain}}: Pedal Cycle Factsheet, 2023}
+      \field{urlday}{18}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/DIS96D7G/reported-road-casualties-in-great-britain-pedal-cycle-factsheet-2023.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.gov.uk/government/statistics/reported-road-casualties-great-britain-pedal-cyclist-factsheet-2023/reported-road-casualties-in-great-britain-pedal-cycle-factsheet-2023
+      \endverb
+      \verb{url}
+      \verb https://www.gov.uk/government/statistics/reported-road-casualties-great-britain-pedal-cyclist-factsheet-2023/reported-road-casualties-in-great-britain-pedal-cycle-factsheet-2023
+      \endverb
+    \endentry
     \entry{departmentfortransport2025}{online}{}{}
       \name{author}{1}{}{%
         {{hash=2c2b0e48dc97b685b8d4ccb853b67efb}{%
@@ -843,7 +1127,7 @@
       \strng{shortauthornamehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
       \strng{shortauthorfullhash}{a70502ecbbaa9be1e8abad503e4ad7e5}
       \strng{shortauthorfullhashraw}{a70502ecbbaa9be1e8abad503e4ad7e5}
-      \field{extraname}{2}
+      \field{extraname}{3}
       \field{sortinit}{D}
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
       \field{extradate}{1}
@@ -901,7 +1185,7 @@
       \strng{shortauthornamehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
       \strng{shortauthorfullhash}{a70502ecbbaa9be1e8abad503e4ad7e5}
       \strng{shortauthorfullhashraw}{a70502ecbbaa9be1e8abad503e4ad7e5}
-      \field{extraname}{3}
+      \field{extraname}{4}
       \field{sortinit}{D}
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
       \field{extradate}{2}
@@ -955,7 +1239,7 @@
       \strng{shortauthornamehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
       \strng{shortauthorfullhash}{a70502ecbbaa9be1e8abad503e4ad7e5}
       \strng{shortauthorfullhashraw}{a70502ecbbaa9be1e8abad503e4ad7e5}
-      \field{extraname}{4}
+      \field{extraname}{5}
       \field{sortinit}{D}
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
       \field{extradate}{3}
@@ -1190,6 +1474,66 @@
       \endverb
       \verb{url}
       \verb https://transport.ec.europa.eu/transport-themes/urban-transport/european-declaration-cycling_en
+      \endverb
+    \endentry
+    \entry{feng2019}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=ed98c7196710b55ff2bee69f5a5c45fc}{%
+           family={Feng},
+           familyi={F\bibinitperiod},
+           given={Chen},
+           giveni={C\bibinitperiod}}}%
+        {{hash=c41f5c6436b771a31415c0b4761ca5bc}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Wenwen},
+           giveni={W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {SAGE Publications Ltd STM}%
+      }
+      \strng{namehash}{1e87ab45bb01ebbea79ee9e2e1f7068c}
+      \strng{fullhash}{1e87ab45bb01ebbea79ee9e2e1f7068c}
+      \strng{fullhashraw}{1e87ab45bb01ebbea79ee9e2e1f7068c}
+      \strng{bibnamehash}{1e87ab45bb01ebbea79ee9e2e1f7068c}
+      \strng{authorbibnamehash}{1e87ab45bb01ebbea79ee9e2e1f7068c}
+      \strng{authornamehash}{1e87ab45bb01ebbea79ee9e2e1f7068c}
+      \strng{authorfullhash}{1e87ab45bb01ebbea79ee9e2e1f7068c}
+      \strng{authorfullhashraw}{1e87ab45bb01ebbea79ee9e2e1f7068c}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{By asking how much street length can be reached from a given origin within a specified distance limit, and by defining distance in different ways as a function of the physical or cognitive effort required to move in cities, the analysis of reach produces measures that effectively characterize street density, connectivity, and the associated urban potential. While the conceptual foundation for reach analysis has already been laid, the computational aspects have not been sufficiently addressed. We introduce the different graph representations and algorithms we developed to analyze metric reach, directional reach, and intersection reach?a new addition to the existing measures. The graph representation we developed for directional reach analysis also sets the foundation for more advanced graph-based street network analysis. We also provide formulae for computing the mean directional and intersection reach. Finally, we discuss common street network modeling issues that can be addressed by consistent mapping protocols.}
+      \field{day}{1}
+      \field{issn}{2399-8083}
+      \field{journaltitle}{Environment and Planning B: Urban Analytics and City Science}
+      \field{langid}{english}
+      \field{month}{10}
+      \field{number}{8}
+      \field{title}{Algorithms for the Parametric Analysis of Metric, Directional, and Intersection Reach}
+      \field{urlday}{17}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{volume}{46}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1422\bibrangedash 1438}
+      \range{pages}{17}
+      \verb{doi}
+      \verb 10.1177/2399808319827299
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/ZS6Y3WKN/Feng and Zhang - 2019 - Algorithms for the parametric analysis of metric, directional, and intersection reach.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1177/2399808319827299
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1177/2399808319827299
       \endverb
     \endentry
     \entry{fitzpatrick2003}{book}{}{}
@@ -1716,6 +2060,106 @@
       \endverb
       \keyw{Bicycle planning,Bike lanes,Level of Traffic Stress (LTS),OpenStreetMap}
     \endentry
+    \entry{huertas2020}{article}{}{}
+      \name{author}{10}{}{%
+        {{hash=edad5049f3f6322b087d0abe0f69828a}{%
+           family={Huertas},
+           familyi={H\bibinitperiod},
+           given={Jorge\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=2f6dbd646a7fb2e346d92af5fef9ff72}{%
+           family={Palacio},
+           familyi={P\bibinitperiod},
+           given={Alejandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=10ae564dfe86a1ec7cd85d283d550f67}{%
+           family={Botero},
+           familyi={B\bibinitperiod},
+           given={Marcelo},
+           giveni={M\bibinitperiod}}}%
+        {{hash=acd931e0ff9fceeb8698a4008b555ad6}{%
+           family={Carvajal},
+           familyi={C\bibinitperiod},
+           given={Germán\bibnamedelima A.},
+           giveni={G\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{useprefix=true,hash=e81ee61cb536de0955e426616572cd47}{%
+           family={Laake},
+           familyi={L\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod},
+           prefix={van},
+           prefixi={v\bibinitperiod}}}%
+        {{hash=3c5508094d5feeca1ef26c2006461def}{%
+           family={Higuera-Mendieta},
+           familyi={H\bibinithyphendelim M\bibinitperiod},
+           given={Diana},
+           giveni={D\bibinitperiod}}}%
+        {{hash=8c82ed3166c177279dcbaa11b74d47c9}{%
+           family={Cabrales},
+           familyi={C\bibinitperiod},
+           given={Sergio\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=b691816a618f366dabdfddc72425ad7c}{%
+           family={Guzman},
+           familyi={G\bibinitperiod},
+           given={Luis\bibnamedelima A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=ebb139879c34e5ff0bba0e24dce91a20}{%
+           family={Sarmiento},
+           familyi={S\bibinitperiod},
+           given={Olga\bibnamedelima L.},
+           giveni={O\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=57d14eca34788bfedcc12edfd8626b93}{%
+           family={Medaglia},
+           familyi={M\bibinitperiod},
+           given={Andrés\bibnamedelima L.},
+           giveni={A\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{55479be629572f7cf48c38bb1b9f2600}
+      \strng{fullhash}{4bbf65f8913ef2d9a521047afb765f40}
+      \strng{fullhashraw}{4bbf65f8913ef2d9a521047afb765f40}
+      \strng{bibnamehash}{4bbf65f8913ef2d9a521047afb765f40}
+      \strng{authorbibnamehash}{4bbf65f8913ef2d9a521047afb765f40}
+      \strng{authornamehash}{55479be629572f7cf48c38bb1b9f2600}
+      \strng{authorfullhash}{4bbf65f8913ef2d9a521047afb765f40}
+      \strng{authorfullhashraw}{4bbf65f8913ef2d9a521047afb765f40}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{The Level of Traffic Stress (LTS) is an indicator that quantifies the stress experienced by a cyclist on the segments of a road network. We propose an LTS-based classification with two components: a clustering component and an interpretative component. Our methodology is comprised of four steps: (i) compilation of a set of variables for road segments, (ii) generation of clusters of segments within a subset of the road network, (iii) classification of all segments of the road network into these clusters using a predictive model, and (iv) assignment of an LTS category to each cluster. At the core of the methodology, we couple a classifier (unsupervised clustering algorithm) with a predictive model (multinomial logistic regression) to make our approach scalable to massive data sets. Our methodology is a useful tool for policy-making, as it identifies suitable areas for interventions; and can estimate their impact on the LTS classification, according to probable changes to the input variables (e.g., traffic density). We applied our methodology on the road network of Bogotá, Colombia, a city with a history of implementing innovative policies to promote biking. To classify road segments, we combined government data with open-access repositories using geographic information systems (GIS). Comparing our LTS classification with city reports, we found that the number of bicyclists’ fatal and non-fatal collisions per kilometer is positively correlated with higher LTS. Finally, to support policy making, we developed a web-enabled dashboard to visualize and analyze the LTS classification and its underlying variables.}
+      \field{day}{1}
+      \field{issn}{1361-9209}
+      \field{journaltitle}{Transportation Research Part D: Transport and Environment}
+      \field{month}{8}
+      \field{shortjournal}{Transportation Research Part D: Transport and Environment}
+      \field{shorttitle}{Level of Traffic Stress-Based Classification}
+      \field{title}{Level of Traffic Stress-Based Classification: {{A}} Clustering Approach for {{Bogotá}}, {{Colombia}}}
+      \field{urlday}{13}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{volume}{85}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{102420}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.trd.2020.102420
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/PJDUHV4H/Huertas 等 - 2020 - Level of traffic stress-based classification A clustering approach for Bogotá, Colombia.pdf;/Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/K39NRWI4/S1361920920306076.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S1361920920306076
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S1361920920306076
+      \endverb
+      \keyw{Bogotá,Cluster Analysis,Cycling,Latin America,Level of Traffic Stress}
+    \endentry
     \entry{hull2014}{article}{}{}
       \name{author}{2}{}{%
         {{hash=7f559d833c2257fe96143d557adc6a92}{%
@@ -1987,6 +2431,68 @@
       \endverb
       \verb{url}
       \verb https://doi.org/10.3141/1578-15
+      \endverb
+    \endentry
+    \entry{lin2021}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=f04b2c688165ba3afcf412addae9a6fe}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Bo},
+           giveni={B\bibinitperiod}}}%
+        {{hash=0095c4ed847e1935a61ee70728db9c6e}{%
+           family={Chan},
+           familyi={C\bibinitperiod},
+           given={Timothy\bibnamedelimb C.\bibnamedelimi Y.},
+           giveni={T\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+        {{hash=e119ee5505288b1b4ec1e7fe0e71081f}{%
+           family={Saxe},
+           familyi={S\bibinitperiod},
+           given={Shoshanna},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Findings Press}%
+      }
+      \strng{namehash}{f21726d6d730adf5d99d71f6ed7dce60}
+      \strng{fullhash}{9a1bc62b8e7e11a9ab8f56d379a29d1f}
+      \strng{fullhashraw}{9a1bc62b8e7e11a9ab8f56d379a29d1f}
+      \strng{bibnamehash}{9a1bc62b8e7e11a9ab8f56d379a29d1f}
+      \strng{authorbibnamehash}{9a1bc62b8e7e11a9ab8f56d379a29d1f}
+      \strng{authornamehash}{f21726d6d730adf5d99d71f6ed7dce60}
+      \strng{authorfullhash}{9a1bc62b8e7e11a9ab8f56d379a29d1f}
+      \strng{authorfullhashraw}{9a1bc62b8e7e11a9ab8f56d379a29d1f}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{This paper investigates the impact of COVID-19 cycling infrastructure on Toronto's low-stress cycling accessibility. We calculated the level of traffic stress (LTS) for the road network with and without the cycling infrastructure built in response to the COVID-19 pandemic. We then computed the accessibility to populations, jobs, food stores, and parks for each dissemination area at each LTS. We find that the COVID-19 cycling infrastructure increased low-stress population and job accessibility by 10.4\% and 22.3\% respectively, and granted food and park access to 54,023 and 3,178 people. Accessibility gains were largest in areas where new infrastructure linked with preexisting networks.}
+      \field{day}{11}
+      \field{journaltitle}{Findings}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{shortjournal}{Findings}
+      \field{shorttitle}{The {{Impact}} of {{COVID-19 Cycling Infrastructure}} on {{Low-Stress Cycling Accessibility}}}
+      \field{title}{The {{Impact}} of {{COVID-19 Cycling Infrastructure}} on {{Low-Stress Cycling Accessibility}}: {{A Case Study}} in the {{City}} of {{Toronto}}}
+      \field{urlday}{2}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.32866/001c.19069
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/FHIW3R8H/Lin et al. - 2021 - The Impact of COVID-19 Cycling Infrastructure on Low-Stress Cycling Accessibility A Case Study in t.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://findingspress.org/article/19069-the-impact-of-covid-19-cycling-infrastructure-on-low-stress-cycling-accessibility-a-case-study-in-the-city-of-toronto
+      \endverb
+      \verb{url}
+      \verb https://findingspress.org/article/19069-the-impact-of-covid-19-cycling-infrastructure-on-low-stress-cycling-accessibility-a-case-study-in-the-city-of-toronto
       \endverb
     \endentry
     \entry{louro2026}{article}{}{}
@@ -2847,6 +3353,73 @@
       \endverb
       \keyw{Bicycle detouring,Bicycle route preference,Environmental correlates,Multilevel mixed-effect generalized linear regression,Smartphone GPS application}
     \endentry
+    \entry{peponis2008}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=2a64015166a90ef30241b3830bf858e3}{%
+           family={Peponis},
+           familyi={P\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=5f140814b72ccb382c463f5290c01e7c}{%
+           family={Bafna},
+           familyi={B\bibinitperiod},
+           given={Sonit},
+           giveni={S\bibinitperiod}}}%
+        {{hash=4f03d47c3e9c3a69d7eda1ffced7d048}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Zongyu},
+           giveni={Z\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {SAGE Publications Ltd STM}%
+      }
+      \strng{namehash}{01fd524a8b1b8406c872597a5b51d171}
+      \strng{fullhash}{2123857b58ab312cd2024bea80a5b8b7}
+      \strng{fullhashraw}{2123857b58ab312cd2024bea80a5b8b7}
+      \strng{bibnamehash}{2123857b58ab312cd2024bea80a5b8b7}
+      \strng{authorbibnamehash}{2123857b58ab312cd2024bea80a5b8b7}
+      \strng{authornamehash}{01fd524a8b1b8406c872597a5b51d171}
+      \strng{authorfullhash}{2123857b58ab312cd2024bea80a5b8b7}
+      \strng{authorfullhashraw}{2123857b58ab312cd2024bea80a5b8b7}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{We introduce two measures of connectivity that are applicable to standard GIS-based representations of street networks. The reach of a point measures the total street length covered by all paths extending out from that point that are no longer than a given threshold value. The directional distance of a street network from a point is measured according to the minimum number of direction changes required to reach any part of the network from that point, consistent with typical measures used in space syntax. However, our measure of directional distance requires no prior commitment as to the relational elements that make up the network. Any part of the network which is accessible from a point without a change of direction greater than a given threshold angle is treated as a single directional element for the purposes of computation. Street segments are characterized by the reach and directional distance of their midpoints. Networks are characterized by the average directional distance of the corresponding street segments. The measures render explicit the interplay between metric and topological properties of networks. Preliminary studies show that the measures discriminate well between different morphologies of street networks. When used to compare urban morphologies they are well correlated with standard measures used in the literature, with the added advantage that they can discriminate between street segments within the same urban area. Using field observations we also show that the measures can be used to model the effect of spatial configuration upon movement in ways which compare favorably to standard space syntax.}
+      \field{day}{1}
+      \field{issn}{0265-8135}
+      \field{journaltitle}{Environment and Planning B: Planning and Design}
+      \field{langid}{english}
+      \field{month}{10}
+      \field{number}{5}
+      \field{shortjournal}{Environ Plann B Plann Des}
+      \field{shorttitle}{The {{Connectivity}} of {{Streets}}}
+      \field{title}{The {{Connectivity}} of {{Streets}}: {{Reach}} and {{Directional Distance}}}
+      \field{urlday}{17}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{volume}{35}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{881\bibrangedash 901}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.1068/b33088
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/3VRXFR5B/Peponis et al. - 2008 - The Connectivity of Streets Reach and Directional Distance.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1068/b33088
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1068/b33088
+      \endverb
+    \endentry
     \entry{pistoll2014}{article}{}{}
       \name{author}{2}{}{%
         {{hash=46c8e5b7cbd97fb3fcf06e53edc5be66}{%
@@ -2906,6 +3479,67 @@
       \verb https://www.sciencedirect.com/science/article/pii/S2214140514000796
       \endverb
       \keyw{Cycling infrastructure,Cycling prevalence,Health policy,Socioeconomic position}
+    \endentry
+    \entry{poudel2021}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=fe352c86404b5fc0ef4625b4f8745f7c}{%
+           family={Poudel},
+           familyi={P\bibinitperiod},
+           given={Niranjan},
+           giveni={N\bibinitperiod}}}%
+        {{hash=ec88201c0f5f75563bbf41a0bf59f4ba}{%
+           family={Singleton},
+           familyi={S\bibinitperiod},
+           given={Patrick\bibnamedelima A.},
+           giveni={P\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Routledge}%
+      }
+      \strng{namehash}{86a2cd4217fa127c332fac7f0e80b5da}
+      \strng{fullhash}{86a2cd4217fa127c332fac7f0e80b5da}
+      \strng{fullhashraw}{86a2cd4217fa127c332fac7f0e80b5da}
+      \strng{bibnamehash}{86a2cd4217fa127c332fac7f0e80b5da}
+      \strng{authorbibnamehash}{86a2cd4217fa127c332fac7f0e80b5da}
+      \strng{authornamehash}{86a2cd4217fa127c332fac7f0e80b5da}
+      \strng{authorfullhash}{86a2cd4217fa127c332fac7f0e80b5da}
+      \strng{authorfullhashraw}{86a2cd4217fa127c332fac7f0e80b5da}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{As roundabouts become increasingly popular, and as many communities promote bicycle use, the safety of roundabouts for people bicycling is of major concern. Although converting an intersection to a roundabout may reduce crashes overall, some research from northern Europe suggests that roundabouts may actually increase the frequency of bicycle crashes. We perform a systematic literature review on this topic, reviewing 49 different resources with empirical findings (most from Europe, some from Australia/New Zealand, few from the US). Many studies analyse (limited) bicycle crash data or observe driver/cyclist behaviours and interactions, while a few survey cyclists’ safety perceptions. Consistent with design guidance, bicycle safety performance is worse for higher-speed, multilane roundabouts and when on-roadway bike lanes are provided. Crash data and observations suggest that when cyclists “take the lane” and operate as vehicles – as is allowed or even recommended in some current design guidelines – this leads to conflicts and crashes between circulating cyclists and entering drivers who may have “looked but failed to see” (and thus failed to yield to) the cyclist. Providing separated cycle paths around the roundabout seems to be a lower-risk and more comfortable design solution, although care must be taken to encourage appropriate yielding at crossings. Future research should investigate more design features, socio-demographic characteristics, cyclist safety perceptions, and impacts outside of Europe. Studies should continue to explore ways to overcome limited bicycle crash and exposure data and to utilise naturalistic methods, driving simulators, and stated choice experiments.}
+      \field{day}{3}
+      \field{issn}{0144-1647}
+      \field{journaltitle}{Transport Reviews}
+      \field{month}{9}
+      \field{number}{5}
+      \field{shorttitle}{Bicycle Safety at Roundabouts}
+      \field{title}{Bicycle Safety at Roundabouts: A Systematic Literature Review}
+      \field{urlday}{2}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{volume}{41}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{617\bibrangedash 642}
+      \range{pages}{26}
+      \verb{doi}
+      \verb 10.1080/01441647.2021.1877207
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/NN59KHNU/Poudel and Singleton - 2021 - Bicycle safety at roundabouts a systematic literature review.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1080/01441647.2021.1877207
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1080/01441647.2021.1877207
+      \endverb
+      \keyw{behaviour,Bicycling,design,roundabouts,safety}
     \endentry
     \entry{putta2019}{article}{}{}
       \name{author}{2}{}{%
@@ -3036,6 +3670,109 @@
       \verb{url}
       \verb https://doi.org/10.1177/23998083231170637
       \endverb
+    \endentry
+    \entry{reid2011}{report}{}{}
+      \name{author}{2}{}{%
+        {{hash=9ba67424163e36431573a1ebbd304a68}{%
+           family={Reid},
+           familyi={R\bibinitperiod},
+           given={Stuart},
+           giveni={S\bibinitperiod}}}%
+        {{hash=b3c8ab950e37c11adf308f92dcb2e488}{%
+           family={Ada},
+           familyi={A\bibinitperiod},
+           given={Simon},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{17e1b4a6ee7f4d809d5b5c1b56ba0a2a}
+      \strng{fullhash}{17e1b4a6ee7f4d809d5b5c1b56ba0a2a}
+      \strng{fullhashraw}{17e1b4a6ee7f4d809d5b5c1b56ba0a2a}
+      \strng{bibnamehash}{17e1b4a6ee7f4d809d5b5c1b56ba0a2a}
+      \strng{authorbibnamehash}{17e1b4a6ee7f4d809d5b5c1b56ba0a2a}
+      \strng{authornamehash}{17e1b4a6ee7f4d809d5b5c1b56ba0a2a}
+      \strng{authorfullhash}{17e1b4a6ee7f4d809d5b5c1b56ba0a2a}
+      \strng{authorfullhashraw}{17e1b4a6ee7f4d809d5b5c1b56ba0a2a}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{english}
+      \field{title}{Infrastructure and Cyclist Safety}
+      \field{year}{2011}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/TTELL35V/Reid and Ada - 2011 - Infrastructure and cyclist safety.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.trl.co.uk/uploads/trl/documents/PPR580.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.trl.co.uk/uploads/trl/documents/PPR580.pdf
+      \endverb
+    \endentry
+    \entry{rodrigues2022}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=c29bbcc058b93f4e8548bf27c7ce7d78}{%
+           family={Rodrigues},
+           familyi={R\bibinitperiod},
+           given={Murilo\bibnamedelima Ribeiro},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=33dfbb08da4ddaef0521fefb4344ff38}{%
+           family={Rodrigues\bibnamedelimb da\bibnamedelima Silva},
+           familyi={R\bibinitperiod\bibinitdelim d\bibinitperiod\bibinitdelim S\bibinitperiod},
+           given={Antônio\bibnamedelima Nélson},
+           giveni={A\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=de89dcb20cd3b0f011125ac02c04f824}{%
+           family={Teixeira},
+           familyi={T\bibinitperiod},
+           given={Inaian\bibnamedelima Pignatti},
+           giveni={I\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \strng{namehash}{e1382857a8c44709d642f656afa4455f}
+      \strng{fullhash}{3f15473681109aff23b8aff77cb6b046}
+      \strng{fullhashraw}{3f15473681109aff23b8aff77cb6b046}
+      \strng{bibnamehash}{3f15473681109aff23b8aff77cb6b046}
+      \strng{authorbibnamehash}{3f15473681109aff23b8aff77cb6b046}
+      \strng{authornamehash}{e1382857a8c44709d642f656afa4455f}
+      \strng{authorfullhash}{3f15473681109aff23b8aff77cb6b046}
+      \strng{authorfullhashraw}{3f15473681109aff23b8aff77cb6b046}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Introduction Focusing on the challenge of minimizing the level of stress to which cyclists are exposed to when cycling, the objective of this study is to assess the applicability of an important index to classify routes in terms of stress for cycling, the Level of Traffic Stress (LTS), to a medium-sized city in a developing country. Method For this purpose, physiological measures of stress of 15 cyclists, recorded while cycling on roads with different characteristics in the city of São Carlos, Brazil, were used to create a scale that was then compared to the LTS. In addition, applying the Random Forests technique using variables identified with video recordings collected during the trips allowed us to identify relevant causes of stress, and thus incorporate them into the LTS classification to improve their suitability to represent real-life situations. Results The results showed no correlation between the LTS classification and the actual stress experienced by cyclists, but also showed that the LTS classification can be improved, bringing it closer to the actual stress experienced by cyclists, by simply adding two factors, which can be easily obtained: uphill grades and the presence of roundabouts. Conclusions We showed that the use of the two indicators we proposed, associated with the LTS method, are particularly interesting to classify routes according to cyclists’ stress, especially in cases when some variables (e.g., traffic volume) used in other indexes are difficult to obtain. A limitation of this study is that the data refer to a city with specific characteristics. Therefore, future works should address the validity of the method in places with different social, infrastructure and climatic characteristics and in a sample with different characteristics of gender, age and aptitude to cycle.}
+      \field{day}{1}
+      \field{issn}{2214-1405}
+      \field{journaltitle}{Journal of Transport \& Health}
+      \field{month}{3}
+      \field{shortjournal}{Journal of Transport \& Health}
+      \field{title}{Assessing the Applicability of the Cyclists’ {{Level}} of {{Traffic Stress}} ({{LTS}}) Classification to a Medium-Sized City in a Developing Country}
+      \field{urlday}{2}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{volume}{24}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{101321}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.jth.2021.101321
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/GQAAUWGP/Rodrigues et al. - 2022 - Assessing the applicability of the cyclists’ Level of Traffic Stress (LTS) classification to a mediu.pdf;/Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/REH4EVIU/S2214140521003510.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S2214140521003510
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S2214140521003510
+      \endverb
+      \keyw{Cycling,Developing country,Level of traffic stress,Physiological stress}
     \endentry
     \entry{sanders2015}{article}{}{}
       \name{author}{1}{}{%
@@ -3214,6 +3951,87 @@
       \verb https://doi.org/10.1007/s11116-014-9538-1
       \endverb
       \keyw{Bicycling,Networks,Travel behavior}
+    \endentry
+    \entry{semler2017}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=cfa1221cecc73bcd1b583f7ffb6b329d}{%
+           family={Semler},
+           familyi={S\bibinitperiod},
+           given={Conor},
+           giveni={C\bibinitperiod}}}%
+        {{hash=9c48c9ae3b225936aa4061819341e8cd}{%
+           family={Sanders},
+           familyi={S\bibinitperiod},
+           given={Meredyth},
+           giveni={M\bibinitperiod}}}%
+        {{hash=6c3779fd3136a550af8f7819feac3629}{%
+           family={Buck},
+           familyi={B\bibinitperiod},
+           given={Darren},
+           giveni={D\bibinitperiod}}}%
+        {{hash=baa1a0abc6cd08a7f5564207474c1ccd}{%
+           family={Graham},
+           familyi={G\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod}}}%
+        {{hash=2d84fe40e2d75087d9723829884fa56e}{%
+           family={Pochowski},
+           familyi={P\bibinitperiod},
+           given={Alek},
+           giveni={A\bibinitperiod}}}%
+        {{hash=258e63f0d192c724f2f1dfdcf6404c14}{%
+           family={Dock},
+           familyi={D\bibinitperiod},
+           given={Stephanie},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {SAGE Publications Inc}%
+      }
+      \strng{namehash}{ceba14ad2339802b9d5e0b551c7acf25}
+      \strng{fullhash}{da6915f517ddf0714eda715036ddffa3}
+      \strng{fullhashraw}{da6915f517ddf0714eda715036ddffa3}
+      \strng{bibnamehash}{da6915f517ddf0714eda715036ddffa3}
+      \strng{authorbibnamehash}{da6915f517ddf0714eda715036ddffa3}
+      \strng{authornamehash}{ceba14ad2339802b9d5e0b551c7acf25}
+      \strng{authorfullhash}{da6915f517ddf0714eda715036ddffa3}
+      \strng{authorfullhashraw}{da6915f517ddf0714eda715036ddffa3}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Washington, D.C., has been a national leader in the adoption of innovative bicycle facilities. However, with much of the low-hanging fruit already plucked (i.e., bicycle facilities already in place), the District Department of Transportation (DOT) needed a mechanism to prioritize investments. Thus the District DOT developed a bicycle level of traffic stress (LTS) map as part of a Multimodal Congestion Management Study. Existing roadway information, combined with an innovative geographic information system approach, was used to create the map and to prioritize and expedite the collection of supplemental roadway information. The results confirmed existing perceptions about the availability of bicycle facilities in the District and identified previously unidentified gaps in the overall bicycle network. In addition, the methodology used to develop the LTS network map provided a proof-of-concept for other jurisdictions to use as they look to develop their own LTS network maps. With this information, the District DOT can now prioritize future bicycle infrastructure investments. It also has a mechanism to update the LTS map as additional data are collected and new facilities are constructed.}
+      \field{day}{1}
+      \field{issn}{0361-1981}
+      \field{journaltitle}{Transportation Research Record}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{1}
+      \field{shorttitle}{Low-{{Stress Bicycle Network Mapping}}}
+      \field{title}{Low-{{Stress Bicycle Network Mapping}}: {{The District}} of {{Columbia}}’s {{Innovative Approach}} to {{Applying Level}} of {{Traffic Stress}}}
+      \field{urlday}{2}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{volume}{2662}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{31\bibrangedash 40}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.3141/2662-04
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/AAA89HHD/Semler et al. - 2017 - Low-Stress Bicycle Network Mapping The District of Columbia’s Innovative Approach to Applying Level.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.3141/2662-04
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.3141/2662-04
+      \endverb
     \endentry
     \entry{sorton1994}{article}{}{}
       \name{author}{2}{}{%
@@ -3729,7 +4547,7 @@
       \strng{shortauthornamehash}{a70502ecbbaa9be1e8abad503e4ad7e5}
       \strng{shortauthorfullhash}{a70502ecbbaa9be1e8abad503e4ad7e5}
       \strng{shortauthorfullhashraw}{a70502ecbbaa9be1e8abad503e4ad7e5}
-      \field{extraname}{5}
+      \field{extraname}{6}
       \field{sortinit}{T}
       \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
       \field{extradate}{2}
@@ -3811,6 +4629,63 @@
       \verb https://doi.org/10.1080/15568318.2017.1324585
       \endverb
       \keyw{Accessibility,bike paths,cycling,equity,GIS,Latin America: safety}
+    \endentry
+    \entry{viero2025}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=9745c205be6193c16219f12cb7a3607f}{%
+           family={Vierø},
+           familyi={V\bibinitperiod},
+           given={Ane\bibnamedelima Rahbek},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=9afb24dbcf0a223d8571cb9ac043c5f1}{%
+           family={Szell},
+           familyi={S\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{f23f73063e6cd587743faa57626b32a6}
+      \strng{fullhash}{f23f73063e6cd587743faa57626b32a6}
+      \strng{fullhashraw}{f23f73063e6cd587743faa57626b32a6}
+      \strng{bibnamehash}{f23f73063e6cd587743faa57626b32a6}
+      \strng{authorbibnamehash}{f23f73063e6cd587743faa57626b32a6}
+      \strng{authornamehash}{f23f73063e6cd587743faa57626b32a6}
+      \strng{authorfullhash}{f23f73063e6cd587743faa57626b32a6}
+      \strng{authorfullhashraw}{f23f73063e6cd587743faa57626b32a6}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Research on cycling conditions focuses on cities, because cycling is commonly considered an urban phenomenon. People outside of cities should, however, also have access to the benefits of active mobility. To bridge the gap between urban and rural cycling research, we analyze the bicycle network of Denmark, covering around 43,000 km\textbackslash{} \textasciicircum 2 \textbackslash{} and nearly 6 million inhabitants. We divide the network into four levels of traffic stress and quantify the spatial patterns of bikeability based on network density, fragmentation, and reach. We find that the country has a high share of low-stress infrastructure, but with a very uneven distribution. The widespread fragmentation of low-stress infrastructure results in low mobility for cyclists who do not tolerate high traffic stress. Finally, we partition the network into bikeability clusters and conclude that both high and low bikeability are strongly spatially clustered. Our research confirms that in Denmark, bikeability tends to be high in urban areas. The latent potential for cycling in rural areas is mostly unmet, although some rural areas benefit from previous infrastructure investments. To mitigate the lack of low-stress cycling infrastructure outside urban centers, we suggest prioritizing investments in urban–rural cycling connections and encourage further research in improving rural cycling conditions.}
+      \field{issn}{1538-4632}
+      \field{journaltitle}{Geographical Analysis}
+      \field{langid}{english}
+      \field{number}{4}
+      \field{shorttitle}{Network {{Analysis}} of the {{Danish Bicycle Infrastructure}}}
+      \field{title}{Network {{Analysis}} of the {{Danish Bicycle Infrastructure}}: {{Bikeability Across Urban}}–{{Rural Divides}}}
+      \field{urlday}{30}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{volume}{57}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{616\bibrangedash 640}
+      \range{pages}{25}
+      \verb{doi}
+      \verb 10.1111/gean.70012
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/BZD98SRW/Vierø and Szell - 2025 - Network Analysis of the Danish Bicycle Infrastructure Bikeability Across Urban–Rural Divides.pdf;/Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/EETRCTBF/gean.html
+      \endverb
+      \verb{urlraw}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/gean.70012
+      \endverb
+      \verb{url}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/gean.70012
+      \endverb
+      \keyw{bicycle network analysis,bikeability,levels of traffic stress,OpenStreetMap}
     \endentry
     \entry{wang2016}{article}{}{}
       \name{author}{5}{}{%

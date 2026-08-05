@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Zhengpei (Pippin) Xu">
+<meta name="dcterms.date" content="2026-08-05">
+
+<title>Directed Level of Traffic Stress Classification for Cycling Networks – MRes Dissertation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Favicon/favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9ffe96b2ae74d945d167c0bbdbef4f8e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+  .navbar { background-color: #000000 !important; }
+  .quarto-color-scheme-toggle { display: none !important; }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">MRes Dissertation</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://zhengpei-xu.github.io/ltn1-20-assessment-tool-wm/web/"> 
+<span class="menu-text">LTN 1/20 Web Assessment Tool</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/zhengpei-xu"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Overview</a></li><li class="breadcrumb-item"><a href="./index.html">Directed Level of Traffic Stress Classification for Cycling Networks</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Overview</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Directed Level of Traffic Stress Classification for Cycling Networks</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Technical Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Code/00_cyclable_network_extraction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cyclable Network Extraction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Code/01_minor_road_aadt_estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Minor Road Traffic Volume Estimation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Code/02_volume_projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Traffic Volume Projection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Code/03_link_lts_classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Link Level LTS Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Code/04_junction_lts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Junction LTS Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Code/05_lts_distribution_and_fragmentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LTS Distribution and Fragmentation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Code/06_reach_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reach Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Code/07_od_connectivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OD Pair Connectivity Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Code/08_edge_betweenness_centrality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Edge Betweenness Centrality</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Code/09_network_growth_simulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Network Growth Simulation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#explore-the-analysis" id="toc-explore-the-analysis" class="nav-link" data-scroll-target="#explore-the-analysis">Explore the analysis</a></li>
+  <li><a href="#ltn-120-web-assessment-tool" id="toc-ltn-120-web-assessment-tool" class="nav-link" data-scroll-target="#ltn-120-web-assessment-tool">LTN 1/20: Web Assessment Tool</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Overview</a></li><li class="breadcrumb-item"><a href="./index.html">Directed Level of Traffic Stress Classification for Cycling Networks</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Directed Level of Traffic Stress Classification for Cycling Networks</h1>
+<p class="subtitle lead">A standards-based network evaluation of the West Midlands, grounded in LTN 1/20</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhengpei (Pippin) Xu </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 5, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>This dissertation develops a directed Level of Traffic Stress (LTS) classification derived from LTN 1/20 design criteria, operationalises it on Ordnance Survey National Geographic Database (OS NGD) Transport data, and applies it to evaluate network-level cycling conditions in the West Midlands. Conducted in collaboration with Transport for West Midlands.</p>
+  </div>
+</div>
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Cycling has been widely recognised as a sustainable mode of urban transport, offering co-benefits across public health, air quality, carbon reduction, and potential congestion alleviation (WHO, 2022; European Union, 2024; IPCC, 2023). Central to realising these benefits is the provision of high-quality, connected cycling infrastructure, which is consistently associated with higher cycling participation (Hull and O’Holleran, 2014; Pistoll and Goodman, 2014; Buehler and Dill, 2016; Mölenberg et al., 2019). Reflecting this evidence, the UK Department for Transport published Local Transport Note 1/20, <em>Cycle infrastructure design</em> (LTN 1/20), in July 2020, establishing the most comprehensive national standards for cycling infrastructure design and assessment applicable to England and Northern Ireland to date (Department for Transport, 2020a). LTN 1/20’s evaluation tools, the Cycling Level of Service (CLoS) and the Junction Assessment Tool (JAT), give practitioners a rigorous means of appraising individual schemes, assessing road segments and junctions against detailed design criteria through structured manual audit (Department for Transport, 2020a). What they do not address is the network-level question: whether compliant segments cohere into a connected whole. Network-level cycling connectivity is a property of whole journeys rather than individual schemes: a single high-stress link or junction can render an otherwise compliant route unusable for the very cyclists the guidance seeks to serve. There is therefore a need for a data-driven, network-level methodology capable of evaluating cycling infrastructure quality across a city or region using standard open and mapping agency data.</p>
+<p>The Level of Traffic Stress (LTS) framework offers such a network-level approach, classifying road segments and junctions by the population group willing to tolerate their traffic conditions: from LTS 1, conditions suitable for children and old people, through LTS 2, tolerable to most adults, to LTS 3 and 4, which only progressively smaller and more confident minorities will accept (Mekuria, Furth and Nixon, 2012). Because each stress level maps onto a population group, the classification links infrastructure quality directly to mode shift potential: expanding the network usable at lower stress thresholds is what brings the broader population into cycling. LTS-based network analysis has since become the dominant approach in cycling connectivity and equity research (Louro et al., 2026). Its non-compensatory logic, under which a single high-stress attribute determines classification, aligns naturally with how traffic conditions deter potential cyclists. Yet most published LTS criteria were calibrated to North American road design conventions, and applications to British cities have relied on simplified adaptations of these criteria rather than national design guidance (Cervero, Denman and Jin, 2019; Jeong and Smith, 2025). No LTS classification grounded in UK design standards has been developed systematically.</p>
+<p>The data foundations for such a classification have only recently emerged. The Ordnance Survey National Geographic Database (OS NGD) Transport Theme provides authoritative network geometry with attributes directly relevant to stress classification, including carriageway width, legal access designation, and probe-derived vehicle speeds. Its Cycle Lane feature collection, which achieved full national coverage in March 2026, records cycle lane width, direction of cycling travel and infrastructure type with facility descriptions aligned to LTN 1/20 terminology (Ordnance Survey, 2026d). The simultaneous availability of a statutory design standard and a nationally consistent authoritative dataset creates the conditions under which cycling networks across England can be classified and evaluated against a single national benchmark.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="LaTeX/Figure/methods.jpg" class="img-fluid figure-img"></p>
+<figcaption>Analytical framework. LTN 1/20 design criteria (left) supply the classification thresholds operationalised on OS NGD Transport data (right). The classified network is then evaluated against LTN 1/20’s “Cycling for All” principle through connectivity analysis and network growth simulation.</figcaption>
+</figure>
+</div>
+<p>This dissertation develops a directed Level of Traffic Stress classification derived from LTN 1/20 design criteria, operationalises it on OS NGD Transport data, and applies it to evaluate network-level cycling conditions in the West Midlands. The region presents a revealing setting for such an evaluation. Among English regions it combines the highest share of private motorised trips with a cycling mode share of approximately 0.9% (West Midlands Combined Authority, 2024), yet its transport authority has committed to delivering a 500-mile network of low-stress cycle routes (West Midlands Combined Authority, 2020). The distance between this ambition and current network conditions is precisely what a standards-based classification is designed to measure. The study, conducted in collaboration with Transport for West Midlands, makes contributions to methodology and data: the first LTS framework calibrated to English design standards systematically, incorporating directed junction assessment and roundabout-specific criteria; and the first independent assessment of the OS NGD Cycle Lane dataset. The classified network is then used to evaluate connectivity against LTN 1/20’s own principle of “cycling for all”, proceeding from infrastructure supply to the journeys that infrastructure enables: the extent and spatial distribution of low-stress provision, the degree to which low-stress links cohere into connected components rather than isolated fragments, the reach available to residents from where they live, and the proportion of everyday travel demand, for commuting and for access to schools, that the network can carry at each stress threshold. A network growth simulation then examines how the sequence in which high-stress links are upgraded shapes connectivity outcomes, comparing selection strategies that exploit network structure against uninformed investment. Together these analyses illustrate the range of strategic questions that a nationally consistent, standards-based classification can support.</p>
+</section>
+<section id="explore-the-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="explore-the-analysis">Explore the analysis</h2>
+<div class="grid">
+<section id="cyclable-network-extraction" class="level3 g-col-12 g-col-md-6">
+<h3 class="anchored" data-anchor-id="cyclable-network-extraction"><a href="./Code/00_cyclable_network_extraction.html">Cyclable Network Extraction</a></h3>
+<p>Directed cyclable network construction from OS NGD Transport data, directed edge expansion, cycle lane joining, and facility classification into LTN 1/20 aligned categories.</p>
+</section>
+<section id="minor-road-traffic-volume-estimation" class="level3 g-col-12 g-col-md-6">
+<h3 class="anchored" data-anchor-id="minor-road-traffic-volume-estimation"><a href="./Code/01_minor_road_aadt_estimation.html">Minor Road Traffic Volume Estimation</a></h3>
+<p>Replication of the Morley and Gulliver (2016) AADT estimation pipeline using pgRouting on England OSM data.</p>
+</section>
+<section id="traffic-volume-projection" class="level3 g-col-12 g-col-md-6">
+<h3 class="anchored" data-anchor-id="traffic-volume-projection"><a href="./Code/02_volume_projection.html">Traffic Volume Projection</a></h3>
+<p>Projection of estimated AADT onto the OS NGD network for downstream LTS classification.</p>
+</section>
+<section id="link-level-lts-classification" class="level3 g-col-12 g-col-md-6">
+<h3 class="anchored" data-anchor-id="link-level-lts-classification"><a href="./Code/03_link_lts_classification.html">Link Level LTS Classification</a></h3>
+<p>Segment-level LTS assignment using non-compensatory worst-indicator-wins logic aligned to LTN 1/20 CLoS criteria.</p>
+</section>
+<section id="junction-lts-classification" class="level3 g-col-12 g-col-md-6">
+<h3 class="anchored" data-anchor-id="junction-lts-classification"><a href="./Code/04_junction_lts.html">Junction LTS Classification</a></h3>
+<p>Junction stress enhancement via bearing-based conflict detection, crossing design suitability, and JAT-derived roundabout criteria.</p>
+</section>
+<section id="lts-distribution-and-fragmentation" class="level3 g-col-12 g-col-md-6">
+<h3 class="anchored" data-anchor-id="lts-distribution-and-fragmentation"><a href="./Code/05_lts_distribution_and_fragmentation.html">LTS Distribution and Fragmentation</a></h3>
+<p>Area-based LTS distribution, LSOA-level network density, connected component analysis, and LCC fragmentation across stress thresholds.</p>
+</section>
+<section id="reach-analysis" class="level3 g-col-12 g-col-md-6">
+<h3 class="anchored" data-anchor-id="reach-analysis"><a href="./Code/06_reach_analysis.html">Reach Analysis</a></h3>
+<p>Directed Dijkstra network reach from LSOA centroids within an 8 km threshold across LTS-constrained subgraphs.</p>
+</section>
+<section id="od-pair-connectivity" class="level3 g-col-12 g-col-md-6">
+<h3 class="anchored" data-anchor-id="od-pair-connectivity"><a href="./Code/07_od_connectivity.html">OD Pair Connectivity</a></h3>
+<p>School accessibility and Census 2011 MSOA commuting connectivity with tolerance-based detour analysis.</p>
+</section>
+<section id="edge-betweenness-centrality" class="level3 g-col-12 g-col-md-6">
+<h3 class="anchored" data-anchor-id="edge-betweenness-centrality"><a href="./Code/08_edge_betweenness_centrality.html">Edge Betweenness Centrality</a></h3>
+<p>Parallelised Brandes algorithm via NetworKit for topological demand proxy computation on the full undirected network.</p>
+</section>
+<section id="network-growth-simulation" class="level3 g-col-12 g-col-md-6">
+<h3 class="anchored" data-anchor-id="network-growth-simulation"><a href="./Code/09_network_growth_simulation.html">Network Growth Simulation</a></h3>
+<p>Forward growth simulation comparing Random, Connectivity, and Betweenness Centrality upgrade strategies across LCC share and demand-weighted connectivity.</p>
+</section>
+</div>
+</section>
+<section id="ltn-120-web-assessment-tool" class="level2">
+<h2 class="anchored" data-anchor-id="ltn-120-web-assessment-tool">LTN 1/20: Web Assessment Tool</h2>
+<p>An interactive, map-based interface for exploring Cycling Level of Service (CLoS) scores across the West Midlands road network. The tool scores 183,923 individual road links against LTN 1/20 criteria using OS NGD, DfT AADF, and OpenStreetMap data, providing a consistent network-wide baseline without requiring bespoke field survey. Thirteen of 25 CLoS criteria are scored (seven directly, four via data-driven proxies, two partially through a Junction Assessment Tool), with scores computed separately for each direction of travel. The tool includes Dijkstra-based route planning with per-link CLoS breakdowns, reference layers for cycle parking and key destinations, and supports two practitioner workflows identified during stakeholder engagement: early-stage desktop screening of problem corridors and pre-screening ahead of formal Active Travel England Route Check audit.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Access the tool
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://zhengpei-xu.github.io/ltn1-20-assessment-tool-wm/web/" target="_blank">West Midlands CLoS Assessment Tool</a></p>
+</div>
+</div>
+<hr>
+<p><em>This project was conducted in collaboration with Transport for West Midlands as part of an MRes dissertation at UCL’s Centre for Advanced Spatial Analysis.</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

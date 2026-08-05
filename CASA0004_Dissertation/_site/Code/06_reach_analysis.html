@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Network Reach Analysis – MRes Dissertation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Favicon/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-9ffe96b2ae74d945d167c0bbdbef4f8e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+  .navbar { background-color: #000000 !important; }
+  .quarto-color-scheme-toggle { display: none !important; }
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">MRes Dissertation</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/zhengpei-xu"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Code/00_cyclable_network_extraction.html">Technical Analysis</a></li><li class="breadcrumb-item"><a href="../Code/06_reach_analysis.html">Reach Analysis</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Overview</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Directed Level of Traffic Stress Classification for Cycling Networks</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Technical Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/00_cyclable_network_extraction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cyclable Network Extraction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/01_minor_road_aadt_estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Minor Road Traffic Volume Estimation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/02_volume_projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Traffic Volume Projection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/03_link_lts_classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Link Level LTS Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/04_junction_lts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Junction LTS Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/05_lts_distribution_and_fragmentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LTS Distribution and Fragmentation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/06_reach_analysis.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Reach Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/07_od_connectivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OD Pair Connectivity Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/08_edge_betweenness_centrality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Edge Betweenness Centrality</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/09_network_growth_simulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Network Growth Simulation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#configuration" id="toc-configuration" class="nav-link active" data-scroll-target="#configuration">1. Configuration</a>
+  <ul class="collapse">
+  <li><a href="#analysis-parameters-and-lts-colour-scheme" id="toc-analysis-parameters-and-lts-colour-scheme" class="nav-link" data-scroll-target="#analysis-parameters-and-lts-colour-scheme">1.1 Analysis Parameters and LTS Colour Scheme</a></li>
+  </ul></li>
+  <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">2. Data Loading</a>
+  <ul class="collapse">
+  <li><a href="#study-area-boundary" id="toc-study-area-boundary" class="nav-link" data-scroll-target="#study-area-boundary">2.1 Study Area Boundary</a></li>
+  <li><a href="#directed-lts-network" id="toc-directed-lts-network" class="nav-link" data-scroll-target="#directed-lts-network">2.2 Directed LTS Network</a></li>
+  <li><a href="#lsoa-boundaries" id="toc-lsoa-boundaries" class="nav-link" data-scroll-target="#lsoa-boundaries">2.3 LSOA Boundaries</a></li>
+  </ul></li>
+  <li><a href="#directed-graph-construction" id="toc-directed-graph-construction" class="nav-link" data-scroll-target="#directed-graph-construction">3. Directed Graph Construction</a>
+  <ul class="collapse">
+  <li><a href="#build-base-directed-graph" id="toc-build-base-directed-graph" class="nav-link" data-scroll-target="#build-base-directed-graph">3.1 Build Base Directed Graph</a></li>
+  <li><a href="#extract-cumulative-lts-subgraphs" id="toc-extract-cumulative-lts-subgraphs" class="nav-link" data-scroll-target="#extract-cumulative-lts-subgraphs">3.2 Extract Cumulative LTS Subgraphs</a></li>
+  </ul></li>
+  <li><a href="#gap-closing" id="toc-gap-closing" class="nav-link" data-scroll-target="#gap-closing">4. Gap Closing</a></li>
+  <li><a href="#network-reach-computation" id="toc-network-reach-computation" class="nav-link" data-scroll-target="#network-reach-computation">5. Network Reach Computation</a>
+  <ul class="collapse">
+  <li><a href="#nearest-node-lookup" id="toc-nearest-node-lookup" class="nav-link" data-scroll-target="#nearest-node-lookup">5.1 Nearest-Node Lookup</a></li>
+  <li><a href="#computing-directed-network-reach-with-physical-road-deduplication" id="toc-computing-directed-network-reach-with-physical-road-deduplication" class="nav-link" data-scroll-target="#computing-directed-network-reach-with-physical-road-deduplication">5.2 Computing Directed Network Reach (with Physical-Road Deduplication)</a></li>
+  <li><a href="#batch-computation" id="toc-batch-computation" class="nav-link" data-scroll-target="#batch-computation">5.3 Batch Computation</a></li>
+  <li><a href="#pivot-and-merge" id="toc-pivot-and-merge" class="nav-link" data-scroll-target="#pivot-and-merge">5.4 Pivot and Merge</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">6. Results</a>
+  <ul class="collapse">
+  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">6.1 Summary Statistics</a></li>
+  <li><a href="#choropleth-maps-network-reach-at-8-km-by-lts-level" id="toc-choropleth-maps-network-reach-at-8-km-by-lts-level" class="nav-link" data-scroll-target="#choropleth-maps-network-reach-at-8-km-by-lts-level">6.2 Choropleth Maps: Network Reach at 8 km by LTS Level</a></li>
+  <li><a href="#reach-ratio-map" id="toc-reach-ratio-map" class="nav-link" data-scroll-target="#reach-ratio-map">6.3 Reach Ratio Map</a></li>
+  <li><a href="#borough-level-comparison" id="toc-borough-level-comparison" class="nav-link" data-scroll-target="#borough-level-comparison">6.4 Borough-Level Comparison</a></li>
+  </ul></li>
+  <li><a href="#decomposition-by-facility-type" id="toc-decomposition-by-facility-type" class="nav-link" data-scroll-target="#decomposition-by-facility-type">8. Decomposition by Facility Type</a></li>
+  <li><a href="#export" id="toc-export" class="nav-link" data-scroll-target="#export">9. Export</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Code/00_cyclable_network_extraction.html">Technical Analysis</a></li><li class="breadcrumb-item"><a href="../Code/06_reach_analysis.html">Reach Analysis</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Network Reach Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This Section computes <strong>network reach</strong> — the total length of cycling network reachable from each LSOA centroid within a given distance threshold — for the West Midlands directed LTS network. Network reach captures the interplay between network density and connectivity (Peponis et al., 2008): it measures not only whether a destination <em>can</em> be reached, but the breadth of routes and locations accessible from a given origin.</p>
+<p>The analysis focuses on an <strong>8 km (~5 mile) distance threshold</strong>, reflecting LTN 1/20’s observation that two-thirds of all trips are within this distance and therefore represent the primary catchment for cycling as a mode substitute (DfT, 2020).</p>
+<p><strong>Key methodological features:</strong> - <strong>Directed graph</strong>: reach is computed on the directed network, following legal travel directions, consistent with the directed LTS classification framework. - <strong>Forward reachability</strong>: from each origin node, only edges traversable in the forward direction are followed — the directed analogue of the connected component approach used in undirected studies (Vierø et al., 2024). - <strong>Physical-road deduplication</strong>: directed edges sharing the same physical road segment (identified by <code>osid</code>) are counted only once, ensuring reach reflects accessible <em>physical infrastructure</em> rather than inflated directed-edge counts. - <strong>Gap closing</strong>: 30 m gaps between edges of the same LTS level are bridged before reach computation, following Vierø et al.&nbsp;(2024) and Schoner &amp; Levinson (2014), to mitigate artificial fragmentation from mapping imprecision. - <strong>LSOA aggregation</strong>: results are aggregated to Lower Layer Super Output Areas (LSOAs) to enable comparison with Census commuting data and deprivation indices.</p>
+<div id="code_001" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="va">None</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">1000</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_colwidth'</span>, <span class="va">None</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial <span class="im">import</span> cKDTree</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.colors <span class="im">as</span> mcolors</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> mticker</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.lines <span class="im">import</span> Line2D</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LinearSegmentedColormap</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> Point, LineString, Polygon</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> cx</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># PySAL for spatial autocorrelation</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> esda.moran <span class="im">import</span> Moran, Moran_Local</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> libpysal.weights <span class="im">import</span> KNN</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>DATA_DIR <span class="op">=</span> Path(<span class="st">'../Data/Raw'</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>CLEANED_DIR <span class="op">=</span> Path(<span class="st">'../Data/Cleaned'</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>OUTPUT_DIR <span class="op">=</span> Path(<span class="st">'../Data/Cleaned'</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>FIG_DIR <span class="op">=</span> Path(<span class="st">'../Figures'</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>FIG_DIR.mkdir(exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>CRS_BNG <span class="op">=</span> <span class="st">'EPSG:27700'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="configuration" class="level2">
+<h2 class="anchored" data-anchor-id="configuration">1. Configuration</h2>
+<section id="analysis-parameters-and-lts-colour-scheme" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-parameters-and-lts-colour-scheme">1.1 Analysis Parameters and LTS Colour Scheme</h3>
+<div id="code_003" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Analysis parameters -----</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>REACH_THRESHOLD_M <span class="op">=</span> <span class="dv">8000</span>  <span class="co"># 8 km ≈ 5 miles (LTN 1/20 benchmark)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>LTS_LEVELS <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]  <span class="co"># cumulative: LTS ≤ L</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>GAP_CLOSE_M <span class="op">=</span> <span class="dv">30</span>  <span class="co"># max gap to bridge between same-LTS edges</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- LTS colour scheme (consistent across all notebooks) -----</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>LTS_COLORS <span class="op">=</span> {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>: <span class="st">'#2ca02c'</span>,   <span class="co"># green  — low stress</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>: <span class="st">'#f0c929'</span>,   <span class="co"># yellow — moderate</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>: <span class="st">'#e8601c'</span>,   <span class="co"># orange — high stress</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>: <span class="st">'#d62728'</span>,   <span class="co"># red    — very high stress</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Sequential colormaps per LTS level (white → LTS colour)</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>LTS_CMAPS <span class="op">=</span> {}</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lts, color <span class="kw">in</span> LTS_COLORS.items():</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    LTS_CMAPS[lts] <span class="op">=</span> LinearSegmentedColormap.from_list(</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f'lts</span><span class="sc">{</span>lts<span class="sc">}</span><span class="ss">'</span>, [<span class="st">'#f7f7f7'</span>, color]</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Study area boroughs</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>STUDY_AREA_BOROUGHS <span class="op">=</span> [</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Birmingham'</span>, <span class="st">'Coventry'</span>, <span class="st">'Dudley'</span>, <span class="st">'Sandwell'</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Solihull'</span>, <span class="st">'Walsall'</span>, <span class="st">'Wolverhampton'</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Distance threshold: </span><span class="sc">{</span>REACH_THRESHOLD_M<span class="op">/</span><span class="dv">1000</span><span class="sc">:.0f}</span><span class="ss"> km (</span><span class="sc">{</span>REACH_THRESHOLD_M<span class="op">/</span><span class="dv">1609</span><span class="sc">:.0f}</span><span class="ss"> miles)"</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"LTS levels (cumulative): LTS ≤ </span><span class="sc">{</span>LTS_LEVELS<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gap closing threshold: </span><span class="sc">{</span>GAP_CLOSE_M<span class="sc">}</span><span class="ss"> m"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Distance threshold: 8 km (5 miles)
+LTS levels (cumulative): LTS ≤ [1, 2, 3, 4]
+Gap closing threshold: 30 m</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="data-loading" class="level2">
+<h2 class="anchored" data-anchor-id="data-loading">2. Data Loading</h2>
+<section id="study-area-boundary" class="level3">
+<h3 class="anchored" data-anchor-id="study-area-boundary">2.1 Study Area Boundary</h3>
+<div id="code_005" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>raw_data <span class="op">=</span> gpd.read_file(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    DATA_DIR <span class="op">/</span> <span class="st">"Local_Authority_Districts_DEC_2025_Boundaries_UK_BFC_7781342770234899863/LAD_DEC_2025_UK_BFC.shp"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>study_area <span class="op">=</span> raw_data[raw_data[<span class="st">'LAD25NM'</span>].isin(STUDY_AREA_BOROUGHS)].copy()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>study_area <span class="op">=</span> study_area.to_crs(CRS_BNG)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>study_area_union <span class="op">=</span> study_area.unary_union</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>total_area_km2 <span class="op">=</span> study_area.geometry.area.<span class="bu">sum</span>() <span class="op">/</span> <span class="fl">1e6</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Study area: </span><span class="sc">{</span><span class="bu">len</span>(STUDY_AREA_BOROUGHS)<span class="sc">}</span><span class="ss"> boroughs, </span><span class="sc">{</span>total_area_km2<span class="sc">:.1f}</span><span class="ss"> km²"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Study area: 7 boroughs, 901.7 km²</code></pre>
+</div>
+</div>
+</section>
+<section id="directed-lts-network" class="level3">
+<h3 class="anchored" data-anchor-id="directed-lts-network">2.2 Directed LTS Network</h3>
+<div id="code_007" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> gpd.read_file(OUTPUT_DIR <span class="op">/</span> <span class="st">"network_lts_with_junctions.gpkg"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> edges.to_crs(CRS_BNG)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract osid from edge_id (strip _F / _R suffix)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>edges[<span class="st">'osid'</span>] <span class="op">=</span> edges[<span class="st">'edge_id'</span>].<span class="bu">str</span>.rsplit(<span class="st">'_'</span>, n<span class="op">=</span><span class="dv">1</span>).<span class="bu">str</span>[<span class="dv">0</span>]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total directed edges: </span><span class="sc">{</span><span class="bu">len</span>(edges)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Unique physical segments (osid): </span><span class="sc">{</span>edges[<span class="st">'osid'</span>]<span class="sc">.</span>nunique()<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">LTS distribution (lts_final):"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(edges[<span class="st">'lts_final'</span>].value_counts().sort_index())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total directed edges: 480,228
+Unique physical segments (osid): 257,574
+
+LTS distribution (lts_final):
+lts_final
+1.0    227420
+2.0    152180
+3.0     46464
+4.0     54164
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="lsoa-boundaries" class="level3">
+<h3 class="anchored" data-anchor-id="lsoa-boundaries">2.3 LSOA Boundaries</h3>
+<div id="code_009" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lsoa_uk <span class="op">=</span> gpd.read_file(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    DATA_DIR <span class="op">/</span> <span class="st">"Lower_layer_Super_Output_Areas_December_2021_Boundaries_EW_BGC_V5_-3761339731474027792.geojson"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>lsoa_uk <span class="op">=</span> lsoa_uk.to_crs(CRS_BNG)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>lsoa_uk[<span class="st">'centroid'</span>] <span class="op">=</span> lsoa_uk.geometry.centroid</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>lsoa_uk_centroids <span class="op">=</span> lsoa_uk.set_geometry(<span class="st">'centroid'</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>lsoa_wm <span class="op">=</span> gpd.sjoin(lsoa_uk_centroids, study_area[[<span class="st">"LAD25NM"</span>, <span class="st">"geometry"</span>]], predicate<span class="op">=</span><span class="st">"within"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>lsoa_wm <span class="op">=</span> lsoa_wm.set_geometry(<span class="st">"geometry"</span>).drop(columns<span class="op">=</span>[<span class="st">"centroid"</span>, <span class="st">"index_right"</span>])</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"LSOAs in West Midlands: </span><span class="sc">{</span><span class="bu">len</span>(lsoa_wm)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"By borough:"</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lsoa_wm[<span class="st">'LAD25NM'</span>].value_counts().sort_index())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>LSOAs in West Midlands: 1,718
+By borough:
+LAD25NM
+Birmingham       659
+Coventry         203
+Dudley           203
+Sandwell         191
+Solihull         134
+Walsall          167
+Wolverhampton    161
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="directed-graph-construction" class="level2">
+<h2 class="anchored" data-anchor-id="directed-graph-construction">3. Directed Graph Construction</h2>
+<section id="build-base-directed-graph" class="level3">
+<h3 class="anchored" data-anchor-id="build-base-directed-graph">3.1 Build Base Directed Graph</h3>
+<p>Each directed edge carries its <code>osid</code> (the underlying physical road segment identifier). This is critical for the deduplication step in reach computation: when a bidirectional road produces two directed edges (<code>_F</code> and <code>_R</code>), both share the same <code>osid</code>, and the physical road length is counted only once.</p>
+<div id="code_011" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_directed_graph(edges_gdf):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Build a NetworkX DiGraph from the directed edges GeoDataFrame."""</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    node_coords <span class="op">=</span> {}</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, row <span class="kw">in</span> edges_gdf.iterrows():</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        u <span class="op">=</span> row[<span class="st">'from_node'</span>]</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        v <span class="op">=</span> row[<span class="st">'to_node'</span>]</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        geom <span class="op">=</span> row[<span class="st">'geometry'</span>]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        G.add_edge(u, v,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                   length<span class="op">=</span>row[<span class="st">'geometry_length_m'</span>],</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                   lts<span class="op">=</span>row[<span class="st">'lts_final'</span>],</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                   facility_type<span class="op">=</span>row[<span class="st">'facility_type'</span>],</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                   edge_id<span class="op">=</span>row[<span class="st">'edge_id'</span>],</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                   osid<span class="op">=</span>row[<span class="st">'osid'</span>])</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        coords <span class="op">=</span> <span class="bu">list</span>(geom.coords)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> u <span class="kw">not</span> <span class="kw">in</span> node_coords:</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>            node_coords[u] <span class="op">=</span> coords[<span class="dv">0</span>][:<span class="dv">2</span>]</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> v <span class="kw">not</span> <span class="kw">in</span> node_coords:</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>            node_coords[v] <span class="op">=</span> coords[<span class="op">-</span><span class="dv">1</span>][:<span class="dv">2</span>]</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    nx.set_node_attributes(G, {n: {<span class="st">'x'</span>: c[<span class="dv">0</span>], <span class="st">'y'</span>: c[<span class="dv">1</span>]} <span class="cf">for</span> n, c <span class="kw">in</span> node_coords.items()})</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G, node_coords</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>G_full, node_coords <span class="op">=</span> build_directed_graph(edges)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Full directed graph:"</span>)</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Nodes: </span><span class="sc">{</span>G_full<span class="sc">.</span>number_of_nodes()<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Edges: </span><span class="sc">{</span>G_full<span class="sc">.</span>number_of_edges()<span class="sc">:,}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Full directed graph:
+  Nodes: 253,548
+  Edges: 478,430</code></pre>
+</div>
+</div>
+</section>
+<section id="extract-cumulative-lts-subgraphs" class="level3">
+<h3 class="anchored" data-anchor-id="extract-cumulative-lts-subgraphs">3.2 Extract Cumulative LTS Subgraphs</h3>
+<div id="code_013" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_lts_subgraph(G, max_lts):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Extract directed subgraph containing only edges with lts &lt;= max_lts."""</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    edge_list <span class="op">=</span> [(u, v, d) <span class="cf">for</span> u, v, d <span class="kw">in</span> G.edges(data<span class="op">=</span><span class="va">True</span>) <span class="cf">if</span> d[<span class="st">'lts'</span>] <span class="op">&lt;=</span> max_lts]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    H.add_edges_from(edge_list)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> H.nodes():</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="kw">in</span> G.nodes:</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            H.nodes[n].update(G.nodes[n])</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> H</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>lts_subgraphs <span class="op">=</span> {}</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lts_level <span class="kw">in</span> LTS_LEVELS:</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> extract_lts_subgraph(G_full, lts_level)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    lts_subgraphs[lts_level] <span class="op">=</span> H</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    total_length_km <span class="op">=</span> <span class="bu">sum</span>(d[<span class="st">'length'</span>] <span class="cf">for</span> _, _, d <span class="kw">in</span> H.edges(data<span class="op">=</span><span class="va">True</span>)) <span class="op">/</span> <span class="dv">1000</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    n_osid <span class="op">=</span> <span class="bu">len</span>(<span class="bu">set</span>(d[<span class="st">'osid'</span>] <span class="cf">for</span> _, _, d <span class="kw">in</span> H.edges(data<span class="op">=</span><span class="va">True</span>)))</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"LTS ≤ </span><span class="sc">{</span>lts_level<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>H<span class="sc">.</span>number_of_nodes()<span class="sc">:&gt;7,}</span><span class="ss"> nodes, "</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span>H<span class="sc">.</span>number_of_edges()<span class="sc">:&gt;7,}</span><span class="ss"> dir. edges, "</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span>n_osid<span class="sc">:&gt;7,}</span><span class="ss"> phys. segments, "</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span>total_length_km<span class="sc">:&gt;8,.1f}</span><span class="ss"> km dir. length"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>LTS ≤ 1: 191,638 nodes, 226,475 dir. edges, 146,139 phys. segments,  9,954.5 km dir. length
+LTS ≤ 2: 222,328 nodes, 378,021 dir. edges, 199,744 phys. segments, 18,021.6 km dir. length
+LTS ≤ 3: 239,162 nodes, 424,402 dir. edges, 226,127 phys. segments, 20,200.2 km dir. length
+LTS ≤ 4: 253,548 nodes, 478,430 dir. edges, 257,210 phys. segments, 23,151.9 km dir. length</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="gap-closing" class="level2">
+<h2 class="anchored" data-anchor-id="gap-closing">4. Gap Closing</h2>
+<p>Dedicated cycling infrastructure is often mapped with geometric imprecision at intersections (Schoner &amp; Levinson, 2014; Vierø et al., 2024). We close gaps of up to <strong>30 m</strong> between edges of the <strong>same LTS level</strong> in <strong>different weakly connected components</strong>, adding bidirectional bridging edges.</p>
+<div id="code_015" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> close_gaps_directed(G, node_coords, max_gap_m, lts_level):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Close gaps of up to max_gap_m between disconnected components."""</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    nodes_in_graph <span class="op">=</span> [n <span class="cf">for</span> n <span class="kw">in</span> G.nodes() <span class="cf">if</span> n <span class="kw">in</span> node_coords]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(nodes_in_graph) <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    node_list <span class="op">=</span> <span class="bu">list</span>(nodes_in_graph)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    coords_array <span class="op">=</span> np.array([node_coords[n] <span class="cf">for</span> n <span class="kw">in</span> node_list])</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">=</span> cKDTree(coords_array)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    pairs <span class="op">=</span> tree.query_pairs(r<span class="op">=</span>max_gap_m)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    comp_map <span class="op">=</span> {}</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> comp_id, comp <span class="kw">in</span> <span class="bu">enumerate</span>(nx.weakly_connected_components(G)):</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> n <span class="kw">in</span> comp:</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>            comp_map[n] <span class="op">=</span> comp_id</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    gaps_closed <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, j <span class="kw">in</span> pairs:</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        u, v <span class="op">=</span> node_list[i], node_list[j]</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> comp_map.get(u) <span class="op">==</span> comp_map.get(v):</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> G.has_edge(u, v) <span class="kw">and</span> G.has_edge(v, u):</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>        dist <span class="op">=</span> np.linalg.norm(coords_array[i] <span class="op">-</span> coords_array[j])</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> G.has_edge(u, v):</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>            G.add_edge(u, v, length<span class="op">=</span>dist, lts<span class="op">=</span>lts_level,</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>                       facility_type<span class="op">=</span><span class="st">'gap_bridge'</span>, </span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>                       edge_id<span class="op">=</span><span class="ss">f'gap_</span><span class="sc">{</span>u<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">'</span>, osid<span class="op">=</span><span class="ss">f'gap_</span><span class="sc">{</span>u<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> G.has_edge(v, u):</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>            G.add_edge(v, u, length<span class="op">=</span>dist, lts<span class="op">=</span>lts_level,</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>                       facility_type<span class="op">=</span><span class="st">'gap_bridge'</span>,</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>                       edge_id<span class="op">=</span><span class="ss">f'gap_</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>u<span class="sc">}</span><span class="ss">'</span>, osid<span class="op">=</span><span class="ss">f'gap_</span><span class="sc">{</span>u<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>        gaps_closed <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>        old_comp <span class="op">=</span> comp_map[v]</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>        new_comp <span class="op">=</span> comp_map[u]</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">list</span>(comp_map.keys()):</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> comp_map[n] <span class="op">==</span> old_comp:</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>                comp_map[n] <span class="op">=</span> new_comp</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gaps_closed</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gap closing (max </span><span class="sc">{</span>GAP_CLOSE_M<span class="sc">}</span><span class="ss"> m):"</span>)</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">65</span>)</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lts_level <span class="kw">in</span> LTS_LEVELS:</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> lts_subgraphs[lts_level]</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>    n_comps_before <span class="op">=</span> nx.number_weakly_connected_components(H)</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>    n_gaps <span class="op">=</span> close_gaps_directed(H, node_coords, GAP_CLOSE_M, lts_level)</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>    n_comps_after <span class="op">=</span> nx.number_weakly_connected_components(H)</span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"LTS ≤ </span><span class="sc">{</span>lts_level<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>n_gaps<span class="sc">:&gt;5,}</span><span class="ss"> gaps closed | "</span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"Components: </span><span class="sc">{</span>n_comps_before<span class="sc">:&gt;6,}</span><span class="ss"> → </span><span class="sc">{</span>n_comps_after<span class="sc">:&gt;6,}</span><span class="ss"> "</span></span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"(</span><span class="sc">{</span>n_comps_before <span class="op">-</span> n_comps_after<span class="sc">:&gt;5,}</span><span class="ss"> merged)"</span>)</span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Gap closing (max 30 m):
+-----------------------------------------------------------------
+LTS ≤ 1: 31,927 gaps closed | Components: 48,224 → 16,297 (31,927 merged)
+LTS ≤ 2: 26,846 gaps closed | Components: 31,588 →  4,742 (26,846 merged)
+LTS ≤ 3: 24,938 gaps closed | Components: 27,200 →  2,262 (24,938 merged)
+LTS ≤ 4: 21,681 gaps closed | Components: 21,944 →    263 (21,681 merged)</code></pre>
+</div>
+</div>
+</section>
+<section id="network-reach-computation" class="level2">
+<h2 class="anchored" data-anchor-id="network-reach-computation">5. Network Reach Computation</h2>
+<section id="nearest-node-lookup" class="level3">
+<h3 class="anchored" data-anchor-id="nearest-node-lookup">5.1 Nearest-Node Lookup</h3>
+<div id="code_017" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_node_kdtree(node_coords):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    node_list <span class="op">=</span> <span class="bu">list</span>(node_coords.keys())</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    coords_array <span class="op">=</span> np.array([node_coords[n] <span class="cf">for</span> n <span class="kw">in</span> node_list])</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">=</span> cKDTree(coords_array)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tree, node_list, coords_array</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>node_tree, node_list_all, node_coords_array <span class="op">=</span> build_node_kdtree(node_coords)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>lsoa_centroids <span class="op">=</span> lsoa_wm.geometry.centroid</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>lsoa_nearest <span class="op">=</span> []</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, centroid <span class="kw">in</span> lsoa_centroids.items():</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    dist, i <span class="op">=</span> node_tree.query([centroid.x, centroid.y])</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    lsoa_nearest.append({</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">'LSOA21CD'</span>: lsoa_wm.loc[idx, <span class="st">'LSOA21CD'</span>],</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'centroid_x'</span>: centroid.x,</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">'centroid_y'</span>: centroid.y,</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">'nearest_node'</span>: node_list_all[i],</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">'snap_dist_m'</span>: dist</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>lsoa_nearest_df <span class="op">=</span> pd.DataFrame(lsoa_nearest)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"LSOA-to-node mapping: </span><span class="sc">{</span><span class="bu">len</span>(lsoa_nearest_df)<span class="sc">:,}</span><span class="ss"> LSOAs"</span>)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Snap distance (m): mean=</span><span class="sc">{</span>lsoa_nearest_df[<span class="st">'snap_dist_m'</span>]<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss">, "</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"max=</span><span class="sc">{</span>lsoa_nearest_df[<span class="st">'snap_dist_m'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>LSOA-to-node mapping: 1,718 LSOAs
+Snap distance (m): mean=41.6, max=414.1</code></pre>
+</div>
+</div>
+</section>
+<section id="computing-directed-network-reach-with-physical-road-deduplication" class="level3">
+<h3 class="anchored" data-anchor-id="computing-directed-network-reach-with-physical-road-deduplication">5.2 Computing Directed Network Reach (with Physical-Road Deduplication)</h3>
+<p>Network reach from an origin node <span class="math inline">\(o\)</span> at distance threshold <span class="math inline">\(d\)</span> is:</p>
+<p><span class="math display">\[R(o, d) = \sum_{s \in S_d(o)} \ell(s)\]</span></p>
+<p>where <span class="math inline">\(S_d(o)\)</span> is the set of <strong>unique physical road segments</strong> (<code>osid</code>) reachable from <span class="math inline">\(o\)</span> within network distance <span class="math inline">\(d\)</span>, and <span class="math inline">\(\ell(s)\)</span> is the length of segment <span class="math inline">\(s\)</span>.</p>
+<p>A directed edge <span class="math inline">\((u, v)\)</span> with <code>osid</code> <span class="math inline">\(s\)</span> contributes to reach if its start node <span class="math inline">\(u\)</span> is reachable within <span class="math inline">\(d\)</span>. The contributed length is <span class="math inline">\(\min(\ell_e, d - d_u)\)</span> where <span class="math inline">\(d_u\)</span> is the shortest-path distance to <span class="math inline">\(u\)</span> (partial edge counting, following Peponis et al., 2008).</p>
+<p><strong>Deduplication</strong>: when the same physical road appears as both <code>A→B</code> and <code>B→A</code> (i.e., both directed edges share the same <code>osid</code>), only the <strong>maximum</strong> partial contribution is retained. This ensures that a bidirectional road is counted once regardless of how many of its directed edges have reachable start nodes.</p>
+<div id="code_019" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_reach_from_node(G, source, threshold_m, weight<span class="op">=</span><span class="st">'length'</span>):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Compute directed network reach from a single source node,</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">    with deduplication by osid (physical road segment).</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns reach in metres.</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> source <span class="kw">not</span> <span class="kw">in</span> G:</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.0</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        dist_to_nodes <span class="op">=</span> nx.single_source_dijkstra_path_length(</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>            G, source, cutoff<span class="op">=</span>threshold_m, weight<span class="op">=</span>weight</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> nx.NetworkXError:</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.0</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For each physical segment (osid), keep max partial contribution</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    osid_reach <span class="op">=</span> {}</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> u, v, data <span class="kw">in</span> G.edges(data<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> u <span class="kw">not</span> <span class="kw">in</span> dist_to_nodes:</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>        d_u <span class="op">=</span> dist_to_nodes[u]</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> d_u <span class="op">&gt;=</span> threshold_m:</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>        edge_len <span class="op">=</span> data[weight]</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>        contributed <span class="op">=</span> <span class="bu">min</span>(edge_len, threshold_m <span class="op">-</span> d_u)</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>        osid <span class="op">=</span> data.get(<span class="st">'osid'</span>, data.get(<span class="st">'edge_id'</span>, <span class="ss">f'</span><span class="sc">{</span>u<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">'</span>))</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Keep max contribution per physical segment</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> osid <span class="kw">not</span> <span class="kw">in</span> osid_reach <span class="kw">or</span> contributed <span class="op">&gt;</span> osid_reach[osid]:</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>            osid_reach[osid] <span class="op">=</span> contributed</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(osid_reach.values())</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Test</span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>test_node <span class="op">=</span> lsoa_nearest_df.iloc[<span class="dv">0</span>][<span class="st">'nearest_node'</span>]</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lts <span class="kw">in</span> LTS_LEVELS:</span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> compute_reach_from_node(lts_subgraphs[lts], test_node, REACH_THRESHOLD_M)</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"LTS ≤ </span><span class="sc">{</span>lts<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>r<span class="op">/</span><span class="dv">1000</span><span class="sc">:.2f}</span><span class="ss"> km reachable (first LSOA, 8 km threshold)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>LTS ≤ 1: 0.07 km reachable (first LSOA, 8 km threshold)
+LTS ≤ 2: 0.07 km reachable (first LSOA, 8 km threshold)
+LTS ≤ 3: 223.25 km reachable (first LSOA, 8 km threshold)
+LTS ≤ 4: 2035.03 km reachable (first LSOA, 8 km threshold)</code></pre>
+</div>
+</div>
+</section>
+<section id="batch-computation" class="level3">
+<h3 class="anchored" data-anchor-id="batch-computation">5.3 Batch Computation</h3>
+<div id="code_021" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_all_reach(lts_subgraphs, lsoa_nearest_df, threshold_m, lts_levels):</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Compute network reach for all LSOA × LTS combinations."""</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">len</span>(lsoa_nearest_df) <span class="op">*</span> <span class="bu">len</span>(lts_levels)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    t0 <span class="op">=</span> time.time()</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> lts_level <span class="kw">in</span> lts_levels:</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        G <span class="op">=</span> lts_subgraphs[lts_level]</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Processing LTS ≤ </span><span class="sc">{</span>lts_level<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>G<span class="sc">.</span>number_of_nodes()<span class="sc">:,}</span><span class="ss"> nodes, "</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"</span><span class="sc">{</span>G<span class="sc">.</span>number_of_edges()<span class="sc">:,}</span><span class="ss"> edges)..."</span>)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _, row <span class="kw">in</span> lsoa_nearest_df.iterrows():</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>            reach_m <span class="op">=</span> compute_reach_from_node(G, row[<span class="st">'nearest_node'</span>], threshold_m)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>            results.append({</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>                <span class="st">'LSOA21CD'</span>: row[<span class="st">'LSOA21CD'</span>],</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>                <span class="st">'lts_level'</span>: lts_level,</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>                <span class="st">'reach_m'</span>: reach_m,</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>                <span class="st">'reach_km'</span>: reach_m <span class="op">/</span> <span class="dv">1000</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>            })</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>            counter <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> counter <span class="op">%</span> <span class="dv">500</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>                elapsed <span class="op">=</span> time.time() <span class="op">-</span> t0</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>                rate <span class="op">=</span> counter <span class="op">/</span> elapsed</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>                remaining <span class="op">=</span> (total <span class="op">-</span> counter) <span class="op">/</span> rate</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>counter<span class="sc">:&gt;5,}</span><span class="ss">/</span><span class="sc">{</span>total<span class="sc">:,}</span><span class="ss"> "</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>                      <span class="ss">f"(</span><span class="sc">{</span>counter<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span><span class="sc">:.0f}</span><span class="ss">%) "</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>                      <span class="ss">f"— </span><span class="sc">{</span>elapsed<span class="sc">:.0f}</span><span class="ss">s elapsed, ~</span><span class="sc">{</span>remaining<span class="sc">:.0f}</span><span class="ss">s remaining"</span>)</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>    elapsed <span class="op">=</span> time.time() <span class="op">-</span> t0</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Completed </span><span class="sc">{</span>total<span class="sc">:,}</span><span class="ss"> computations in </span><span class="sc">{</span>elapsed<span class="sc">:.1f}</span><span class="ss">s (</span><span class="sc">{</span>elapsed<span class="op">/</span><span class="dv">60</span><span class="sc">:.1f}</span><span class="ss"> min)"</span>)</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame(results)</span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>reach_df <span class="op">=</span> compute_all_reach(lts_subgraphs, lsoa_nearest_df,</span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>                              REACH_THRESHOLD_M, LTS_LEVELS)</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Result shape: </span><span class="sc">{</span>reach_df<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Processing LTS ≤ 1 (191,638 nodes, 290,329 edges)...
+    500/6,872 (7%) — 16s elapsed, ~206s remaining
+  1,000/6,872 (15%) — 31s elapsed, ~182s remaining
+  1,500/6,872 (22%) — 46s elapsed, ~164s remaining
+
+Processing LTS ≤ 2 (222,328 nodes, 431,713 edges)...
+  2,000/6,872 (29%) — 70s elapsed, ~170s remaining
+  2,500/6,872 (36%) — 100s elapsed, ~174s remaining
+  3,000/6,872 (44%) — 129s elapsed, ~167s remaining
+
+Processing LTS ≤ 3 (239,162 nodes, 474,278 edges)...
+  3,500/6,872 (51%) — 160s elapsed, ~154s remaining
+  4,000/6,872 (58%) — 195s elapsed, ~140s remaining
+  4,500/6,872 (65%) — 229s elapsed, ~121s remaining
+  5,000/6,872 (73%) — 264s elapsed, ~99s remaining
+
+Processing LTS ≤ 4 (253,548 nodes, 521,792 edges)...
+  5,500/6,872 (80%) — 325s elapsed, ~81s remaining
+  6,000/6,872 (87%) — 395s elapsed, ~57s remaining
+  6,500/6,872 (95%) — 463s elapsed, ~27s remaining
+
+Completed 6,872 computations in 515.0s (8.6 min)
+
+Result shape: (6872, 4)</code></pre>
+</div>
+</div>
+</section>
+<section id="pivot-and-merge" class="level3">
+<h3 class="anchored" data-anchor-id="pivot-and-merge">5.4 Pivot and Merge</h3>
+<div id="code_023" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot to wide format</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>reach_wide <span class="op">=</span> reach_df.pivot_table(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">'LSOA21CD'</span>, columns<span class="op">=</span><span class="st">'lts_level'</span>, values<span class="op">=</span><span class="st">'reach_km'</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>).<span class="bu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>reach_wide.columns <span class="op">=</span> [<span class="ss">f'reach_km_lts</span><span class="sc">{</span><span class="bu">int</span>(lts)<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> lts <span class="kw">in</span> reach_wide.columns]</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>reach_wide <span class="op">=</span> reach_wide.reset_index()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge with LSOA geometries</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>lsoa_reach <span class="op">=</span> lsoa_wm[[<span class="st">'LSOA21CD'</span>, <span class="st">'LSOA21NM'</span>, <span class="st">'LAD25NM'</span>, <span class="st">'geometry'</span>]].merge(</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    reach_wide, on<span class="op">=</span><span class="st">'LSOA21CD'</span>, how<span class="op">=</span><span class="st">'left'</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute reach ratio</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>lsoa_reach[<span class="st">'reach_ratio'</span>] <span class="op">=</span> np.where(</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    lsoa_reach[<span class="st">'reach_km_lts4'</span>] <span class="op">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    lsoa_reach[<span class="st">'reach_km_lts2'</span>] <span class="op">/</span> lsoa_reach[<span class="st">'reach_km_lts4'</span>],</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Save</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>reach_df.to_csv(OUTPUT_DIR <span class="op">/</span> <span class="st">'lsoa_network_reach.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"LSOAs with reach data: </span><span class="sc">{</span><span class="bu">len</span>(lsoa_reach)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Columns: </span><span class="sc">{</span>[c <span class="cf">for</span> c <span class="kw">in</span> lsoa_reach.columns <span class="cf">if</span> <span class="st">'reach'</span> <span class="kw">in</span> c]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>LSOAs with reach data: 1,718
+
+Columns: ['reach_km_lts1', 'reach_km_lts2', 'reach_km_lts3', 'reach_km_lts4', 'reach_ratio']</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">6. Results</h2>
+<section id="summary-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="summary-statistics">6.1 Summary Statistics</h3>
+<div id="code_025" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">75</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Network Reach Summary — 8 km Threshold (physical road km reachable)"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">75</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'LTS'</span><span class="sc">:&gt;8}</span><span class="ss">  </span><span class="sc">{</span><span class="st">'Mean'</span><span class="sc">:&gt;8}</span><span class="ss">  </span><span class="sc">{</span><span class="st">'Median'</span><span class="sc">:&gt;8}</span><span class="ss">  </span><span class="sc">{</span><span class="st">'Std'</span><span class="sc">:&gt;8}</span><span class="ss">  </span><span class="sc">{</span><span class="st">'Min'</span><span class="sc">:&gt;8}</span><span class="ss">  </span><span class="sc">{</span><span class="st">'Max'</span><span class="sc">:&gt;8}</span><span class="ss">  </span><span class="sc">{</span><span class="st">'Zero%'</span><span class="sc">:&gt;7}</span><span class="ss">"</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">75</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lts <span class="kw">in</span> LTS_LEVELS:</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    col <span class="op">=</span> <span class="ss">f'reach_km_lts</span><span class="sc">{</span>lts<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> lsoa_reach[col]</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    pz <span class="op">=</span> (s <span class="op">==</span> <span class="dv">0</span>).mean() <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'≤ '</span> <span class="op">+</span> <span class="bu">str</span>(lts)<span class="sc">:&gt;8}</span><span class="ss">  </span><span class="sc">{</span>s<span class="sc">.</span>mean()<span class="sc">:&gt;8.1f}</span><span class="ss">  </span><span class="sc">{</span>s<span class="sc">.</span>median()<span class="sc">:&gt;8.1f}</span><span class="ss">  "</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span>s<span class="sc">.</span>std()<span class="sc">:&gt;8.1f}</span><span class="ss">  </span><span class="sc">{</span>s<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:&gt;8.1f}</span><span class="ss">  </span><span class="sc">{</span>s<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:&gt;8.1f}</span><span class="ss">  </span><span class="sc">{</span>pz<span class="sc">:&gt;6.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Reach ratio (LTS ≤ 2 / LTS ≤ 4):"</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>rr <span class="op">=</span> lsoa_reach[<span class="st">'reach_ratio'</span>]</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Mean: </span><span class="sc">{</span>rr<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss">  |  Median: </span><span class="sc">{</span>rr<span class="sc">.</span>median()<span class="sc">:.3f}</span><span class="ss">  |  Std: </span><span class="sc">{</span>rr<span class="sc">.</span>std()<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>===========================================================================
+Network Reach Summary — 8 km Threshold (physical road km reachable)
+===========================================================================
+     LTS      Mean    Median       Std       Min       Max    Zero%
+---------------------------------------------------------------------------
+     ≤ 1       0.7       0.1       3.0       0.0      39.9    37.0%
+     ≤ 2      37.5      10.6      61.4       0.0     329.2     9.5%
+     ≤ 3     112.4      61.3     119.1       0.0     536.8     4.2%
+     ≤ 4    1580.9    1593.0     505.8       0.0    2479.8     0.1%
+
+Reach ratio (LTS ≤ 2 / LTS ≤ 4):
+  Mean: 0.028  |  Median: 0.007  |  Std: 0.072</code></pre>
+</div>
+</div>
+</section>
+<section id="choropleth-maps-network-reach-at-8-km-by-lts-level" class="level3">
+<h3 class="anchored" data-anchor-id="choropleth-maps-network-reach-at-8-km-by-lts-level">6.2 Choropleth Maps: Network Reach at 8 km by LTS Level</h3>
+<p>Each panel uses a <strong>per-LTS colour scale</strong> (white → LTS colour) to reveal internal spatial variation. The colour ramp runs from white (zero reach) to the LTS-specific colour (high reach), with <code>vmax</code> set at the 98th percentile to prevent outlier compression.</p>
+<div id="576adf14" class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.axes_grid1.inset_locator <span class="im">import</span> inset_axes</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">14</span>))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>LTS_LABELS <span class="op">=</span> {<span class="dv">1</span>: <span class="st">'LTS 1'</span>, <span class="dv">2</span>: <span class="st">'LTS ≤ 2'</span>, <span class="dv">3</span>: <span class="st">'LTS ≤ 3'</span>, <span class="dv">4</span>: <span class="st">'LTS ≤ 4'</span>}</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, lts <span class="kw">in</span> <span class="bu">enumerate</span>(LTS_LEVELS):</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    col <span class="op">=</span> <span class="ss">f'reach_km_lts</span><span class="sc">{</span>lts<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> lsoa_reach[col]</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    vmax <span class="op">=</span> <span class="bu">max</span>(data.quantile(<span class="fl">0.98</span>), <span class="fl">0.01</span>)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    mean_val <span class="op">=</span> data.mean()</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    median_val <span class="op">=</span> data.median()</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    pct_zero <span class="op">=</span> (data <span class="op">==</span> <span class="dv">0</span>).mean() <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Background fill</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    study_area.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'#ededed'</span>, edgecolor<span class="op">=</span><span class="st">'none'</span>)</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Choropleth</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>    lsoa_reach.plot(</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>        column<span class="op">=</span>col, ax<span class="op">=</span>ax,</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>        cmap<span class="op">=</span>LTS_CMAPS[lts],</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>        vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span>vmax,</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>        edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>        missing_kwds<span class="op">=</span>{<span class="st">'color'</span>: <span class="st">'#ededed'</span>}</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>    study_area.boundary.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'#333333'</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Colorbar</span></span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>    sm <span class="op">=</span> plt.cm.ScalarMappable(cmap<span class="op">=</span>LTS_CMAPS[lts],</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>                                norm<span class="op">=</span>plt.Normalize(vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span>vmax))</span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    sm._A <span class="op">=</span> []</span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>    cbar <span class="op">=</span> fig.colorbar(sm, ax<span class="op">=</span>ax, orientation<span class="op">=</span><span class="st">'horizontal'</span>,</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>                        shrink<span class="op">=</span><span class="fl">0.6</span>, pad<span class="op">=</span><span class="fl">0.02</span>, aspect<span class="op">=</span><span class="dv">25</span>)</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>    cbar.set_label(<span class="st">'Network reach (km)'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>    cbar.ax.tick_params(labelsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Title with stats</span></span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f'</span><span class="sc">{</span>LTS_LABELS[lts]<span class="sc">}</span><span class="ch">\n</span><span class="ss">'</span></span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>                 <span class="ss">f'Mean: </span><span class="sc">{</span>mean_val<span class="sc">:.1f}</span><span class="ss"> km | Median: </span><span class="sc">{</span>median_val<span class="sc">:.1f}</span><span class="ss"> km | '</span></span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>                 <span class="ss">f'Zero reach: </span><span class="sc">{</span>pct_zero<span class="sc">:.0f}</span><span class="ss">%'</span>,</span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>                 fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>    ax.set_axis_off()</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Inset distribution (top-right)</span></span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>    ax_inset <span class="op">=</span> inset_axes(ax, width<span class="op">=</span><span class="st">'30%'</span>, height<span class="op">=</span><span class="st">'20%'</span>, loc<span class="op">=</span><span class="st">'upper right'</span>,</span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>                          borderpad<span class="op">=</span><span class="fl">1.2</span>)</span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a>    nonzero <span class="op">=</span> data[data <span class="op">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(nonzero) <span class="op">&gt;</span> <span class="dv">10</span>:</span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a>        ax_inset.hist(nonzero, bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span>LTS_COLORS[lts],</span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a>                      alpha<span class="op">=</span><span class="fl">0.7</span>, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a>        ax_inset.axvline(mean_val, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>,</span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a>                         linewidth<span class="op">=</span><span class="dv">1</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>        ax_inset.axvline(median_val, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>,</span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a>                         linewidth<span class="op">=</span><span class="dv">1</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>    ax_inset.set_xlabel(<span class="st">'km'</span>, fontsize<span class="op">=</span><span class="dv">7</span>, labelpad<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a>    ax_inset.set_ylabel(<span class="st">'LSOAs'</span>, fontsize<span class="op">=</span><span class="dv">7</span>, labelpad<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a>    ax_inset.tick_params(labelsize<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a>    ax_inset.set_facecolor(<span class="st">'white'</span>)</span>
+<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a>    ax_inset.patch.set_alpha(<span class="fl">0.85</span>)</span>
+<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> spine <span class="kw">in</span> ax_inset.spines.values():</span>
+<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a>        spine.set_edgecolor(<span class="st">'grey'</span>)</span>
+<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a>        spine.set_linewidth(<span class="fl">0.5</span>)</span>
+<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-69"><a href="#cb26-69" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Directed Network Reach at 8 km (5-Mile) Threshold by LSOA'</span>,</span>
+<span id="cb26-70"><a href="#cb26-70" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, y<span class="op">=</span><span class="fl">0.97</span>)</span>
+<span id="cb26-71"><a href="#cb26-71" aria-hidden="true" tabindex="-1"></a>plt.tight_layout(rect<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.95</span>])</span>
+<span id="cb26-72"><a href="#cb26-72" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_reach_analysis_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="reach-ratio-map" class="level3">
+<h3 class="anchored" data-anchor-id="reach-ratio-map">6.3 Reach Ratio Map</h3>
+<p>The reach ratio <span class="math inline">\(R_{\text{ratio}} = R_{\text{LTS} \leq 2} / R_{\text{LTS} \leq 4}\)</span> measures what proportion of the full reachable network is accessible at low stress. This metric is directly policy-relevant: it shows where cyclists are forced onto high-stress roads to access destinations within cycling distance.</p>
+</section>
+<section id="borough-level-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="borough-level-comparison">6.4 Borough-Level Comparison</h3>
+<div id="code_031" class="cell" data-execution_count="17">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">18</span>, <span class="dv">14</span>))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>borough_order <span class="op">=</span> (lsoa_reach.groupby(<span class="st">'LAD25NM'</span>)[<span class="st">'reach_km_lts4'</span>]</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                 .median().sort_values(ascending<span class="op">=</span><span class="va">False</span>).index)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, lts <span class="kw">in</span> <span class="bu">enumerate</span>(LTS_LEVELS):</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    col <span class="op">=</span> <span class="ss">f'reach_km_lts</span><span class="sc">{</span>lts<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    data_by_borough <span class="op">=</span> [lsoa_reach.loc[lsoa_reach[<span class="st">'LAD25NM'</span>] <span class="op">==</span> b, col].values</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>                       <span class="cf">for</span> b <span class="kw">in</span> borough_order]</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    bp <span class="op">=</span> ax.boxplot(data_by_borough, labels<span class="op">=</span>borough_order,</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>                    patch_artist<span class="op">=</span><span class="va">True</span>, widths<span class="op">=</span><span class="fl">0.6</span>,</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>                    medianprops<span class="op">=</span><span class="bu">dict</span>(color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>))</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> patch <span class="kw">in</span> bp[<span class="st">'boxes'</span>]:</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>        patch.set_facecolor(LTS_COLORS[lts])</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>        patch.set_alpha(<span class="fl">0.6</span>)</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">'Network reach (km)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f'LTS ≤ </span><span class="sc">{</span>lts<span class="sc">}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>,</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>                 color<span class="op">=</span>LTS_COLORS[lts])</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>    ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Network Reach at 8 km Threshold by Borough'</span>,</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">15</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, y<span class="op">=</span><span class="fl">1.01</span>)</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>plt.savefig(FIG_DIR <span class="op">/</span> <span class="st">'reach_borough_boxplots.png'</span>, dpi<span class="op">=</span><span class="dv">200</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_reach_analysis_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="decomposition-by-facility-type" class="level2">
+<h2 class="anchored" data-anchor-id="decomposition-by-facility-type">8. Decomposition by Facility Type</h2>
+<div id="code_039" class="cell" data-execution_count="18">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_reach_by_facility(G, source, threshold_m, weight<span class="op">=</span><span class="st">'length'</span>):</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Compute reach decomposed by facility type, with osid deduplication."""</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> source <span class="kw">not</span> <span class="kw">in</span> G:</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {}</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        dist_to_nodes <span class="op">=</span> nx.single_source_dijkstra_path_length(</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>            G, source, cutoff<span class="op">=</span>threshold_m, weight<span class="op">=</span>weight</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> nx.NetworkXError:</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {}</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># {osid: (facility_type, max_contributed_length)}</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    osid_info <span class="op">=</span> {}</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> u, v, data <span class="kw">in</span> G.edges(data<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> u <span class="kw">not</span> <span class="kw">in</span> dist_to_nodes:</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>        d_u <span class="op">=</span> dist_to_nodes[u]</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> d_u <span class="op">&gt;=</span> threshold_m:</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>        contributed <span class="op">=</span> <span class="bu">min</span>(data[weight], threshold_m <span class="op">-</span> d_u)</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>        osid <span class="op">=</span> data.get(<span class="st">'osid'</span>, data.get(<span class="st">'edge_id'</span>, <span class="ss">f'</span><span class="sc">{</span>u<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">'</span>))</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>        fac <span class="op">=</span> data.get(<span class="st">'facility_type'</span>, <span class="st">'Unknown'</span>)</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> osid <span class="kw">not</span> <span class="kw">in</span> osid_info <span class="kw">or</span> contributed <span class="op">&gt;</span> osid_info[osid][<span class="dv">1</span>]:</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>            osid_info[osid] <span class="op">=</span> (fac, contributed)</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>    reach_by_fac <span class="op">=</span> defaultdict(<span class="bu">float</span>)</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> fac, length <span class="kw">in</span> osid_info.values():</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>        reach_by_fac[fac] <span class="op">+=</span> length</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">dict</span>(reach_by_fac)</span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 200 LSOAs</span></span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>sample_idx <span class="op">=</span> np.random.choice(<span class="bu">len</span>(lsoa_nearest_df),</span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>                               size<span class="op">=</span><span class="bu">min</span>(<span class="dv">200</span>, <span class="bu">len</span>(lsoa_nearest_df)), replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>sample_lsoas <span class="op">=</span> lsoa_nearest_df.iloc[sample_idx]</span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Facility-type decomposition: </span><span class="sc">{</span><span class="bu">len</span>(sample_lsoas)<span class="sc">}</span><span class="ss"> sampled LSOAs, 8 km threshold"</span>)</span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a>fac_results <span class="op">=</span> []</span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lts <span class="kw">in</span> LTS_LEVELS:</span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> lts_subgraphs[lts]</span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, row <span class="kw">in</span> sample_lsoas.iterrows():</span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a>        reach_fac <span class="op">=</span> compute_reach_by_facility(G, row[<span class="st">'nearest_node'</span>], REACH_THRESHOLD_M)</span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> fac, length <span class="kw">in</span> reach_fac.items():</span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a>            fac_results.append({</span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a>                <span class="st">'lts_level'</span>: lts, <span class="st">'facility_type'</span>: fac, <span class="st">'reach_km'</span>: length <span class="op">/</span> <span class="dv">1000</span></span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a>            })</span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a>fac_df <span class="op">=</span> pd.DataFrame(fac_results)</span>
+<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a>fac_summary <span class="op">=</span> fac_df.groupby([<span class="st">'lts_level'</span>, <span class="st">'facility_type'</span>])[<span class="st">'reach_km'</span>].mean().reset_index()</span>
+<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Mean reach (km) by facility type:"</span>)</span>
+<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lts <span class="kw">in</span> LTS_LEVELS:</span>
+<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">LTS ≤ </span><span class="sc">{</span>lts<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a>    sub <span class="op">=</span> fac_summary[fac_summary[<span class="st">'lts_level'</span>] <span class="op">==</span> lts].sort_values(<span class="st">'reach_km'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, row <span class="kw">in</span> sub.iterrows():</span>
+<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>row[<span class="st">'facility_type'</span>]<span class="sc">:&gt;25}</span><span class="ss">: </span><span class="sc">{</span>row[<span class="st">'reach_km'</span>]<span class="sc">:&gt;8.2f}</span><span class="ss"> km"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Facility-type decomposition: 200 sampled LSOAs, 8 km threshold
+
+Mean reach (km) by facility type:
+
+LTS ≤ 1:
+                   Off-Road:     1.00 km
+                 Shared Use:     0.28 km
+              Mixed Traffic:     0.26 km
+        Advisory Cycle Lane:     0.16 km
+   Fully Kerbed Cycle Track:     0.16 km
+                 gap_bridge:     0.09 km
+
+LTS ≤ 2:
+              Mixed Traffic:    24.50 km
+                   Off-Road:     9.81 km
+                 gap_bridge:     1.46 km
+                 Shared Use:     0.69 km
+   Fully Kerbed Cycle Track:     0.59 km
+          Light Segregation:     0.35 km
+        Stepped Cycle Track:     0.12 km
+       Mandatory Cycle Lane:     0.07 km
+        Advisory Cycle Lane:     0.05 km
+
+LTS ≤ 3:
+              Mixed Traffic:    82.19 km
+                   Off-Road:    22.10 km
+                 gap_bridge:     3.62 km
+                 Shared Use:     1.27 km
+          Light Segregation:     0.56 km
+   Fully Kerbed Cycle Track:     0.47 km
+        Advisory Cycle Lane:     0.36 km
+        Stepped Cycle Track:     0.16 km
+       Mandatory Cycle Lane:     0.15 km
+
+LTS ≤ 4:
+              Mixed Traffic:  1235.37 km
+                   Off-Road:   240.99 km
+                 gap_bridge:    43.09 km
+                 Shared Use:    20.93 km
+        Advisory Cycle Lane:     5.06 km
+   Fully Kerbed Cycle Track:     3.63 km
+          Light Segregation:     1.38 km
+        Stepped Cycle Track:     1.10 km
+       Mandatory Cycle Lane:     0.68 km</code></pre>
+</div>
+</div>
+</section>
+<section id="export" class="level2">
+<h2 class="anchored" data-anchor-id="export">9. Export</h2>
+<div id="code_042" class="cell" data-execution_count="20">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>output_cols <span class="op">=</span> [<span class="st">'LSOA21CD'</span>, <span class="st">'LSOA21NM'</span>, <span class="st">'LAD25NM'</span>] <span class="op">+</span> <span class="op">\</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>              [<span class="ss">f'reach_km_lts</span><span class="sc">{</span>l<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> l <span class="kw">in</span> LTS_LEVELS] <span class="op">+</span> <span class="op">\</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>              [<span class="st">'reach_ratio'</span>] <span class="op">+</span> <span class="op">\</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>              [<span class="st">'geometry'</span>]</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>lsoa_reach[output_cols].to_file(OUTPUT_DIR <span class="op">/</span> <span class="st">'lsoa_network_reach.gpkg'</span>, driver<span class="op">=</span><span class="st">'GPKG'</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>csv_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> output_cols <span class="cf">if</span> c <span class="op">!=</span> <span class="st">'geometry'</span>]</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>lsoa_reach[csv_cols].to_csv(OUTPUT_DIR <span class="op">/</span> <span class="st">'lsoa_network_reach_summary.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">70</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ANALYSIS COMPLETE"</span>)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">70</span>)</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">LSOAs:     </span><span class="sc">{</span><span class="bu">len</span>(lsoa_reach)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Threshold: </span><span class="sc">{</span>REACH_THRESHOLD_M<span class="op">/</span><span class="dv">1000</span><span class="sc">:.0f}</span><span class="ss"> km (</span><span class="sc">{</span>REACH_THRESHOLD_M<span class="op">/</span><span class="dv">1609</span><span class="sc">:.0f}</span><span class="ss"> miles)"</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gap close: </span><span class="sc">{</span>GAP_CLOSE_M<span class="sc">}</span><span class="ss"> m"</span>)</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Outputs:"</span>)</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  lsoa_network_reach.gpkg"</span>)</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  lsoa_network_reach.csv"</span>)</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  lsoa_network_reach_summary.csv"</span>)</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Figures → </span><span class="sc">{</span>FIG_DIR<span class="sc">}</span><span class="ss">/"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>======================================================================
+ANALYSIS COMPLETE
+======================================================================
+
+LSOAs:     1,718
+Threshold: 8 km (5 miles)
+Gap close: 30 m
+
+Outputs:
+  lsoa_network_reach.gpkg
+  lsoa_network_reach.csv
+  lsoa_network_reach_summary.csv
+  Figures → ../Figures/</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

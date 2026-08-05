@@ -1,7 +1,7 @@
 \contentsline {chapter}{Abstract}{i}{chapter*.1}%
 \contentsline {chapter}{Declaration}{ii}{chapter*.2}%
 \contentsline {chapter}{Acknowledgements}{iii}{chapter*.3}%
-\contentsline {chapter}{List of Acronyms and Abbreviations}{viii}{chapter*.7}%
+\contentsline {chapter}{List of Acronyms and Abbreviations}{ix}{chapter*.7}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Literature Review}{3}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Infrastructure Quality, Perceived Safety, and Cycling Participation}{3}{section.2.1}%
@@ -16,22 +16,22 @@
 \contentsline {section}{\numberline {4.1}Cyclable Network Extraction and Infrastructure Classification}{13}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Link-level LTS classification}{15}{section.4.2}%
 \contentsline {section}{\numberline {4.3}Junction LTS Classification}{17}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Stress-Based Network Connectivity Evaluation}{17}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Network Growth Simulation}{17}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Results}{18}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Cyclable Network and Infrastructure Profile}{18}{section.5.1}%
-\contentsline {section}{\numberline {5.2}LTS Classification}{19}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Stress-Based Network Density}{19}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Stress-Based Network Fragmentation}{19}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Stress-Based Network Reach}{19}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Network Growth}{19}{section.5.6}%
-\contentsline {chapter}{\numberline {6}Discussion}{20}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Evaluating "Cycling for All": Network Connectivity Against LTN 1/20 Objectives}{20}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Junction Stress and the Structural Severance of the Low-Stress Network}{20}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Network Growth and Implications for Investment Coordination}{20}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Assessing OS NGD Cycle Lane Data: A First Independent Comparison with OpenStreetMap}{20}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Limitations and Future Work}{20}{section.6.5}%
-\contentsline {chapter}{\numberline {7}Conclusion}{21}{chapter.7}%
-\contentsline {chapter}{Bibliography}{22}{chapter*.18}%
-\contentsline {chapter}{\numberline {A}Supplementary Material}{30}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Research Log}{31}{appendix.B}%
+\contentsline {section}{\numberline {4.4}Stress-Based Network Connectivity Evaluation}{19}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Network Growth Simulation}{20}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Results}{21}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Cyclable Network and Infrastructure Profile}{21}{section.5.1}%
+\contentsline {section}{\numberline {5.2}LTS Classification}{21}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Stress-Based Network Density}{24}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Stress-Based Network Fragmentation}{24}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Stress-Based Network Reach}{24}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Network Growth}{24}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Discussion}{25}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Evaluating "Cycling for All": Network Connectivity Against LTN 1/20 Objectives}{25}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Junction Stress and the Structural Severance of the Low-Stress Network}{25}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Network Growth and Implications for Investment Coordination}{25}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Assessing OS NGD Cycle Lane Data: A First Independent Comparison with OpenStreetMap}{25}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Limitations and Future Work}{25}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Conclusion}{26}{chapter.7}%
+\contentsline {chapter}{Bibliography}{27}{chapter*.22}%
+\contentsline {chapter}{\numberline {A}Supplementary Material}{37}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Research Log}{38}{appendix.B}%

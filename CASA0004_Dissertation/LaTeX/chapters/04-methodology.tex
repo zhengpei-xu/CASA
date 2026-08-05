@@ -134,13 +134,132 @@ OS~NGD does not include motor traffic volume attributes. To address this, major 
 \section{Junction LTS Classification}
 \label{sec:method-junctionlts}
 
-% TODO: bearing-based conflict detection, JAT criteria
+
+The original LTS framework \parencite{mekuria2012a,furth2016} established
+intersection-specific criteria independent of segment classification, covering
+right-turn lane weaving conflicts on signalised approaches and crossing stress at
+unsignalized junctions, with junction stress propagated to the approaching links of
+the minor street. However, the fine-grained geometric data required by these
+criteria are unavailable in most cities \parencite{bearn2018,furth2018},
+driving the widespread adoption of the \textcite{conveyal2015} method, which relies
+solely on OSM tags and propagates the highest LTS of any edge at an unsignalized
+vertex to all edges at that vertex without independently evaluating crossing
+geometry. This max-propagation logic has been applied in multiple city and
+regional-scale studies \parencite{semler2017,murphy2019,huertas2020} with subsequent
+work introducing traffic signal or stop sign presence as downgrading modifiers
+\parencite{bearn2018,lin2021} while retaining the same underlying proxy. A
+substantial number of network-scale studies omitted intersection treatment entirely
+\parencite{wang2022,viero2025}. Across this spectrum of implementations, two gaps
+remain unaddressed. Firstly, all existing LTS intersection criteria were initially
+developed for North American junction typologies and do not address roundabouts,
+which are prevalent in the UK road network, are associated with elevated cyclist
+collision risk \parencite{daniels2009,aldred2021,poudel2021}, with physiological
+stress measurement directly recommending that roundabout presence be incorporated
+into the LTS framework \parencite{rodrigues2022}. Secondly, the Conveyal-lineage
+methods that now dominate applied practice derive junction stress entirely from
+pre-assigned segment LTS values rather than from the operational characteristics of
+conflicting traffic, and their undirected vertex-level propagation assigns elevated
+stress indiscriminately to all incident edges regardless of whether a cyclist at
+that junction could legally travel onto each of them, obscuring the heterogeneity of
+crossing conditions within the network.
+
+The Junction Assessment Tool (JAT) within LTN 1/20 evaluates junction suitability by
+establishing criteria for each junction form (priority T-junction, crossroads,
+traffic signals, roundabout), disaggregated by the specific cycle movement being
+assessed. From this structure, three variables can be identified as governing
+crossing stress: the speed and volume of conflicting motor traffic, which determine
+the severity of the potential conflict; the number of lanes to be crossed in one movement,
+which determines the duration of exposure; and the availability of protection such
+as a central refuge, traffic signals, or dedicated cycle priority. LTN 1/20 also
+provides a crossing design suitability matrix that classifies crossings by these
+variables into three suitability tiers: suitable for most people, not suitable for
+all, and suitable for few. For non-roundabout crossing junctions
+(Table~\ref{tab:crossing-lts}), the present study maps these three suitability tiers
+to LTS 1, LTS 2, and LTS 3--4 respectively. Protection is operationalised in three
+levels: uncontrolled, traffic island (identified from the OS NGD link description
+field ``Traffic Island Link At Junction''), and signalised (identified from
+OpenStreetMap traffic signal tags spatially joined to OS NGD nodes). The OS NGD does
+not distinguish between median refuges, central islands, and other refuge forms, but
+the presence of a traffic island at a junction at minimum serves to channelise
+traffic flow and provide physical separation. For roundabouts
+(Table~\ref{tab:roundabout-lts}), the classification is derived directly from the JAT
+roundabout-specific criteria, which assess suitability by traffic throughput,
+approach geometry, and off-carriageway cycle facility provision. Each roundabout node
+is classified by the maximum AADT, V85, and road width of its incident links.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Crossing Junction LTS Classification}
+  \label{tab:crossing-lts}
+  \begin{tabularx}{\textwidth}{X X X c c c}
+    \toprule
+    & & & \multicolumn{3}{c}{LTS by protection level} \\
+    \cmidrule(lr){4-6}
+    V85 (mph) & AADT & Est.\ lanes & Uncontrolled & Traffic island & Signalised \\
+    \midrule
+    $\geq$ 37   & Any            & Any      & 4 & 4 & 3 \\
+    30--37      & $>$ 10,000     & Any      & 4 & 4 & 1 \\
+    30--37      & 6,000--10,000  & $\geq$ 2 & 4 & 4 & 1 \\
+    30--37      & $\leq$ 6,000   & $\geq$ 2 & 3 & 3 & 1 \\
+    30--37      & $\leq$ 10,000  & 1        & 2 & 2 & 1 \\
+    $\leq$ 30   & $>$ 8,000      & $>$ 2    & 4 & 3 & 1 \\
+    $\leq$ 30   & $>$ 8,000      & $\leq$ 2 & 3 & 2 & 1 \\
+    $\leq$ 30   & 4,000--8,000   & $\geq$ 2 & 2 & 2 & 1 \\
+    $\leq$ 30   & 4,000--8,000   & 1        & 2 & 1 & 1 \\
+    $\leq$ 30   & $\leq$ 4,000   & $\geq$ 2 & 2 & 1 & 1 \\
+    $\leq$ 30   & $\leq$ 4,000   & 1        & 1 & 1 & 1 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Roundabout LTS Classification}
+  \label{tab:roundabout-lts}
+  \begin{tabularx}{\textwidth}{X c}
+    \toprule
+    Base conditions & LTS \\
+    \midrule
+    AADT $>$ 8,000 AND est.\ lanes $\geq$ 2; OR V85 $\geq$ 37 mph & 4 \\
+    AADT $>$ 8,000 OR est.\ lanes $\geq$ 2 (but not both)         & 3 \\
+    All other roundabouts (compact/mini, AADT $\leq$ 8,000)       & 2 \\
+    Segregated cycle facility AND traffic signal                  & 1 \\
+    \bottomrule
+  \end{tabularx}
+
+  \smallskip
+  {\footnotesize \textit{Note.} When traffic lights are present, the LTS value is
+  reduced by one level to a minimum of LTS 2.}
+\end{table}
+
+The junction classification operates at the (link, junction node) pair level. The
+JAT defines junction stress in terms of cycle movements ``in potential conflict''
+with motor traffic, where conflict arises from traffic streams that cross or run
+alongside the cyclist's path without being separated physically or in time.
+Following this definition, the present study identifies conflicting links at each
+crossing junction via the OS NGD directionality attribute, retaining only those that
+a cyclist departing the node could legally enter, and further excluding straight-line
+continuations of the approach link through a bearing-based filter (departure bearing
+within $180^{\circ} \pm 30^{\circ}$, a threshold following the orientation criterion in
+\textcite{mekuria2012a}). The three crossing variables (maximum V85, maximum AADT,
+and maximum estimated lane count) are then taken from the remaining conflict links,
+ensuring all three reflect the transverse traffic stream being crossed. For
+roundabout nodes, where circulatory geometry renders approach-level analysis
+inapplicable, the classification operates at the node level using the maximum
+traffic attributes across all incident links. In both cases, the junction LTS is
+overlaid onto the segment classification using worst-indicator-wins logic, so that
+junction stress can only elevate the final LTS of a link.
 
 \section{Stress-Based Network Connectivity Evaluation}
 \label{sec:method-analysis}
 
-% TODO: fragmentation, reach, OD connectivity, betweenness,
-% growth simulation
+The following analyses evaluate whether the West Midlands network delivers on the LTN 1/20 ``cycling for all'' principle by testing connectivity at LTS 1 (children and older adults) and LTS $\leq$ 2 (mainstream adults), with LTS $\leq$ 3 and $\leq$ 4 included for comparison \parencite{mekuria2012a,departmentfortransport2020a}. Following \textcite{viero2025} and \textcite{schon2024}, the evaluation proceeds through area-based distribution, network fragmentation and network reach.
+
+\textbf{Area-based LTS distribution} Network density is computed at LSOA level as absolute density (km of LTS-classified network per km\textsuperscript{2}) and relative density (proportion of total road network at each LTS level). These metrics characterise the spatial supply of low-stress infrastructure independent of whether it forms a connected network.
+
+\textbf{Network fragmentation} To assess route continuity, connected component analysis is applied: for each cumulative LTS threshold, edges exceeding the threshold are removed and connected components are identified from the undirected projection. The largest connected component (LCC)---the maximum contiguous network a cyclist can traverse without exceeding a given stress threshold---and its share of sub-network length measure network cohesion. The component size distribution and the relationship between network length and fragmentation are examined across the full cyclable network (10,634.6~km). Precise fragmentation metrics are additionally computed on the LCC of the full network, excluding topologically isolated stub segments so that measured fragmentation reflects the breaking of connected routes rather than pre-existing disconnection.
+
+\textbf{Network reach} Network reach is defined as the total length of network reachable from a given origin within a distance threshold \parencite{peponis2008,feng2019,viero2025}. The analysis adopts an 8~km (5~miles) threshold, the distance within which 70\% of personal trips in England fall \parencite{departmentfortransport2020a,departmentfortransport2025}. For each cumulative LTS subgraph, Dijkstra shortest paths are computed on the directed graph from the nearest network node to each LSOA centroid to all reachable nodes within this threshold. To test demand-relevant connectivity, two OD analyses are applied additionally. School accessibility routes from each LSOA centroid to its nearest school (OpenStreetMap), and commuting connectivity uses Census 2011\footnote{The 2021 Census was conducted during the COVID-19 pandemic, when widespread home-working guidance significantly distorted commuting patterns. The 2011 Census is therefore adopted as a more representative baseline of routine commuting flows.} MSOA flows filtered to straight-line distances $\leq$ 8~km, computing the proportion of OD pairs and flow volume for which a route exists at each threshold. Following \textcite{viero2025}, gaps of up to 30~m between edges of the same LTS level are closed with bidirectional bridging edges to compensate for geometric imprecision in infrastructure mapping \parencite{schoner2014}.
 
 \section{Network Growth Simulation}
 \label{sec:method-growth}

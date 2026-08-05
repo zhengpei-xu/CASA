@@ -25,6 +25,43 @@ Spatially, dedicated facilities are concentrated in Birmingham, where fragments 
 \section{LTS Classification}
 \label{sec:results-lts}
 
+Figure~\ref{fig:lts_map} maps the final LTS classification across the directed cyclable network after junction stress enhancement. Of the 480,228 directed edges, 227,420 (47.4\%) are classified as LTS~1, 152,180 (31.7\%) as LTS~2, 46,464 (9.7\%) as LTS~3, and 54,164 (11.3\%) as LTS~4. By network length, these correspond to 43.0\%, 34.9\%, 9.4\%, and 12.7\% respectively (Figure~\ref{fig:lts_composition}, Panel~A). The LTS~1 share consists predominantly of short, clustered residential street segments with low prevailing speeds and traffic volumes, supplemented by a smaller proportion of longer, continuous off-road links that enter the classification at LTS~1 under all link-level conditions. However, this headline figure is misleading in isolation: LTS~3 and~4, while comprising 22.1\% of total network length, form the arterial skeleton of the network, visible as a continuous grid of orange and red on Figure~\ref{fig:lts_map} that encloses the low-stress residential clusters. The implications of this structure for network connectivity are examined in Sections~\ref{sec:results-fragmentation} and~\ref{sec:results-reach}.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=\textwidth]{Figure/wm_lts_classification.png}
+  \caption{Final Level of Traffic Stress classification across the directed
+  cyclable network after junction stress enhancement. Each physical road link
+  carries two directed edges (forward and backward) that may receive different
+  junction-enhanced LTS scores where approach-level conflict differs by
+  direction. Where the two directions disagree, the map displays the higher
+  (more stressful) of the two values, as layers are drawn in ascending LTS
+  order so that higher-stress edges overlay lower-stress ones on the shared
+  link geometry. Basemap: OpenStreetMap contributors.}
+  \label{fig:lts_map}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=\textwidth]{Figure/wm_lts_profile.png}
+  \caption{Network-wide LTS composition by directed network length. Panel~A
+  shows the overall distribution across all four LTS levels, with urban
+  (solid fill) and rural (hatched fill) segments distinguished within each
+  level. Panel~B provides context: the urban share of the study area by
+  Census 2021 usual-resident population (99.0\%) and by land area (87.2\%).
+  Panel~C decomposes the LTS profile separately for urban and rural segments,
+  each normalised to 100\% of its own sub-network length. Rural areas show a
+  markedly higher combined LTS~3 and~4 share (39.5\%) compared with urban
+  areas (21.2\%), despite the classification already applying relaxed
+  thresholds for rural mixed-traffic links (Section~\ref{sec:methodology},
+  Table~\ref{tab:mixed_traffic}).}
+  \label{fig:lts_composition}
+\end{figure}
+
+The aggregate distribution masks a pronounced urban--rural disparity. By network length, urban segments account for the vast majority across all stress levels (Figure~\ref{fig:lts_composition}, Panel~A), but the composition differs sharply: in urban areas LTS~3 and~4 together represent 21.6\% of network length, whereas in rural areas the equivalent share rises to 39.6\% (Figure~\ref{fig:lts_composition}, Panel~C). This disparity persists despite the classification already applying a relaxed threshold for rural mixed-traffic segments (Section~\ref{sec:method-linklts}, Table~\ref{tab:lts_matrix}). The map reveals the underlying cause: urban areas contain dense grids of low-speed residential streets that constitute the majority of network length, keeping the aggregate high-stress share low, while rural areas, concentrated in the Meriden Gap green belt\footnote{The Meriden Gap is a rural green belt area between Solihull and Coventry that forms part of the West Midlands Green Belt.} separating Solihull from Coventry, have a sparse network dominated by high-classification roads carrying speeds and volumes that place them in the highest stress categories, with few low-speed residential alternatives. The spatial distribution of this imbalance is examined through network density analysis in Section~\ref{sec:results-density}.
+
+The distribution described above reflects the final classification after junction stress enhancement, a step that substantially reshapes the LTS profile. Prior to enhancement, 325,051 edges (67.7\%) were classified as LTS~1; afterward this falls to 227,858 (47.4\%), a reduction of 97,193 (20.3\%) edges. The overlay modifies 103,279 edges totalling 5,833.8~km (25.0\% of network length), with the majority (90,312) experiencing a one-level increase, 6,105 a two-level increase, and 7,030 a three-level increase. Uncontrolled crossings account for most upgrades (97,055 edges), reflecting the prevalence of priority junctions where cyclists must yield to or merge with motor traffic without signal protection. Roundabout approaches contribute 5,132 upgrades, typically elevating links to LTS~3 or~4, consistent with evidence that multi-arm roundabouts represent one of the most stressful cycling environments in the UK road network \parencite{davies1997,reid2011,departmentfortransport2024}. Signalised junctions produce the fewest changes, as they inherently provide temporal separation between turning motor vehicles and cyclists. The extent to which junction enhancement fragments otherwise continuous low-stress sub-networks is examined in Section~\ref{sec:results-fragmentation}.
+
 \section{Stress-Based Network Density}
 \label{sec:results-density}
 
