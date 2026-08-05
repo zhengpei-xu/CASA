@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Minor Road AADT Estimation via Routing Importance – MRes Dissertation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Favicon/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-9ffe96b2ae74d945d167c0bbdbef4f8e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+  .navbar { background-color: #000000 !important; }
+  .quarto-color-scheme-toggle { display: none !important; }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">MRes Dissertation</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://zhengpei-xu.github.io/ltn1-20-assessment-tool-wm/web/"> 
+<span class="menu-text">LTN 1/20 Web Assessment Tool</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/zhengpei-xu"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Code/00_cyclable_network_extraction.html">Technical Analysis</a></li><li class="breadcrumb-item"><a href="../Code/01_minor_road_aadt_estimation.html">Minor Road Traffic Volume Estimation</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Overview</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Directed Level of Traffic Stress Classification for Cycling Networks</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Technical Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/00_cyclable_network_extraction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cyclable Network Extraction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/01_minor_road_aadt_estimation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Minor Road Traffic Volume Estimation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/02_volume_projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Traffic Volume Projection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/03_link_lts_classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Link Level LTS Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/04_junction_lts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Junction LTS Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/05_lts_distribution_and_fragmentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LTS Distribution and Fragmentation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/06_reach_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reach Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/07_od_connectivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OD Pair Connectivity Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/08_edge_betweenness_centrality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Edge Betweenness Centrality</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Code/09_network_growth_simulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Network Growth Simulation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#methodology-overview" id="toc-methodology-overview" class="nav-link active" data-scroll-target="#methodology-overview">Methodology Overview</a></li>
+  <li><a href="#setup-and-database-connection" id="toc-setup-and-database-connection" class="nav-link" data-scroll-target="#setup-and-database-connection">1. Setup and Database Connection</a></li>
+  <li><a href="#classify-major-minor-roads" id="toc-classify-major-minor-roads" class="nav-link" data-scroll-target="#classify-major-minor-roads">2. Classify Major / Minor Roads</a></li>
+  <li><a href="#create-topology-and-partition" id="toc-create-topology-and-partition" class="nav-link" data-scroll-target="#create-topology-and-partition">3. Create Topology and Partition</a></li>
+  <li><a href="#polygonize-major-roads-zones" id="toc-polygonize-major-roads-zones" class="nav-link" data-scroll-target="#polygonize-major-roads-zones">4. Polygonize Major Roads → Zones</a></li>
+  <li><a href="#identify-coastal-road-groups" id="toc-identify-coastal-road-groups" class="nav-link" data-scroll-target="#identify-coastal-road-groups">5. Identify Coastal Road Groups</a></li>
+  <li><a href="#zone-based-dijkstra-routing" id="toc-zone-based-dijkstra-routing" class="nav-link" data-scroll-target="#zone-based-dijkstra-routing">6. Zone-Based Dijkstra Routing</a>
+  <ul class="collapse">
+  <li><a href="#algorithm-per-zone" id="toc-algorithm-per-zone" class="nav-link" data-scroll-target="#algorithm-per-zone">Algorithm (per zone)</a></li>
+  <li><a href="#a.-setup-routing-tables" id="toc-a.-setup-routing-tables" class="nav-link" data-scroll-target="#a.-setup-routing-tables">6a. Setup routing tables</a></li>
+  <li><a href="#b.-route-through-enclosed-zones" id="toc-b.-route-through-enclosed-zones" class="nav-link" data-scroll-target="#b.-route-through-enclosed-zones">6b. Route through enclosed zones</a></li>
+  <li><a href="#c.-route-through-coastal-groups" id="toc-c.-route-through-coastal-groups" class="nav-link" data-scroll-target="#c.-route-through-coastal-groups">6c. Route through coastal groups</a></li>
+  </ul></li>
+  <li><a href="#standardize-routing-importance" id="toc-standardize-routing-importance" class="nav-link" data-scroll-target="#standardize-routing-importance">7. Standardize Routing Importance</a></li>
+  <li><a href="#export-routed-network-from-postgis" id="toc-export-routed-network-from-postgis" class="nav-link" data-scroll-target="#export-routed-network-from-postgis">8. Export Routed Network from PostGIS</a></li>
+  <li><a href="#load-pre-computed-routing-importance-alternative-entry-point" id="toc-load-pre-computed-routing-importance-alternative-entry-point" class="nav-link" data-scroll-target="#load-pre-computed-routing-importance-alternative-entry-point">8*. Load Pre-computed Routing Importance (Alternative Entry Point)</a></li>
+  <li><a href="#load-dft-count-points-and-urbanrural-classification" id="toc-load-dft-count-points-and-urbanrural-classification" class="nav-link" data-scroll-target="#load-dft-count-points-and-urbanrural-classification">9. Load DfT Count Points and Urban/Rural Classification</a></li>
+  <li><a href="#build-training-data" id="toc-build-training-data" class="nav-link" data-scroll-target="#build-training-data">10. Build Training Data</a></li>
+  <li><a href="#poisson-glm-training-and-cross-validation" id="toc-poisson-glm-training-and-cross-validation" class="nav-link" data-scroll-target="#poisson-glm-training-and-cross-validation">11. Poisson GLM: Training and Cross-Validation</a></li>
+  <li><a href="#predict-aadt-for-all-minor-roads" id="toc-predict-aadt-for-all-minor-roads" class="nav-link" data-scroll-target="#predict-aadt-for-all-minor-roads">12. Predict AADT for All Minor Roads</a>
+  <ul class="collapse">
+  <li><a href="#compute-prediction-features" id="toc-compute-prediction-features" class="nav-link" data-scroll-target="#compute-prediction-features">12.1 Compute prediction features</a></li>
+  <li><a href="#generate-predictions" id="toc-generate-predictions" class="nav-link" data-scroll-target="#generate-predictions">12.2 Generate predictions</a></li>
+  <li><a href="#save-england-wide-predictions" id="toc-save-england-wide-predictions" class="nav-link" data-scroll-target="#save-england-wide-predictions">12.3 Save England-wide predictions</a></li>
+  <li><a href="#diagnostic-plots" id="toc-diagnostic-plots" class="nav-link" data-scroll-target="#diagnostic-plots">12.4 Diagnostic plots</a></li>
+  </ul></li>
+  <li><a href="#clip-to-west-midlands-study-area" id="toc-clip-to-west-midlands-study-area" class="nav-link" data-scroll-target="#clip-to-west-midlands-study-area">13. Clip to West Midlands Study Area</a></li>
+  <li><a href="#close-database-connection" id="toc-close-database-connection" class="nav-link" data-scroll-target="#close-database-connection">14. Close Database Connection</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Code/00_cyclable_network_extraction.html">Technical Analysis</a></li><li class="breadcrumb-item"><a href="../Code/01_minor_road_aadt_estimation.html">Minor Road Traffic Volume Estimation</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Minor Road AADT Estimation via Routing Importance</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Replication of Morley &amp; Gulliver (2016) <em>Methods to improve traffic flow and noise exposure estimation on minor roads</em> using pgRouting on England OSM data.</p>
+<section id="methodology-overview" class="level2">
+<h2 class="anchored" data-anchor-id="methodology-overview">Methodology Overview</h2>
+<p><strong>Regression equation</strong> (Morley &amp; Gulliver, 2016, Eq. 1):</p>
+<pre><code>AADT ~ log(routing_importance) + road_class + log(nearest_major_AADT) + urban/rural</code></pre>
+<p><strong>Data sources:</strong> - <strong>Road network:</strong> OpenStreetMap England (imported via osm2po → pgRouting) - <strong>Training data:</strong> DfT AADF minor road count points (n ≈ 4,400 nationally) - <strong>Urban/rural:</strong> ONS Output Area Rural-Urban Classification (2021 Census)</p>
+<p><strong>Pipeline:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Section</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>§2–3</td>
+<td>Classify OSM roads as major/minor; create pgRouting topology</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>§4–5</td>
+<td>Polygonize major roads into enclosed zones; identify coastal roads</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>§6</td>
+<td>Zone-based Dijkstra routing → edge traversal counts</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>§7</td>
+<td>Standardize traversals by zone size → routing importance index</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>§8</td>
+<td>Export routed network from PostGIS</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>§9–10</td>
+<td>Match DfT count points to routed network; build training features</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>§11</td>
+<td>Fit Poisson GLM with 5-fold cross-validation</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>§12</td>
+<td>Predict AADT for all minor roads; clip to West Midlands</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reference:</strong> Morley, D.W., Gulliver, J. (2016). Methods to improve traffic flow and noise exposure estimation on minor roads. <em>Environmental Pollution</em>, 216, 746–754. <a href="https://github.com/dwmorley/Minor_Roads">GitHub: dwmorley/Minor_Roads</a></p>
+</section>
+<section id="setup-and-database-connection" class="level2">
+<h2 class="anchored" data-anchor-id="setup-and-database-connection">1. Setup and Database Connection</h2>
+<p>Connect to the PostgreSQL database <code>routing_england</code> containing the England OSM road network imported via osm2po (2,996,810 segments, 2,605,381 vertices).</p>
+<div id="cell-3" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os, time</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> spearmanr</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial <span class="im">import</span> cKDTree</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> KFold</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score, mean_squared_error</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> psycopg2</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>DATA_DIR <span class="op">=</span> Path(<span class="st">'../Data/Raw'</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>OUTPUT_DIR <span class="op">=</span> Path(<span class="st">'../Data/Cleaned'</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>OUTPUT_DIR.mkdir(parents<span class="op">=</span><span class="va">True</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>CRS_BNG  <span class="op">=</span> <span class="st">'EPSG:27700'</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>CRS_WGS84 <span class="op">=</span> <span class="st">'EPSG:4326'</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> psycopg2.<span class="ex">connect</span>(<span class="st">'dbname=routing_england user=pippin'</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>conn.autocommit <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>cur <span class="op">=</span> conn.cursor()</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'SELECT pgr_version();'</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'pgRouting: </span><span class="sc">{</span>cur<span class="sc">.</span>fetchone()[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'SELECT count(*) FROM england_2po_4pgr;'</span>)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Segments: </span><span class="sc">{</span>cur<span class="sc">.</span>fetchone()[<span class="dv">0</span>]<span class="sc">:,}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>pgRouting: 4.0.1
+Segments: 2,996,810</code></pre>
+</div>
+</div>
+</section>
+<section id="classify-major-minor-roads" class="level2">
+<h2 class="anchored" data-anchor-id="classify-major-minor-roads">2. Classify Major / Minor Roads</h2>
+<p>OSM road types are mapped to the major/minor classification used by M&amp;G (2016). Major roads correspond to DfT’s motorway and A-road network; minor roads correspond to B-roads and below.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>osm2po <code>clazz</code></th>
+<th>OSM highway type</th>
+<th>M&amp;G classification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>11, 12</td>
+<td>motorway, motorway_link</td>
+<td>Major</td>
+</tr>
+<tr class="even">
+<td>13, 14</td>
+<td>trunk, trunk_link</td>
+<td>Major</td>
+</tr>
+<tr class="odd">
+<td>15, 16</td>
+<td>primary, primary_link</td>
+<td>Major</td>
+</tr>
+<tr class="even">
+<td>21, 22</td>
+<td>secondary, secondary_link</td>
+<td>Minor</td>
+</tr>
+<tr class="odd">
+<td>31, 32</td>
+<td>tertiary, tertiary_link</td>
+<td>Minor</td>
+</tr>
+<tr class="even">
+<td>41</td>
+<td>residential</td>
+<td>Minor</td>
+</tr>
+<tr class="odd">
+<td>42</td>
+<td>living_street</td>
+<td>Minor</td>
+</tr>
+<tr class="even">
+<td>43</td>
+<td>unclassified</td>
+<td>Minor</td>
+</tr>
+<tr class="odd">
+<td>other</td>
+<td>service, track, etc.</td>
+<td>Minor</td>
+</tr>
+</tbody>
+</table>
+<div id="cell-5" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'''</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS pgr_gb CASCADE;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE pgr_gb AS</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">    id AS gid, osm_id, osm_name, clazz, source, target, km, kmh,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">    cost, reverse_cost, x1, y1, x2, y2, geom_way AS geom,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">    CASE WHEN clazz BETWEEN 11 AND 16 THEN 0 ELSE 1 END AS minor,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">    CASE </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">        WHEN clazz IN (11,12) THEN 'motorway'</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">        WHEN clazz IN (13,14) THEN 'trunk'</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">        WHEN clazz IN (15,16) THEN 'primary'</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">        WHEN clazz IN (21,22) THEN 'secondary'</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">        WHEN clazz IN (31,32) THEN 'tertiary'</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">        WHEN clazz = 41 THEN 'residential'</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">        WHEN clazz = 42 THEN 'living_street'</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="st">        WHEN clazz = 43 THEN 'unclassified'</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="st">        ELSE 'other'</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="st">    END AS fclass</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="st">FROM england_2po_4pgr;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE INDEX pgr_gb_geom_idx ON pgr_gb USING gist(geom);</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE INDEX pgr_gb_gid_idx ON pgr_gb (gid);</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_sql(</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">'SELECT minor, fclass, count(*) as n FROM pgr_gb GROUP BY minor, fclass ORDER BY minor, n DESC'</span>,</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    conn</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> minor        fclass       n
+     0       primary  189551
+     0         trunk  150267
+     0      motorway   15402
+     1   residential 1804140
+     1  unclassified  359808
+     1      tertiary  335128
+     1     secondary  142289
+     1 living_street     225</code></pre>
+</div>
+</div>
+</section>
+<section id="create-topology-and-partition" class="level2">
+<h2 class="anchored" data-anchor-id="create-topology-and-partition">3. Create Topology and Partition</h2>
+<p>Validate the existing osm2po topology (source/target node IDs) and partition the network into separate major and minor road tables for the polygonization step.</p>
+<div id="cell-7" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Validate existing topology</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>topo_stats <span class="op">=</span> pd.read_sql(<span class="st">"""</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">    COUNT(*) AS edges,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">    COUNT(DISTINCT source) AS unique_sources,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="st">    COUNT(DISTINCT target) AS unique_targets,</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="st">    SUM(CASE WHEN source IS NULL THEN 1 ELSE 0 END) AS null_source,</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="st">    SUM(CASE WHEN target IS NULL THEN 1 ELSE 0 END) AS null_target</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st">FROM pgr_gb;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>, conn)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Topology stats:'</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(topo_stats)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Partition into major / minor</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"""</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS pgr_gb_major;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE pgr_gb_major AS SELECT * FROM pgr_gb WHERE minor = 0;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE INDEX pgr_gb_major_geom_idx ON pgr_gb_major USING GIST(geom);</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS pgr_gb_minor;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE pgr_gb_minor AS SELECT * FROM pgr_gb WHERE minor = 1;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE INDEX pgr_gb_minor_geom_idx ON pgr_gb_minor USING GIST(geom);</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>major_n <span class="op">=</span> pd.read_sql(<span class="st">'SELECT count(*) AS n FROM pgr_gb_major'</span>, conn).iloc[<span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>minor_n <span class="op">=</span> pd.read_sql(<span class="st">'SELECT count(*) AS n FROM pgr_gb_minor'</span>, conn).iloc[<span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Major roads: </span><span class="sc">{</span>major_n<span class="sc">:,}</span><span class="ss">'</span>)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Minor roads: </span><span class="sc">{</span>minor_n<span class="sc">:,}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="polygonize-major-roads-zones" class="level2">
+<h2 class="anchored" data-anchor-id="polygonize-major-roads-zones">4. Polygonize Major Roads → Zones</h2>
+<p>Following M&amp;G <code>minor_assignment_dataprep.sql</code>, the major road network is used to partition the study area into enclosed zones:</p>
+<ol type="1">
+<li>Compute the bounding box of the full road network</li>
+<li>Buffer all major road geometries by 0.001° (~100 m)</li>
+<li>Subtract the buffered major roads from the bounding box: <code>ST_Difference(bbox, ST_Union(buffer))</code></li>
+<li>Dump the resulting multipolygon into individual polygons — each polygon is an enclosed area of minor roads bounded by major roads</li>
+</ol>
+<blockquote class="blockquote">
+<p>“Distinct networks of minor roads only accessible to each other without a major road being crossed. Think of the holes in a net pattern created by the major road network.” — M&amp;G GitHub README</p>
+</blockquote>
+<div id="cell-9" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.time()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Creating bounding box...'</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'''</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS bbox;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE bbox AS SELECT ST_Extent(geom)::geometry AS geom FROM pgr_gb;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT UpdateGeometrySRID('bbox','geom',4326);</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Polygonizing major roads (may take 10-30 min for England)...'</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'''</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS major_polys_temp;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE major_polys_temp AS </span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT ST_Buffer((ST_Dump(ST_Difference(b.geom, ST_Union(r.geom)))).geom, 0.001) AS geom</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="st">FROM bbox AS b, </span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="st">    (SELECT ST_Buffer(m.geom, 0.001) AS geom, m.gid FROM pgr_gb_major AS m) AS r</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE ST_Intersects(b.geom, r.geom)</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY b.geom;</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="st">ALTER TABLE major_polys_temp ADD COLUMN gid SERIAL;</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'''</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS major_polys;</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE major_polys AS SELECT p.gid, p.geom FROM major_polys_temp AS p WHERE p.gid != 1;</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="st">ALTER TABLE major_polys ADD COLUMN id SERIAL;</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE INDEX major_polys_geom_idx ON major_polys USING gist(geom);</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> pd.read_sql(<span class="st">'SELECT count(*) FROM major_polys'</span>, conn).iloc[<span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Created </span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss"> zones in </span><span class="sc">{</span>(time.time()<span class="op">-</span>t0)<span class="op">/</span><span class="dv">60</span><span class="sc">:.1f}</span><span class="ss"> min'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="identify-coastal-road-groups" class="level2">
+<h2 class="anchored" data-anchor-id="identify-coastal-road-groups">5. Identify Coastal Road Groups</h2>
+<p>Minor roads not enclosed by any major-road polygon (e.g.&nbsp;coastal areas, islands) are identified separately. These are grouped by spatial connectivity — minor roads that can reach each other without crossing a major road belong to the same group.</p>
+<p>Coastal groups are routed in §6c using the same Dijkstra approach but with group membership instead of polygon containment.</p>
+<div id="cell-11" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'''</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS major_poly_buf;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE major_poly_buf AS</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT ST_Buffer(p.geom, 0.001) AS geom FROM major_polys AS p;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE INDEX major_poly_buf_geom_idx ON major_poly_buf USING gist(geom);</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS coast_roads;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE coast_roads AS</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT r.gid, r.geom, r.fclass FROM pgr_gb_minor AS r </span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE NOT EXISTS (</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT 1 FROM (</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT DISTINCT ON (r2.gid) r2.gid FROM pgr_gb_minor AS r2, major_poly_buf AS p</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="st">        WHERE ST_Contains(p.geom, r2.geom)</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS ip WHERE ip.gid = r.gid</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="st">);</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS coast_roads_grps;</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE coast_roads_grps AS</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT (ST_Dump(ST_Union(ST_Buffer(r.geom, 0.00001)))).geom AS geom </span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="st">FROM (SELECT cr.gid, ST_CollectionExtract(cr.geom, 2) AS geom FROM coast_roads AS cr) AS r;</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="st">ALTER TABLE coast_roads_grps ADD COLUMN id SERIAL;</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE INDEX coast_roads_grps_geom_idx ON coast_roads_grps USING gist(geom);</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS coast_roads_net;</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE coast_roads_net AS</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT r.gid, g.id, r.geom</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="st">FROM (SELECT cr.gid, ST_CollectionExtract(cr.geom, 2) AS geom FROM coast_roads AS cr) AS r</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="st">INNER JOIN coast_roads_grps AS g ON ST_Contains(g.geom, r.geom);</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Coastal roads: </span><span class="sc">{</span>pd<span class="sc">.</span>read_sql(<span class="st">'SELECT count(*) FROM coast_roads'</span>, conn)<span class="sc">.</span>iloc[<span class="dv">0</span>,<span class="dv">0</span>]<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Coastal groups: </span><span class="sc">{</span>pd<span class="sc">.</span>read_sql(<span class="st">'SELECT count(*) FROM coast_roads_grps'</span>, conn)<span class="sc">.</span>iloc[<span class="dv">0</span>,<span class="dv">0</span>]<span class="sc">:,}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="zone-based-dijkstra-routing" class="level2">
+<h2 class="anchored" data-anchor-id="zone-based-dijkstra-routing">6. Zone-Based Dijkstra Routing</h2>
+<p>This is the core computation of the routing importance algorithm.</p>
+<section id="algorithm-per-zone" class="level3">
+<h3 class="anchored" data-anchor-id="algorithm-per-zone">Algorithm (per zone)</h3>
+<p>For each enclosed polygon (§6b) and each coastal group (§6c):</p>
+<ol type="1">
+<li><strong>Extract</strong> minor road edges inside the zone</li>
+<li><strong>Source points:</strong> minor road endpoints that touch the zone boundary (i.e.&nbsp;where a minor road meets a major road = entry points)</li>
+<li><strong>Target points:</strong> all minor road endpoints inside the zone</li>
+<li><strong>Route</strong> from each source to all targets using <code>pgr_dijkstra</code> on the <strong>full</strong> road network (routes may use major roads if more efficient)</li>
+<li><strong>Count</strong> how many times each minor road edge is traversed</li>
+</ol>
+<blockquote class="blockquote">
+<p>“Starting with every point where a minor road intersects the major road network, the shortest driving route to every other minor road accessible without crossing another major road is calculated.” — Morley &amp; Gulliver (2016, p.&nbsp;748)</p>
+</blockquote>
+</section>
+<section id="a.-setup-routing-tables" class="level3">
+<h3 class="anchored" data-anchor-id="a.-setup-routing-tables">6a. Setup routing tables</h3>
+<div id="cell-13" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"""</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS totals;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE totals AS</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT gid, 0::BIGINT AS total, 0::INTEGER AS poly_gid</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="st">FROM pgr_gb;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE INDEX totals_gid_idx ON totals(gid);</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Routing tables ready.'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="b.-route-through-enclosed-zones" class="level3">
+<h3 class="anchored" data-anchor-id="b.-route-through-enclosed-zones">6b. Route through enclosed zones</h3>
+<p>For each of the major-road-bounded polygons, identify source (entry) and target (interior) nodes, then run one-to-many Dijkstra. Edge traversal counts are accumulated in the <code>totals</code> table.</p>
+<div id="cell-15" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"SET work_mem = '512MB';"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"SET statement_timeout = 30000;"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>polys <span class="op">=</span> pd.read_sql(<span class="st">'SELECT gid FROM major_polys ORDER BY gid'</span>, conn)[<span class="st">'gid'</span>].tolist()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Processing </span><span class="sc">{</span><span class="bu">len</span>(polys)<span class="sc">}</span><span class="ss"> enclosed zones...'</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.time()</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>zones_done <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>total_routes <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> poly_id <span class="kw">in</span> polys:</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. Extract minor road edges inside this polygon</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    cur.execute(<span class="ss">f"""</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT gid, source, target, cost, reverse_cost</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM pgr_gb</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="ss">        WHERE minor = 1</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="ss">          AND ST_Intersects(</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="ss">                (SELECT ST_Buffer(geom, 0.0001) FROM major_polys WHERE gid = </span><span class="sc">{</span>poly_id<span class="sc">}</span><span class="ss">),</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="ss">                geom)</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="ss">    """</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    poly_roads <span class="op">=</span> cur.fetchall()</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> poly_roads:</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        zones_done <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    targets <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(n <span class="cf">for</span> row <span class="kw">in</span> poly_roads <span class="cf">for</span> n <span class="kw">in</span> (row[<span class="dv">1</span>], row[<span class="dv">2</span>])))</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> targets:</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        zones_done <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    edge_gids <span class="op">=</span> [row[<span class="dv">0</span>] <span class="cf">for</span> row <span class="kw">in</span> poly_roads]</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    edge_gids_sql <span class="op">=</span> <span class="st">','</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, edge_gids))</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. Extract boundary entry nodes (where minor roads meet major road polygon edge)</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    cur.execute(<span class="ss">f"""</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT DISTINCT src_id FROM (</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT c.source AS src_id FROM pgr_gb c</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="ss">            WHERE c.gid IN (</span><span class="sc">{</span>edge_gids_sql<span class="sc">}</span><span class="ss">)</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="ss">              AND ST_DWithin(ST_StartPoint(c.geom),</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="ss">                    (SELECT ST_ExteriorRing(geom) FROM major_polys WHERE gid = </span><span class="sc">{</span>poly_id<span class="sc">}</span><span class="ss">),</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="ss">                    0.0001)</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="ss">            UNION</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT c.target AS src_id FROM pgr_gb c</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="ss">            WHERE c.gid IN (</span><span class="sc">{</span>edge_gids_sql<span class="sc">}</span><span class="ss">)</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="ss">              AND ST_DWithin(ST_EndPoint(c.geom),</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="ss">                    (SELECT ST_ExteriorRing(geom) FROM major_polys WHERE gid = </span><span class="sc">{</span>poly_id<span class="sc">}</span><span class="ss">),</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="ss">                    0.0001)</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="ss">              AND ST_Contains(</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="ss">                    (SELECT geom FROM major_polys WHERE gid = </span><span class="sc">{</span>poly_id<span class="sc">}</span><span class="ss">),</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="ss">                    ST_StartPoint(c.geom))</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a><span class="ss">        ) q</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="ss">    """</span>)</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>    sources <span class="op">=</span> [r[<span class="dv">0</span>] <span class="cf">for</span> r <span class="kw">in</span> cur.fetchall()]</span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> sources:</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>        zones_done <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Dijkstra routing with adaptive batching</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>    edge_sql <span class="op">=</span> <span class="ss">f"SELECT gid AS id, source, target, cost, reverse_cost FROM pgr_gb WHERE gid IN (</span><span class="sc">{</span>edge_gids_sql<span class="sc">}</span><span class="ss">)"</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(targets) <span class="op">&gt;</span> <span class="dv">5000</span>:</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>        src_batch, tgt_batch <span class="op">=</span> <span class="dv">5</span>, <span class="dv">1000</span></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">len</span>(targets) <span class="op">&gt;</span> <span class="dv">1000</span>:</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>        src_batch, tgt_batch <span class="op">=</span> <span class="dv">10</span>, <span class="dv">2000</span></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>        src_batch, tgt_batch <span class="op">=</span> <span class="dv">20</span>, <span class="bu">len</span>(targets)</span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>    polygon_failed <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(sources), src_batch):</span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> polygon_failed:</span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>        sub_src <span class="op">=</span> sources[i:i <span class="op">+</span> src_batch]</span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>        src_sql <span class="op">=</span> <span class="st">'['</span> <span class="op">+</span> <span class="st">','</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, sub_src)) <span class="op">+</span> <span class="st">']'</span></span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(targets), tgt_batch):</span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a>            sub_tgt <span class="op">=</span> targets[j:j <span class="op">+</span> tgt_batch]</span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a>            tgt_sql <span class="op">=</span> <span class="st">'['</span> <span class="op">+</span> <span class="st">','</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, sub_tgt)) <span class="op">+</span> <span class="st">']'</span></span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>            <span class="cf">try</span>:</span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a>                cur.execute(<span class="ss">f"""</span></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a><span class="ss">                    WITH paths AS (</span></span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a><span class="ss">                        SELECT edge, COUNT(*) AS cnt</span></span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a><span class="ss">                        FROM pgr_dijkstra($$ </span><span class="sc">{</span>edge_sql<span class="sc">}</span><span class="ss"> $$,</span></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a><span class="ss">                            ARRAY</span><span class="sc">{</span>src_sql<span class="sc">}</span><span class="ss">, ARRAY</span><span class="sc">{</span>tgt_sql<span class="sc">}</span><span class="ss">, directed := true)</span></span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a><span class="ss">                        WHERE edge &gt; 0 GROUP BY edge</span></span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a><span class="ss">                    )</span></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a><span class="ss">                    UPDATE totals t SET total = t.total + p.cnt, poly_gid = </span><span class="sc">{</span>poly_id<span class="sc">}</span></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a><span class="ss">                    FROM paths p WHERE t.gid = p.edge;</span></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a><span class="ss">                """</span>)</span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a>                total_routes <span class="op">+=</span> <span class="bu">len</span>(sub_src) <span class="op">*</span> <span class="bu">len</span>(sub_tgt)</span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a>            <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a>                conn.rollback()</span>
+<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f'Zone </span><span class="sc">{</span>poly_id<span class="sc">}</span><span class="ss"> failed: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a>                polygon_failed <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> polygon_failed:</span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a>        zones_done <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> zones_done <span class="op">%</span> <span class="dv">20</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a>        conn.commit()</span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> zones_done <span class="op">%</span> <span class="dv">200</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a>        elapsed <span class="op">=</span> time.time() <span class="op">-</span> t0</span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a>        rate <span class="op">=</span> zones_done <span class="op">/</span> elapsed <span class="op">*</span> <span class="dv">60</span></span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a>        remain <span class="op">=</span> (<span class="bu">len</span>(polys) <span class="op">-</span> zones_done) <span class="op">/</span> <span class="bu">max</span>(rate, <span class="fl">0.1</span>)</span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>zones_done<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(polys)<span class="sc">}</span><span class="ss"> | </span><span class="sc">{</span>elapsed<span class="op">/</span><span class="dv">60</span><span class="sc">:.1f}</span><span class="ss"> min | ETA </span><span class="sc">{</span>remain<span class="sc">:.0f}</span><span class="ss"> min | </span><span class="sc">{</span>total_routes<span class="sc">:,}</span><span class="ss"> routes'</span>)</span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'RESET work_mem;'</span>)</span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'RESET statement_timeout;'</span>)</span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a>conn.commit()</span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="ch">\n</span><span class="ss">Enclosed zones done in </span><span class="sc">{</span>(time.time()<span class="op">-</span>t0)<span class="op">/</span><span class="dv">60</span><span class="sc">:.1f}</span><span class="ss"> min | </span><span class="sc">{</span>total_routes<span class="sc">:,}</span><span class="ss"> routes'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="c.-route-through-coastal-groups" class="level3">
+<h3 class="anchored" data-anchor-id="c.-route-through-coastal-groups">6c. Route through coastal groups</h3>
+<p>Same logic as §6b, but using coastal road group membership instead of polygon containment. Sources are minor road endpoints adjacent to major roads.</p>
+<div id="cell-17" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"SET work_mem = '512MB';"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"SET statement_timeout = 45000;"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> pd.read_sql(<span class="st">'SELECT DISTINCT id FROM coast_roads_grps ORDER BY id'</span>, conn)[<span class="st">'id'</span>].tolist()</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Processing </span><span class="sc">{</span><span class="bu">len</span>(groups)<span class="sc">}</span><span class="ss"> coastal groups...'</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>t0c <span class="op">=</span> time.time()</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>groups_done <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>total_routes_coast <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> grp_id <span class="kw">in</span> groups:</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    cur.execute(<span class="ss">f"""</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT r.gid, r.source, r.target, r.cost, r.reverse_cost</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM pgr_gb r INNER JOIN coast_roads_net c ON r.gid = c.gid</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="ss">        WHERE c.id = </span><span class="sc">{</span>grp_id<span class="sc">}</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="ss">    """</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    grp_roads <span class="op">=</span> cur.fetchall()</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> grp_roads:</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        groups_done <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    targets <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(n <span class="cf">for</span> row <span class="kw">in</span> grp_roads <span class="cf">for</span> n <span class="kw">in</span> (row[<span class="dv">1</span>], row[<span class="dv">2</span>])))</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> targets:</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>        groups_done <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    edge_gids <span class="op">=</span> [row[<span class="dv">0</span>] <span class="cf">for</span> row <span class="kw">in</span> grp_roads]</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    edge_gids_sql <span class="op">=</span> <span class="st">','</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, edge_gids))</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Boundary nodes: minor road endpoints near major roads</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    cur.execute(<span class="ss">f"""</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT DISTINCT src_id FROM (</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT c.source AS src_id FROM pgr_gb c</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="ss">            WHERE c.gid IN (</span><span class="sc">{</span>edge_gids_sql<span class="sc">}</span><span class="ss">)</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="ss">              AND EXISTS (SELECT 1 FROM pgr_gb_major m</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="ss">                          WHERE ST_DWithin(ST_StartPoint(c.geom), m.geom, 0.001))</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="ss">            UNION</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT c.target AS src_id FROM pgr_gb c</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="ss">            WHERE c.gid IN (</span><span class="sc">{</span>edge_gids_sql<span class="sc">}</span><span class="ss">)</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="ss">              AND EXISTS (SELECT 1 FROM pgr_gb_major m</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="ss">                          WHERE ST_DWithin(ST_EndPoint(c.geom), m.geom, 0.001))</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="ss">        ) q</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="ss">    """</span>)</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>    sources <span class="op">=</span> [r[<span class="dv">0</span>] <span class="cf">for</span> r <span class="kw">in</span> cur.fetchall()]</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> sources:</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>        groups_done <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>    edge_sql <span class="op">=</span> <span class="ss">f"SELECT gid AS id, source, target, cost, reverse_cost FROM pgr_gb WHERE gid IN (</span><span class="sc">{</span>edge_gids_sql<span class="sc">}</span><span class="ss">)"</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(targets) <span class="op">&gt;</span> <span class="dv">5000</span>:</span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>        src_batch, tgt_batch <span class="op">=</span> <span class="dv">5</span>, <span class="dv">1000</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">len</span>(targets) <span class="op">&gt;</span> <span class="dv">1000</span>:</span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>        src_batch, tgt_batch <span class="op">=</span> <span class="dv">10</span>, <span class="dv">2000</span></span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>        src_batch, tgt_batch <span class="op">=</span> <span class="dv">20</span>, <span class="bu">len</span>(targets)</span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    group_failed <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(sources), src_batch):</span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> group_failed:</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>        sub_src <span class="op">=</span> sources[i:i <span class="op">+</span> src_batch]</span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>        src_sql <span class="op">=</span> <span class="st">'['</span> <span class="op">+</span> <span class="st">','</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, sub_src)) <span class="op">+</span> <span class="st">']'</span></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(targets), tgt_batch):</span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>            sub_tgt <span class="op">=</span> targets[j:j <span class="op">+</span> tgt_batch]</span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>            tgt_sql <span class="op">=</span> <span class="st">'['</span> <span class="op">+</span> <span class="st">','</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, sub_tgt)) <span class="op">+</span> <span class="st">']'</span></span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>            <span class="cf">try</span>:</span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>                cur.execute(<span class="ss">f"""</span></span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a><span class="ss">                    WITH paths AS (</span></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a><span class="ss">                        SELECT edge, COUNT(*) AS cnt</span></span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a><span class="ss">                        FROM pgr_dijkstra($$ </span><span class="sc">{</span>edge_sql<span class="sc">}</span><span class="ss"> $$,</span></span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="ss">                            ARRAY</span><span class="sc">{</span>src_sql<span class="sc">}</span><span class="ss">, ARRAY</span><span class="sc">{</span>tgt_sql<span class="sc">}</span><span class="ss">, directed := true)</span></span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a><span class="ss">                        WHERE edge &gt; 0 GROUP BY edge</span></span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a><span class="ss">                    )</span></span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a><span class="ss">                    UPDATE totals t SET total = t.total + p.cnt</span></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a><span class="ss">                    FROM paths p WHERE t.gid = p.edge;</span></span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a><span class="ss">                """</span>)</span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a>                total_routes_coast <span class="op">+=</span> <span class="bu">len</span>(sub_src) <span class="op">*</span> <span class="bu">len</span>(sub_tgt)</span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>            <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a>                conn.rollback()</span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f'Coastal group </span><span class="sc">{</span>grp_id<span class="sc">}</span><span class="ss"> failed: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>                group_failed <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>    groups_done <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> groups_done <span class="op">%</span> <span class="dv">20</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>        conn.commit()</span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'RESET work_mem;'</span>)</span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'RESET statement_timeout;'</span>)</span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a>conn.commit()</span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Coastal done in </span><span class="sc">{</span>(time.time()<span class="op">-</span>t0c)<span class="op">/</span><span class="dv">60</span><span class="sc">:.1f}</span><span class="ss"> min"</span>)</span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Edges traversed: </span><span class="sc">{</span>pd<span class="sc">.</span>read_sql(<span class="st">'SELECT count(*) FROM totals WHERE total &gt; 0'</span>, conn)<span class="sc">.</span>iloc[<span class="dv">0</span>,<span class="dv">0</span>]<span class="sc">:,}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="standardize-routing-importance" class="level2">
+<h2 class="anchored" data-anchor-id="standardize-routing-importance">7. Standardize Routing Importance</h2>
+<p>Following M&amp;G <code>minor_assignment_index.sql</code>:</p>
+<p>Raw traversal counts are standardized to account for zone size — larger zones have more traversals simply because they contain more roads and destinations.</p>
+<pre><code>routing_importance = traversal_count / number_of_minor_roads_in_zone</code></pre>
+<p>Each minor road is assigned to the zone containing the majority of its length. Un-traversed minor roads (dead ends, isolated links) receive a baseline score of 1 to avoid division errors.</p>
+<div id="cell-19" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'''</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">UPDATE totals SET total = 1</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE total = 0 AND gid IN (SELECT gid FROM pgr_gb WHERE minor = 1);</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="st">-- Midpoint of each road for zone assignment</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS road_centres;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE road_centres AS</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT r.gid, ST_LineInterpolatePoint(r.geom, 0.5) AS geom FROM pgr_gb AS r;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE INDEX road_centres_geom_idx ON road_centres USING gist(geom);</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="st">-- Minor roads that fall inside a major-road polygon (non-coastal)</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS not_coast_roads;</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE not_coast_roads AS</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT r.gid, r.geom FROM</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="st">(SELECT r.gid FROM road_centres AS r, major_polys AS p</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="st"> WHERE ST_Intersects(p.geom, r.geom)) AS c </span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN pgr_gb AS r ON r.gid = c.gid WHERE r.minor = 1;</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="st">-- Assign each non-coastal minor road to the polygon it overlaps most</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS road_poly_intersects;</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE road_poly_intersects AS</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT g.gid, g.geom, p.gid AS poly_gid</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="st">FROM major_polys AS p, not_coast_roads AS g</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE ST_Intersects(p.geom, g.geom);</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS road_intersect_length;</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE road_intersect_length AS</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT i.gid, ST_Length(ST_Intersection(ST_MakeValid(p.geom), ST_MakeValid(i.geom))) AS length, i.poly_gid</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="st">FROM road_poly_intersects AS i LEFT JOIN major_polys AS p ON p.gid = i.poly_gid;</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS intersect_majority;</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE intersect_majority AS</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT ON (i.gid) i.gid, i.poly_gid</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="st">FROM road_intersect_length AS i</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY i.gid, i.length, i.poly_gid</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY i.gid, i.length DESC;</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="st">-- Count roads per polygon / per coastal group</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS major_poly_road_counts;</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE major_poly_road_counts AS</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT i.poly_gid, count(i.poly_gid) AS count</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="st">FROM intersect_majority AS i GROUP BY i.poly_gid;</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS coast_road_counts;</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE coast_road_counts AS</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT i.id, count(i.id) AS count</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="st">FROM coast_roads_net AS i GROUP BY i.id;</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="st">-- Final: norm = total / roads_in_zone</span></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="st">DROP TABLE IF EXISTS pgr_gb_routed;</span></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE pgr_gb_routed AS</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT j.*, r.geom, r.fclass, r.osm_id, r.km, r.kmh FROM (</span></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT DISTINCT ON (n.gid) n.gid, n.total, n.count,</span></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a><span class="st">    (n.total / CAST(NULLIF(n.count,0) AS numeric)) AS norm</span></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM (</span></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT t.gid, t.total, i.poly_gid, n.count FROM intersect_majority AS i</span></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a><span class="st">        LEFT JOIN totals AS t ON i.gid = t.gid</span></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="st">        LEFT JOIN major_poly_road_counts AS n ON n.poly_gid = i.poly_gid</span></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a><span class="st">        UNION ALL</span></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT c.gid, t.total, c.id AS poly_gid, n.count FROM coast_roads_net AS c</span></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a><span class="st">        LEFT JOIN totals AS t ON t.gid = c.gid</span></span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a><span class="st">        LEFT JOIN coast_road_counts AS n ON c.id = n.id</span></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a><span class="st">        UNION ALL</span></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT r.gid, 1, 0, 1 FROM pgr_gb AS r WHERE r.minor = 1</span></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a><span class="st">        AND NOT EXISTS (SELECT 1 FROM intersect_majority AS i WHERE i.gid = r.gid)</span></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a><span class="st">        AND NOT EXISTS (SELECT 1 FROM coast_roads_net AS c WHERE c.gid = r.gid)</span></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS n ORDER BY n.gid, n.total DESC</span></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a><span class="st">) AS j LEFT JOIN pgr_gb AS r ON r.gid = j.gid;</span></span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE INDEX pgr_gb_routed_geom_idx ON pgr_gb_routed USING gist(geom);</span></span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>)</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> pd.read_sql(</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>    <span class="st">'SELECT count(*) as n, avg(norm) as mean_importance, max(norm) as max_importance FROM pgr_gb_routed WHERE norm &gt; 0'</span>,</span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>    conn</span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Standardization complete:'</span>)</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="export-routed-network-from-postgis" class="level2">
+<h2 class="anchored" data-anchor-id="export-routed-network-from-postgis">8. Export Routed Network from PostGIS</h2>
+<p>The pgRouting results (routing importance per OSM edge) are exported as GeoDataFrames for use in the Poisson GLM. From this point onward, all processing is in Python/GeoPandas.</p>
+<div id="cell-21" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export all minor roads with routing importance</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>minor_routed <span class="op">=</span> gpd.read_postgis(<span class="st">'''</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT gid, osm_id, fclass, km, kmh, norm AS routing_importance, geom</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM pgr_gb_routed</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>, conn, geom_col<span class="op">=</span><span class="st">'geom'</span>, crs<span class="op">=</span>CRS_WGS84)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Minor routed links: </span><span class="sc">{</span><span class="bu">len</span>(minor_routed)<span class="sc">:,}</span><span class="ss">'</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(minor_routed[[<span class="st">'fclass'</span>, <span class="st">'routing_importance'</span>]].groupby(<span class="st">'fclass'</span>).describe().<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="cell-22" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export major roads (needed for nearest_major_aadt computation)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>major_roads <span class="op">=</span> gpd.read_postgis(<span class="st">'''</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT gid, osm_id, fclass, km, geom FROM pgr_gb WHERE minor = 0</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>, conn, geom_col<span class="op">=</span><span class="st">'geom'</span>, crs<span class="op">=</span>CRS_WGS84)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Major road links: </span><span class="sc">{</span><span class="bu">len</span>(major_roads)<span class="sc">:,}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="load-pre-computed-routing-importance-alternative-entry-point" class="level2">
+<h2 class="anchored" data-anchor-id="load-pre-computed-routing-importance-alternative-entry-point">8*. Load Pre-computed Routing Importance (Alternative Entry Point)</h2>
+<p>If Sections 2–7 have already been executed and the <code>pgr_gb_routed</code> table exists in PostGIS, the routed network can be loaded directly from here. This avoids re-running the computationally expensive routing step.</p>
+<div id="e8cc8c8c" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>CRS_BNG <span class="op">=</span> <span class="st">'EPSG:27700'</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>CRS_WGS84 <span class="op">=</span> <span class="st">'EPSG:4326'</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> psycopg2.<span class="ex">connect</span>(<span class="st">'dbname=routing_england user=pippin'</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Minor roads with routing importance</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>minor_routed <span class="op">=</span> gpd.read_postgis(<span class="st">'''</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT gid, osm_id, fclass, km, kmh, norm AS routing_importance, geom</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM pgr_gb_routed</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>, conn, geom_col<span class="op">=</span><span class="st">'geom'</span>, crs<span class="op">=</span>CRS_WGS84)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Major roads (needed for nearest_major_aadt)</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>major_roads <span class="op">=</span> gpd.read_postgis(<span class="st">'''</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT gid, osm_id, fclass, km, geom</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM pgr_gb WHERE minor = 0</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>, conn, geom_col<span class="op">=</span><span class="st">'geom'</span>, crs<span class="op">=</span>CRS_WGS84)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>conn.close()</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Minor routed links: </span><span class="sc">{</span><span class="bu">len</span>(minor_routed)<span class="sc">:,}</span><span class="ss">'</span>)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Major road links:   </span><span class="sc">{</span><span class="bu">len</span>(major_roads)<span class="sc">:,}</span><span class="ss">'</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="ch">\n</span><span class="ss">Routing importance stats:'</span>)</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(minor_routed[<span class="st">'routing_importance'</span>].describe().<span class="bu">round</span>(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Minor routed links: 2,641,590
+Major road links:   355,220
+
+Routing importance stats:
+count    2641590.000
+mean           1.257
+std            3.690
+min            0.000
+25%            0.027
+50%            0.105
+75%            0.931
+max          248.000
+Name: routing_importance, dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="load-dft-count-points-and-urbanrural-classification" class="level2">
+<h2 class="anchored" data-anchor-id="load-dft-count-points-and-urbanrural-classification">9. Load DfT Count Points and Urban/Rural Classification</h2>
+<p><strong>DfT AADF</strong> (Annual Average Daily Flow) data provides traffic counts at ~20,000 locations nationally. For the Poisson GLM, we use: - <strong>Major road counts</strong> (motorway + A-road): ~15,000 points → used to compute nearest major road AADT for each minor road link - <strong>Minor road counts</strong> (B-road + C/U): ~4,400 points → training set</p>
+<p><strong>Urban/Rural Classification</strong> from the ONS 2021 Census Output Area boundaries is used as a binary predictor following M&amp;G’s observation that AADT differs significantly between urban and rural settings for secondary, tertiary, and unclassified roads (Wilcoxon p &lt; 0.01).</p>
+<div id="cell-26" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load DfT AADF data</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dft_path <span class="op">=</span> DATA_DIR <span class="op">/</span> <span class="st">'DfT_Road_Traffic_Statistics/dft_traffic_counts_aadf/dft_traffic_counts_aadf.csv'</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>dft <span class="op">=</span> pd.read_csv(dft_path)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the latest available year</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>latest_year <span class="op">=</span> dft[<span class="st">'year'</span>].<span class="bu">max</span>()</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>dft_latest <span class="op">=</span> dft[dft[<span class="st">'year'</span>] <span class="op">==</span> latest_year].copy()</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'DfT data: </span><span class="sc">{</span><span class="bu">len</span>(dft_latest)<span class="sc">:,}</span><span class="ss"> count points (year=</span><span class="sc">{</span>latest_year<span class="sc">}</span><span class="ss">)'</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Road categories: </span><span class="sc">{</span>dft_latest[<span class="st">'road_category'</span>]<span class="sc">.</span>value_counts()<span class="sc">.</span>to_dict()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Split major vs minor count points</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># TM = Trunk Motorway, TA = Trunk A-road, PA = Principal A-road, M = Minor</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>dft_major <span class="op">=</span> dft_latest[dft_latest[<span class="st">'road_category'</span>].isin([<span class="st">'TM'</span>, <span class="st">'TA'</span>, <span class="st">'PA'</span>])].copy()</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>dft_minor <span class="op">=</span> dft_latest[dft_latest[<span class="st">'road_category'</span>].isin([<span class="st">'MCU'</span>, <span class="st">'MB'</span>])].copy()</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Major road count points: </span><span class="sc">{</span><span class="bu">len</span>(dft_major)<span class="sc">:,}</span><span class="ss">'</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Minor road count points: </span><span class="sc">{</span><span class="bu">len</span>(dft_minor)<span class="sc">:,}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>DfT data: 22,337 count points (year=2024)
+Road categories: {'PA': 14468, 'MCU': 3854, 'TA': 2198, 'TM': 1239, 'MB': 543, 'PM': 35}
+Major road count points: 17,905
+Minor road count points: 4,397</code></pre>
+</div>
+</div>
+<div id="cell-27" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to GeoDataFrames (BNG for distance-based operations)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dft_major_gdf <span class="op">=</span> gpd.GeoDataFrame(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    dft_major,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    geometry<span class="op">=</span>gpd.points_from_xy(dft_major[<span class="st">'longitude'</span>], dft_major[<span class="st">'latitude'</span>]),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    crs<span class="op">=</span>CRS_WGS84</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>).to_crs(CRS_BNG)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>dft_minor_gdf <span class="op">=</span> gpd.GeoDataFrame(</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    dft_minor,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    geometry<span class="op">=</span>gpd.points_from_xy(dft_minor[<span class="st">'longitude'</span>], dft_minor[<span class="st">'latitude'</span>]),</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    crs<span class="op">=</span>CRS_WGS84</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>).to_crs(CRS_BNG)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename AADT column for clarity</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>dft_minor_gdf <span class="op">=</span> dft_minor_gdf.rename(columns<span class="op">=</span>{<span class="st">'all_motor_vehicles'</span>: <span class="st">'aadt'</span>})</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>dft_major_gdf <span class="op">=</span> dft_major_gdf.rename(columns<span class="op">=</span>{<span class="st">'all_motor_vehicles'</span>: <span class="st">'aadt'</span>})</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Minor road AADT range: </span><span class="sc">{</span>dft_minor_gdf[<span class="st">'aadt'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.0f}</span><span class="ss"> – </span><span class="sc">{</span>dft_minor_gdf[<span class="st">'aadt'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.0f}</span><span class="ss">"</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Major road AADT range: </span><span class="sc">{</span>dft_major_gdf[<span class="st">'aadt'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.0f}</span><span class="ss"> – </span><span class="sc">{</span>dft_major_gdf[<span class="st">'aadt'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Minor road AADT range: 7 – 26703
+Major road AADT range: 0 – 210436</code></pre>
+</div>
+</div>
+<div id="cell-28" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load OA-level urban/rural classification</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>oa_ruc <span class="op">=</span> gpd.read_file(DATA_DIR <span class="op">/</span> <span class="st">'OA_(2021)_EW_BGC_V2_to_Rural_Urban_Classification.geojson'</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>oa_ruc <span class="op">=</span> oa_ruc[[<span class="st">'Urban_rura'</span>, <span class="st">'geometry'</span>]].to_crs(CRS_BNG)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"OA zones loaded: </span><span class="sc">{</span><span class="bu">len</span>(oa_ruc)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(oa_ruc[<span class="st">'Urban_rura'</span>].value_counts())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>OA zones loaded: 188,880
+Urban_rura
+Urban    154723
+Rural     34157
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="build-training-data" class="level2">
+<h2 class="anchored" data-anchor-id="build-training-data">10. Build Training Data</h2>
+<p>Three spatial joins construct the training dataset:</p>
+<ol type="1">
+<li><strong>DfT minor count points → routed OSM links</strong> (nearest within 50 m): each count point inherits the routing importance and road class of its matched link</li>
+<li><strong>Nearest major road AADT</strong> (KDTree): for each training point, the AADT of the closest DfT major road count point is recorded</li>
+<li><strong>Urban/rural</strong> (OA spatial join): each point is classified as urban or rural</li>
+</ol>
+<p>Outlier removal follows M&amp;G: AADT values &gt; Q3 + 1.5 × IQR within each road class × urban/rural group are excluded.</p>
+<div id="cell-30" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 10.1 Match DfT minor count points to routed network ---</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>minor_bng <span class="op">=</span> minor_routed.to_crs(CRS_BNG)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>training <span class="op">=</span> gpd.sjoin_nearest(</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    dft_minor_gdf[[<span class="st">'count_point_id'</span>, <span class="st">'aadt'</span>, <span class="st">'geometry'</span>]],</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    minor_bng[[<span class="st">'gid'</span>, <span class="st">'routing_importance'</span>, <span class="st">'fclass'</span>, <span class="st">'geom'</span>]],</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    how<span class="op">=</span><span class="st">'inner'</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    max_distance<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    distance_col<span class="op">=</span><span class="st">'snap_dist'</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>training <span class="op">=</span> training.sort_values(<span class="st">'snap_dist'</span>).drop_duplicates(subset<span class="op">=</span><span class="st">'gid'</span>, keep<span class="op">=</span><span class="st">'first'</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Matched count points: </span><span class="sc">{</span><span class="bu">len</span>(training)<span class="sc">:,}</span><span class="ss">'</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(training[<span class="st">'fclass'</span>].value_counts())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Matched count points: 3,864
+fclass
+tertiary        1309
+residential     1157
+unclassified     949
+secondary        449
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-31" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 10.2 Compute nearest major road AADT ---</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Build KDTree of major road DfT count points</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>major_coords <span class="op">=</span> np.column_stack([dft_major_gdf.geometry.x, dft_major_gdf.geometry.y])</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>major_tree <span class="op">=</span> cKDTree(major_coords)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For each training point, find nearest major count point</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>train_coords <span class="op">=</span> np.column_stack([training.geometry.x, training.geometry.y])</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>dists, idxs <span class="op">=</span> major_tree.query(train_coords)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>training[<span class="st">'nearest_major_aadt'</span>] <span class="op">=</span> dft_major_gdf[<span class="st">'aadt'</span>].values[idxs]</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>training[<span class="st">'dist_to_major'</span>] <span class="op">=</span> dists</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Nearest major road AADT — median: </span><span class="sc">{</span>training[<span class="st">'nearest_major_aadt'</span>]<span class="sc">.</span>median()<span class="sc">:.0f}</span><span class="ss">, "</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"mean dist: </span><span class="sc">{</span>training[<span class="st">'dist_to_major'</span>]<span class="sc">.</span>mean()<span class="sc">:.0f}</span><span class="ss"> m"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Nearest major road AADT — median: 14879, mean dist: 1936 m</code></pre>
+</div>
+</div>
+<div id="cell-32" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 10.3 Assign urban/rural classification ---</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>training <span class="op">=</span> training.drop(columns<span class="op">=</span>[<span class="st">'index_right'</span>], errors<span class="op">=</span><span class="st">'ignore'</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>training <span class="op">=</span> gpd.sjoin(</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    training,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    oa_ruc,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    how<span class="op">=</span><span class="st">'left'</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    predicate<span class="op">=</span><span class="st">'intersects'</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>training <span class="op">=</span> training.drop_duplicates(subset<span class="op">=</span><span class="st">'count_point_id'</span>, keep<span class="op">=</span><span class="st">'first'</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>training <span class="op">=</span> training.drop(columns<span class="op">=</span>[<span class="st">'index_right'</span>], errors<span class="op">=</span><span class="st">'ignore'</span>)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>training[<span class="st">'is_urban'</span>] <span class="op">=</span> (training[<span class="st">'Urban_rura'</span>] <span class="op">==</span> <span class="st">'Urban'</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Urban: </span><span class="sc">{</span>training[<span class="st">'is_urban'</span>]<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:,}</span><span class="ss"> / Rural: </span><span class="sc">{</span>(<span class="dv">1</span> <span class="op">-</span> training[<span class="st">'is_urban'</span>])<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:,}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Urban: 2,049 / Rural: 1,814</code></pre>
+</div>
+</div>
+<div id="cell-33" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 10.4 Outlier removal (IQR by road class × urban/rural) ---</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> remove_outliers_iqr(df, col, groups):</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    Q1 <span class="op">=</span> df.groupby(groups)[col].transform(<span class="st">'quantile'</span>, <span class="fl">0.25</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    Q3 <span class="op">=</span> df.groupby(groups)[col].transform(<span class="st">'quantile'</span>, <span class="fl">0.75</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    IQR <span class="op">=</span> Q3 <span class="op">-</span> Q1</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df[(df[col] <span class="op">&gt;=</span> (Q1 <span class="op">-</span> <span class="fl">1.5</span> <span class="op">*</span> IQR)) <span class="op">&amp;</span> (df[col] <span class="op">&lt;=</span> (Q3 <span class="op">+</span> <span class="fl">1.5</span> <span class="op">*</span> IQR))].copy()</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>train_clean <span class="op">=</span> remove_outliers_iqr(</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    training[training[<span class="st">'aadt'</span>] <span class="op">&gt;</span> <span class="dv">0</span>],</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'aadt'</span>,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    [<span class="st">'fclass'</span>, <span class="st">'is_urban'</span>]</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'After outlier removal: </span><span class="sc">{</span><span class="bu">len</span>(train_clean)<span class="sc">:,}</span><span class="ss"> / </span><span class="sc">{</span><span class="bu">len</span>(training)<span class="sc">:,}</span><span class="ss"> records'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>After outlier removal: 3,695 / 3,863 records</code></pre>
+</div>
+</div>
+</section>
+<section id="poisson-glm-training-and-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="poisson-glm-training-and-cross-validation">11. Poisson GLM: Training and Cross-Validation</h2>
+<p>Following M&amp;G Equation 1:</p>
+<pre><code>AADT ~ log(routing_importance) + road_class + log(nearest_major_AADT) + urban/rural</code></pre>
+<p>The model is a Generalised Linear Model with Poisson family, appropriate because traffic counts follow a Poisson distribution (Zhang et al., 2011). The log link function ensures non-negative predictions.</p>
+<p><strong>Predictors:</strong> - <code>log_imp</code>: log(1 + routing importance) — captures road connectivity - <code>log_maj</code>: log(1 + nearest major road AADT) — captures local traffic context - <code>is_urban</code>: binary urban/rural indicator - <code>fclass_*</code>: dummy variables for OSM road class (secondary, tertiary, residential, unclassified)</p>
+<p>M&amp;G (2016) reported 73.6% deviance explained on national data, with routing importance alone accounting for 40.3%.</p>
+<div id="cell-35" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build feature matrix</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>train_clean[<span class="st">'log_imp'</span>] <span class="op">=</span> np.log1p(train_clean[<span class="st">'routing_importance'</span>])</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>train_clean[<span class="st">'log_maj'</span>] <span class="op">=</span> np.log1p(train_clean[<span class="st">'nearest_major_aadt'</span>])</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>feature_cols <span class="op">=</span> [<span class="st">'log_imp'</span>, <span class="st">'log_maj'</span>, <span class="st">'is_urban'</span>]</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.get_dummies(train_clean[feature_cols <span class="op">+</span> [<span class="st">'fclass'</span>]], columns<span class="op">=</span>[<span class="st">'fclass'</span>], drop_first<span class="op">=</span><span class="va">True</span>).astype(<span class="bu">float</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(X)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> train_clean[<span class="st">'aadt'</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove any remaining NaN / Inf</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> np.isfinite(X).<span class="bu">all</span>(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">&amp;</span> np.isfinite(y)</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X[mask]</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> y[mask]</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Training samples: </span><span class="sc">{</span><span class="bu">len</span>(X)<span class="sc">:,}</span><span class="ss">'</span>)</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Features: </span><span class="sc">{</span><span class="bu">list</span>(X.columns)<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Training samples: 3,695
+Features: ['const', 'log_imp', 'log_maj', 'is_urban', 'fclass_secondary', 'fclass_tertiary', 'fclass_unclassified']</code></pre>
+</div>
+</div>
+<div id="cell-36" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 5-fold cross-validation</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>kf <span class="op">=</span> KFold(n_splits<span class="op">=</span><span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>r2s, rhos <span class="op">=</span> [], []</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tr_idx, te_idx <span class="kw">in</span> kf.split(X):</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    X_tr, X_te <span class="op">=</span> X.iloc[tr_idx], X.iloc[te_idx]</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    y_tr, y_te <span class="op">=</span> y.iloc[tr_idx], y.iloc[te_idx]</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> sm.GLM(y_tr, X_tr, family<span class="op">=</span>sm.families.Poisson()).fit(method<span class="op">=</span><span class="st">'lbfgs'</span>)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> model.predict(X_te)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    r2s.append(r2_score(y_te, preds))</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    rho, _ <span class="op">=</span> spearmanr(y_te, preds)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    rhos.append(rho)</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'POISSON GLM — 5-fold CV (n=</span><span class="sc">{</span><span class="bu">len</span>(X)<span class="sc">:,}</span><span class="ss">):'</span>)</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'  R²:  </span><span class="sc">{</span>np<span class="sc">.</span>mean(r2s)<span class="sc">:.3f}</span><span class="ss"> ± </span><span class="sc">{</span>np<span class="sc">.</span>std(r2s)<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'  ρ:   </span><span class="sc">{</span>np<span class="sc">.</span>mean(rhos)<span class="sc">:.3f}</span><span class="ss"> ± </span><span class="sc">{</span>np<span class="sc">.</span>std(rhos)<span class="sc">:.3f}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>POISSON GLM — 5-fold CV (n=3,695):
+  R²:  0.604 ± 0.019
+  ρ:   0.803 ± 0.015</code></pre>
+</div>
+</div>
+<div id="cell-37" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit final model on all training data</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>final_model <span class="op">=</span> sm.GLM(y, X, family<span class="op">=</span>sm.families.Poisson()).fit(method<span class="op">=</span><span class="st">'lbfgs'</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(final_model.summary())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:                   aadt   No. Observations:                 3695
+Model:                            GLM   Df Residuals:                     3688
+Model Family:                 Poisson   Df Model:                            6
+Link Function:                    Log   Scale:                          1.0000
+Method:                         lbfgs   Log-Likelihood:            -2.0353e+06
+Date:                Sat, 13 Jun 2026   Deviance:                   4.0379e+06
+Time:                        09:05:33   Pearson chi2:                 4.22e+06
+No. Iterations:                     9   Pseudo R-squ. (CS):              1.000
+Covariance Type:            nonrobust                                         
+=======================================================================================
+                          coef    std err          z      P&gt;|z|      [0.025      0.975]
+---------------------------------------------------------------------------------------
+const                   4.4785      0.004   1066.383      0.000       4.470       4.487
+log_imp                 0.1947      0.000    504.181      0.000       0.194       0.195
+log_maj                 0.1603      0.000    376.137      0.000       0.159       0.161
+is_urban                1.0790      0.001   1299.910      0.000       1.077       1.081
+fclass_secondary        1.7167      0.001   1511.477      0.000       1.714       1.719
+fclass_tertiary         1.2327      0.001   1204.756      0.000       1.231       1.235
+fclass_unclassified     0.0899      0.002     58.031      0.000       0.087       0.093
+=======================================================================================</code></pre>
+</div>
+</div>
+</section>
+<section id="predict-aadt-for-all-minor-roads" class="level2">
+<h2 class="anchored" data-anchor-id="predict-aadt-for-all-minor-roads">12. Predict AADT for All Minor Roads</h2>
+<p>The trained model is applied to all minor road links in the OSM network to generate AADT predictions. Each link requires the same features as the training data: routing importance (from pgRouting), nearest major road AADT (from DfT), urban/rural classification (from ONS), and road class (from OSM).</p>
+<section id="compute-prediction-features" class="level3">
+<h3 class="anchored" data-anchor-id="compute-prediction-features">12.1 Compute prediction features</h3>
+<div id="cell-39" class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 12.1 Compute features for all minor road links ---</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>all_minor <span class="op">=</span> minor_bng.copy()</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># nearest major AADT for every minor link (use link midpoint)</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>all_minor[<span class="st">'mid_x'</span>] <span class="op">=</span> all_minor.geometry.interpolate(<span class="fl">0.5</span>, normalized<span class="op">=</span><span class="va">True</span>).x</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>all_minor[<span class="st">'mid_y'</span>] <span class="op">=</span> all_minor.geometry.interpolate(<span class="fl">0.5</span>, normalized<span class="op">=</span><span class="va">True</span>).y</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>all_coords <span class="op">=</span> np.column_stack([all_minor[<span class="st">'mid_x'</span>], all_minor[<span class="st">'mid_y'</span>]])</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>dists_all, idxs_all <span class="op">=</span> major_tree.query(all_coords)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>all_minor[<span class="st">'nearest_major_aadt'</span>] <span class="op">=</span> dft_major_gdf[<span class="st">'aadt'</span>].values[idxs_all]</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="co"># urban/rural via spatial join</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>all_minor <span class="op">=</span> gpd.sjoin(</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    all_minor, oa_ruc, how<span class="op">=</span><span class="st">'left'</span>, predicate<span class="op">=</span><span class="st">'intersects'</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>).drop_duplicates(subset<span class="op">=</span><span class="st">'gid'</span>, keep<span class="op">=</span><span class="st">'first'</span>)</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>all_minor <span class="op">=</span> all_minor.drop(columns<span class="op">=</span>[<span class="st">'index_right'</span>], errors<span class="op">=</span><span class="st">'ignore'</span>)</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>all_minor[<span class="st">'is_urban'</span>] <span class="op">=</span> (all_minor[<span class="st">'Urban_rura'</span>] <span class="op">==</span> <span class="st">'Urban'</span>).astype(<span class="bu">int</span>).fillna(<span class="dv">0</span>)</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="co"># log-transform features</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>all_minor[<span class="st">'log_imp'</span>] <span class="op">=</span> np.log1p(all_minor[<span class="st">'routing_importance'</span>])</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>all_minor[<span class="st">'log_maj'</span>] <span class="op">=</span> np.log1p(all_minor[<span class="st">'nearest_major_aadt'</span>])</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'All minor links with features: </span><span class="sc">{</span><span class="bu">len</span>(all_minor)<span class="sc">:,}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>All minor links with features: 2,641,590</code></pre>
+</div>
+</div>
+</section>
+<section id="generate-predictions" class="level3">
+<h3 class="anchored" data-anchor-id="generate-predictions">12.2 Generate predictions</h3>
+<div id="cell-41" class="cell" data-execution_count="17">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 12.2 Build prediction matrix (must match training columns) ---</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>X_pred <span class="op">=</span> pd.get_dummies(</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    all_minor[[<span class="st">'log_imp'</span>, <span class="st">'log_maj'</span>, <span class="st">'is_urban'</span>, <span class="st">'fclass'</span>]],</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">'fclass'</span>], drop_first<span class="op">=</span><span class="va">True</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>).astype(<span class="bu">float</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>X_pred <span class="op">=</span> sm.add_constant(X_pred)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Align columns with training matrix (add missing dummies as 0, drop extras)</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> X.columns:</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> X_pred.columns:</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>        X_pred[col] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>X_pred <span class="op">=</span> X_pred[X.columns]</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>all_minor[<span class="st">'predicted_aadt'</span>] <span class="op">=</span> final_model.predict(X_pred).values</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Predicted AADT — min: </span><span class="sc">{</span>all_minor[<span class="st">'predicted_aadt'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.0f}</span><span class="ss">, "</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"median: </span><span class="sc">{</span>all_minor[<span class="st">'predicted_aadt'</span>]<span class="sc">.</span>median()<span class="sc">:.0f}</span><span class="ss">, "</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"max: </span><span class="sc">{</span>all_minor[<span class="st">'predicted_aadt'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Predicted AADT — min: 227, median: 1285, max: 19996</code></pre>
+</div>
+</div>
+</section>
+<section id="save-england-wide-predictions" class="level3">
+<h3 class="anchored" data-anchor-id="save-england-wide-predictions">12.3 Save England-wide predictions</h3>
+<div id="cell-43" class="cell" data-execution_count="21">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 12.3 Save outputs ---</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert back to WGS84 for interoperability</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> all_minor[[<span class="st">'gid'</span>, <span class="st">'osm_id'</span>, <span class="st">'fclass'</span>, <span class="st">'km'</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>                     <span class="st">'routing_importance'</span>, <span class="st">'nearest_major_aadt'</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                     <span class="st">'is_urban'</span>, <span class="st">'predicted_aadt'</span>, <span class="st">'geom'</span>]].copy()</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> output.to_crs(CRS_WGS84)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Save as GeoPackage (preserves types, single file)</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>gpkg_path <span class="op">=</span> OUTPUT_DIR <span class="op">/</span> <span class="st">'minor_road_predicted_aadt.gpkg'</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>output.to_file(gpkg_path, driver<span class="op">=</span><span class="st">'GPKG'</span>)</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Saved: </span><span class="sc">{</span>gpkg_path<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="ch">\n</span><span class="ss">Total minor road links with predicted AADT: </span><span class="sc">{</span><span class="bu">len</span>(output)<span class="sc">:,}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Saved: ../Data/Cleaned/minor_road_predicted_aadt.gpkg
+
+Total minor road links with predicted AADT: 2,641,590</code></pre>
+</div>
+</div>
+</section>
+<section id="diagnostic-plots" class="level3">
+<h3 class="anchored" data-anchor-id="diagnostic-plots">12.4 Diagnostic plots</h3>
+<div id="cell-45" class="cell" data-execution_count="22">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 12.4 Quick diagnostic plot ---</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">4</span>))</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># a) Predicted AADT distribution</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].hist(output[<span class="st">'predicted_aadt'</span>].clip(upper<span class="op">=</span><span class="dv">10000</span>), bins<span class="op">=</span><span class="dv">80</span>, edgecolor<span class="op">=</span><span class="st">'none'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">'Predicted AADT'</span>)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'Count'</span>)</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Distribution of Predicted AADT'</span>)</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="co"># b) Routing importance vs predicted AADT</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].scatter(train_clean[<span class="st">'routing_importance'</span>], train_clean[<span class="st">'aadt'</span>],</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="fl">0.3</span>, s<span class="op">=</span><span class="dv">5</span>, label<span class="op">=</span><span class="st">'Observed'</span>)</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>ri_range <span class="op">=</span> np.linspace(<span class="dv">0</span>, train_clean[<span class="st">'routing_importance'</span>].quantile(<span class="fl">0.99</span>), <span class="dv">100</span>)</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">'Routing Importance'</span>)</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'AADT'</span>)</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'Routing Importance vs AADT'</span>)</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a><span class="co"># c) Observed vs predicted (training set)</span></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>train_preds <span class="op">=</span> final_model.predict(X)</span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].scatter(y, train_preds, alpha<span class="op">=</span><span class="fl">0.3</span>, s<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].plot([<span class="dv">0</span>, y.<span class="bu">max</span>()], [<span class="dv">0</span>, y.<span class="bu">max</span>()], <span class="st">'r--'</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_xlabel(<span class="st">'Observed AADT'</span>)</span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_ylabel(<span class="st">'Predicted AADT'</span>)</span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_title(<span class="ss">f'Observed vs Predicted (ρ=</span><span class="sc">{</span>np<span class="sc">.</span>mean(rhos)<span class="sc">:.3f}</span><span class="ss">)'</span>)</span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a>plt.savefig(OUTPUT_DIR <span class="op">/</span> <span class="st">'aadt_diagnostics.png'</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_minor_road_aadt_estimation_files/figure-html/cell-27-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="clip-to-west-midlands-study-area" class="level2">
+<h2 class="anchored" data-anchor-id="clip-to-west-midlands-study-area">13. Clip to West Midlands Study Area</h2>
+<p>The England-wide predictions are clipped to the seven metropolitan boroughs of the West Midlands Combined Authority. This WM-specific output is used in subsequent notebooks for LTS classification.</p>
+<div id="140d9317" class="cell" data-execution_count="23">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>STUDY_AREA_BOROUGHS <span class="op">=</span> [</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Birmingham'</span>, <span class="st">'Coventry'</span>, <span class="st">'Dudley'</span>, <span class="st">'Sandwell'</span>,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Solihull'</span>, <span class="st">'Walsall'</span>, <span class="st">'Wolverhampton'</span>,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>raw_data <span class="op">=</span> gpd.read_file(</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    DATA_DIR <span class="op">/</span> <span class="st">"Local_Authority_Districts_DEC_2025_Boundaries_UK_BFC_7781342770234899863/LAD_DEC_2025_UK_BFC.shp"</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>study_area <span class="op">=</span> raw_data[raw_data[<span class="st">'LAD25NM'</span>].isin(STUDY_AREA_BOROUGHS)].to_crs(CRS_BNG)</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>study_area_union <span class="op">=</span> study_area.unary_union</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="2000789c" class="cell" data-execution_count="25">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Clip predicted AADT to West Midlands &amp; save ---</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Clip minor roads to study area</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>wm_minor <span class="op">=</span> all_minor[all_minor.intersects(study_area_union)].copy()</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'West Midlands minor road links: </span><span class="sc">{</span><span class="bu">len</span>(wm_minor)<span class="sc">:,}</span><span class="ss">'</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Save</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>wm_out <span class="op">=</span> wm_minor[[<span class="st">'gid'</span>, <span class="st">'osm_id'</span>, <span class="st">'fclass'</span>, <span class="st">'km'</span>,</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>                     <span class="st">'routing_importance'</span>, <span class="st">'nearest_major_aadt'</span>,</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">'is_urban'</span>, <span class="st">'predicted_aadt'</span>, <span class="st">'geom'</span>]].copy()</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>wm_out <span class="op">=</span> wm_out.to_crs(CRS_BNG)</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>gpkg_path <span class="op">=</span> OUTPUT_DIR <span class="op">/</span> <span class="st">'wm_minor_road_predicted_aadt.gpkg'</span></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>wm_out.to_file(gpkg_path, driver<span class="op">=</span><span class="st">'GPKG'</span>)</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Saved: </span><span class="sc">{</span>gpkg_path<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick summary by road class</span></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wm_out.groupby(<span class="st">'fclass'</span>)[<span class="st">'predicted_aadt'</span>].describe()[[<span class="st">'count'</span>, <span class="st">'mean'</span>, <span class="st">'50%'</span>, <span class="st">'max'</span>]].<span class="bu">round</span>(<span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>West Midlands minor road links: 99,833
+Saved: ../Data/Cleaned/wm_minor_road_predicted_aadt.gpkg
+                count    mean     50%      max
+fclass                                        
+residential   70077.0  1367.0  1325.0   2933.0
+secondary      6291.0  9904.0  9888.0  18046.0
+tertiary      13877.0  5924.0  5841.0  13958.0
+unclassified   9588.0  1612.0  1579.0   3306.0</code></pre>
+</div>
+</div>
+</section>
+<section id="close-database-connection" class="level2">
+<h2 class="anchored" data-anchor-id="close-database-connection">14. Close Database Connection</h2>
+<div id="cell-50" class="cell" data-execution_count="26">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>conn.close()</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Database connection closed.'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Database connection closed.</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zhengpei-xu\.github\.io\/CASA\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

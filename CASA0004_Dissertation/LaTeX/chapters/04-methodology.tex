@@ -1,0 +1,270 @@
+% ============================================================
+% CHAPTER 4: METHODOLOGY
+% ============================================================
+\chapter{Methodology}
+\label{ch:methodology}
+
+This chapter presents the analytical framework for classifying and evaluating the West Midlands cycling network by Level of Traffic Stress (Figure~\ref{fig:methods}). Sections~\ref{sec:method-extraction}--\ref{sec:method-junctionlts} construct the directed, stress-classified network: extracting cyclable segments from OS NGD, assigning link-level LTS, and propagating junction stress with LTN 1/20's criteria. Section~\ref{sec:method-analysis} uses this network to test connectivity against LTN 1/20's “Cycling for all” principle through density, fragmentation, and reach analyses. Section~\ref{sec:method-growth} compares three network growth strategies to inform upgrade prioritisation.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{Figure/methods.jpg}
+  \caption{Analytical framework. LTN 1/20 design criteria (left) supply the classification thresholds operationalised on OS NGD Transport data (right) through Sections 4.1–4.3. The classified network is then evaluated against LTN 1/20's "Cycling for All" principle through connectivity analysis (Section 4.4) and network growth simulation (Section 4.5).}
+  \label{fig:methods}
+\end{figure}
+
+\section{Cyclable Network Extraction and Infrastructure Classification}
+\label{sec:method-extraction}
+
+The first stage of the classification process extracts all legally and practically cyclable segments from the West Midlands transport network. Cyclable infrastructure is represented in two feature collections under OS NGD Transport Theme: Road Links, which encode the carriageway network where cyclists may share space with motor vehicles \parencite{ordnancesurvey2026a}, and Path Links, which encode routes that are topologically independent from the carriageway, captured where they provide connectivity that cannot be inferred from the road network \parencite{ordnancesurvey2026b}. The legal cyclability of segments is firstly checked through the Highway Dedication feature collection, which provides an indication of the type of highway user who has access to each section of the network, recording one of eight designation types \parencite{ordnancesurvey2026}. Five of the seven designation types permit cycling under UK highway law, while `Motorway' and `Pedestrian Way Or Footpath' are excluded as non-cyclable (Table~\ref{tab:highway-dedication}).
+ 
+\begin{table}[htbp]
+  \centering
+  \caption{Highway Dedication types and legal cyclability under UK highway law.}
+  \label{tab:highway-dedication}
+  \small
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    Highway Dedication & Cyclable? & Legal Basis \\
+    \midrule
+    All Vehicles & Yes & Cycling permitted on public roads by default \\
+    Cycle Track or Cycle Way & Yes & Cycle Tracks Act 1984 \\
+    Bridleway & Yes & Countryside Act 1968, s.30 \\
+    Restricted Byway & Yes & Countryside and Rights of Way Act 2000 \\
+    Byway Open to All Traffic & Yes & Wildlife and Countryside Act 1981, s.66(1) \\
+    Motorway & No & Motorways Traffic (England and Wales) Regulations 1982 \\
+    Pedestrian Way or Footpath & No & No public right of way for cycling (cf.\ Highways Act 1835, s.72) \\
+    \bottomrule
+  \end{tabularx}
+  \par\smallskip
+  \footnotesize\textit{Note:} The eighth type, `No Dedication Or Dedication Unknown', is neither cyclable nor explicitly non-cyclable and is addressed through the description-based fallback classification for Road Links.
+\end{table}
+ 
+For Road Links, Highway Dedication covers most of the segments. Where a dedication record is absent or recorded as `No Dedication Or Dedication Unknown', a fallback classification retains segments whose physical description feature indicates a carriageway type (`Single Carriageway', `Dual Carriageway', `Roundabout', `Slip Road', `Shared Use Carriageway', `Traffic Island Link At Junction', and `Traffic Island Link'). Segments classified as `Motorway' are excluded regardless of dedication status. This process yields 212,551 cyclable Road Links (97.8\%), of which 84.2\% are identified through Highway Dedication and 15.8\% through the description fallback. For Path Links, Highway Dedication coverage is substantially lower, identifying only 10.1\% of cyclable paths. A second layer retains paths where the feature data detects cycling infrastructure through its `presenceofcyclelane' attribute, contributing a further 1.0\%. No attribute in the OS NGD Path Link schema, however, provides a direct cyclability indicator. The Department for Transport's transport connectivity metric reflects a comparable data source choice: while it constructs its driving network from Ordnance Survey data, it uses OpenStreetMap for cycling and walking networks, relying on OSM tags to determine which links can be walked or cycled on \parencite{dft2025}. Following this, a third layer performs spatial cross-validation against the OpenStreetMap cycling network, matching remaining paths without Highway Dedication or cycle lane presence to OSM cycling geometries within a 5-metre nearest-neighbour spatial join and recovering an additional 40,035 paths. Paths with explicitly non-cyclable Highway Dedications are excluded at all layers. This process yields 45,023 cyclable Path Links (40.3\% of the total collection). Each segment is then expanded into directed edges, and cycle lane records are joined only to the edge whose travel direction aligns with the lane's placement side, capturing the inherently asymmetric distribution of cycling infrastructure and avoiding overestimation of facility provision.
+ 
+Each directed cyclable segment is then classified into one of eight facility types derived from LTN~1/20's design hierarchy (Table~\ref{tab:facility-types}). The OS NGD Cycle Lane dataset, whose type definitions are aligned to LTN~1/20, records dedicated cycling infrastructure as separate features referencing their parent Road Link \parencite{ordnancesurvey2026c,ordnancesurvey2026d}. A Road Link with a matching Cycle Lane record is classified according to its cycle lane description; where multiple records exist for the same link, the more protective facility governs. Road Links without a matching record, or where the cycle lane type is recorded as `Unknown Type Of Cycle Track Or Lane', default to Mixed Traffic. All cyclable Path Links are classified as `Off-Road', as they are topologically independent from the road network and carry no motor traffic speed or volume attributes \parencite{ordnancesurvey2026b}. Following classification, Road Links and Path Links are merged into a single unified and directed network for use in the subsequent LTS assessment.
+ 
+\begin{table}[h]
+  \centering
+  \caption{Facility type classification derived from LTN~1/20 design hierarchy, mapped to OS NGD data sources.}
+  \label{tab:facility-types}
+  \begin{tabular}{lll}
+    \toprule
+    Facility Type & OS NGD Source & Classification Feature \\
+    \midrule
+    Off-Road & Path Link & Cyclable Path Links \\
+    Shared Use & Cycle Lane & `Unsegregated Shared Use Cycle Facility' / \\
+     & & `Segregated Shared Use Cycle Track' \\
+    Fully Kerbed Cycle Track & Cycle Lane & `Fully Segregated Cycle Track' \\
+    Stepped Cycle Track & Cycle Lane & `Stepped Cycle Track Along Road' \\
+    Light Segregation & Cycle Lane & `Lightly Segregated Cycle Lane On Road' \\
+    Mandatory Cycle Lane & Cycle Lane & `Mandatory Cycle Lane On Road' \\
+    Advisory Cycle Lane & Cycle Lane & `Advisory Cycle Lane On Road' \\
+    Mixed Traffic & Road Link (main) & `Unknown Type Of Cycle Track Or Lane' or \\
+     & & no matching Cycle Lane record \\
+    \bottomrule
+  \end{tabular}
+  \par\smallskip
+  \footnotesize\textit{Note:} Some facility types overlap conceptually. Off-Road paths may in practice function as shared-use routes or as kerbed cycle tracks. This does not affect the subsequent LTS classification, as all such facilities are fully separated from motor traffic.
+\end{table}
+
+
+\section{Link-level LTS classification}
+\label{sec:method-linklts}
+
+To address the absence of an England-calibrated LTS classification identified in Section~\ref{sec:lit-lts}, the link-level LTS classification adapts the \parencite{mekuria2012a} framework by replacing its North American thresholds with those from LTN~1/20, the statutory design standard for cycling infrastructure in England and Northern Ireland. Although the Cycling Level of Service (CLoS) tool embedded in LTN~1/20 uses compensatory scoring across heterogeneous subcriteria, which prevents it from isolating population-level acceptability (see Section~\ref{sec:lit-ltn}), the core Safety subcriteria addressing motor traffic speed (Criterion~10), volume (Criterion~11), segregation provision and carriageway width (Criterion~12) are themselves non-compensatory stress determinants constructed on CROW-derived logic \parencite{crow2016}, directly consistent with the LTS framework. It is this subset that the present study selects for link-level LTS assignment. LTN~1/20 further provides a speed--volume--facility matrix that grades traffic conditions by the population they accommodate. This study maps that graduated logic onto the LTS framework: conditions suitable for all users including children correspond to LTS~1; those acceptable only to confident cyclists correspond to LTS~2; those suitable for few correspond to LTS~3; and conditions triggering a critical safety failure correspond to LTS~4 (Figure~\ref{fig:lts_matrix}).
+
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[h]
+\centering
+\caption{Link-level LTS classification matrix derived from LTN~1/20 Safety subcriteria.}
+\label{tab:lts_matrix}
+\footnotesize
+\begin{tabularx}{\textwidth}{
+  >{\raggedright\arraybackslash}p{2.8cm}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+}
+\toprule
+\textbf{Facility type} & \textbf{LTS~1} & \textbf{LTS~2} & \textbf{LTS~3} & \textbf{LTS~4} \\
+\midrule
+Off-Road              & All conditions & ---  & ---  & ---  \\
+Shared Use            & All conditions & ---  & ---  & ---  \\
+Fully Kerbed Cycle Track & All conditions & --- & --- & ---  \\[3pt]
+Stepped cycle track   & $V_{85} \leq 30$\,mph & $V_{85}$ 30--37\,mph & $\geq 37$\,mph & --- \\
+Light segregation     & $V_{85} \leq 30$\,mph & $V_{85}$ 30--37\,mph & $\geq 37$\,mph & --- \\[3pt]
+Mandatory cycle lane  &
+  Width $\geq 1.8$\,m,\newline $V_{85} \leq 20$\,mph,\newline AADT $\leq 5{,}000$ &
+  Width $\geq 1.8$\,m,\newline $V_{85}$ 20--30\,mph,\newline AADT $\leq 5{,}000$ &
+  Width $< 1.8$\,m; or\newline $V_{85}$ 30--37\,mph; or\newline AADT 5,000--10,000 &
+  $V_{85} \geq 37$\,mph; or\newline AADT $\geq 10{,}000$ \\[3pt]
+Advisory cycle lane   &
+  Width $\geq 1.8$\,m,\newline $V_{85} \leq 20$\,mph,\newline AADT $\leq 5{,}000$ &
+  Width $\geq 1.8$\,m,\newline $V_{85}$ 20--30\,mph,\newline AADT $\leq 5{,}000$ &
+  Width $< 1.8$\,m; or\newline $V_{85}$ 30--37\,mph; or\newline AADT 5,000--10,000 &
+  $V_{85} \geq 37$\,mph; or\newline AADT $\geq 10{,}000$ \\[3pt]
+Mixed traffic         &
+  $V_{85} \leq 20$\,mph,\newline AADT $\leq 2{,}500$ &
+  $V_{85}$ 20--30\,mph,\newline AADT 2,500--5,000 &
+  $V_{85}$ 30--37\,mph; or\newline AADT 5,000--10,000 &
+  $V_{85} \geq 37$\,mph; or\newline AADT $\geq 10{,}000$; or\newline nearside lane 3.2--3.9\,m\newline and AADT $\geq 5{,}000$ \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.5em}
+\footnotesize
+\noindent\textit{Notes:}
+\begin{enumerate}[nosep, leftmargin=*, label=\arabic*.]
+    \item Where multiple criteria apply to a single segment, the overall LTS is determined by the worst-performing criterion (non-compensatory).
+    \item Thresholds are derived from the CLoS Safety subcriteria (Criteria 9--12, 15) in LTN~1/20 Appendix~A, supplemented by the speed--volume--facility matrix in Figure~4.1, which the CLoS itself references as complementary guidance for determining appropriate separation levels.
+    \item Motor traffic volume is expressed as Annual Average Daily Traffic (AADT), used as a proxy for the passenger car unit (PCU) thresholds specified in LTN~1/20 Criterion~11. LTN~1/20 additionally specifies HGV composition thresholds ($>5\%$ for critical fail, 2--5\% for score~0); these could not be applied due to the absence of network-wide vehicle composition data and are acknowledged as a limitation (see section~\ref{sec:disc-limitations}).
+    \item Rural exception: mixed traffic segments with $V_{85} \leq 30$\,mph and AADT $\leq 1{,}000$ are classified as LTS~1, following LTN~1/20 Figure~4.1 Note~3.
+\end{enumerate}
+\end{table}
+\renewcommand{\arraystretch}{1.0}
+
+The link-level LTS classification begins with facility type and proceeds through three primary variables: prevailing speed, road width, and motor traffic volume. OS~NGD provides carriageway or cycle lane width at the link level through average and minimum width attributes. For cycle lanes, this study uses the separately recorded modal lane width rather than the minimum, as it better captures typical conditions along a segment. For mixed traffic on single carriageways, average road width is used to assess the critical nearside lane width range of 3.2 to 3.9\,m associated with elevated close-pass risk.\footnote{On one-way roads, total width serves directly as lane width; on two-way roads, lane width is approximated as half the total width, with the override applied only where AADT exceeds 5,000, as lower volumes allow drivers to overtake via the opposing lane.} Segments triggering this override are classified as LTS~4.
+
+Prevailing speed is represented by the estimated 85th percentile speed ($V_{85}$), consistent with the measurement basis specified in LTN~1/20. $V_{85}$ is preferred over posted speed limits because actual operating speeds frequently diverge from the limit depending on road geometry and enforcement, offering a more reliable measure of cycling stress \parencite{fitzpatrick2003, europeancommission2021, departmentfortransport2025b}. $V_{85}$ was estimated from the OS~NGD average speed dataset (RAMI), which provides mean vehicle speeds derived from probe vehicle data across multiple time periods. The mean of observed average speeds across all available time periods was used as the representative link speed, and $V_{85}$ was calculated by applying a 7/6 multiplier derived from CA~185 \textit{Vehicle speed measurement} \parencite{nationalhighways2019}, which defines $V_{85}$ as the mean speed plus one standard deviation and estimates the standard deviation as approximately one-sixth of the mean under the assumption of a normal speed distribution.
+
+OS~NGD does not include motor traffic volume attributes. To address this, major road volumes were obtained directly from DfT annual average daily traffic (AADT) count point data, while minor road volumes were estimated following the methodology of \parencite{morley2016}. A Poisson GLM was constructed using road network characteristics extracted via pgRouting on the England OSM network as predictors and DfT count point observations as the dependent variable. Five-fold cross-validation ($n = 3{,}695$ count points) yields an $R^2$ of $0.604 \pm 0.019$ and Spearman's $\rho$ of $0.803 \pm 0.015$, considered sufficient for the coarse-grained LTS classification task. Predicted and observed AADT values were assigned to OS~NGD links via nearest-network spatial join. For the small number of links where no match was achieved, volume was imputed using the median AADT of the corresponding road classification to ensure network-wide coverage.
+
+\section{Junction LTS Classification}
+\label{sec:method-junctionlts}
+
+
+The original LTS framework \parencite{mekuria2012a,furth2016} established
+intersection-specific criteria independent of segment classification, covering
+right-turn lane weaving conflicts on signalised approaches and crossing stress at
+unsignalized junctions, with junction stress propagated to the approaching links of
+the minor street. However, the fine-grained geometric data required by these
+criteria are unavailable in most cities \parencite{bearn2018,furth2018},
+driving the widespread adoption of the \textcite{conveyal2015} method, which relies
+solely on OSM tags and propagates the highest LTS of any edge at an unsignalized
+vertex to all edges at that vertex without independently evaluating crossing
+geometry. This max-propagation logic has been applied in multiple city and
+regional-scale studies \parencite{semler2017,murphy2019,huertas2020} with subsequent
+work introducing traffic signal or stop sign presence as downgrading modifiers
+\parencite{bearn2018,lin2021} while retaining the same underlying proxy. A
+substantial number of network-scale studies omitted intersection treatment entirely
+\parencite{wang2022,viero2025}. Across this spectrum of implementations, two gaps
+remain unaddressed. Firstly, all existing LTS intersection criteria were initially
+developed for North American junction typologies and do not address roundabouts,
+which are prevalent in the UK road network, are associated with elevated cyclist
+collision risk \parencite{daniels2009,aldred2021,poudel2021}, with physiological
+stress measurement directly recommending that roundabout presence be incorporated
+into the LTS framework \parencite{rodrigues2022}. Secondly, the Conveyal-lineage
+methods that now dominate applied practice derive junction stress entirely from
+pre-assigned segment LTS values rather than from the operational characteristics of
+conflicting traffic, and their undirected vertex-level propagation assigns elevated
+stress indiscriminately to all incident edges regardless of whether a cyclist at
+that junction could legally travel onto each of them, obscuring the heterogeneity of
+crossing conditions within the network.
+
+The Junction Assessment Tool (JAT) within LTN 1/20 evaluates junction suitability by
+establishing criteria for each junction form (priority T-junction, crossroads,
+traffic signals, roundabout), disaggregated by the specific cycle movement being
+assessed. From this structure, three variables can be identified as governing
+crossing stress: the speed and volume of conflicting motor traffic, which determine
+the severity of the potential conflict; the number of lanes to be crossed in one movement,
+which determines the duration of exposure; and the availability of protection such
+as a central refuge, traffic signals, or dedicated cycle priority. LTN 1/20 also
+provides a crossing design suitability matrix that classifies crossings by these
+variables into three suitability tiers: suitable for most people, not suitable for
+all, and suitable for few. For non-roundabout crossing junctions
+(Table~\ref{tab:crossing-lts}), the present study maps these three suitability tiers
+to LTS 1, LTS 2, and LTS 3--4 respectively. Protection is operationalised in three
+levels: uncontrolled, traffic island (identified from the OS NGD link description
+field ``Traffic Island Link At Junction''), and signalised (identified from
+OpenStreetMap traffic signal tags spatially joined to OS NGD nodes). The OS NGD does
+not distinguish between median refuges, central islands, and other refuge forms, but
+the presence of a traffic island at a junction at minimum serves to channelise
+traffic flow and provide physical separation. For roundabouts
+(Table~\ref{tab:roundabout-lts}), the classification is derived directly from the JAT
+roundabout-specific criteria, which assess suitability by traffic throughput,
+approach geometry, and off-carriageway cycle facility provision. Each roundabout node
+is classified by the maximum AADT, V85, and road width of its incident links.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Crossing Junction LTS Classification}
+  \label{tab:crossing-lts}
+  \begin{tabularx}{\textwidth}{X X X c c c}
+    \toprule
+    & & & \multicolumn{3}{c}{LTS by protection level} \\
+    \cmidrule(lr){4-6}
+    V85 (mph) & AADT & Est.\ lanes & Uncontrolled & Traffic island & Signalised \\
+    \midrule
+    $\geq$ 37   & Any            & Any      & 4 & 4 & 3 \\
+    30--37      & $>$ 10,000     & Any      & 4 & 4 & 1 \\
+    30--37      & 6,000--10,000  & $\geq$ 2 & 4 & 4 & 1 \\
+    30--37      & $\leq$ 6,000   & $\geq$ 2 & 3 & 3 & 1 \\
+    30--37      & $\leq$ 10,000  & 1        & 2 & 2 & 1 \\
+    $\leq$ 30   & $>$ 8,000      & $>$ 2    & 4 & 3 & 1 \\
+    $\leq$ 30   & $>$ 8,000      & $\leq$ 2 & 3 & 2 & 1 \\
+    $\leq$ 30   & 4,000--8,000   & $\geq$ 2 & 2 & 2 & 1 \\
+    $\leq$ 30   & 4,000--8,000   & 1        & 2 & 1 & 1 \\
+    $\leq$ 30   & $\leq$ 4,000   & $\geq$ 2 & 2 & 1 & 1 \\
+    $\leq$ 30   & $\leq$ 4,000   & 1        & 1 & 1 & 1 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Roundabout LTS Classification}
+  \label{tab:roundabout-lts}
+  \begin{tabularx}{\textwidth}{X c}
+    \toprule
+    Base conditions & LTS \\
+    \midrule
+    AADT $>$ 8,000 AND est.\ lanes $\geq$ 2; OR V85 $\geq$ 37 mph & 4 \\
+    AADT $>$ 8,000 OR est.\ lanes $\geq$ 2 (but not both)         & 3 \\
+    All other roundabouts (compact/mini, AADT $\leq$ 8,000)       & 2 \\
+    Segregated cycle facility AND traffic signal                  & 1 \\
+    \bottomrule
+  \end{tabularx}
+
+  \smallskip
+  {\footnotesize \textit{Note.} When traffic lights are present, the LTS value is
+  reduced by one level to a minimum of LTS 2.}
+\end{table}
+
+The junction classification operates at the (link, junction node) pair level. The
+JAT defines junction stress in terms of cycle movements ``in potential conflict''
+with motor traffic, where conflict arises from traffic streams that cross or run
+alongside the cyclist's path without being separated physically or in time.
+Following this definition, the present study identifies conflicting links at each
+crossing junction via the OS NGD directionality attribute, retaining only those that
+a cyclist departing the node could legally enter, and further excluding straight-line
+continuations of the approach link through a bearing-based filter (departure bearing
+within $180^{\circ} \pm 30^{\circ}$, a threshold following the orientation criterion in
+\textcite{mekuria2012a}). The three crossing variables (maximum V85, maximum AADT,
+and maximum estimated lane count) are then taken from the remaining conflict links,
+ensuring all three reflect the transverse traffic stream being crossed. For
+roundabout nodes, where circulatory geometry renders approach-level analysis
+inapplicable, the classification operates at the node level using the maximum
+traffic attributes across all incident links. In both cases, the junction LTS is
+overlaid onto the segment classification using worst-indicator-wins logic, so that
+junction stress can only elevate the final LTS of a link.
+
+\section{Stress-Based Network Connectivity Evaluation}
+\label{sec:method-analysis}
+
+The following analyses evaluate whether the West Midlands network delivers on the LTN 1/20 ``cycling for all'' principle by testing connectivity at LTS 1 (children and older adults) and LTS $\leq$ 2 (mainstream adults), with LTS $\leq$ 3 and $\leq$ 4 included for comparison \parencite{mekuria2012a,departmentfortransport2020a}. Following \textcite{viero2025} and \textcite{schon2024}, the evaluation proceeds through area-based distribution, network fragmentation and network reach.
+
+\textbf{Area-based LTS distribution} Network density is computed at LSOA level as absolute density (km of LTS-classified network per km\textsuperscript{2}) and relative density (proportion of total road network at each LTS level). These metrics characterise the spatial supply of low-stress infrastructure independent of whether it forms a connected network.
+
+\textbf{Network fragmentation} To assess route continuity, connected component analysis is applied: for each cumulative LTS threshold, edges exceeding the threshold are removed and connected components are identified from the undirected projection. The largest connected component (LCC)---the maximum contiguous network a cyclist can traverse without exceeding a given stress threshold---and its share of sub-network length measure network cohesion. The component size distribution and the relationship between network length and fragmentation are examined across the full cyclable network (10,634.6~km). Precise fragmentation metrics are additionally computed on the LCC of the full network, excluding topologically isolated stub segments so that measured fragmentation reflects the breaking of connected routes rather than pre-existing disconnection.
+
+\textbf{Network reach} Network reach is defined as the total length of network reachable from a given origin within a distance threshold \parencite{peponis2008,feng2019,viero2025}. The analysis adopts an 8~km (5~miles) threshold, the distance within which 70\% of personal trips in England fall \parencite{departmentfortransport2020a,departmentfortransport2025}. For each cumulative LTS subgraph, Dijkstra shortest paths are computed on the directed graph from the nearest network node to each LSOA centroid to all reachable nodes within this threshold. To test demand-relevant connectivity, two OD analyses are applied additionally. School accessibility routes from each LSOA centroid to its nearest school (OpenStreetMap), and commuting connectivity uses Census 2011\footnote{The 2021 Census was conducted during the COVID-19 pandemic, when widespread home-working guidance significantly distorted commuting patterns. The 2011 Census is therefore adopted as a more representative baseline of routine commuting flows.} MSOA flows filtered to straight-line distances $\leq$ 8~km, computing the proportion of OD pairs and flow volume for which a route exists at each threshold. Following \textcite{viero2025}, gaps of up to 30~m between edges of the same LTS level are closed with bidirectional bridging edges to compensate for geometric imprecision in infrastructure mapping \parencite{schoner2014}.
+
+\section{Network Growth Simulation}
+\label{sec:method-growth}
+
+% REQUIRED (handbook 2.14.1). Aggregate/anonymous public data:
+% brief reference to how disclosure and privacy issues are handled.
+% Note interviews are reported in the commercial report, not here,
+% unless any interview material enters the dissertation.

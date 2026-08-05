@@ -1,0 +1,72 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - index.qmd
+    - Code/*.ipynb
+
+website:
+  title: "MRes Dissertation"
+
+  site-url: https://zhengpei-xu.github.io/CASA/
+  site-path: /CASA0004_Dissertation/
+
+  favicon: Favicon/favicon.png
+  navbar:
+    background: dark
+    search: true
+    left:
+      - href: index.qmd
+        text: "Home"
+      - href: https://zhengpei-xu.github.io/ltn1-20-assessment-tool-wm/web/
+        text: "LTN 1/20 Web Assessment Tool"
+    right:
+      - icon: github
+        href: https://github.com/zhengpei-xu
+  sidebar:
+    style: "docked"
+    contents:
+      - section: "Overview"
+        contents:
+          - index.qmd
+      - section: "Technical Analysis"
+        contents:
+          - text: "Cyclable Network Extraction"
+            href: Code/00_cyclable_network_extraction.ipynb
+          - text: "Minor Road Traffic Volume Estimation"
+            href: Code/01_minor_road_aadt_estimation.ipynb
+          - text: "Traffic Volume Projection"
+            href: Code/02_volume_projection.ipynb
+          - text: "Link Level LTS Classification"
+            href: Code/03_link_lts_classification.ipynb
+          - text: "Junction LTS Classification"
+            href: Code/04_junction_lts.ipynb
+          - text: "LTS Distribution and Fragmentation"
+            href: Code/05_lts_distribution_and_fragmentation.ipynb
+          - text: "Reach Analysis"
+            href: Code/06_reach_analysis.ipynb
+          - text: "OD Pair Connectivity Analysis"
+            href: Code/07_od_connectivity.ipynb
+          - text: "Edge Betweenness Centrality"          
+            href: Code/08_edge_betweenness_centrality.ipynb
+          - text: "Network Growth Simulation"
+            href: Code/09_network_growth_simulation.ipynb
+
+format:
+  html:
+    theme: flatly
+    toc: true
+    toc-location: right
+    toc-title: "On this page"
+    code-fold: true
+    include-in-header:
+      text: |
+        <style>
+          .navbar { background-color: #000000 !important; }
+          .quarto-color-scheme-toggle { display: none !important; }
+        </style>
+
+execute:
+  enabled: false
+
+lang: en
