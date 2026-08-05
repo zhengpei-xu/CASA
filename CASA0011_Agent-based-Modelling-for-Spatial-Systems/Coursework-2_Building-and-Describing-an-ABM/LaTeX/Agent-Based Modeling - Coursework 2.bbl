@@ -1,0 +1,778 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global/global}
+    \entry{azevedo2020}{article}{}{}
+      \name{author}{11}{}{%
+        {{un=0,uniquepart=base,hash=f45bff89e33202ac71370f0b72887193}{%
+           family={Azevedo},
+           familyi={A\bibinitperiod},
+           given={Carlos\bibnamedelima L.},
+           giveni={C\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=70e3ab5f659ef51dccb18e0a242f5fdb}{%
+           family={Marczuk},
+           familyi={M\bibinitperiod},
+           given={Katarzyna},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c58e8252a462f38221b3b8ac70a903d6}{%
+           family={Raveau},
+           familyi={R\bibinitperiod},
+           given={Sebastian},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0b779a1696fe5a0a890fd864732d4ca2}{%
+           family={Soh},
+           familyi={S\bibinitperiod},
+           given={Harish},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c0279004272b887bf96dd912b1b6c663}{%
+           family={Adnan},
+           familyi={A\bibinitperiod},
+           given={Muhammad},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fa27517433d9ea2847836a4850fd4279}{%
+           family={Basak},
+           familyi={B\bibinitperiod},
+           given={Kanchan},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1040db0e4c6e65b7310d88d49b1597e3}{%
+           family={Loganathan},
+           familyi={L\bibinitperiod},
+           given={Hari},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d632ddeac473adf90206b31a88c883d6}{%
+           family={Deshmunkh},
+           familyi={D\bibinitperiod},
+           given={Nikhil},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e0c8cd0ac9240f75d443fbd0d379b817}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Derek},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7fe896e8ed8d5f30af73e472ebedcec9}{%
+           family={Frazzoli},
+           familyi={F\bibinitperiod},
+           given={Emilio},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ae71bffa7de8934347def3ae5c72a02d}{%
+           family={Ben-Akiva},
+           familyi={B\bibinithyphendelim A\bibinitperiod},
+           given={Moshe},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{1c26aa22960717ad09c9fcfab2af790b}
+      \strng{fullhash}{9b96d76d053e4983b032976e9d6d9c93}
+      \strng{fullhashraw}{9b96d76d053e4983b032976e9d6d9c93}
+      \strng{bibnamehash}{1c26aa22960717ad09c9fcfab2af790b}
+      \strng{authorbibnamehash}{1c26aa22960717ad09c9fcfab2af790b}
+      \strng{authornamehash}{1c26aa22960717ad09c9fcfab2af790b}
+      \strng{authorfullhash}{9b96d76d053e4983b032976e9d6d9c93}
+      \strng{authorfullhashraw}{9b96d76d053e4983b032976e9d6d9c93}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Transportation Research Record}
+      \field{number}{10}
+      \field{title}{Microsimulation of Demand and Supply of Autonomous Mobility-on-Demand Systems}
+      \field{volume}{2674}
+      \field{year}{2020}
+      \field{pages}{1\bibrangedash 14}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1177/0361198120910400
+      \endverb
+    \endentry
+    \entry{cook2025}{online}{}{}
+      \name{author}{8}{}{%
+        {{un=0,uniquepart=base,hash=6c9dd495653a79a7cdb2aa7e20d6b7e8}{%
+           family={Cook},
+           familyi={C\bibinitperiod},
+           given={Cody},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7829e73efa43e0f902a3bdf5450c1e8d}{%
+           family={Kreidieh},
+           familyi={K\bibinitperiod},
+           given={Aboudy},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8972058f080f36250543cae2a18c4dc3}{%
+           family={Vasserman},
+           familyi={V\bibinitperiod},
+           given={Shoshana},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cc99b38ced482f8ce08a3d71368c14d4}{%
+           family={Allcott},
+           familyi={A\bibinitperiod},
+           given={Hunt},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1a8b930fe82f2db69deddf78d27fced1}{%
+           family={Arora},
+           familyi={A\bibinitperiod},
+           given={Neha},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,useprefix=true,hash=ce139db191174cbf28c42d00317d3e9e}{%
+           family={Sambeek},
+           familyi={S\bibinitperiod},
+           given={Freek},
+           giveni={F\bibinitperiod},
+           givenun=0,
+           prefix={van},
+           prefixi={v\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=1be6b0855ca65a591e8efd28fa72ebc6}{%
+           family={Tomkins},
+           familyi={T\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1c4f4645c659edaefc3ff3a269a261e1}{%
+           family={Turkel},
+           familyi={T\bibinitperiod},
+           given={Eray},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{f47e7f434765614742cab999654edff3}
+      \strng{fullhash}{a871adb243fa23850b7990fadc479f9a}
+      \strng{fullhashraw}{a871adb243fa23850b7990fadc479f9a}
+      \strng{bibnamehash}{f47e7f434765614742cab999654edff3}
+      \strng{authorbibnamehash}{f47e7f434765614742cab999654edff3}
+      \strng{authornamehash}{f47e7f434765614742cab999654edff3}
+      \strng{authorfullhash}{a871adb243fa23850b7990fadc479f9a}
+      \strng{authorfullhashraw}{a871adb243fa23850b7990fadc479f9a}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We study the impacts of New York City’s Central Business District (CBD) Tolling Program, the first cordon-based congestion pricing scheme in the United States. Using a generalized synthetic controls design, we find that the policy increased speeds on CBD roads by 11\%, with little-to-no effect on air quality, transactions at shops and restaurants, or overall foot traffic in the CBD. Speeds also increased on roads outside the CBD that are commonly traversed by drivers headed to/from the CBD. These spillovers lead to faster trips throughout the metro area, including for many unpriced trips. We develop a simple model to bound the driver welfare effects, and estimate gains of at least \$14.3 million/week (before any revenue recycling). These gains are largely driven by diffuse time savings for the many unpriced trips outside the CBD, highlighting the importance of accounting for network-wide spillovers. Finally, we show how characteristics of local travel patterns and road networks can inform the potential impacts of introducing cordon-based congestion pricing in other cities.}
+      \field{eprinttype}{National Bureau of Economic Research}
+      \field{month}{3}
+      \field{number}{33584}
+      \field{pubstate}{prepublished}
+      \field{series}{Working {{Paper Series}}}
+      \field{title}{The {{Short-Run Effects}} of {{Congestion Pricing}} in {{New York City}}}
+      \field{type}{Working Paper}
+      \field{urlday}{14}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.3386/w33584
+      \endverb
+      \verb{eprint}
+      \verb 33584
+      \endverb
+      \verb{file}
+      \verb C:\Users\17902\Zotero\storage\TMXCPNUJ\Cook et al. - 2025 - The Short-Run Effects of Congestion Pricing in New York City.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.nber.org/papers/w33584
+      \endverb
+      \verb{url}
+      \verb https://www.nber.org/papers/w33584
+      \endverb
+    \endentry
+    \entry{cramer2016}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=a841f8c2a5da4cb06263f0b3e61ad53b}{%
+           family={Cramer},
+           familyi={C\bibinitperiod},
+           given={Judd},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34526c3bf548080921683822747fad7e}{%
+           family={Krueger},
+           familyi={K\bibinitperiod},
+           given={Alan\bibnamedelima B.},
+           giveni={A\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{4289cb99e3ec0178fb99effaa60edd5d}
+      \strng{fullhash}{4289cb99e3ec0178fb99effaa60edd5d}
+      \strng{fullhashraw}{4289cb99e3ec0178fb99effaa60edd5d}
+      \strng{bibnamehash}{4289cb99e3ec0178fb99effaa60edd5d}
+      \strng{authorbibnamehash}{4289cb99e3ec0178fb99effaa60edd5d}
+      \strng{authornamehash}{4289cb99e3ec0178fb99effaa60edd5d}
+      \strng{authorfullhash}{4289cb99e3ec0178fb99effaa60edd5d}
+      \strng{authorfullhashraw}{4289cb99e3ec0178fb99effaa60edd5d}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{In most cities, the taxi industry is highly regulated and has restricted entry. Ride sharing services, such as Uber and Lyft, which use mobile internet technology to connect passengers and drivers, have begun to compete with traditional taxis. This paper examines the efficiency of ride sharing services vis-a-vis taxis. In most cities with data available, UberX drivers spend a significantly higher fraction of their time, and drive a substantially higher share of miles, with a passenger in their car than do taxi drivers. Reasons for this efficiency advantage are explored.}
+      \field{issn}{0002-8282}
+      \field{journaltitle}{American Economic Review}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{number}{5}
+      \field{shorttitle}{Disruptive {{Change}} in the {{Taxi Business}}}
+      \field{title}{Disruptive {{Change}} in the {{Taxi Business}}: {{The Case}} of {{Uber}}}
+      \field{urlday}{11}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{106}
+      \field{year}{2016}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{177\bibrangedash 182}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1257/aer.p20161002
+      \endverb
+      \verb{file}
+      \verb C:\Users\17902\Zotero\storage\SE54QC45\Cramer and Krueger - 2016 - Disruptive Change in the Taxi Business The Case of Uber.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.aeaweb.org/articles?id=10.1257/aer.p20161002
+      \endverb
+      \verb{url}
+      \verb https://www.aeaweb.org/articles?id=10.1257/aer.p20161002
+      \endverb
+      \keyw{Industry Studies: Utilities and Transportation: Government Policy,Occupational Licensing Railroads and Other Surface Transportation Industry Studies: Utilities and Transportation: Government Policy,Professional Labor Markets,Professional Labor Markets; Occupational Licensing,Railroads and Other Surface Transportation}
+    \endentry
+    \entry{fagnant2014}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=a7fbbd4b4644ec08dc87a10ebc6cb185}{%
+           family={Fagnant},
+           familyi={F\bibinitperiod},
+           given={Daniel\bibnamedelima J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=627db73a88bb753821f1ea1aa638df76}{%
+           family={Kockelman},
+           familyi={K\bibinitperiod},
+           given={Kara\bibnamedelima M.},
+           giveni={K\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{0f0d09e6209c4dbec14774b824086dfe}
+      \strng{fullhash}{0f0d09e6209c4dbec14774b824086dfe}
+      \strng{fullhashraw}{0f0d09e6209c4dbec14774b824086dfe}
+      \strng{bibnamehash}{0f0d09e6209c4dbec14774b824086dfe}
+      \strng{authorbibnamehash}{0f0d09e6209c4dbec14774b824086dfe}
+      \strng{authornamehash}{0f0d09e6209c4dbec14774b824086dfe}
+      \strng{authorfullhash}{0f0d09e6209c4dbec14774b824086dfe}
+      \strng{authorfullhashraw}{0f0d09e6209c4dbec14774b824086dfe}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Transportation Research Part C: Emerging Technologies}
+      \field{title}{The Travel and Environmental Implications of Shared Autonomous Vehicles}
+      \field{volume}{40}
+      \field{year}{2014}
+      \field{pages}{1\bibrangedash 13}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1016/j.trc.2014.01.001
+      \endverb
+    \endentry
+    \entry{grimm2020}{article}{}{}
+      \name{author}{19}{}{%
+        {{un=0,uniquepart=base,hash=1afed3b8eacb2219efb8bbe1f6581962}{%
+           family={Grimm},
+           familyi={G\bibinitperiod},
+           given={Volker},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8f57cb4e96e0868ea82e800df4a0f0fe}{%
+           family={Railsback},
+           familyi={R\bibinitperiod},
+           given={Steven\bibnamedelima F.},
+           giveni={S\bibinitperiod\bibinitdelim F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d28824c24a15238188fd0654d23372fa}{%
+           family={Vincenot},
+           familyi={V\bibinitperiod},
+           given={Christian\bibnamedelima E.},
+           giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9384d3112d3d8d7a6daa243142b7d01c}{%
+           family={Berger},
+           familyi={B\bibinitperiod},
+           given={Uta},
+           giveni={U\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c2f2327125df74a31f6a66f2daf13a4a}{%
+           family={Gallagher},
+           familyi={G\bibinitperiod},
+           given={Cara},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e98d80b382c7d4106081e30fe7ef5827}{%
+           family={DeAngelis},
+           familyi={D\bibinitperiod},
+           given={Donald\bibnamedelima L.},
+           giveni={D\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d19a8c7dee4743062d7f7539a307632f}{%
+           family={Edmonds},
+           familyi={E\bibinitperiod},
+           given={Bruce},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4b9e4c30bcd5bf563ef822cf5633c2cf}{%
+           family={Ge},
+           familyi={G\bibinitperiod},
+           given={Jiaqi},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cebe364b2f95bcb284778ec7095dc684}{%
+           family={Giske},
+           familyi={G\bibinitperiod},
+           given={Jarl},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ad6bceceb45df734a7a2baa1b94355bf}{%
+           family={Groeneveld},
+           familyi={G\bibinitperiod},
+           given={Jürgen},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=01a40ca8c967cb8a84380759b1cf635e}{%
+           family={Johnston},
+           familyi={J\bibinitperiod},
+           given={Alice\bibnamedelima S.A.},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c4b010a3afd70e6ab431065fcc1e39c9}{%
+           family={Milles},
+           familyi={M\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b8616e3e1e85925ec2751fb96d5fdcc3}{%
+           family={Nabe-Nielsen},
+           familyi={N\bibinithyphendelim N\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c1ed00e900313819a16b803f80ea8dc2}{%
+           family={Polhill},
+           familyi={P\bibinitperiod},
+           given={J.\bibnamedelimi Gareth},
+           giveni={J\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8f003e3c1ba182dbadc656d0deaadc00}{%
+           family={Radchuk},
+           familyi={R\bibinitperiod},
+           given={Viktoriia},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c1abbbc8c3cebe1e6476afcb863321e4}{%
+           family={Rohwäder},
+           familyi={R\bibinitperiod},
+           given={Marie-Sophie},
+           giveni={M\bibinithyphendelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=37f72858f042fbbf97962a533b66c668}{%
+           family={Stillman},
+           familyi={S\bibinitperiod},
+           given={Richard\bibnamedelima A.},
+           giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=364d87c5546d9c5e4113c0cc82ecc4bf}{%
+           family={Thiele},
+           familyi={T\bibinitperiod},
+           given={Jan\bibnamedelima C.},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6c86c359b7632c1d20f6d203df4d27bd}{%
+           family={Ayllón},
+           familyi={A\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{34a4de0c97c67c80ceb4801a22916c07}
+      \strng{fullhash}{7b29c399c420594d24dbfe885698c3ee}
+      \strng{fullhashraw}{7b29c399c420594d24dbfe885698c3ee}
+      \strng{bibnamehash}{34a4de0c97c67c80ceb4801a22916c07}
+      \strng{authorbibnamehash}{34a4de0c97c67c80ceb4801a22916c07}
+      \strng{authornamehash}{34a4de0c97c67c80ceb4801a22916c07}
+      \strng{authorfullhash}{7b29c399c420594d24dbfe885698c3ee}
+      \strng{authorfullhashraw}{7b29c399c420594d24dbfe885698c3ee}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{issn}{1460-7425}
+      \field{journaltitle}{Journal of Artificial Societies and Social Simulation}
+      \field{langid}{english}
+      \field{number}{2}
+      \field{shortjournal}{JASSS}
+      \field{shorttitle}{The {{ODD Protocol}} for {{Describing Agent-Based}} and {{Other Simulation Models}}}
+      \field{title}{The {{ODD Protocol}} for {{Describing Agent-Based}} and {{Other Simulation Models}}: {{A Second Update}} to {{Improve Clarity}}, {{Replication}}, and {{Structural Realism}}}
+      \field{urlday}{11}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{23}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{7}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.18564/jasss.4259
+      \endverb
+      \verb{file}
+      \verb C:\Users\17902\Zotero\storage\44LZNW2Q\Grimm et al. - 2020 - The ODD Protocol for Describing Agent-Based and Other Simulation Models A Second Update to Improve.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://jasss.soc.surrey.ac.uk/23/2/7.html
+      \endverb
+      \verb{url}
+      \verb http://jasss.soc.surrey.ac.uk/23/2/7.html
+      \endverb
+    \endentry
+    \entry{millard-ball2023}{article}{}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=a7c6eb77bd9de5af0f15906ac5364a53}{%
+           family={Millard-Ball},
+           familyi={M\bibinithyphendelim B\bibinitperiod},
+           given={Adam},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2fc2a1c29dedb52277dedb739610bf22}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Liwei},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=bc83e208d09d6b7bb616d57d4d6cc9ff}{%
+           family={Hansen},
+           familyi={H\bibinitperiod},
+           given={Whitney},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=519b92a50b554720555f66fddf2c4fd7}{%
+           family={Cooper},
+           familyi={C\bibinitperiod},
+           given={Drew},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fc3cf3ada935a85ac367f1c8cdd11b27}{%
+           family={Castiglione},
+           familyi={C\bibinitperiod},
+           given={Joe},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9b56aaf1ffc1fea35a9e20c67b5bb750}
+      \strng{fullhash}{00888780125132aacfaa5cc26c705b83}
+      \strng{fullhashraw}{00888780125132aacfaa5cc26c705b83}
+      \strng{bibnamehash}{9b56aaf1ffc1fea35a9e20c67b5bb750}
+      \strng{authorbibnamehash}{9b56aaf1ffc1fea35a9e20c67b5bb750}
+      \strng{authornamehash}{9b56aaf1ffc1fea35a9e20c67b5bb750}
+      \strng{authorfullhash}{00888780125132aacfaa5cc26c705b83}
+      \strng{authorfullhashraw}{00888780125132aacfaa5cc26c705b83}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We analyze what ridehail drivers do when searching for paid fares. We use a dataset of 5.3 million trips in San Francisco and partition each search trip into cruising, repositioning, and parking segments. We find that repositioning accounts for nearly two-thirds (63\%) of the time between trips, with cruising and parking accounting for 23\% and 14\% respectively (these figures exclude short trips). Our regression models suggest that drivers tend to make reasonable choices between repositioning and parking, heading to high-demand locations based on the time of day. However, we also find evidence of racial disparities, supporting previous studies of both taxis and ridehailing that indicate that drivers tend to avoid neighborhoods with high proportions of residents of color.}
+      \field{day}{1}
+      \field{issn}{1572-9435}
+      \field{journaltitle}{Transportation}
+      \field{langid}{english}
+      \field{month}{10}
+      \field{number}{5}
+      \field{shortjournal}{Transportation}
+      \field{title}{Where Ridehail Drivers Go between Trips}
+      \field{urlday}{11}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{50}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1959\bibrangedash 1981}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1007/s11116-022-10298-5
+      \endverb
+      \verb{file}
+      \verb C:\Users\17902\Zotero\storage\PWED7PT5\Millard-Ball et al. - 2023 - Where ridehail drivers go between trips.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s11116-022-10298-5
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s11116-022-10298-5
+      \endverb
+      \keyw{Cruising,Curb management,Parking,Ridehailing,Transportation network companies}
+    \endentry
+    \entry{ostrovsky2024effective}{report}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=1e56121a4e09d492c3f9cd5834494e65}{%
+           family={Ostrovsky},
+           familyi={O\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6a78af5a8cf8e65cfba03f489422e1d5}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Frank},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{ca4af44ef17bc0aa4288e323b682535c}
+      \strng{fullhash}{ca4af44ef17bc0aa4288e323b682535c}
+      \strng{fullhashraw}{ca4af44ef17bc0aa4288e323b682535c}
+      \strng{bibnamehash}{ca4af44ef17bc0aa4288e323b682535c}
+      \strng{authorbibnamehash}{ca4af44ef17bc0aa4288e323b682535c}
+      \strng{authornamehash}{ca4af44ef17bc0aa4288e323b682535c}
+      \strng{authorfullhash}{ca4af44ef17bc0aa4288e323b682535c}
+      \strng{authorfullhashraw}{ca4af44ef17bc0aa4288e323b682535c}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Effective and equitable congestion pricing: New York City and beyond}
+      \field{type}{techreport}
+      \field{year}{2024}
+    \endentry
+    \entry{ranjit2018}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=7313a551144640aba6c325f9665e0610}{%
+           family={Ranjit},
+           familyi={R\bibinitperiod},
+           given={Saurav},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ce9e8daeb48fde19ac0f3722f078b776}{%
+           family={Witayangkurn},
+           familyi={W\bibinitperiod},
+           given={Apichon},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=720e9a0a0a65e4131d356e8b19ba41d2}{%
+           family={Nagai},
+           familyi={N\bibinitperiod},
+           given={Masahiko},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9382540233551f55099c5a479dbbf39f}{%
+           family={Shibasaki},
+           familyi={S\bibinitperiod},
+           given={Ryosuke},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Multidisciplinary Digital Publishing Institute}%
+      }
+      \strng{namehash}{998aea333788292f1252628970d2938e}
+      \strng{fullhash}{02c0112f21256c46eacaf7ac0aea9285}
+      \strng{fullhashraw}{02c0112f21256c46eacaf7ac0aea9285}
+      \strng{bibnamehash}{998aea333788292f1252628970d2938e}
+      \strng{authorbibnamehash}{998aea333788292f1252628970d2938e}
+      \strng{authornamehash}{998aea333788292f1252628970d2938e}
+      \strng{authorfullhash}{02c0112f21256c46eacaf7ac0aea9285}
+      \strng{authorfullhashraw}{02c0112f21256c46eacaf7ac0aea9285}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Taxi behavior is a spatial–temporal dynamic process involving discrete time dependent events, such as customer pick-up, customer drop-off, cruising, a...}
+      \field{day}{7}
+      \field{issn}{2220-9964}
+      \field{journaltitle}{ISPRS International Journal of Geo-Information}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{number}{5}
+      \field{title}{Agent-{{Based Modeling}} of {{Taxi Behavior Simulation}} with {{Probe Vehicle Data}}}
+      \field{urlday}{14}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{7}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.3390/ijgi7050177
+      \endverb
+      \verb{file}
+      \verb C:\Users\17902\Zotero\storage\EVS8X2FU\Ranjit et al. - 2018 - Agent-Based Modeling of Taxi Behavior Simulation with Probe Vehicle Data.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/2220-9964/7/5/177
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/2220-9964/7/5/177
+      \endverb
+      \keyw{agent-based modeling and simulation,big data,distributed computing,index and search,origin destination,taxi demand,taxi free movement}
+    \endentry
+    \entry{salanovagrau2013}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=489c4ae84a009fd9691fd2acac23aa80}{%
+           family={Salanova\bibnamedelima Grau},
+           familyi={S\bibinitperiod\bibinitdelim G\bibinitperiod},
+           given={Josep\bibnamedelima Maria},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e9326497c9898b67b6a60535176e559e}{%
+           family={Estrada},
+           familyi={E\bibinitperiod},
+           given={Miquel},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=da97a238e420865ad681d86db7228a61}{%
+           family={Mitsakis},
+           familyi={M\bibinitperiod},
+           given={Evangelos},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=50a1d15a929e4ccd467d0be5e8ba0ed3}{%
+           family={Stamos},
+           familyi={S\bibinitperiod},
+           given={Iraklis},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{723259e98dd84641d87503391b240b2d}
+      \strng{fullhash}{f0587f17bd9b317e1ac56a0b2a2a6eff}
+      \strng{fullhashraw}{f0587f17bd9b317e1ac56a0b2a2a6eff}
+      \strng{bibnamehash}{723259e98dd84641d87503391b240b2d}
+      \strng{authorbibnamehash}{723259e98dd84641d87503391b240b2d}
+      \strng{authornamehash}{723259e98dd84641d87503391b240b2d}
+      \strng{authorfullhash}{f0587f17bd9b317e1ac56a0b2a2a6eff}
+      \strng{authorfullhashraw}{f0587f17bd9b317e1ac56a0b2a2a6eff}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper presents an agent based model for simulating taxi services in urban areas. The three operation modes (hailing, stand and dispatching) are modeled and tested in the Sioux Falls network. Taxi models presented in the literature are divided into aggregated and equilibrium models, with a very small presence of simulation models. The different programmed modules are presented together with the behavior rules of the agents. Performance indicators are calculated for each operation mode and compared in terms of driver earnings, user cost and vacant versus occupied time.}
+      \field{day}{1}
+      \field{journaltitle}{Journal of Traffic and Logistics Engineering}
+      \field{month}{1}
+      \field{shortjournal}{Journal of Traffic and Logistics Engineering}
+      \field{title}{Agent {{Based Modeling}} for {{Simulation}} of {{Taxi Services}}}
+      \field{volume}{1}
+      \field{year}{2013}
+      \field{dateera}{ce}
+      \field{pages}{159\bibrangedash 163}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.12720/jtle.1.2.159-163
+      \endverb
+      \verb{file}
+      \verb C:\Users\17902\Zotero\storage\VY6Y2DMP\Salanova Grau et al. - 2013 - Agent Based Modeling for Simulation of Taxi Services.pdf
+      \endverb
+    \endentry
+    \entry{schaller2017}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=364c65d109296140e6571d1e8771ca56}{%
+           family={Schaller},
+           familyi={S\bibinitperiod},
+           given={Bruce},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {Schaller Consulting}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \strng{namehash}{364c65d109296140e6571d1e8771ca56}
+      \strng{fullhash}{364c65d109296140e6571d1e8771ca56}
+      \strng{fullhashraw}{364c65d109296140e6571d1e8771ca56}
+      \strng{bibnamehash}{364c65d109296140e6571d1e8771ca56}
+      \strng{authorbibnamehash}{364c65d109296140e6571d1e8771ca56}
+      \strng{authornamehash}{364c65d109296140e6571d1e8771ca56}
+      \strng{authorfullhash}{364c65d109296140e6571d1e8771ca56}
+      \strng{authorfullhashraw}{364c65d109296140e6571d1e8771ca56}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Unsustainable? The Growth of App-Based Ride Services and Traffic, Travel and the Future of New York City}
+      \field{year}{2017}
+    \endentry
+    \entry{tmrb2023}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=6e5c86c5844c3647b0f14740c3d3a1af}{%
+           family={{Traffic Mobility Review Board}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Metropolitan Transportation Authority (MTA)}%
+      }
+      \strng{namehash}{6e5c86c5844c3647b0f14740c3d3a1af}
+      \strng{fullhash}{6e5c86c5844c3647b0f14740c3d3a1af}
+      \strng{fullhashraw}{6e5c86c5844c3647b0f14740c3d3a1af}
+      \strng{bibnamehash}{6e5c86c5844c3647b0f14740c3d3a1af}
+      \strng{authorbibnamehash}{6e5c86c5844c3647b0f14740c3d3a1af}
+      \strng{authornamehash}{6e5c86c5844c3647b0f14740c3d3a1af}
+      \strng{authorfullhash}{6e5c86c5844c3647b0f14740c3d3a1af}
+      \strng{authorfullhashraw}{6e5c86c5844c3647b0f14740c3d3a1af}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{New York}
+      \field{title}{Central Business District Tolling Program Recommendations}
+      \field{year}{2023}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
