@@ -9,14 +9,14 @@ This chapter presents the analytical framework for classifying and evaluating th
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{Figure/methods.jpg}
-  \caption{Analytical framework. LTN 1/20 design criteria (left) supply the classification thresholds operationalised on OS NGD Transport data (right) through Sections 4.1–4.3. The classified network is then evaluated against LTN 1/20's "Cycling for All" principle through connectivity analysis (Section 4.4) and network growth simulation (Section 4.5).}
+  \caption{Analytical framework. LTN 1/20 design criteria (left) supply the classification thresholds operationalised on OS NGD Transport data (right). The classified network is then evaluated against LTN 1/20's "Cycling for All" principle through connectivity analysis and network growth simulation.}
   \label{fig:methods}
 \end{figure}
 
 \section{Cyclable Network Extraction and Infrastructure Classification}
 \label{sec:method-extraction}
 
-The first stage of the classification process extracts all legally and practically cyclable segments from the West Midlands transport network. Cyclable infrastructure is represented in two feature collections under OS NGD Transport Theme: Road Links, which encode the carriageway network where cyclists may share space with motor vehicles \parencite{ordnancesurvey2026a}, and Path Links, which encode routes that are topologically independent from the carriageway, captured where they provide connectivity that cannot be inferred from the road network \parencite{ordnancesurvey2026b}. The legal cyclability of segments is firstly checked through the Highway Dedication feature collection, which provides an indication of the type of highway user who has access to each section of the network, recording one of eight designation types \parencite{ordnancesurvey2026}. Five of the seven designation types permit cycling under UK highway law, while `Motorway' and `Pedestrian Way Or Footpath' are excluded as non-cyclable (Table~\ref{tab:highway-dedication}).
+The first stage of the classification process extracts all legally and practically cyclable segments from the West Midlands transport network. Cyclable infrastructure is represented in two feature collections under OS NGD Transport Theme: Road Links, which represent the carriageway network \parencite{ordnancesurvey2026a}, and Path Links, which represent routes topologically independent from it \parencite{ordnancesurvey2026b}. The legal cyclability of segments is firstly checked through the Highway Dedication feature collection, which provides an indication of the type of highway user who has access to each section of the network, recording one of eight designation types \parencite{ordnancesurvey2026}. Five of the seven designation types permit cycling under UK highway law, while `Motorway' and `Pedestrian Way Or Footpath' are excluded as non-cyclable (Table~\ref{tab:highway-dedication}).
  
 \begin{table}[htbp]
   \centering
@@ -40,7 +40,7 @@ The first stage of the classification process extracts all legally and practical
   \footnotesize\textit{Note:} The eighth type, `No Dedication Or Dedication Unknown', is neither cyclable nor explicitly non-cyclable and is addressed through the description-based fallback classification for Road Links.
 \end{table}
  
-For Road Links, Highway Dedication covers most of the segments. Where a dedication record is absent or recorded as `No Dedication Or Dedication Unknown', a fallback classification retains segments whose physical description feature indicates a carriageway type (`Single Carriageway', `Dual Carriageway', `Roundabout', `Slip Road', `Shared Use Carriageway', `Traffic Island Link At Junction', and `Traffic Island Link'). Segments classified as `Motorway' are excluded regardless of dedication status. This process yields 212,551 cyclable Road Links (97.8\%), of which 84.2\% are identified through Highway Dedication and 15.8\% through the description fallback. For Path Links, Highway Dedication coverage is substantially lower, identifying only 10.1\% of cyclable paths. A second layer retains paths where the feature data detects cycling infrastructure through its `presenceofcyclelane' attribute, contributing a further 1.0\%. No attribute in the OS NGD Path Link schema, however, provides a direct cyclability indicator. The Department for Transport's transport connectivity metric reflects a comparable data source choice: while it constructs its driving network from Ordnance Survey data, it uses OpenStreetMap for cycling and walking networks, relying on OSM tags to determine which links can be walked or cycled on \parencite{dft2025}. Following this, a third layer performs spatial cross-validation against the OpenStreetMap cycling network, matching remaining paths without Highway Dedication or cycle lane presence to OSM cycling geometries within a 5-metre nearest-neighbour spatial join and recovering an additional 40,035 paths. Paths with explicitly non-cyclable Highway Dedications are excluded at all layers. This process yields 45,023 cyclable Path Links (40.3\% of the total collection). Each segment is then expanded into directed edges, and cycle lane records are joined only to the edge whose travel direction aligns with the lane's placement side, capturing the inherently asymmetric distribution of cycling infrastructure and avoiding overestimation of facility provision.
+For Road Links, Highway Dedication covers most of the segments. Where a dedication record is absent or recorded as `No Dedication Or Dedication Unknown', a fallback classification retains segments whose physical description feature indicates a carriageway type \footnote{`Single Carriageway', `Dual Carriageway', `Roundabout', `Slip Road', `Shared Use Carriageway', `Traffic Island Link At Junction', and `Traffic Island Link'.}. Segments classified as `Motorway' are excluded regardless of dedication status. This process yields 212,551 cyclable Road Links (97.8\%), of which 84.2\% are identified through Highway Dedication and 15.8\% through the description fallback. For Path Links, Highway Dedication coverage is substantially lower, identifying only 10.1\% of cyclable paths. A second layer retains paths where the feature data detects cycling infrastructure through its `presenceofcyclelane' attribute, contributing a further 1.0\%. No attribute in the OS NGD Path Link schema, however, provides a direct cyclability indicator. This mirrors DfT’s own transport connectivity metric, which uses Ordnance Survey data for the driving network but relies on OpenStreetMap tags for cycling and walking network definition \parencite{dft2025}. Following this, a third layer performs spatial cross-validation against the OpenStreetMap cycling network, matching remaining paths without Highway Dedication or cycle lane presence to OSM cycling geometries within a 5-metre nearest-neighbour spatial join and recovering an additional 40,035 paths. Paths with explicitly non-cyclable Highway Dedications are excluded at all layers. This process yields 45,023 cyclable Path Links (40.3\% of the total collection). Each segment is then expanded into directed edges, and cycle lane records are joined only to the edge whose travel direction aligns with the lane's placement side, capturing the inherently asymmetric distribution of cycling infrastructure and avoiding overestimation of facility provision.
  
 Each directed cyclable segment is then classified into one of eight facility types derived from LTN~1/20's design hierarchy (Table~\ref{tab:facility-types}). The OS NGD Cycle Lane dataset, whose type definitions are aligned to LTN~1/20, records dedicated cycling infrastructure as separate features referencing their parent Road Link \parencite{ordnancesurvey2026c,ordnancesurvey2026d}. A Road Link with a matching Cycle Lane record is classified according to its cycle lane description; where multiple records exist for the same link, the more protective facility governs. Road Links without a matching record, or where the cycle lane type is recorded as `Unknown Type Of Cycle Track Or Lane', default to Mixed Traffic. All cyclable Path Links are classified as `Off-Road', as they are topologically independent from the road network and carry no motor traffic speed or volume attributes \parencite{ordnancesurvey2026b}. Following classification, Road Links and Path Links are merged into a single unified and directed network for use in the subsequent LTS assessment.
  
@@ -72,7 +72,7 @@ Each directed cyclable segment is then classified into one of eight facility typ
 \section{Link-level LTS classification}
 \label{sec:method-linklts}
 
-To address the absence of an England-calibrated LTS classification identified in Section~\ref{sec:lit-lts}, the link-level LTS classification adapts the \parencite{mekuria2012a} framework by replacing its North American thresholds with those from LTN~1/20, the statutory design standard for cycling infrastructure in England and Northern Ireland. Although the Cycling Level of Service (CLoS) tool embedded in LTN~1/20 uses compensatory scoring across heterogeneous subcriteria, which prevents it from isolating population-level acceptability (see Section~\ref{sec:lit-ltn}), the core Safety subcriteria addressing motor traffic speed (Criterion~10), volume (Criterion~11), segregation provision and carriageway width (Criterion~12) are themselves non-compensatory stress determinants constructed on CROW-derived logic \parencite{crow2016}, directly consistent with the LTS framework. It is this subset that the present study selects for link-level LTS assignment. LTN~1/20 further provides a speed--volume--facility matrix that grades traffic conditions by the population they accommodate. This study maps that graduated logic onto the LTS framework: conditions suitable for all users including children correspond to LTS~1; those acceptable only to confident cyclists correspond to LTS~2; those suitable for few correspond to LTS~3; and conditions triggering a critical safety failure correspond to LTS~4 (Figure~\ref{fig:lts_matrix}).
+The link-level LTS classification adapts the \textcite{mekuria2012a} framework by replacing its North American thresholds with those from LTN~1/20. Although the CLoS tool uses compensatory scoring across heterogeneous subcriteria, which prevents it from isolating population-level acceptability (see Section~\ref{sec:lit-ltn}), the core Safety subcriteria addressing motor traffic speed (Criterion 10), volume (Criterion 11), segregation provision and carriageway width (Criterion 12) are themselves non-compensatory stress determinants constructed on CROW-derived logic \parencite{crow2016}, directly consistent with the LTS framework. This study maps that graduated logic onto the four LTS levels: conditions suitable for all users including children (LTS 1), most adults (LTS 2), confident cyclists (LTS 3), and conditions triggering a critical safety failure under LTN 1/20 criteria (LTS 4), as detailed in Table~\ref{tab:lts_matrix}.
 
 \renewcommand{\arraystretch}{1.4}
 \begin{table}[h]
@@ -125,43 +125,16 @@ Mixed traffic         &
 \end{table}
 \renewcommand{\arraystretch}{1.0}
 
-The link-level LTS classification begins with facility type and proceeds through three primary variables: prevailing speed, road width, and motor traffic volume. OS~NGD provides carriageway or cycle lane width at the link level through average and minimum width attributes. For cycle lanes, this study uses the separately recorded modal lane width rather than the minimum, as it better captures typical conditions along a segment. For mixed traffic on single carriageways, average road width is used to assess the critical nearside lane width range of 3.2 to 3.9\,m associated with elevated close-pass risk.\footnote{On one-way roads, total width serves directly as lane width; on two-way roads, lane width is approximated as half the total width, with the override applied only where AADT exceeds 5,000, as lower volumes allow drivers to overtake via the opposing lane.} Segments triggering this override are classified as LTS~4.
+The link-level LTS classification begins with facility type and proceeds through three primary variables: prevailing speed, road width, and motor traffic volume. OS~NGD provides carriageway or cycle lane width at the link level through average and minimum width attributes. For cycle lanes, this study uses the separately recorded modal lane width rather than the minimum, as it better captures typical conditions along a segment. For mixed traffic on single carriageways, average road width is used to assess the critical nearside lane width range of 3.2 to 3.9\,m associated with elevated close-pass risk\footnote{On one-way roads, total width serves directly as lane width; on two-way roads, lane width is approximated as half the total width, with the override applied only where AADT exceeds 5,000, as lower volumes allow drivers to overtake via the opposing lane.}. Segments triggering this override are classified as LTS~4.
 
-Prevailing speed is represented by the estimated 85th percentile speed ($V_{85}$), consistent with the measurement basis specified in LTN~1/20. $V_{85}$ is preferred over posted speed limits because actual operating speeds frequently diverge from the limit depending on road geometry and enforcement, offering a more reliable measure of cycling stress \parencite{fitzpatrick2003, europeancommission2021, departmentfortransport2025b}. $V_{85}$ was estimated from the OS~NGD average speed dataset (RAMI), which provides mean vehicle speeds derived from probe vehicle data across multiple time periods. The mean of observed average speeds across all available time periods was used as the representative link speed, and $V_{85}$ was calculated by applying a 7/6 multiplier derived from CA~185 \textit{Vehicle speed measurement} \parencite{nationalhighways2019}, which defines $V_{85}$ as the mean speed plus one standard deviation and estimates the standard deviation as approximately one-sixth of the mean under the assumption of a normal speed distribution.
+Prevailing speed is represented by the estimated 85th percentile speed ($V_{85}$), consistent with the measurement basis specified in LTN~1/20. $V_{85}$ is preferred over posted speed limits as actual operating speeds frequently diverge from the limit depending on road geometry and enforcement, offering a more reliable measure of cycling stress \parencite{fitzpatrick2003, europeancommission2021, departmentfortransport2025b}. $V_{85}$ was estimated from the OS~NGD average speed dataset (RAMI), which provides mean vehicle speeds derived from probe vehicle data across multiple time periods. The mean of observed average speeds across all available time periods was used as the representative link speed, and $V_{85}$ was calculated by applying a 7/6 multiplier derived from CA~185 \textit{Vehicle speed measurement} \parencite{nationalhighways2019}, which defines $V_{85}$ as the mean speed plus one standard deviation and estimates the standard deviation as approximately one-sixth of the mean under the assumption of a normal speed distribution.
 
 OS~NGD does not include motor traffic volume attributes. To address this, major road volumes were obtained directly from DfT annual average daily traffic (AADT) count point data, while minor road volumes were estimated following the methodology of \parencite{morley2016}. A Poisson GLM was constructed using road network characteristics extracted via pgRouting on the England OSM network as predictors and DfT count point observations as the dependent variable. Five-fold cross-validation ($n = 3{,}695$ count points) yields an $R^2$ of $0.604 \pm 0.019$ and Spearman's $\rho$ of $0.803 \pm 0.015$, considered sufficient for the coarse-grained LTS classification task. Predicted and observed AADT values were assigned to OS~NGD links via nearest-network spatial join. For the small number of links where no match was achieved, volume was imputed using the median AADT of the corresponding road classification to ensure network-wide coverage.
 
 \section{Junction LTS Classification}
 \label{sec:method-junctionlts}
 
-
-The original LTS framework \parencite{mekuria2012a,furth2016} established
-intersection-specific criteria independent of segment classification, covering
-right-turn lane weaving conflicts on signalised approaches and crossing stress at
-unsignalized junctions, with junction stress propagated to the approaching links of
-the minor street. However, the fine-grained geometric data required by these
-criteria are unavailable in most cities \parencite{bearn2018,furth2018},
-driving the widespread adoption of the \textcite{conveyal2015} method, which relies
-solely on OSM tags and propagates the highest LTS of any edge at an unsignalized
-vertex to all edges at that vertex without independently evaluating crossing
-geometry. This max-propagation logic has been applied in multiple city and
-regional-scale studies \parencite{semler2017,murphy2019,huertas2020} with subsequent
-work introducing traffic signal or stop sign presence as downgrading modifiers
-\parencite{bearn2018,lin2021} while retaining the same underlying proxy. A
-substantial number of network-scale studies omitted intersection treatment entirely
-\parencite{wang2022,viero2025}. Across this spectrum of implementations, two gaps
-remain unaddressed. Firstly, all existing LTS intersection criteria were initially
-developed for North American junction typologies and do not address roundabouts,
-which are prevalent in the UK road network, are associated with elevated cyclist
-collision risk \parencite{daniels2009,aldred2021,poudel2021}, with physiological
-stress measurement directly recommending that roundabout presence be incorporated
-into the LTS framework \parencite{rodrigues2022}. Secondly, the Conveyal-lineage
-methods that now dominate applied practice derive junction stress entirely from
-pre-assigned segment LTS values rather than from the operational characteristics of
-conflicting traffic, and their undirected vertex-level propagation assigns elevated
-stress indiscriminately to all incident edges regardless of whether a cyclist at
-that junction could legally travel onto each of them, obscuring the heterogeneity of
-crossing conditions within the network.
+The original LTS framework established intersection-specific criteria covering weaving conflicts and crossing stress, with junction stress propagated to approaching minor-street links \parencite{mekuria2012a,furth2016}. However, the fine-grained geometric data these require are unavailable at network scale \parencite{bearn2018,furth2018}, driving adoption of the \textcite{conveyal2015} method, which propagates the highest segment LTS at each unsignalized vertex to all incident edges without independently evaluating crossing geometry. This max-propagation logic has been widely applied \parencite{semler2017,murphy2019,huertas2020}, with variants introducing signal or stop sign presence as downgrading modifiers \parencite{bearn2018,lin2021}; a substantial number of studies omit junction treatment entirely \parencite{wang2022,viero2025}. Two gaps persist. First, all existing criteria address North American junction typologies and none cover roundabouts, despite their prevalence in UK networks and documented cyclist collision risk \parencite{daniels2009,aldred2021,poudel2021,rodrigues2022}. Second, undirected vertex-level propagation assigns elevated stress indiscriminately to all incident edges regardless of legal travel direction, obscuring heterogeneity in crossing conditions.
 
 The Junction Assessment Tool (JAT) within LTN 1/20 evaluates junction suitability by
 establishing criteria for each junction form (priority T-junction, crossroads,
@@ -177,15 +150,14 @@ all, and suitable for few. For non-roundabout crossing junctions
 (Table~\ref{tab:crossing-lts}), the present study maps these three suitability tiers
 to LTS 1, LTS 2, and LTS 3--4 respectively. Protection is operationalised in three
 levels: uncontrolled, traffic island (identified from the OS NGD link description
-field ``Traffic Island Link At Junction''), and signalised (identified from
-OpenStreetMap traffic signal tags spatially joined to OS NGD nodes). The OS NGD does
+field ``Traffic Island Link At Junction\footnote{The OS NGD does
 not distinguish between median refuges, central islands, and other refuge forms, but
 the presence of a traffic island at a junction at minimum serves to channelise
-traffic flow and provide physical separation. For roundabouts
+traffic flow and provide physical separation.}''), and signalized (identified from
+OpenStreetMap traffic signal tags spatially joined to OS NGD nodes).  For roundabouts
 (Table~\ref{tab:roundabout-lts}), the classification is derived directly from the JAT
 roundabout-specific criteria, which assess suitability by traffic throughput,
-approach geometry, and off-carriageway cycle facility provision. Each roundabout node
-is classified by the maximum AADT, V85, and road width of its incident links.
+approach geometry, and off-carriageway cycle facility provision. Each roundabout is classified by the maximum AADT, V85, and road width of its incident links.
 
 \begin{table}[htbp]
   \centering
@@ -264,7 +236,57 @@ The following analyses evaluate whether the West Midlands network delivers on th
 \section{Network Growth Simulation}
 \label{sec:method-growth}
 
-% REQUIRED (handbook 2.14.1). Aggregate/anonymous public data:
-% brief reference to how disclosure and privacy issues are handled.
-% Note interviews are reported in the commercial report, not here,
-% unless any interview material enters the dissertation.
+As established in Section~\ref{sec:lit-networkgrowth}, the order in which a fragmented network is upgraded shapes its connectivity outcome. This section adopts a forward growth framework, adding edges to the existing stress-classified network rather than pruning an idealised one, since the starting condition and policy question are both defined by incremental upgrade from the current state. Rather than prescribing which links to upgrade, the analysis compares how alternative selection logics shape connectivity growth, treating the comparison as a diagnostic of how much selection logic alone determines network-level return.
+
+The simulation operates on an undirected projection of the LTS-classified
+network, where each undirected edge takes the worse LTS classification of its
+two directions, ensuring that both directions must meet the LTS 2 standard for
+the edge to be considered a low-stress link. This projection yields 255,286
+undirected edges, of which 187,370 (73.4\%) are low-stress (LTS $\leq$ 2),
+forming the initial low-stress subnetwork, and 67,916 (26.6\%) are high-stress
+(LTS 3--4), forming the candidate pool for upgrade. Three strategies are tested,
+spanning a topology-to-demand axis (Table~\ref{tab:strategies}). All strategies
+share the same forward growth mechanism: at each step, one candidate edge is
+selected according to the active strategy, reclassified as low-stress, and
+added to the subnetwork.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Edge selection strategies for the network growth simulation.}
+  \label{tab:strategies}
+  \begin{tabularx}{\textwidth}{@{}p{2.1cm} >{\RaggedRight\arraybackslash}X p{2.3cm} p{2.7cm}@{}}
+    \toprule
+    Strategy & Selection Logic & Information Input & Reference \\
+    \midrule
+    Random
+      & Uniform random from all candidates; 10 runs averaged
+      & None
+      & Null baseline \\[4pt]
+    Connectivity
+      & Prioritise adjacent edges merging distinct components, favouring the
+        largest component; ties broken by shortest length
+      & Network topology
+      & Adapted from \textcite{nateraorozco2020} \\[4pt]
+    Betweenness Centrality (BC)
+      & Highest pre-computed edge BC from all candidates
+      & Topological demand proxy
+      & \textcite{szell2022}; \textcite{steinacker2022} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The random baseline provides a null expectation by selecting edges without
+prior information, averaged over 10 independent runs. The connectivity strategy
+greedily expands the LCC by prioritising adjacent edges that merge distinct
+components, adapted from the component-merging logic of \textcite{nateraorozco2020}
+but operating at single-edge granularity. Edge betweenness centrality is
+computed on the full undirected street network using Networkit's parallelised
+Brandes algorithm \parencite{staudt2016}, serving as a topological proxy for
+latent cycling demand \parencite{mccahill2008,kirkley2018,szell2022}. Two
+metrics are computed at regular intervals during the growth process. LCC share
+is the total length of the largest connected component divided by the total
+length of the current low-stress (LTS $\leq$ 2) subnetwork, measuring the
+topological integration of the network. Demand-weighted connectivity is the
+share of commuting flow whose origin and destination fall within the same
+connected component of the low-stress subnetwork, using the same Census 2011
+MSOA commuting data and 8\,km distance filter described in Section~\ref{sec:method-analysis}.

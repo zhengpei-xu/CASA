@@ -251,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Code/09_network_growth_simulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../Code/09_network_growth_simulation.ipynb" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Network Growth Simulation</span></a>
   </div>
 </li>
@@ -309,12 +309,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Two junction models.</strong></p>
 <ul>
 <li><strong>Crossing junctions</strong> (priority T-junctions, crossroads): classified by a lookup table adapted from LTN 1/20 Table 10-2, using the maximum V85 and AADT of conflicting edges departing from the junction node, the approaching edge’s estimated lane count, and the best available traffic control.</li>
-<li><strong>Roundabouts</strong>: classified at node level using JAT roundabout-specific criteria.</li>
+<li><strong>Roundabouts</strong> classified at node level using JAT roundabout-specific criteria.</li>
 </ul>
 <p>The final edge LTS = max(link LTS, junction LTS), so junction stress can only increase, never decrease, an edge’s classification.</p>
 <section id="environment-and-study-area" class="level2">
 <h2 class="anchored" data-anchor-id="environment-and-study-area">1. Environment and Study Area</h2>
-<div id="d3a403f5" class="cell" data-execution_count="25">
+<div id="d3a403f5" class="cell" data-execution_count="36">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
@@ -346,7 +346,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="va">None</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="7f0069c5" class="cell" data-execution_count="2">
+<div id="7f0069c5" class="cell" data-execution_count="37">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Study area boundary</span></span>
@@ -401,8 +401,8 @@ Total study area: 901.7 km²</code></pre>
 </section>
 <section id="load-link-level-classified-network" class="level2">
 <h2 class="anchored" data-anchor-id="load-link-level-classified-network">2. Load Link-level Classified Network</h2>
-<p>Input: <code>network_lts_classified.gpkg</code> (link-level LTS from the previous notebook).</p>
-<div id="aacdd821" class="cell" data-execution_count="3">
+<p>Input - <code>network_lts_classified.gpkg</code> (link-level LTS from the previous notebook).</p>
+<div id="aacdd821" class="cell" data-execution_count="38">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>network <span class="op">=</span> gpd.read_file(CLEANED_DIR <span class="op">/</span> <span class="st">"network_lts_classified.gpkg"</span>)</span>
@@ -434,7 +434,7 @@ Road Node: 191,969 | Path Node: 134,058</code></pre>
 </section>
 <section id="build-node-table" class="level2">
 <h2 class="anchored" data-anchor-id="build-node-table">3. Build Node Table</h2>
-<div id="79837560" class="cell" data-execution_count="4">
+<div id="79837560" class="cell" data-execution_count="39">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>all_node_ids <span class="op">=</span> <span class="bu">set</span>(network[<span class="st">'from_node'</span>].unique()) <span class="op">|</span> <span class="bu">set</span>(network[<span class="st">'to_node'</span>].unique())</span>
@@ -463,13 +463,13 @@ Road Node: 191,969 | Path Node: 134,058</code></pre>
 <section id="identify-junction-types-and-modifiers" class="level2">
 <h2 class="anchored" data-anchor-id="identify-junction-types-and-modifiers">4. Identify Junction Types and Modifiers</h2>
 <ul>
-<li><strong>Roundabout</strong>: <code>formofroadnode == 'Roundabout'</code></li>
-<li><strong>Mini Roundabout</strong>: <code>description == 'Mini Roundabout'</code></li>
-<li><strong>Traffic Island</strong>: links with <code>description == 'Traffic Island Link At Junction'</code></li>
-<li><strong>Traffic Signal</strong>: OpenStreetMap <code>highway=traffic_signals</code>, spatially joined to the nearest Junction/Roundabout node within 50 m tolerance</li>
-<li><strong>Segregation facility at roundabout</strong>: roundabout nodes with at least one approach edge classified as off-carriageway or cycle track</li>
+<li><strong>Roundabout</strong> <code>formofroadnode == 'Roundabout'</code></li>
+<li><strong>Mini Roundabout</strong> <code>description == 'Mini Roundabout'</code></li>
+<li><strong>Traffic Island</strong> links with <code>description == 'Traffic Island Link At Junction'</code></li>
+<li><strong>Traffic Signal</strong> OpenStreetMap <code>highway=traffic_signals</code>, spatially joined to the nearest Junction/Roundabout node within 50 m tolerance</li>
+<li><strong>Segregation facility at roundabout</strong> roundabout nodes with at least one approach edge classified as off-carriageway or cycle track</li>
 </ul>
-<div id="ba8d8c47" class="cell" data-execution_count="5">
+<div id="ba8d8c47" class="cell" data-execution_count="40">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>roundabout_nodes <span class="op">=</span> <span class="bu">set</span>(nodes[nodes[<span class="st">'node_form'</span>] <span class="op">==</span> <span class="st">'Roundabout'</span>][<span class="st">'node_id'</span>])</span>
@@ -488,7 +488,7 @@ Mini roundabout nodes: 516
 Traffic island nodes: 8,450</code></pre>
 </div>
 </div>
-<div id="63c25d4f" class="cell" data-execution_count="6">
+<div id="63c25d4f" class="cell" data-execution_count="41">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Traffic signals from OSM -----</span></span>
@@ -521,7 +521,7 @@ Traffic island nodes: 8,450</code></pre>
 Signal nodes matched: 2,554</code></pre>
 </div>
 </div>
-<div id="5924c58d" class="cell" data-execution_count="7">
+<div id="5924c58d" class="cell" data-execution_count="42">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Segregation facility at roundabout -----</span></span>
@@ -546,7 +546,7 @@ Signal nodes matched: 2,554</code></pre>
 <pre><code>Roundabout nodes with segregation facility: 474</code></pre>
 </div>
 </div>
-<div id="30619219" class="cell" data-execution_count="8">
+<div id="30619219" class="cell" data-execution_count="43">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Tag nodes -----</span></span>
@@ -585,7 +585,7 @@ Node modifier summary:
 <li><strong>Exclude straight-line continuations</strong> (bearing difference ~180° ± 30°).</li>
 <li><strong>Extract max V85, max AADT, and lane count</strong> of conflicting edges.</li>
 </ol>
-<div id="f5628197" class="cell" data-execution_count="9">
+<div id="f5628197" class="cell" data-execution_count="44">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Identify junction nodes -----</span></span>
@@ -616,7 +616,7 @@ Node modifier summary:
 <pre><code>Junction nodes: 88,311</code></pre>
 </div>
 </div>
-<div id="3057cac9" class="cell" data-execution_count="10">
+<div id="3057cac9" class="cell" data-execution_count="45">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Identify crossing junction nodes (exclude roundabouts) -----</span></span>
@@ -633,7 +633,7 @@ Node modifier summary:
 <pre><code>Crossing junction nodes: 82,628</code></pre>
 </div>
 </div>
-<div id="824a5825" class="cell" data-execution_count="11">
+<div id="824a5825" class="cell" data-execution_count="46">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Build (edge, junction_node) pairs for crossing junctions -----</span></span>
@@ -654,7 +654,7 @@ Node modifier summary:
 <pre><code>(edge, junction_node) pairs: 237,874</code></pre>
 </div>
 </div>
-<div id="62e63bec" class="cell" data-execution_count="12">
+<div id="62e63bec" class="cell" data-execution_count="47">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Reachability -----</span></span>
@@ -668,7 +668,7 @@ Node modifier summary:
 (Directionality already encoded in Notebook 00 edge expansion.)</code></pre>
 </div>
 </div>
-<div id="6bb2281b" class="cell" data-execution_count="13">
+<div id="6bb2281b" class="cell" data-execution_count="48">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Compute bearing of each edge at its junction node (to_node) -----</span></span>
@@ -871,7 +871,7 @@ est_lanes
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="f4f8cea1" class="cell" data-execution_count="14">
+<div id="f4f8cea1" class="cell" data-execution_count="49">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Merge node-level modifiers and determine protection -----</span></span>
@@ -910,7 +910,7 @@ Name: count, dtype: int64</code></pre>
 <section id="crossing-junction-classification-link-level" class="level2">
 <h2 class="anchored" data-anchor-id="crossing-junction-classification-link-level">6. Crossing Junction Classification (Link-level)</h2>
 <p>Adapted from LTN 1/20 Table 10-2 (Crossing Design Suitability). The lookup now operates on the <strong>(link, junction node)</strong> conflict attributes computed, rather than on node-level maxima. This means that two links approaching the same junction may receive different junction LTS scores — correctly reflecting asymmetric conflict exposure (e.g.&nbsp;a residential side-street entering a dual carriageway faces higher crossing stress than the through-movement on the carriageway itself).</p>
-<p><strong>Table: Crossing junction LTS classification</strong></p>
+<p><strong>Table - Crossing junction LTS classification</strong></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 16%">
@@ -1021,7 +1021,7 @@ Name: count, dtype: int64</code></pre>
 </tr>
 </tbody>
 </table>
-<div id="5489ce65" class="cell" data-execution_count="15">
+<div id="5489ce65" class="cell" data-execution_count="50">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify_crossing_lts(df):</span>
@@ -1148,7 +1148,7 @@ signal            5608
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="e5e3b890" class="cell" data-execution_count="16">
+<div id="e5e3b890" class="cell" data-execution_count="51">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Aggregate to edge level -----</span></span>
@@ -1181,13 +1181,13 @@ Name: count, dtype: int64</code></pre>
 <p>Roundabouts are classified at the node level using JAT roundabout-specific criteria. The circulatory geometry means that all approaches merge into the same traffic stream, so the link-level directionality analysis used for crossing junctions is not applicable. Roundabouts carry elevated collision risk compared to other junction types (Aldred et al., 2021; Kennedy et al., 1998), reflected in a minimum floor of LTS 2.</p>
 <p><strong>Criteria (from JAT):</strong></p>
 <ul>
-<li><strong>LTS 1</strong>: off-carriageway segregation facility AND traffic signal</li>
-<li><strong>LTS 2</strong>: compact roundabout (≤ 7 m width) AND moderate throughput (≤ 8,000 AADT); OR segregation facility AND AADT &lt; 4,000 AND single lane</li>
-<li><strong>LTS 3</strong>: heavy throughput (&gt; 8,000) OR multi-lane (&gt; 7 m) — one condition met</li>
-<li><strong>LTS 4</strong>: heavy throughput (&gt; 8,000) AND multi-lane (&gt; 7 m) — both conditions; OR V85 ≥ 37 mph</li>
+<li><strong>LTS 1</strong> off-carriageway segregation facility AND traffic signal</li>
+<li><strong>LTS 2</strong> compact roundabout (≤ 7 m width) AND moderate throughput (≤ 8,000 AADT); OR segregation facility AND AADT &lt; 4,000 AND single lane</li>
+<li><strong>LTS 3</strong> heavy throughput (&gt; 8,000) OR multi-lane (&gt; 7 m) — one condition met</li>
+<li><strong>LTS 4</strong> heavy throughput (&gt; 8,000) AND multi-lane (&gt; 7 m) — both conditions; OR V85 ≥ 37 mph</li>
 </ul>
 <p>Mini roundabouts are classified as crossing junctions with a floor of LTS 2.</p>
-<div id="3d60a442" class="cell" data-execution_count="17">
+<div id="3d60a442" class="cell" data-execution_count="52">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Compute node-level attributes for roundabouts -----</span></span>
@@ -1219,7 +1219,7 @@ Name: count, dtype: int64</code></pre>
 <pre><code>Node-level attributes computed (for roundabout classification).</code></pre>
 </div>
 </div>
-<div id="8d823cce" class="cell" data-execution_count="18">
+<div id="8d823cce" class="cell" data-execution_count="53">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify_roundabout_nodes(nodes):</span>
@@ -1315,13 +1315,13 @@ Signal modifier: 162</code></pre>
 </section>
 <section id="assign-junction-lts-to-directed-edges" class="level2">
 <h2 class="anchored" data-anchor-id="assign-junction-lts-to-directed-edges">8. Assign Junction LTS to Directed Edges</h2>
-<p>Junction LTS is assembled from two sources:</p>
+<p>Junction LTS is assembled from two sources</p>
 <ol type="1">
 <li><p><strong>Crossing junctions</strong> (edge-level): computed per (edge, junction_node) pair in Sections 4–5.</p></li>
 <li><p><strong>Roundabouts</strong> (node-level): computed per node in Section 6, mapped to each directed edge via its <code>to_node</code>.</p></li>
 </ol>
 <p>The final junction LTS for each edge = max(crossing LTS, roundabout LTS). The overall LTS = max(link-level LTS, junction LTS).</p>
-<div id="3415d866" class="cell" data-execution_count="19">
+<div id="3415d866" class="cell" data-execution_count="54">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- Crossing junction LTS (edge-level, from Section 5) -----</span></span>
@@ -1367,8 +1367,8 @@ Source breakdown:
 </section>
 <section id="impact-of-junction-enhancement" class="level2">
 <h2 class="anchored" data-anchor-id="impact-of-junction-enhancement">9. Impact of Junction Enhancement</h2>
-<p>Quantifies how the junction overlay reshapes the LTS profile: how many edges are upgraded, by how many levels, the length affected, and the attribution of upgrades to junction type (uncontrolled crossing, roundabout, signalised, traffic island).</p>
-<div id="a6c2295e" class="cell" data-execution_count="20">
+<p>Quantifies how the junction overlay reshapes the LTS profile - how many edges are upgraded, by how many levels, the length affected, and the attribution of upgrades to junction type (uncontrolled crossing, roundabout, signalised, traffic island).</p>
+<div id="a6c2295e" class="cell" data-execution_count="55">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>upgraded <span class="op">=</span> network[<span class="st">'lts_final'</span>] <span class="op">&gt;</span> network[<span class="st">'lts'</span>]</span>
@@ -1476,7 +1476,7 @@ Network length impact:
 <section id="visualising-the-junction-enhanced-network" class="level2">
 <h2 class="anchored" data-anchor-id="visualising-the-junction-enhanced-network">10. Visualising the Junction-Enhanced Network</h2>
 <p>Maps the final <code>lts_final</code> classification across the directed cyclable network.</p>
-<div id="1ef79fbd" class="cell">
+<div id="1ef79fbd" class="cell" data-execution_count="56">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1546,29 +1546,106 @@ Network length impact:
 </div>
 </div>
 </div>
-<div id="4ecfa938" class="cell" data-execution_count="22">
+<div id="61c00b4d" class="cell" data-execution_count="59">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">16</span>))</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, lts <span class="kw">in</span> <span class="bu">enumerate</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]):</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> network[network[<span class="st">'lts_final'</span>] <span class="op">==</span> lts]</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    subset.plot(ax<span class="op">=</span>ax, color<span class="op">=</span>lts_colors[lts], linewidth<span class="op">=</span><span class="fl">0.5</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    ax.set_title(lts_labels[lts], fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    ax.set_axis_off()</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Level of Traffic Stress (Link-level Junction Enhancement)</span><span class="ch">\n</span><span class="st">West Midlands Cycling Network'</span>,</span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, y<span class="op">=</span><span class="fl">0.95</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># =============================================================================</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Zoomed-in: Birmingham city centre — LTS classification</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># =============================================================================</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.lines <span class="im">import</span> Line2D</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Reuse the aspect ratio from the full map so both figures match exactly ---</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>minx, miny, maxx, maxy <span class="op">=</span> study_area.total_bounds</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>pad <span class="op">=</span> <span class="dv">2000</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>MAP_ASPECT <span class="op">=</span> (maxy <span class="op">-</span> miny <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> pad) <span class="op">/</span> (maxx <span class="op">-</span> minx <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> pad)</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>FIG_WIDTH <span class="op">=</span> <span class="dv">14</span></span>
 <span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout(rect<span class="op">=</span>[<span class="dv">0</span>, <span class="fl">0.03</span>, <span class="dv">1</span>, <span class="fl">0.95</span>])</span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Zoom controls: centre + one scale parameter ---</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>centre_x, centre_y <span class="op">=</span> <span class="dv">406500</span>, <span class="dv">286500</span>   <span class="co"># Birmingham city centre (BNG)</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>half_width <span class="op">=</span> <span class="dv">5000</span>                      <span class="co"># ← the only zoom knob (metres, east-west)</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>half_height <span class="op">=</span> half_width <span class="op">*</span> MAP_ASPECT  <span class="co"># derived, keeps the shape identical</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(FIG_WIDTH, FIG_WIDTH <span class="op">*</span> MAP_ASPECT))</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>lts_colors <span class="op">=</span> {<span class="dv">1</span>: <span class="st">'#2ca02c'</span>, <span class="dv">2</span>: <span class="st">'#f0c929'</span>, <span class="dv">3</span>: <span class="st">'#e8833a'</span>, <span class="dv">4</span>: <span class="st">'#d62728'</span>}</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>lts_labels <span class="op">=</span> {<span class="dv">1</span>: <span class="st">'LTS 1 </span><span class="ch">\u2013</span><span class="st"> Low stress'</span>, <span class="dv">2</span>: <span class="st">'LTS 2 </span><span class="ch">\u2013</span><span class="st"> Moderate stress'</span>,</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>              <span class="dv">3</span>: <span class="st">'LTS 3 </span><span class="ch">\u2013</span><span class="st"> High stress'</span>, <span class="dv">4</span>: <span class="st">'LTS 4 </span><span class="ch">\u2013</span><span class="st"> Very high stress'</span>}</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Thicker lines for the close-up view</span></span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>lts_lw <span class="op">=</span> {<span class="dv">1</span>: <span class="fl">0.8</span>, <span class="dv">2</span>: <span class="fl">0.8</span>, <span class="dv">3</span>: <span class="fl">0.8</span>, <span class="dv">4</span>: <span class="fl">0.9</span>}</span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lts <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]:</span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> network[network[<span class="st">'lts_final'</span>] <span class="op">==</span> lts]</span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>    subset.plot(ax<span class="op">=</span>ax, color<span class="op">=</span>lts_colors[lts], linewidth<span class="op">=</span>lts_lw[lts], alpha<span class="op">=</span><span class="fl">0.8</span>, zorder<span class="op">=</span>lts)</span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>legend_elements <span class="op">=</span> [</span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>    Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], color<span class="op">=</span>lts_colors[i], linewidth<span class="op">=</span><span class="fl">2.5</span>, label<span class="op">=</span>lts_labels[i])</span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a>study_area.boundary.plot(ax<span class="op">=</span>ax, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>gpd.GeoSeries([study_area_union], crs<span class="op">=</span>study_area.crs).boundary.plot(</span>
+<span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, linestyle<span class="op">=</span><span class="st">'-'</span></span>
+<span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a>ax.legend(handles<span class="op">=</span>legend_elements, loc<span class="op">=</span><span class="st">'upper right'</span>, fontsize<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb41-43"><a href="#cb41-43" aria-hidden="true" tabindex="-1"></a>          frameon<span class="op">=</span><span class="va">True</span>, facecolor<span class="op">=</span><span class="st">'white'</span>, edgecolor<span class="op">=</span><span class="st">'#cccccc'</span>,</span>
+<span id="cb41-44"><a href="#cb41-44" aria-hidden="true" tabindex="-1"></a>          title<span class="op">=</span><span class="st">'Level of Traffic Stress'</span>, title_fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb41-45"><a href="#cb41-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-46"><a href="#cb41-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Pin extent before basemap</span></span>
+<span id="cb41-47"><a href="#cb41-47" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(centre_x <span class="op">-</span> half_width,  centre_x <span class="op">+</span> half_width)</span>
+<span id="cb41-48"><a href="#cb41-48" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(centre_y <span class="op">-</span> half_height, centre_y <span class="op">+</span> half_height)</span>
+<span id="cb41-49"><a href="#cb41-49" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="st">'equal'</span>)</span>
+<span id="cb41-50"><a href="#cb41-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-51"><a href="#cb41-51" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, crs<span class="op">=</span>study_area.crs, source<span class="op">=</span>ctx.providers.CartoDB.PositronNoLabels,</span>
+<span id="cb41-52"><a href="#cb41-52" aria-hidden="true" tabindex="-1"></a>                zoom<span class="op">=</span><span class="dv">14</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, attribution<span class="op">=</span><span class="va">False</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb41-53"><a href="#cb41-53" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, crs<span class="op">=</span>study_area.crs, source<span class="op">=</span><span class="st">"https://tile.openstreetmap.org/</span><span class="sc">{z}</span><span class="st">/</span><span class="sc">{x}</span><span class="st">/</span><span class="sc">{y}</span><span class="st">.png"</span>,</span>
+<span id="cb41-54"><a href="#cb41-54" aria-hidden="true" tabindex="-1"></a>                zoom<span class="op">=</span><span class="dv">14</span>, alpha<span class="op">=</span><span class="fl">0.15</span>, attribution<span class="op">=</span><span class="va">False</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb41-55"><a href="#cb41-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Place-name labels on top of the basemap</span></span>
+<span id="cb41-56"><a href="#cb41-56" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, crs<span class="op">=</span>study_area.crs, source<span class="op">=</span>ctx.providers.CartoDB.PositronOnlyLabels,</span>
+<span id="cb41-57"><a href="#cb41-57" aria-hidden="true" tabindex="-1"></a>                zoom<span class="op">=</span><span class="dv">14</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, attribution<span class="op">=</span><span class="va">False</span>, zorder<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb41-58"><a href="#cb41-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-59"><a href="#cb41-59" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
+<span id="cb41-60"><a href="#cb41-60" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(centre_x <span class="op">-</span> half_width,  centre_x <span class="op">+</span> half_width)</span>
+<span id="cb41-61"><a href="#cb41-61" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(centre_y <span class="op">-</span> half_height, centre_y <span class="op">+</span> half_height)</span>
+<span id="cb41-62"><a href="#cb41-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-63"><a href="#cb41-63" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb41-64"><a href="#cb41-64" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../Figure/wm_lts_bham_zoom.png"</span>, dpi<span class="op">=</span><span class="dv">400</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb41-65"><a href="#cb41-65" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="04_junction_lts_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="4ecfa938" class="cell" data-execution_count="57">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">16</span>))</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, lts <span class="kw">in</span> <span class="bu">enumerate</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]):</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> network[network[<span class="st">'lts_final'</span>] <span class="op">==</span> lts]</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    subset.plot(ax<span class="op">=</span>ax, color<span class="op">=</span>lts_colors[lts], linewidth<span class="op">=</span><span class="fl">0.5</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    ax.set_title(lts_labels[lts], fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    ax.set_axis_off()</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Level of Traffic Stress (Link-level Junction Enhancement)</span><span class="ch">\n</span><span class="st">West Midlands Cycling Network'</span>,</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, y<span class="op">=</span><span class="fl">0.95</span>)</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout(rect<span class="op">=</span>[<span class="dv">0</span>, <span class="fl">0.03</span>, <span class="dv">1</span>, <span class="fl">0.95</span>])</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_junction_lts_files/figure-html/cell-24-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1580,17 +1657,17 @@ Network length impact:
 <div id="fa99fb13" class="cell" data-execution_count="23">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop intermediate columns before export</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>drop_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> [<span class="st">'lts_junc_crossing'</span>, <span class="st">'lts_junc_roundabout'</span>] <span class="cf">if</span> c <span class="kw">in</span> network.columns]</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>network_export <span class="op">=</span> network.drop(columns<span class="op">=</span>drop_cols)</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>network_export.to_file(OUTPUT_DIR <span class="op">/</span> <span class="st">"network_lts_with_junctions.gpkg"</span>, driver<span class="op">=</span><span class="st">'GPKG'</span>)</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>nodes.to_file(OUTPUT_DIR <span class="op">/</span> <span class="st">"network_nodes_jlts.gpkg"</span>, driver<span class="op">=</span><span class="st">'GPKG'</span>)</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exported network: </span><span class="sc">{</span><span class="bu">len</span>(network_export)<span class="sc">:,}</span><span class="ss"> directed edges"</span>)</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exported nodes: </span><span class="sc">{</span><span class="bu">len</span>(nodes)<span class="sc">:,}</span><span class="ss"> nodes"</span>)</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Final LTS distribution:"</span>)</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(network_export[<span class="st">'lts_final'</span>].value_counts().sort_index())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop intermediate columns before export</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>drop_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> [<span class="st">'lts_junc_crossing'</span>, <span class="st">'lts_junc_roundabout'</span>] <span class="cf">if</span> c <span class="kw">in</span> network.columns]</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>network_export <span class="op">=</span> network.drop(columns<span class="op">=</span>drop_cols)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>network_export.to_file(OUTPUT_DIR <span class="op">/</span> <span class="st">"network_lts_with_junctions.gpkg"</span>, driver<span class="op">=</span><span class="st">'GPKG'</span>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>nodes.to_file(OUTPUT_DIR <span class="op">/</span> <span class="st">"network_nodes_jlts.gpkg"</span>, driver<span class="op">=</span><span class="st">'GPKG'</span>)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exported network: </span><span class="sc">{</span><span class="bu">len</span>(network_export)<span class="sc">:,}</span><span class="ss"> directed edges"</span>)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exported nodes: </span><span class="sc">{</span><span class="bu">len</span>(nodes)<span class="sc">:,}</span><span class="ss"> nodes"</span>)</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Final LTS distribution:"</span>)</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(network_export[<span class="st">'lts_final'</span>].value_counts().sort_index())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Exported network: 480,228 directed edges

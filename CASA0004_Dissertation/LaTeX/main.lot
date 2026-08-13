@@ -8,8 +8,10 @@
 \contentsline {table}{\numberline {4}{\ignorespaces Facility type classification derived from LTN~1/20 design hierarchy, mapped to OS NGD data sources.}}{15}{table.caption.15}%
 \contentsline {table}{\numberline {5}{\ignorespaces Link-level LTS classification matrix derived from LTN~1/20 Safety subcriteria.}}{16}{table.caption.16}%
 \contentsline {table}{\numberline {6}{\ignorespaces Crossing Junction LTS Classification}}{18}{table.caption.17}%
-\contentsline {table}{\numberline {7}{\ignorespaces Roundabout LTS Classification}}{19}{table.caption.18}%
+\contentsline {table}{\numberline {7}{\ignorespaces Roundabout LTS Classification}}{18}{table.caption.18}%
+\contentsline {table}{\numberline {8}{\ignorespaces Edge selection strategies for the network growth simulation.}}{20}{table.caption.19}%
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {9}{\ignorespaces Network fragmentation metrics by LTS threshold, computed on the largest connected component of the full cyclable network (LTS~$\leq $~4, 10,634.6~km).}}{29}{table.caption.25}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

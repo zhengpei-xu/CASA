@@ -1,0 +1,385 @@
+\begin{thebibliography}{67}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Aldred et~al.(2017)Aldred, Elliott, Woodcock and Goodman}]{aldred2017}
+\bibinfo{author}{Aldred, R.}, \bibinfo{author}{Elliott, B.}, \bibinfo{author}{Woodcock, J.}, \bibinfo{author}{Goodman, A.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Cycling provision separated from motor traffic: A systematic review exploring whether stated preferences vary by gender and age}.
+\newblock \bibinfo{journal}{Transport Reviews} \bibinfo{volume}{37}, \bibinfo{pages}{29--55}.
+\newblock \DOIprefix\doi{10.1080/01441647.2016.1200156}.
+%Type = Article
+\bibitem[{Aldred et~al.(2021)Aldred, Kapousizis and Goodman}]{aldred2021}
+\bibinfo{author}{Aldred, R.}, \bibinfo{author}{Kapousizis, G.}, \bibinfo{author}{Goodman, A.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Association of {{Infrastructure}} and {{Route Environment Factors}} with {{Cycling Injury Risk}} at {{Intersection}} and {{Non-Intersection Locations}}: {{A Case-Crossover Study}} of {{Britain}}}.
+\newblock \bibinfo{journal}{International Journal of Environmental Research and Public Health} \bibinfo{volume}{18}, \bibinfo{pages}{3060}.
+\newblock \DOIprefix\doi{10.3390/ijerph18063060}.
+%Type = Article
+\bibitem[{Berghoefer and Vollrath(2023)}]{berghoefer2023}
+\bibinfo{author}{Berghoefer, F.L.}, \bibinfo{author}{Vollrath, M.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Motivational and deterrent effects of route attributes in cyclists' route choice}.
+\newblock \bibinfo{journal}{Transportation Research Part F: Traffic Psychology and Behaviour} \bibinfo{volume}{95}, \bibinfo{pages}{343--354}.
+\newblock \DOIprefix\doi{10.1016/j.trf.2023.04.003}.
+%Type = Article
+\bibitem[{Broach et~al.(2012)Broach, Dill and Gliebe}]{broach2012}
+\bibinfo{author}{Broach, J.}, \bibinfo{author}{Dill, J.}, \bibinfo{author}{Gliebe, J.}, \bibinfo{year}{2012}.
+\newblock \bibinfo{title}{Where do cyclists ride? {{A}} route choice model developed with revealed preference {{GPS}} data}.
+\newblock \bibinfo{journal}{Transportation Research Part A: Policy and Practice} \bibinfo{volume}{46}, \bibinfo{pages}{1730--1740}.
+\newblock \DOIprefix\doi{10.1016/j.tra.2012.07.005}.
+%Type = Article
+\bibitem[{Buehler and Dill(2016)}]{buehler2016}
+\bibinfo{author}{Buehler, R.}, \bibinfo{author}{Dill, J.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Bikeway {{Networks}}: {{A Review}} of {{Effects}} on {{Cycling}}}.
+\newblock \bibinfo{journal}{Transport Reviews} \bibinfo{volume}{36}, \bibinfo{pages}{9--27}.
+\newblock \DOIprefix\doi{10.1080/01441647.2015.1069908}.
+%Type = Article
+\bibitem[{Cervero et~al.(2019)Cervero, Denman and Jin}]{cervero2019}
+\bibinfo{author}{Cervero, R.}, \bibinfo{author}{Denman, S.}, \bibinfo{author}{Jin, Y.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Network design, built and natural environments, and bicycle commuting: {{Evidence}} from {{British}} cities and towns}.
+\newblock \bibinfo{journal}{Transport Policy} \bibinfo{volume}{74}, \bibinfo{pages}{153--164}.
+\newblock \DOIprefix\doi{10.1016/j.tranpol.2018.09.007}.
+%Type = Article
+\bibitem[{Chao et~al.(2025)Chao, Ma, Wei, Lin, Chen, Saleh, Wiratama, Widodo, Hsu, Ko, Lin, Chan and Pai}]{chao2025}
+\bibinfo{author}{Chao, C.C.}, \bibinfo{author}{Ma, H.P.}, \bibinfo{author}{Wei, L.}, \bibinfo{author}{Lin, Y.N.}, \bibinfo{author}{Chen, C.}, \bibinfo{author}{Saleh, W.}, \bibinfo{author}{Wiratama, B.S.}, \bibinfo{author}{Widodo, A.F.}, \bibinfo{author}{Hsu, S.C.}, \bibinfo{author}{Ko, S.Y.}, \bibinfo{author}{Lin, H.A.}, \bibinfo{author}{Chan, C.W.}, \bibinfo{author}{Pai, C.W.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Risk factors for overtaking, rear-end, and door crashes involving bicycles in the {{United Kingdom}}: {{Revisited}} and reanalysed}.
+\newblock \bibinfo{journal}{PLOS ONE} \bibinfo{volume}{20}, \bibinfo{pages}{e0315692}.
+\newblock \DOIprefix\doi{10.1371/journal.pone.0315692}.
+%Type = Article
+\bibitem[{Chaurand and Delhomme(2013)}]{chaurand2013}
+\bibinfo{author}{Chaurand, N.}, \bibinfo{author}{Delhomme, P.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{Cyclists and drivers in road interactions: {{A}} comparison of perceived crash risk}.
+\newblock \bibinfo{journal}{Accident Analysis \& Prevention} \bibinfo{volume}{50}, \bibinfo{pages}{1176--1184}.
+\newblock \DOIprefix\doi{10.1016/j.aap.2012.09.005}.
+%Type = Misc
+\bibitem[{{Conveyal}(2015)}]{conveyal2015}
+\bibinfo{author}{{Conveyal}}, \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{Better {{Measures}} of {{Bike Accessibility}}}.
+%Type = Techreport
+\bibitem[{{Coventry City Council}(2023)}]{coventrycitycouncil2023}
+\bibinfo{author}{{Coventry City Council}}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Written Evidence Submitted by {{Coventry City Council}} ({{AIR0070}})}.
+\newblock \bibinfo{type}{Written Evidence to the {{Environmental Audit Committee}}}. UK Parliament.
+%Type = Book
+\bibitem[{{CROW}(2016)}]{crow2016}
+\bibinfo{author}{{CROW}}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Design {{Manual}} for {{Bicycle Traffic}}}.
+\newblock \bibinfo{publisher}{CROW}, \bibinfo{address}{Ede, Netherlands}.
+%Type = Article
+\bibitem[{Daniels et~al.(2009)Daniels, Brijs, Nuyts and Wets}]{daniels2009}
+\bibinfo{author}{Daniels, S.}, \bibinfo{author}{Brijs, T.}, \bibinfo{author}{Nuyts, E.}, \bibinfo{author}{Wets, G.}, \bibinfo{year}{2009}.
+\newblock \bibinfo{title}{Injury crashes with bicyclists at roundabouts: Influence of some location characteristics and the design of cycle facilities}.
+\newblock \bibinfo{journal}{Journal of Safety Research} \bibinfo{volume}{40}, \bibinfo{pages}{141--148}.
+\newblock \DOIprefix\doi{10.1016/j.jsr.2009.02.004}.
+%Type = Article
+\bibitem[{Davies et~al.(1997)Davies, Taylor, Ryley and Halliday}]{davies1997}
+\bibinfo{author}{Davies, D.}, \bibinfo{author}{Taylor, M.}, \bibinfo{author}{Ryley, T.}, \bibinfo{author}{Halliday, M.}, \bibinfo{year}{1997}.
+\newblock \bibinfo{title}{Cyclists at roundabouts---the effects of `{{Continental}}'design on predicted safety and capacity}.
+\newblock \bibinfo{journal}{Transport Research Laboratory} .
+%Type = Techreport
+\bibitem[{{Department for Transport}(2020a)}]{departmentfortransport2020a}
+\bibinfo{author}{{Department for Transport}}, \bibinfo{year}{2020}a.
+\newblock \bibinfo{title}{Cycle Infrastructure Design}.
+\newblock \bibinfo{type}{Technical Report}. Department for Transport. \bibinfo{address}{United Kingdom}.
+%Type = Techreport
+\bibitem[{{Department for Transport}(2020b)}]{departmentfortransport2020}
+\bibinfo{author}{{Department for Transport}}, \bibinfo{year}{2020}b.
+\newblock \bibinfo{title}{Gear Change: A Bold Vision for Cycling and Walking}.
+\newblock \bibinfo{type}{Technical Report}. Department for Transport. \bibinfo{address}{London}.
+%Type = Misc
+\bibitem[{{Department for Transport}(2025a)}]{departmentfortransport2025}
+\bibinfo{author}{{Department for Transport}}, \bibinfo{year}{2025}a.
+\newblock \bibinfo{title}{{{NTS}} 2024: {{Mode}} share and multi-modal trips}.
+\newblock \bibinfo{howpublished}{https://www.gov.uk/government/statistics/national-travel-survey-2024/nts-2024-mode-share-and-multi-modal-trips}.
+%Type = Misc
+\bibitem[{{Department for Transport}(2025b)}]{departmentfortransport2025b}
+\bibinfo{author}{{Department for Transport}}, \bibinfo{year}{2025}b.
+\newblock \bibinfo{title}{Vehicle speed compliance statistics for {{Great Britain}}: 2024}.
+\newblock \bibinfo{howpublished}{https://www.gov.uk/government/statistics/vehicle-speed-compliance-statistics-for-great-britain-2024/vehicle-speed-compliance-statistics-for-great-britain-2024}.
+%Type = Article
+\bibitem[{Dill and McNeil(2013)}]{dill2013}
+\bibinfo{author}{Dill, J.}, \bibinfo{author}{McNeil, N.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{Four {{Types}} of {{Cyclists}}?: {{Examination}} of {{Typology}} for {{Better Understanding}} of {{Bicycling Behavior}} and {{Potential}}}.
+\newblock \bibinfo{journal}{Transportation Research Record} \bibinfo{volume}{2387}, \bibinfo{pages}{129--138}.
+\newblock \DOIprefix\doi{10.3141/2387-15}.
+%Type = Techreport
+\bibitem[{{EU}(2024)}]{eu2024}
+\bibinfo{author}{{EU}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{European {{Declaration}} on {{Cycling}}}.
+\newblock \bibinfo{type}{Technical Report}. Official Journal of the European Union.
+%Type = Techreport
+\bibitem[{{European Commission}(2021)}]{europeancommission2021}
+\bibinfo{author}{{European Commission}}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Road {{Safety Thematic Report}} -- {{Speeding}}}.
+\newblock \bibinfo{type}{Technical Report}. European Commission, Directorate General for Transport. \bibinfo{address}{Brussels}.
+%Type = Article
+\bibitem[{Ferster et~al.(2020)Ferster, Fischer, Manaugh, Nelson and Winters}]{ferster2020}
+\bibinfo{author}{Ferster, C.}, \bibinfo{author}{Fischer, J.}, \bibinfo{author}{Manaugh, K.}, \bibinfo{author}{Nelson, T.}, \bibinfo{author}{Winters, M.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Using {{OpenStreetMap}} to inventory bicycle infrastructure: {{A}} comparison with open data from cities}.
+\newblock \bibinfo{journal}{International Journal of Sustainable Transportation} \bibinfo{volume}{14}, \bibinfo{pages}{64--73}.
+\newblock \DOIprefix\doi{10.1080/15568318.2018.1519746}.
+%Type = Article
+\bibitem[{Furth et~al.(2016)Furth, Mekuria and Nixon}]{furth2016}
+\bibinfo{author}{Furth, P.G.}, \bibinfo{author}{Mekuria, M.C.}, \bibinfo{author}{Nixon, H.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Network {{Connectivity}} for {{Low-Stress Bicycling}}}.
+\newblock \bibinfo{journal}{Transportation Research Record: Journal of the Transportation Research Board} \bibinfo{volume}{2587}, \bibinfo{pages}{41--49}.
+\newblock \DOIprefix\doi{10.3141/2587-06}.
+%Type = Misc
+\bibitem[{Furth et~al.(2026)Furth, {Obeng-Amoako}, Akhavan, Saeidi, {Miranda-Moreno}, {Th{\'e}berge-Barrette}, Moser and Ferenchak}]{furth2026}
+\bibinfo{author}{Furth, P.G.}, \bibinfo{author}{{Obeng-Amoako}, N.D.}, \bibinfo{author}{Akhavan, A.}, \bibinfo{author}{Saeidi, R.}, \bibinfo{author}{{Miranda-Moreno}, L.}, \bibinfo{author}{{Th{\'e}berge-Barrette}, C.}, \bibinfo{author}{Moser, P.}, \bibinfo{author}{Ferenchak, N.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Intersections as {{Barriers}} to {{Low-Stress Cycling}}: {{Intersection Level}} of {{Traffic Stress}} and {{Dual-Graph Network Modeling}}}.
+%Type = Article
+\bibitem[{Furth et~al.(2018)Furth, Putta and Moser}]{furth2018}
+\bibinfo{author}{Furth, P.G.}, \bibinfo{author}{Putta, T.V.}, \bibinfo{author}{Moser, P.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Measuring low-stress connectivity in terms of bike-accessible jobs and potential bike-to-work trips: {{A}} case study evaluating alternative bike route alignments in northern {{Delaware}}}.
+\newblock \bibinfo{journal}{Journal of Transport and Land Use} \bibinfo{volume}{11}.
+\newblock \DOIprefix\doi{10.5198/jtlu.2018.1159}.
+%Type = Techreport
+\bibitem[{Geller(2009)}]{geller2009}
+\bibinfo{author}{Geller, R.}, \bibinfo{year}{2009}.
+\newblock \bibinfo{title}{Four {{Types}} of {{Cyclists}}}.
+\newblock \bibinfo{type}{Technical Report}. Portland Office of Transportation. \bibinfo{address}{Portland, OR}.
+%Type = Article
+\bibitem[{Gunn(2018)}]{gunn2018}
+\bibinfo{author}{Gunn, S.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{{{RING ROAD}}: {{BIRMINGHAM AND THE COLLAPSE OF THE MOTOR CITY IDEAL IN}} 1970s {{BRITAIN}}}.
+\newblock \bibinfo{journal}{The Historical Journal} \bibinfo{volume}{61}, \bibinfo{pages}{227--248}.
+\newblock \DOIprefix\doi{10.1017/S0018246X16000613}.
+%Type = Article
+\bibitem[{Hancock and Parkin(2024)}]{hancock2024}
+\bibinfo{author}{Hancock, L.}, \bibinfo{author}{Parkin, J.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{The challenges of applying cycling design guidance}.
+\newblock \bibinfo{journal}{Proceedings of the Institution of Civil Engineers - Transport} \bibinfo{volume}{177}, \bibinfo{pages}{494--503}.
+\newblock \DOIprefix\doi{10.1680/jtran.22.00068}.
+%Type = Article
+\bibitem[{Harkey et~al.(1998)Harkey, Reinfurt and Knuiman}]{harkey1998}
+\bibinfo{author}{Harkey, D.L.}, \bibinfo{author}{Reinfurt, D.W.}, \bibinfo{author}{Knuiman, M.}, \bibinfo{year}{1998}.
+\newblock \bibinfo{title}{Development of the {{Bicycle Compatibility Index}}}.
+\newblock \bibinfo{journal}{Transportation Research Record} \bibinfo{volume}{1636}, \bibinfo{pages}{13--20}.
+\newblock \DOIprefix\doi{10.3141/1636-03}.
+%Type = Article
+\bibitem[{Harvey et~al.(2024)Harvey, Rodr{\'i}guez and Fang}]{harvey2024}
+\bibinfo{author}{Harvey, C.}, \bibinfo{author}{Rodr{\'i}guez, D.A.}, \bibinfo{author}{Fang, K.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Comparing methods and data sources for classifying bicycle level of traffic stress: {{How}} well do their outcomes agree?}
+\newblock \bibinfo{journal}{Sustainable Cities and Society} \bibinfo{volume}{101}, \bibinfo{pages}{105151}.
+\newblock \DOIprefix\doi{10.1016/j.scs.2023.105151}.
+%Type = Article
+\bibitem[{Hull and O'Holleran(2014)}]{hull2014}
+\bibinfo{author}{Hull, A.}, \bibinfo{author}{O'Holleran, C.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Bicycle infrastructure: Can good design encourage cycling?}
+\newblock \bibinfo{journal}{Urban, Planning and Transport Research} \bibinfo{volume}{2}, \bibinfo{pages}{369--406}.
+\newblock \DOIprefix\doi{10.1080/21650020.2014.955210}.
+%Type = Incollection
+\bibitem[{{IPCC}(2023)}]{ipcc2023}
+\bibinfo{author}{{IPCC}}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Transport}, in: \bibinfo{editor}{{IPCC}} (Ed.), \bibinfo{booktitle}{Climate {{Change}} 2022 - {{Mitigation}} of {{Climate Change}}}. \bibinfo{edition}{1} ed.. \bibinfo{publisher}{Cambridge University Press}, pp. \bibinfo{pages}{1049--1160}.
+\newblock \DOIprefix\doi{10.1017/9781009157926.012}.
+%Type = Techreport
+\bibitem[{Jeong and Smith(2025)}]{jeong2025}
+\bibinfo{author}{Jeong, P.}, \bibinfo{author}{Smith, D.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Improving {{Infrastructure}} and {{Accessibility Indicators}} for {{Urban Cycling Networks}}: {{Measuring}} the {{Accessibility Gap}} for {{Safer Cycle Routes}} in {{London}} Using {{Detailed Infrastructure Data}} and {{Level}} of {{Traffic Stress}}}.
+\newblock \bibinfo{type}{Technical Report}.
+%Type = Article
+\bibitem[{Landis et~al.(1997)Landis, Vattikuti and Brannick}]{landis1997}
+\bibinfo{author}{Landis, B.W.}, \bibinfo{author}{Vattikuti, V.R.}, \bibinfo{author}{Brannick, M.T.}, \bibinfo{year}{1997}.
+\newblock \bibinfo{title}{Real-{{Time Human Perceptions}}: {{Toward}} a {{Bicycle Level}} of {{Service}}}.
+\newblock \bibinfo{journal}{Transportation Research Record} \bibinfo{volume}{1578}, \bibinfo{pages}{119--126}.
+\newblock \DOIprefix\doi{10.3141/1578-15}.
+%Type = Article
+\bibitem[{Louro et~al.(2026)Louro, Geurs, Grigolon and Cunha}]{louro2026}
+\bibinfo{author}{Louro, T.}, \bibinfo{author}{Geurs, K.T.}, \bibinfo{author}{Grigolon, A.}, \bibinfo{author}{Cunha, A.L.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Cycling accessibility and equity: A systematic literature review}.
+\newblock \bibinfo{journal}{Transport Reviews} \bibinfo{volume}{0}, \bibinfo{pages}{1--24}.
+\newblock \DOIprefix\doi{10.1080/01441647.2026.2664409}.
+%Type = Article
+\bibitem[{Lovelace et~al.(2020)Lovelace, Talbot, Morgan and {Lucas-Smith}}]{lovelace2020}
+\bibinfo{author}{Lovelace, R.}, \bibinfo{author}{Talbot, J.}, \bibinfo{author}{Morgan, M.}, \bibinfo{author}{{Lucas-Smith}, M.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Methods to {{Prioritise Pop-up Active Transport Infrastructure}}}.
+\newblock \bibinfo{journal}{Findings} \DOIprefix\doi{10.32866/001c.13421}.
+%Type = Article
+\bibitem[{Lowry and Loh(2017)}]{lowry2017}
+\bibinfo{author}{Lowry, M.}, \bibinfo{author}{Loh, T.H.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Quantifying bicycle network connectivity}.
+\newblock \bibinfo{journal}{Preventive Medicine} \bibinfo{volume}{95}, \bibinfo{pages}{S134--S140}.
+\newblock \DOIprefix\doi{10.1016/j.ypmed.2016.12.007}.
+%Type = Article
+\bibitem[{{\L}ukawska et~al.(2026){\L}ukawska, Richter, Porojkow and Huber}]{lukawska2026}
+\bibinfo{author}{{\L}ukawska, M.}, \bibinfo{author}{Richter, E.}, \bibinfo{author}{Porojkow, I.}, \bibinfo{author}{Huber, S.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{{{BikeNEAT}}: {{A Framework}} for {{Classifying Bicycle Infrastructure}} in {{OpenStreetMap}}}.
+\newblock \bibinfo{journal}{Journal of Geovisualization and Spatial Analysis} \bibinfo{volume}{10}, \bibinfo{pages}{30}.
+\newblock \DOIprefix\doi{10.1007/s41651-026-00271-6}.
+%Type = Article
+\bibitem[{Manton et~al.(2016)Manton, Rau, Fahy, Sheahan and Clifford}]{manton2016}
+\bibinfo{author}{Manton, R.}, \bibinfo{author}{Rau, H.}, \bibinfo{author}{Fahy, F.}, \bibinfo{author}{Sheahan, J.}, \bibinfo{author}{Clifford, E.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Using mental mapping to unpack perceived cycling risk}.
+\newblock \bibinfo{journal}{Accident Analysis \& Prevention} \bibinfo{volume}{88}, \bibinfo{pages}{138--149}.
+\newblock \DOIprefix\doi{10.1016/j.aap.2015.12.017}.
+%Type = Techreport
+\bibitem[{Mekuria et~al.(2012)Mekuria, Furth and Nixon}]{mekuria2012a}
+\bibinfo{author}{Mekuria, M.C.}, \bibinfo{author}{Furth, P.G.}, \bibinfo{author}{Nixon, H.}, \bibinfo{year}{2012}.
+\newblock \bibinfo{title}{Low-Stress Bicycling and Network Connectivity.}
+\newblock \bibinfo{type}{Technical Report}.
+%Type = Article
+\bibitem[{M{\"o}lenberg et~al.(2019)M{\"o}lenberg, Panter, Burdorf and {van Lenthe}}]{molenberg2019}
+\bibinfo{author}{M{\"o}lenberg, F.J.M.}, \bibinfo{author}{Panter, J.}, \bibinfo{author}{Burdorf, A.}, \bibinfo{author}{{van Lenthe}, F.J.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{A systematic review of the effect of infrastructural interventions to promote cycling: Strengthening causal inference from observational data}.
+\newblock \bibinfo{journal}{International Journal of Behavioral Nutrition and Physical Activity} \bibinfo{volume}{16}, \bibinfo{pages}{93}.
+\newblock \DOIprefix\doi{10.1186/s12966-019-0850-1}.
+%Type = Article
+\bibitem[{Morgan et~al.(2010)Morgan, Dale, Lee and Edwards}]{morgan2010}
+\bibinfo{author}{Morgan, A.S.}, \bibinfo{author}{Dale, H.B.}, \bibinfo{author}{Lee, W.E.}, \bibinfo{author}{Edwards, P.J.}, \bibinfo{year}{2010}.
+\newblock \bibinfo{title}{Deaths of cyclists in london: Trends from 1992 to 2006}.
+\newblock \bibinfo{journal}{BMC Public Health} \bibinfo{volume}{10}, \bibinfo{pages}{699}.
+\newblock \DOIprefix\doi{10.1186/1471-2458-10-699}.
+%Type = Article
+\bibitem[{Morley and Gulliver(2016)}]{morley2016}
+\bibinfo{author}{Morley, D.W.}, \bibinfo{author}{Gulliver, J.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Methods to improve traffic flow and noise exposure estimation on minor roads}.
+\newblock \bibinfo{journal}{Environmental Pollution} \bibinfo{volume}{216}, \bibinfo{pages}{746--754}.
+\newblock \DOIprefix\doi{10.1016/j.envpol.2016.06.042}.
+%Type = Article
+\bibitem[{Murphy and Owen(2019)}]{murphy2019}
+\bibinfo{author}{Murphy, B.}, \bibinfo{author}{Owen, A.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Implementing {{Low-Stress Bicycle Routing}} in {{National Accessibility Evaluation}}}.
+\newblock \bibinfo{journal}{Transportation Research Record} \bibinfo{volume}{2673}, \bibinfo{pages}{240--249}.
+\newblock \DOIprefix\doi{10.1177/0361198119837179}.
+%Type = Manual
+\bibitem[{{National Highways}(2019)}]{nationalhighways2019}
+\bibinfo{author}{{National Highways}}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Vehicle Speed Measurement}.
+%Type = Article
+\bibitem[{Nelson et~al.(2021)Nelson, Ferster, Laberee, Fuller and Winters}]{nelson2021}
+\bibinfo{author}{Nelson, T.}, \bibinfo{author}{Ferster, C.}, \bibinfo{author}{Laberee, K.}, \bibinfo{author}{Fuller, D.}, \bibinfo{author}{Winters, M.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Crowdsourced data for bicycling research and practice}.
+\newblock \bibinfo{journal}{Transport Reviews} \bibinfo{volume}{41}, \bibinfo{pages}{97--114}.
+\newblock \DOIprefix\doi{10.1080/01441647.2020.1806943}.
+%Type = Misc
+\bibitem[{{Office for National Statistics}(2025)}]{officefornationalstatistics2025}
+\bibinfo{author}{{Office for National Statistics}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Labour {{Market Profile}} - {{Nomis}} - {{Official Census}} and {{Labour Market Statistics}}}.
+\newblock \bibinfo{howpublished}{https://www.nomisweb.co.uk/reports/lmp/comb/1853882375/report.aspx}.
+%Type = Misc
+\bibitem[{{Ordnance Survey}(2025)}]{ordnancesurvey2025}
+\bibinfo{author}{{Ordnance Survey}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{How cycle lane data are created \textbar{} {{OS National Geographic Database}}}.
+\newblock \bibinfo{howpublished}{https://docs.os.uk/osngd/using-os-ngd-data/os-ngd-transport/cycle-lanes/how-cycle-lane-data-are-created}.
+%Type = Misc
+\bibitem[{{Ordnance Survey}(2026a)}]{ordnancesurvey2026d}
+\bibinfo{author}{{Ordnance Survey}}, \bibinfo{year}{2026}a.
+\newblock \bibinfo{title}{Cyclelanedescriptionvalue \textbar{} {{OS National Geographic Database}}}.
+\newblock \bibinfo{howpublished}{https://docs.os.uk/osngd/code-lists/code-lists-overview/cyclelanedescriptionvalue}.
+%Type = Misc
+\bibitem[{{Ordnance Survey}(2026b)}]{ordnancesurvey2026e}
+\bibinfo{author}{{Ordnance Survey}}, \bibinfo{year}{2026}b.
+\newblock \bibinfo{title}{New national cycle lane data \textbar{} {{OS}}}.
+\newblock \bibinfo{howpublished}{https://www.ordnancesurvey.co.uk/news/new-national-cycle-lane-data}.
+%Type = Misc
+\bibitem[{{Ordnance Survey}(2026c)}]{ordnancesurvey2026b}
+\bibinfo{author}{{Ordnance Survey}}, \bibinfo{year}{2026}c.
+\newblock \bibinfo{title}{Path {{Link}} \textbar{} {{OS National Geographic Database}}}.
+\newblock \bibinfo{howpublished}{https://docs.os.uk/osngd/data-structure/transport/transport-network/path-link}.
+%Type = Misc
+\bibitem[{{Ordnance Survey}(2026d)}]{ordnancesurvey2026a}
+\bibinfo{author}{{Ordnance Survey}}, \bibinfo{year}{2026}d.
+\newblock \bibinfo{title}{Road {{Link}} \textbar{} {{OS National Geographic Database}}}.
+\newblock \bibinfo{howpublished}{https://docs.os.uk/osngd/data-structure/transport/transport-network/road-link}.
+%Type = Article
+\bibitem[{Pais et~al.(2022)Pais, Monteiro, Sousa, {Coutinho-Rodrigues} and {Natividade-Jesus}}]{pais2022}
+\bibinfo{author}{Pais, F.}, \bibinfo{author}{Monteiro, J.}, \bibinfo{author}{Sousa, N.}, \bibinfo{author}{{Coutinho-Rodrigues}, J.}, \bibinfo{author}{{Natividade-Jesus}, E.}, \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{A multicriteria methodology for maintenance planning of cycling infrastructure}.
+\newblock \bibinfo{journal}{Proceedings of the Institution of Civil Engineers - Engineering Sustainability} \bibinfo{volume}{175}, \bibinfo{pages}{248--264}.
+\newblock \DOIprefix\doi{10.1680/jensu.21.00088}.
+%Type = Article
+\bibitem[{Park and Akar(2019)}]{park2019}
+\bibinfo{author}{Park, Y.}, \bibinfo{author}{Akar, G.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Why do bicyclists take detours? {{A}} multilevel regression model using smartphone {{GPS}} data}.
+\newblock \bibinfo{journal}{Journal of Transport Geography} \bibinfo{volume}{74}, \bibinfo{pages}{191--200}.
+\newblock \DOIprefix\doi{10.1016/j.jtrangeo.2018.11.013}.
+%Type = Techreport
+\bibitem[{Reid and Ada(2011)}]{reid2011}
+\bibinfo{author}{Reid, S.}, \bibinfo{author}{Ada, S.}, \bibinfo{year}{2011}.
+\newblock \bibinfo{title}{Infrastructure and Cyclist Safety}.
+\newblock \bibinfo{type}{Technical Report}.
+%Type = Article
+\bibitem[{Sanders(2015)}]{sanders2015}
+\bibinfo{author}{Sanders, R.L.}, \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{Perceived traffic risk for cyclists: {{The}} impact of near miss and collision experiences}.
+\newblock \bibinfo{journal}{Accident Analysis \& Prevention} \bibinfo{volume}{75}, \bibinfo{pages}{26--34}.
+\newblock \DOIprefix\doi{10.1016/j.aap.2014.11.004}.
+%Type = Article
+\bibitem[{Sch{\"o}n et~al.(2024)Sch{\"o}n, Heinen and Manum}]{schon2024}
+\bibinfo{author}{Sch{\"o}n, P.}, \bibinfo{author}{Heinen, E.}, \bibinfo{author}{Manum, B.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{A scoping review on cycling network connectivity and its effects on cycling}.
+\newblock \bibinfo{journal}{Transport Reviews} \bibinfo{volume}{44}, \bibinfo{pages}{912--936}.
+\newblock \DOIprefix\doi{10.1080/01441647.2024.2337880}.
+%Type = Article
+\bibitem[{Semler et~al.(2017)Semler, Sanders, Buck, Graham, Pochowski and Dock}]{semler2017}
+\bibinfo{author}{Semler, C.}, \bibinfo{author}{Sanders, M.}, \bibinfo{author}{Buck, D.}, \bibinfo{author}{Graham, J.}, \bibinfo{author}{Pochowski, A.}, \bibinfo{author}{Dock, S.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Low-{{Stress Bicycle Network Mapping}}: {{The District}} of {{Columbia}}'s {{Innovative Approach}} to {{Applying Level}} of {{Traffic Stress}}}.
+\newblock \bibinfo{journal}{Transportation Research Record} \bibinfo{volume}{2662}, \bibinfo{pages}{31--40}.
+\newblock \DOIprefix\doi{10.3141/2662-04}.
+%Type = Article
+\bibitem[{Sorton and Walsh(1994)}]{sorton1994}
+\bibinfo{author}{Sorton, A.}, \bibinfo{author}{Walsh, T.}, \bibinfo{year}{1994}.
+\newblock \bibinfo{title}{Bicycle {{Stress Level}} as a {{Tool To Evaluate Urban}} and {{Suburban Bicycle Compatibility}}}.
+\newblock \bibinfo{journal}{Transportation Research Record} .
+%Type = Article
+\bibitem[{Tucker and Manaugh(2018)}]{tucker2018}
+\bibinfo{author}{Tucker, B.}, \bibinfo{author}{Manaugh, K.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Bicycle equity in {{Brazil}}: {{Access}} to safe cycling routes across neighborhoods in {{Rio}} de {{Janeiro}} and {{Curitiba}}}.
+\newblock \bibinfo{journal}{International Journal of Sustainable Transportation} \bibinfo{volume}{12}, \bibinfo{pages}{29--38}.
+\newblock \DOIprefix\doi{10.1080/15568318.2017.1324585}.
+%Type = Article
+\bibitem[{Vier{\o} and Szell(2025)}]{viero2025}
+\bibinfo{author}{Vier{\o}, A.R.}, \bibinfo{author}{Szell, M.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Network {{Analysis}} of the {{Danish Bicycle Infrastructure}}: {{Bikeability Across Urban}}--{{Rural Divides}}}.
+\newblock \bibinfo{journal}{Geographical Analysis} \bibinfo{volume}{57}, \bibinfo{pages}{616--640}.
+\newblock \DOIprefix\doi{10.1111/gean.70012}.
+%Type = Article
+\bibitem[{Wang et~al.(2016)Wang, Palm, Chen, Vogt and Wang}]{wang2016}
+\bibinfo{author}{Wang, H.}, \bibinfo{author}{Palm, M.}, \bibinfo{author}{Chen, C.}, \bibinfo{author}{Vogt, R.}, \bibinfo{author}{Wang, Y.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Does bicycle network level of traffic stress ({{LTS}}) explain bicycle travel behavior? {{Mixed}} results from an {{Oregon}} case study}.
+\newblock \bibinfo{journal}{Journal of Transport Geography} \bibinfo{volume}{57}, \bibinfo{pages}{8--18}.
+\newblock \DOIprefix\doi{10.1016/j.jtrangeo.2016.08.016}.
+%Type = Article
+\bibitem[{Wang et~al.(2022)Wang, Akar, Cheng, Lee and Sanders}]{wang2022}
+\bibinfo{author}{Wang, K.}, \bibinfo{author}{Akar, G.}, \bibinfo{author}{Cheng, L.}, \bibinfo{author}{Lee, K.}, \bibinfo{author}{Sanders, M.}, \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Investigating tools for evaluating service and improvement opportunities on bicycle routes in {{Ohio}}, {{United States}}}.
+\newblock \bibinfo{journal}{Multimodal Transportation} \bibinfo{volume}{1}, \bibinfo{pages}{100040}.
+\newblock \DOIprefix\doi{10.1016/j.multra.2022.100040}.
+%Type = Article
+\bibitem[{Wasserman et~al.(2019)Wasserman, Rixey, Zhou, Levitt and Benjamin}]{wasserman2019}
+\bibinfo{author}{Wasserman, D.}, \bibinfo{author}{Rixey, A.}, \bibinfo{author}{Zhou, X.E.}, \bibinfo{author}{Levitt, D.}, \bibinfo{author}{Benjamin, M.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Evaluating {{OpenStreetMap}}'s {{Performance Potential}} for {{Level}} of {{Traffic Stress Analysis}}}.
+\newblock \bibinfo{journal}{Transportation Research Record} \bibinfo{volume}{2673}, \bibinfo{pages}{284--294}.
+\newblock \DOIprefix\doi{10.1177/0361198119836772}.
+%Type = Techreport
+\bibitem[{{West Midlands Combined Authority}(2019)}]{westmidlandscombinedauthority2019}
+\bibinfo{author}{{West Midlands Combined Authority}}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{A {{Common Approach}} to {{Cycling}} and {{Walking}} in the {{West Midlands}}}.
+\newblock \bibinfo{type}{Technical Report}. West Midlands Combined Authority. \bibinfo{address}{Birmingham}.
+%Type = Misc
+\bibitem[{{West Midlands Combined Authority}(2020)}]{westmidlandscombinedauthority2020}
+\bibinfo{author}{{West Midlands Combined Authority}}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{New {{West Midlands}} cycling network unveiled}.
+\newblock \bibinfo{howpublished}{https://www.wmca.org.uk/news/new-west-midlands-cycling-network-unveiled/}.
+%Type = Techreport
+\bibitem[{{West Midlands Combined Authority}(2024)}]{westmidlandscombinedauthority2024}
+\bibinfo{author}{{West Midlands Combined Authority}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{{{WEST MIDLANDS GREENER TOGETHER PANEL}}}.
+\newblock \bibinfo{type}{Technical Report}. West Midlands Combined Authority. \bibinfo{address}{Birmingham}.
+%Type = Book
+\bibitem[{{WHO}(2022)}]{who2022}
+\bibinfo{author}{{WHO}}, \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Walking and Cycling, Latest Evidence to Support Policy-Making and Practice}.
+\newblock \bibinfo{publisher}{World Health Organization. Regional Office for Europe}, \bibinfo{address}{Copenhagen}.
+
+\end{thebibliography}

@@ -251,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Code/09_network_growth_simulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../Code/09_network_growth_simulation.ipynb" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Network Growth Simulation</span></a>
   </div>
 </li>
@@ -323,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Replication of Morley &amp; Gulliver (2016) <em>Methods to improve traffic flow and noise exposure estimation on minor roads</em> using pgRouting on England OSM data.</p>
 <section id="methodology-overview" class="level2">
 <h2 class="anchored" data-anchor-id="methodology-overview">Methodology Overview</h2>
-<p><strong>Regression equation</strong> (Morley &amp; Gulliver, 2016, Eq. 1):</p>
+<p><strong>Regression equation</strong> (Morley &amp; Gulliver, 2016, Eq. 1)</p>
 <pre><code>AADT ~ log(routing_importance) + road_class + log(nearest_major_AADT) + urban/rural</code></pre>
 <p><strong>Data sources:</strong> - <strong>Road network:</strong> OpenStreetMap England (imported via osm2po → pgRouting) - <strong>Training data:</strong> DfT AADF minor road count points (n ≈ 4,400 nationally) - <strong>Urban/rural:</strong> ONS Output Area Rural-Urban Classification (2021 Census)</p>
 <p><strong>Pipeline:</strong></p>
@@ -383,12 +383,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><strong>Reference:</strong> Morley, D.W., Gulliver, J. (2016). Methods to improve traffic flow and noise exposure estimation on minor roads. <em>Environmental Pollution</em>, 216, 746–754. <a href="https://github.com/dwmorley/Minor_Roads">GitHub: dwmorley/Minor_Roads</a></p>
+<p><strong>Reference:</strong> Morley, D.W., Gulliver, J. (2016). Methods to improve traffic flow and noise exposure estimation on minor roads. <em>Environmental Pollution</em>, 216, 746–754. <a href="https://github.com/dwmorley/Minor_Roads">GitHub - dwmorley/Minor_Roads</a>https://github.com/dwmorley/Minor_Roads)</p>
 </section>
 <section id="setup-and-database-connection" class="level2">
 <h2 class="anchored" data-anchor-id="setup-and-database-connection">1. Setup and Database Connection</h2>
 <p>Connect to the PostgreSQL database <code>routing_england</code> containing the England OSM road network imported via osm2po (2,996,810 segments, 2,605,381 vertices).</p>
-<div id="cell-3" class="cell" data-execution_count="1">
+<div id="0a360f2e" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
@@ -488,7 +488,7 @@ Segments: 2,996,810</code></pre>
 </tr>
 </tbody>
 </table>
-<div id="cell-5" class="cell" data-execution_count="2">
+<div id="9cd52098" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'''</span></span>
@@ -536,7 +536,7 @@ Segments: 2,996,810</code></pre>
 <section id="create-topology-and-partition" class="level2">
 <h2 class="anchored" data-anchor-id="create-topology-and-partition">3. Create Topology and Partition</h2>
 <p>Validate the existing osm2po topology (source/target node IDs) and partition the network into separate major and minor road tables for the polygonization step.</p>
-<div id="cell-7" class="cell">
+<div id="3299e797" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Validate existing topology</span></span>
@@ -572,17 +572,17 @@ Segments: 2,996,810</code></pre>
 </section>
 <section id="polygonize-major-roads-zones" class="level2">
 <h2 class="anchored" data-anchor-id="polygonize-major-roads-zones">4. Polygonize Major Roads → Zones</h2>
-<p>Following M&amp;G <code>minor_assignment_dataprep.sql</code>, the major road network is used to partition the study area into enclosed zones:</p>
+<p>Following M&amp;G <code>minor_assignment_dataprep.sql</code>, the major road network is used to partition the study area into enclosed zones</p>
 <ol type="1">
 <li>Compute the bounding box of the full road network</li>
 <li>Buffer all major road geometries by 0.001° (~100 m)</li>
-<li>Subtract the buffered major roads from the bounding box: <code>ST_Difference(bbox, ST_Union(buffer))</code></li>
+<li>Subtract the buffered major roads from the bounding box - <code>ST_Difference(bbox, ST_Union(buffer))</code></li>
 <li>Dump the resulting multipolygon into individual polygons — each polygon is an enclosed area of minor roads bounded by major roads</li>
 </ol>
 <blockquote class="blockquote">
 <p>“Distinct networks of minor roads only accessible to each other without a major road being crossed. Think of the holes in a net pattern created by the major road network.” — M&amp;G GitHub README</p>
 </blockquote>
-<div id="cell-9" class="cell">
+<div id="e1bef739" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.time()</span>
@@ -621,7 +621,7 @@ Segments: 2,996,810</code></pre>
 <h2 class="anchored" data-anchor-id="identify-coastal-road-groups">5. Identify Coastal Road Groups</h2>
 <p>Minor roads not enclosed by any major-road polygon (e.g.&nbsp;coastal areas, islands) are identified separately. These are grouped by spatial connectivity — minor roads that can reach each other without crossing a major road belong to the same group.</p>
 <p>Coastal groups are routed in §6c using the same Dijkstra approach but with group membership instead of polygon containment.</p>
-<div id="cell-11" class="cell">
+<div id="732d2718" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'''</span></span>
@@ -664,7 +664,7 @@ Segments: 2,996,810</code></pre>
 <p>This is the core computation of the routing importance algorithm.</p>
 <section id="algorithm-per-zone" class="level3">
 <h3 class="anchored" data-anchor-id="algorithm-per-zone">Algorithm (per zone)</h3>
-<p>For each enclosed polygon (§6b) and each coastal group (§6c):</p>
+<p>For each enclosed polygon (§6b) and each coastal group (§6c)</p>
 <ol type="1">
 <li><strong>Extract</strong> minor road edges inside the zone</li>
 <li><strong>Source points:</strong> minor road endpoints that touch the zone boundary (i.e.&nbsp;where a minor road meets a major road = entry points)</li>
@@ -678,7 +678,7 @@ Segments: 2,996,810</code></pre>
 </section>
 <section id="a.-setup-routing-tables" class="level3">
 <h3 class="anchored" data-anchor-id="a.-setup-routing-tables">6a. Setup routing tables</h3>
-<div id="cell-13" class="cell">
+<div id="73ef605f" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"""</span></span>
@@ -695,7 +695,7 @@ Segments: 2,996,810</code></pre>
 <section id="b.-route-through-enclosed-zones" class="level3">
 <h3 class="anchored" data-anchor-id="b.-route-through-enclosed-zones">6b. Route through enclosed zones</h3>
 <p>For each of the major-road-bounded polygons, identify source (entry) and target (interior) nodes, then run one-to-many Dijkstra. Edge traversal counts are accumulated in the <code>totals</code> table.</p>
-<div id="cell-15" class="cell">
+<div id="6a5c29b9" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"SET work_mem = '512MB';"</span>)</span>
@@ -813,7 +813,7 @@ Segments: 2,996,810</code></pre>
 <section id="c.-route-through-coastal-groups" class="level3">
 <h3 class="anchored" data-anchor-id="c.-route-through-coastal-groups">6c. Route through coastal groups</h3>
 <p>Same logic as §6b, but using coastal road group membership instead of polygon containment. Sources are minor road endpoints adjacent to major roads.</p>
-<div id="cell-17" class="cell">
+<div id="66b238d4" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">"SET work_mem = '512MB';"</span>)</span>
@@ -916,11 +916,11 @@ Segments: 2,996,810</code></pre>
 </section>
 <section id="standardize-routing-importance" class="level2">
 <h2 class="anchored" data-anchor-id="standardize-routing-importance">7. Standardize Routing Importance</h2>
-<p>Following M&amp;G <code>minor_assignment_index.sql</code>:</p>
+<p>Following M&amp;G <code>minor_assignment_index.sql</code></p>
 <p>Raw traversal counts are standardized to account for zone size — larger zones have more traversals simply because they contain more roads and destinations.</p>
 <pre><code>routing_importance = traversal_count / number_of_minor_roads_in_zone</code></pre>
 <p>Each minor road is assigned to the zone containing the majority of its length. Un-traversed minor roads (dead ends, isolated links) receive a baseline score of 1 to avoid division errors.</p>
-<div id="cell-19" class="cell">
+<div id="ddd145c9" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">'''</span></span>
@@ -1007,7 +1007,7 @@ Segments: 2,996,810</code></pre>
 <section id="export-routed-network-from-postgis" class="level2">
 <h2 class="anchored" data-anchor-id="export-routed-network-from-postgis">8. Export Routed Network from PostGIS</h2>
 <p>The pgRouting results (routing importance per OSM edge) are exported as GeoDataFrames for use in the Poisson GLM. From this point onward, all processing is in Python/GeoPandas.</p>
-<div id="cell-21" class="cell">
+<div id="b2598c4b" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export all minor roads with routing importance</span></span>
@@ -1020,7 +1020,7 @@ Segments: 2,996,810</code></pre>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(minor_routed[[<span class="st">'fclass'</span>, <span class="st">'routing_importance'</span>]].groupby(<span class="st">'fclass'</span>).describe().<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="cell-22" class="cell">
+<div id="07e74c34" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export major roads (needed for nearest_major_aadt computation)</span></span>
@@ -1081,9 +1081,9 @@ Name: routing_importance, dtype: float64</code></pre>
 </section>
 <section id="load-dft-count-points-and-urbanrural-classification" class="level2">
 <h2 class="anchored" data-anchor-id="load-dft-count-points-and-urbanrural-classification">9. Load DfT Count Points and Urban/Rural Classification</h2>
-<p><strong>DfT AADF</strong> (Annual Average Daily Flow) data provides traffic counts at ~20,000 locations nationally. For the Poisson GLM, we use: - <strong>Major road counts</strong> (motorway + A-road): ~15,000 points → used to compute nearest major road AADT for each minor road link - <strong>Minor road counts</strong> (B-road + C/U): ~4,400 points → training set</p>
+<p><strong>DfT AADF</strong> (Annual Average Daily Flow) data provides traffic counts at ~20,000 locations nationally. For the Poisson GLM, we use - <strong>Major road counts</strong> (motorway + A-road): ~15,000 points → used to compute nearest major road AADT for each minor road link - <strong>Minor road counts</strong> (B-road + C/U): ~4,400 points → training set</p>
 <p><strong>Urban/Rural Classification</strong> from the ONS 2021 Census Output Area boundaries is used as a binary predictor following M&amp;G’s observation that AADT differs significantly between urban and rural settings for secondary, tertiary, and unclassified roads (Wilcoxon p &lt; 0.01).</p>
-<div id="cell-26" class="cell" data-execution_count="3">
+<div id="fd111f16" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load DfT AADF data</span></span>
@@ -1111,7 +1111,7 @@ Major road count points: 17,905
 Minor road count points: 4,397</code></pre>
 </div>
 </div>
-<div id="cell-27" class="cell" data-execution_count="4">
+<div id="3d84452b" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to GeoDataFrames (BNG for distance-based operations)</span></span>
@@ -1139,7 +1139,7 @@ Minor road count points: 4,397</code></pre>
 Major road AADT range: 0 – 210436</code></pre>
 </div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="5">
+<div id="5d76664d" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load OA-level urban/rural classification</span></span>
@@ -1159,14 +1159,14 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="build-training-data" class="level2">
 <h2 class="anchored" data-anchor-id="build-training-data">10. Build Training Data</h2>
-<p>Three spatial joins construct the training dataset:</p>
+<p>Three spatial joins construct the training dataset</p>
 <ol type="1">
-<li><strong>DfT minor count points → routed OSM links</strong> (nearest within 50 m): each count point inherits the routing importance and road class of its matched link</li>
+<li><strong>DfT minor count points → routed OSM links</strong> (nearest within 50 m) each count point inherits the routing importance and road class of its matched link</li>
 <li><strong>Nearest major road AADT</strong> (KDTree): for each training point, the AADT of the closest DfT major road count point is recorded</li>
 <li><strong>Urban/rural</strong> (OA spatial join): each point is classified as urban or rural</li>
 </ol>
-<p>Outlier removal follows M&amp;G: AADT values &gt; Q3 + 1.5 × IQR within each road class × urban/rural group are excluded.</p>
-<div id="cell-30" class="cell" data-execution_count="8">
+<p>Outlier removal follows M&amp;G - AADT values &gt; Q3 + 1.5 × IQR within each road class × urban/rural group are excluded.</p>
+<div id="4fe1f0fa" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 10.1 Match DfT minor count points to routed network ---</span></span>
@@ -1194,7 +1194,7 @@ secondary        449
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="9">
+<div id="668c0c0e" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 10.2 Compute nearest major road AADT ---</span></span>
@@ -1215,7 +1215,7 @@ Name: count, dtype: int64</code></pre>
 <pre><code>Nearest major road AADT — median: 14879, mean dist: 1936 m</code></pre>
 </div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="10">
+<div id="7810083b" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 10.3 Assign urban/rural classification ---</span></span>
@@ -1237,7 +1237,7 @@ Name: count, dtype: int64</code></pre>
 <pre><code>Urban: 2,049 / Rural: 1,814</code></pre>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="11">
+<div id="231b3b9e" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 10.4 Outlier removal (IQR by road class × urban/rural) ---</span></span>
@@ -1261,12 +1261,12 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="poisson-glm-training-and-cross-validation" class="level2">
 <h2 class="anchored" data-anchor-id="poisson-glm-training-and-cross-validation">11. Poisson GLM: Training and Cross-Validation</h2>
-<p>Following M&amp;G Equation 1:</p>
+<p>Following M&amp;G Equation 1</p>
 <pre><code>AADT ~ log(routing_importance) + road_class + log(nearest_major_AADT) + urban/rural</code></pre>
 <p>The model is a Generalised Linear Model with Poisson family, appropriate because traffic counts follow a Poisson distribution (Zhang et al., 2011). The log link function ensures non-negative predictions.</p>
 <p><strong>Predictors:</strong> - <code>log_imp</code>: log(1 + routing importance) — captures road connectivity - <code>log_maj</code>: log(1 + nearest major road AADT) — captures local traffic context - <code>is_urban</code>: binary urban/rural indicator - <code>fclass_*</code>: dummy variables for OSM road class (secondary, tertiary, residential, unclassified)</p>
 <p>M&amp;G (2016) reported 73.6% deviance explained on national data, with routing importance alone accounting for 40.3%.</p>
-<div id="cell-35" class="cell" data-execution_count="12">
+<div id="a8c21204" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build feature matrix</span></span>
@@ -1291,7 +1291,7 @@ Name: count, dtype: int64</code></pre>
 Features: ['const', 'log_imp', 'log_maj', 'is_urban', 'fclass_secondary', 'fclass_tertiary', 'fclass_unclassified']</code></pre>
 </div>
 </div>
-<div id="cell-36" class="cell" data-execution_count="13">
+<div id="8b38804e" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 5-fold cross-validation</span></span>
@@ -1319,7 +1319,7 @@ Features: ['const', 'log_imp', 'log_maj', 'is_urban', 'fclass_secondary', 'fclas
   ρ:   0.803 ± 0.015</code></pre>
 </div>
 </div>
-<div id="cell-37" class="cell" data-execution_count="14">
+<div id="6bae2a14" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit final model on all training data</span></span>
@@ -1354,7 +1354,7 @@ fclass_unclassified     0.0899      0.002     58.031      0.000       0.087     
 </section>
 <section id="predict-aadt-for-all-minor-roads" class="level2">
 <h2 class="anchored" data-anchor-id="predict-aadt-for-all-minor-roads">12. Predict AADT for All Minor Roads</h2>
-<p>The trained model is applied to all minor road links in the OSM network to generate AADT predictions. Each link requires the same features as the training data: routing importance (from pgRouting), nearest major road AADT (from DfT), urban/rural classification (from ONS), and road class (from OSM).</p>
+<p>The trained model is applied to all minor road links in the OSM network to generate AADT predictions. Each link requires the same features as the training data - routing importance (from pgRouting), nearest major road AADT (from DfT), urban/rural classification (from ONS), and road class (from OSM).</p>
 <section id="compute-prediction-features" class="level3">
 <h3 class="anchored" data-anchor-id="compute-prediction-features">12.1 Compute prediction features</h3>
 <div id="cell-39" class="cell" data-execution_count="16">

@@ -280,7 +280,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Code/09_network_growth_simulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../Code/09_network_growth_simulation.ipynb" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Network Growth Simulation</span></a>
   </div>
 </li>
@@ -355,7 +355,7 @@ window.Quarto = {
 
 <p>This Section computes <strong>network reach</strong> — the total length of cycling network reachable from each LSOA centroid within a given distance threshold — for the West Midlands directed LTS network. Network reach captures the interplay between network density and connectivity (Peponis et al., 2008): it measures not only whether a destination <em>can</em> be reached, but the breadth of routes and locations accessible from a given origin.</p>
 <p>The analysis focuses on an <strong>8 km (~5 mile) distance threshold</strong>, reflecting LTN 1/20’s observation that two-thirds of all trips are within this distance and therefore represent the primary catchment for cycling as a mode substitute (DfT, 2020).</p>
-<p><strong>Key methodological features:</strong> - <strong>Directed graph</strong>: reach is computed on the directed network, following legal travel directions, consistent with the directed LTS classification framework. - <strong>Forward reachability</strong>: from each origin node, only edges traversable in the forward direction are followed — the directed analogue of the connected component approach used in undirected studies (Vierø et al., 2024). - <strong>Physical-road deduplication</strong>: directed edges sharing the same physical road segment (identified by <code>osid</code>) are counted only once, ensuring reach reflects accessible <em>physical infrastructure</em> rather than inflated directed-edge counts. - <strong>Gap closing</strong>: 30 m gaps between edges of the same LTS level are bridged before reach computation, following Vierø et al.&nbsp;(2024) and Schoner &amp; Levinson (2014), to mitigate artificial fragmentation from mapping imprecision. - <strong>LSOA aggregation</strong>: results are aggregated to Lower Layer Super Output Areas (LSOAs) to enable comparison with Census commuting data and deprivation indices.</p>
+<p><strong>Key methodological features:</strong> - <strong>Directed graph</strong> reach is computed on the directed network, following legal travel directions, consistent with the directed LTS classification framework. - <strong>Forward reachability</strong> from each origin node, only edges traversable in the forward direction are followed — the directed analogue of the connected component approach used in undirected studies (Vierø et al., 2024). - <strong>Physical-road deduplication</strong> directed edges sharing the same physical road segment (identified by <code>osid</code>) are counted only once, ensuring reach reflects accessible <em>physical infrastructure</em> rather than inflated directed-edge counts. - <strong>Gap closing</strong> 30 m gaps between edges of the same LTS level are bridged before reach computation, following Vierø et al.&nbsp;(2024) and Schoner &amp; Levinson (2014), to mitigate artificial fragmentation from mapping imprecision. - <strong>LSOA aggregation</strong> results are aggregated to Lower Layer Super Output Areas (LSOAs) to enable comparison with Census commuting data and deprivation indices.</p>
 <div id="code_001" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
@@ -535,7 +535,7 @@ Name: count, dtype: int64</code></pre>
 <h2 class="anchored" data-anchor-id="directed-graph-construction">3. Directed Graph Construction</h2>
 <section id="build-base-directed-graph" class="level3">
 <h3 class="anchored" data-anchor-id="build-base-directed-graph">3.1 Build Base Directed Graph</h3>
-<p>Each directed edge carries its <code>osid</code> (the underlying physical road segment identifier). This is critical for the deduplication step in reach computation: when a bidirectional road produces two directed edges (<code>_F</code> and <code>_R</code>), both share the same <code>osid</code>, and the physical road length is counted only once.</p>
+<p>Each directed edge carries its <code>osid</code> (the underlying physical road segment identifier). This is critical for the deduplication step in reach computation - when a bidirectional road produces two directed edges (<code>_F</code> and <code>_R</code>), both share the same <code>osid</code>, and the physical road length is counted only once.</p>
 <div id="code_011" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
@@ -731,11 +731,11 @@ Snap distance (m): mean=41.6, max=414.1</code></pre>
 </section>
 <section id="computing-directed-network-reach-with-physical-road-deduplication" class="level3">
 <h3 class="anchored" data-anchor-id="computing-directed-network-reach-with-physical-road-deduplication">5.2 Computing Directed Network Reach (with Physical-Road Deduplication)</h3>
-<p>Network reach from an origin node <span class="math inline">\(o\)</span> at distance threshold <span class="math inline">\(d\)</span> is:</p>
+<p>Network reach from an origin node <span class="math inline">\(o\)</span> at distance threshold <span class="math inline">\(d\)</span> is</p>
 <p><span class="math display">\[R(o, d) = \sum_{s \in S_d(o)} \ell(s)\]</span></p>
 <p>where <span class="math inline">\(S_d(o)\)</span> is the set of <strong>unique physical road segments</strong> (<code>osid</code>) reachable from <span class="math inline">\(o\)</span> within network distance <span class="math inline">\(d\)</span>, and <span class="math inline">\(\ell(s)\)</span> is the length of segment <span class="math inline">\(s\)</span>.</p>
 <p>A directed edge <span class="math inline">\((u, v)\)</span> with <code>osid</code> <span class="math inline">\(s\)</span> contributes to reach if its start node <span class="math inline">\(u\)</span> is reachable within <span class="math inline">\(d\)</span>. The contributed length is <span class="math inline">\(\min(\ell_e, d - d_u)\)</span> where <span class="math inline">\(d_u\)</span> is the shortest-path distance to <span class="math inline">\(u\)</span> (partial edge counting, following Peponis et al., 2008).</p>
-<p><strong>Deduplication</strong>: when the same physical road appears as both <code>A→B</code> and <code>B→A</code> (i.e., both directed edges share the same <code>osid</code>), only the <strong>maximum</strong> partial contribution is retained. This ensures that a bidirectional road is counted once regardless of how many of its directed edges have reachable start nodes.</p>
+<p><strong>Deduplication</strong> when the same physical road appears as both <code>A→B</code> and <code>B→A</code> (i.e., both directed edges share the same <code>osid</code>), only the <strong>maximum</strong> partial contribution is retained. This ensures that a bidirectional road is counted once regardless of how many of its directed edges have reachable start nodes.</p>
 <div id="code_019" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1035,7 +1035,7 @@ Reach ratio (LTS ≤ 2 / LTS ≤ 4):
 </section>
 <section id="reach-ratio-map" class="level3">
 <h3 class="anchored" data-anchor-id="reach-ratio-map">6.3 Reach Ratio Map</h3>
-<p>The reach ratio <span class="math inline">\(R_{\text{ratio}} = R_{\text{LTS} \leq 2} / R_{\text{LTS} \leq 4}\)</span> measures what proportion of the full reachable network is accessible at low stress. This metric is directly policy-relevant: it shows where cyclists are forced onto high-stress roads to access destinations within cycling distance.</p>
+<p>The reach ratio <span class="math inline">\(R_{\text{ratio}} = R_{\text{LTS} \leq 2} / R_{\text{LTS} \leq 4}\)</span> measures what proportion of the full reachable network is accessible at low stress. This metric is directly policy-relevant - it shows where cyclists are forced onto high-stress roads to access destinations within cycling distance.</p>
 </section>
 <section id="borough-level-comparison" class="level3">
 <h3 class="anchored" data-anchor-id="borough-level-comparison">6.4 Borough-Level Comparison</h3>

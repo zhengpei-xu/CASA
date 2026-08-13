@@ -6,70 +6,342 @@
 
 % Replaced hardcoded section numbers with dynamic \ref{} commands
 % Added non-breaking spaces (~) to prevent awkward line breaks
-This chapter reports the results of applying the framework from Chapter 4 to the West Midlands cycling network. Sections~\ref{sec:results-composition}--\ref{sec:results-lts} profile the classified network by facility type and LTS level. Sections~\ref{sec:results-density}--\ref{sec:results-reach} evaluate connectivity against LTN 1/20's "Cycling for all" principle through density, fragmentation, and reach analyses, and Section~\ref{sec:results-growth} compares three network growth strategies to inform upgrade prioritisation.
+This chapter reports the results of applying the framework from Chapter~\ref{ch:methodology} to the West Midlands cycling network. Sections~\ref{sec:results-composition}--\ref{sec:results-lts} profile the classified network by facility type and LTS level. Sections~\ref{sec:results-density}--\ref{sec:results-reach} evaluate connectivity against LTN 1/20's "Cycling for all" principle through density, fragmentation, and reach analyses, and Section~\ref{sec:results-growth} compares three network growth strategies to inform upgrade prioritisation.
 
 \section{Cyclable Network and Infrastructure Profile}
 \label{sec:results-composition}
 
-The directed cyclable network for the West Midlands comprises 23{,}301 km of edges across 480{,}228 directed links (bidirectional segments counted once per direction), derived from OS NGD Transport Network filtered by the cyclability criteria described in Section~\ref{sec:method-extraction}. Figure~\ref{fig:wm_facility_types} maps the network coloured by facility type. Mixed Traffic dominates at 18{,}935 km (81.3\%), followed by Off-Road paths at 4{,}014 km (17.2\%), comprising segments with little or no motor vehicle traffic. Active investment in dedicated cycling facilities is minimal: the three physically separated types (fully kerbed cycle track, stepped cycle track, and light segregation) total just 49.7 km, accounting for 0.2\% of the network. Paint-only provision (advisory and mandatory cycle lanes) adds a further 63.1 km (0.3\%) but offers no physical protection from motor traffic (likely an underestimate, see Section~\ref{sec:disc-osvalidation}).
+The directed cyclable network for the West Midlands comprises 23{,}301 km of edges across 480{,}228 directed links (bidirectional segments counted once per direction), derived from OS NGD Transport Network filtered by the cyclability criteria described in Section~\ref{sec:method-extraction}. Figure~\ref{fig:wm_facility_types} maps the network coloured by facility type. Mixed Traffic dominates at 18{,}935 km (81.3\%), followed by Off-Road paths at 4{,}014 km (17.2\%), which inculde both purpose-built cycle routes (e.g. canal towpaths, converted railways) and paths through parks or green spaces. On-carriageway cycling provision is scarce: the three physically separated types (fully kerbed cycle track, stepped cycle track, and light segregation) total just 49.7 km (0.2\%) . Paint-only provision (advisory and mandatory cycle lanes) adds a further 63.1 km (0.3\%) with no physical protection from motor traffic (likely an underestimate, see Section~\ref{sec:disc-osvalidation}).
 
-\begin{figure}[h]
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{Figure/wm_facility_types.png}
-  \caption{Directed cyclable network of the West Midlands Combined Authority by facility type. Where a road segment carries different provision by direction, the facility with the greater degree of separation from motor traffic is shown. The network is dominated by mixed traffic (grey) and off-road paths (purple). Physically separated infrastructure (blue) is concentrated along radial corridors into Birmingham and Coventry. }
+  \begin{subfigure}[t]{\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figure/wm_facility_types.png}
+    \caption{West Midlands Whole Profile}
+    \label{fig:wm_facility_types_full}
+  \end{subfigure}
+
+  \vspace{0.5em}
+
+  \begin{subfigure}[t]{\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figure/wm_facility_types_bham_zoom.png}
+    \caption{Birmingham city centre (inset)}
+    \label{fig:wm_facility_types_bham}
+  \end{subfigure}
+
+  \caption{Directed cyclable network by facility type, showing the higher-separation facility where provision differs by direction. (a)~Mixed traffic and off-road paths dominate regionally; segregated infrastructure concentrates along radial corridors into Birmingham and Coventry. (b)~In central Birmingham, segregated tracks follow a handful of arterials while off-road paths form several long, continuous corridors through the urban area.}
   \label{fig:wm_facility_types}
 \end{figure}
 
-Spatially, dedicated facilities are concentrated in Birmingham, where fragments of fully kerbed track are visible along radial corridors into the city centre. Coventry, the birthplace of the modern safety bicycle, shows the second-longest continuous stretches of separated infrastructure, a product of its Local Air Quality Action Plan which funded fully segregated cycleways to avoid introducing a Clean Air Zone charging scheme \parencite{chaplin2021,coventrycitycouncil2023}. Elsewhere the picture is stark: Sandwell, Dudley, Walsall, and Wolverhampton show very little physically separated provision, and Solihull's network outside its town centre is entirely mixed traffic. Beyond segregated provision, off-road corridors such as greenways and residential streets are prevalent across the conurbation's urban areas but thin markedly toward the rural fringe, while the low-stress network elsewhere depends largely on residential streets. This spatial inequality in low-stress infrastructure provision is a recurring theme in the connectivity analysis that follows in Section~\ref{sec:results-reach}.
+Spatially, dedicated facilities are concentrated in Birmingham, where fragments of fully kerbed track are visible along radial corridors into the city centre. A continuous off-road corridor follows the Birmingham Canal Main Line\footnote{The Birmingham Canal Main Line is the principal canal corridor through central Birmingham and Sandwell, whose towpath functions as a shared-use walking and cycling route.} towpath westward from the city centre into Sandwell, forming one 
+of the longest uninterrupted cycling routes within West Midlands. Coventry, the birthplace of the modern safety bicycle, shows the second-longest continuous stretches of on-carriageway separated infrastructure, a product of its Local Air Quality Action Plan which funded fully segregated cycleways to avoid introducing a Clean Air Zone charging scheme \parencite{chaplin2021,coventrycitycouncil2023}. Elsewhere the picture is stark: Sandwell, Dudley, Walsall, and Wolverhampton show very little physically separated provision, and Solihull's network outside its town centre is entirely mixed traffic. This uneven distribution of dedicated cycling infrastructure shapes the stress classification and connectivity outcomes in the following sections.
 
 \section{LTS Classification}
 \label{sec:results-lts}
 
-Figure~\ref{fig:lts_map} maps the final LTS classification across the directed cyclable network after junction stress enhancement. Of the 480,228 directed edges, 227,420 (47.4\%) are classified as LTS~1, 152,180 (31.7\%) as LTS~2, 46,464 (9.7\%) as LTS~3, and 54,164 (11.3\%) as LTS~4. By network length, these correspond to 43.0\%, 34.9\%, 9.4\%, and 12.7\% respectively (Figure~\ref{fig:lts_composition}, Panel~A). The LTS~1 share consists predominantly of short, clustered residential street segments with low prevailing speeds and traffic volumes, supplemented by a smaller proportion of longer, continuous off-road links that enter the classification at LTS~1 under all link-level conditions. However, this headline figure is misleading in isolation: LTS~3 and~4, while comprising 22.1\% of total network length, form the arterial skeleton of the network, visible as a continuous grid of orange and red on Figure~\ref{fig:lts_map} that encloses the low-stress residential clusters. The implications of this structure for network connectivity are examined in Sections~\ref{sec:results-fragmentation} and~\ref{sec:results-reach}.
+Figure~\ref{fig:lts_map} maps the final LTS classification after junction stress
+enhancement. By network length, LTS~1 accounts for 43.0\% and LTS~2
+for 34.9\% (Figure~\ref{fig:lts_composition}, Panel~A). The LTS~1 share consists
+predominantly of short, clustered Local Street segments, supplemented
+by longer, continuous Off-Road Paths (Figure~\ref{fig:lts_composition}, Panel~D). LTS~3
+and~4 together comprise 22.1\% of network length, yet form the
+continuous arterial grid visible in orange and red on the map,
+enclosing the low-stress clusters. Panel~D confirms a clear gradient:
+A~Roads are almost exclusively LTS~4 (86.1\%), B~Roads predominantly
+LTS~3--4, Minor Roads split across LTS~2--4, Local Streets largely
+LTS~2 with a substantial LTS~1 component, and Off-Road Paths almost
+entirely LTS~1. The implications of this enclosure pattern for
+network connectivity are examined in Sections~\ref{sec:results-fragmentation} and~\ref{sec:results-reach}.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{Figure/wm_lts_classification.png}
+  \begin{subfigure}[t]{\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figure/wm_lts_classification.png}
+    \caption{West Midlands whole profile}
+    \label{fig:lts_map_full}
+  \end{subfigure}
+
+  \vspace{0.5em}
+
+  \begin{subfigure}[t]{\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figure/wm_lts_bham_zoom.png}
+    \caption{Birmingham city centre (inset)}
+    \label{fig:lts_map_bham}
+  \end{subfigure}
+
   \caption{Final Level of Traffic Stress classification across the directed
   cyclable network after junction stress enhancement. Each physical road link
-  carries two directed edges (forward and backward) that may receive different
-  junction-enhanced LTS scores where approach-level conflict differs by
-  direction. Where the two directions disagree, the map displays the higher
-  (more stressful) of the two values, as layers are drawn in ascending LTS
-  order so that higher-stress edges overlay lower-stress ones on the shared
-  link geometry. Basemap: OpenStreetMap contributors.}
+  carries two directed edges that may receive different junction-enhanced LTS
+  scores; where the two directions disagree, the map displays the higher value,
+  as layers are drawn in ascending LTS order. (a)~High-stress edges (LTS~3--4)
+  form a continuous arterial grid enclosing low-stress residential clusters.
+  (b)~At street level, LTS~1 clusters appear as isolated pockets
+enclosed by high-stress arterial corridors.
+}
   \label{fig:lts_map}
 \end{figure}
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=\textwidth]{Figure/wm_lts_profile.png}
-  \caption{Network-wide LTS composition by directed network length. Panel~A
-  shows the overall distribution across all four LTS levels, with urban
-  (solid fill) and rural (hatched fill) segments distinguished within each
-  level. Panel~B provides context: the urban share of the study area by
-  Census 2021 usual-resident population (99.0\%) and by land area (87.2\%).
-  Panel~C decomposes the LTS profile separately for urban and rural segments,
-  each normalised to 100\% of its own sub-network length. Rural areas show a
-  markedly higher combined LTS~3 and~4 share (39.5\%) compared with urban
-  areas (21.2\%), despite the classification already applying relaxed
-  thresholds for rural mixed-traffic links (Section~\ref{sec:methodology},
-  Table~\ref{tab:mixed_traffic}).}
+  \caption{LTS distribution across the directed cyclable network.
+(A)~Overall network composition by length, with urban and rural
+shares distinguished by hatching.
+(B)~Population and area context for the urban--rural split.
+(C)~LTS composition within urban and rural areas separately.
+(D)~LTS composition by road hierarchy, with junction-elevated
+segments (dotted) distinguished from link-level classifications
+(solid).}
   \label{fig:lts_composition}
 \end{figure}
 
-The aggregate distribution masks a pronounced urban--rural disparity. By network length, urban segments account for the vast majority across all stress levels (Figure~\ref{fig:lts_composition}, Panel~A), but the composition differs sharply: in urban areas LTS~3 and~4 together represent 21.6\% of network length, whereas in rural areas the equivalent share rises to 39.6\% (Figure~\ref{fig:lts_composition}, Panel~C). This disparity persists despite the classification already applying a relaxed threshold for rural mixed-traffic segments (Section~\ref{sec:method-linklts}, Table~\ref{tab:lts_matrix}). The map reveals the underlying cause: urban areas contain dense grids of low-speed residential streets that constitute the majority of network length, keeping the aggregate high-stress share low, while rural areas, concentrated in the Meriden Gap green belt\footnote{The Meriden Gap is a rural green belt area between Solihull and Coventry that forms part of the West Midlands Green Belt.} separating Solihull from Coventry, have a sparse network dominated by high-classification roads carrying speeds and volumes that place them in the highest stress categories, with few low-speed residential alternatives. The spatial distribution of this imbalance is examined through network density analysis in Section~\ref{sec:results-density}.
+The aggregate distribution masks a pronounced urban--rural disparity:
+LTS~3--4 together represent 21.2\% of urban network length but 39.5\%
+in rural areas (Figure~\ref{fig:lts_composition}, Panel~C), despite relaxed rural thresholds
+(Table~\ref{tab:lts_matrix}). Notably, the LTS~1 share is near-identical between
+settings (43.1\% and 41.8\%). The divergence instead lies in LTS~2,
+which falls from 35.6\% in urban areas to 18.6\% in rural areas,
+particularly in the Meriden Gap green
+belt\footnote{The Meriden Gap is a rural green belt area between
+Solihull and Coventry that forms part of the West Midlands Green
+Belt.}, where rural land use generates few Local Streets, the road
+type that constitutes 61.1\% of total network length and is
+predominantly LTS~2, and their scarcity is offset by
+higher-classification roads at LTS~3--4.
 
-The distribution described above reflects the final classification after junction stress enhancement, a step that substantially reshapes the LTS profile. Prior to enhancement, 325,051 edges (67.7\%) were classified as LTS~1; afterward this falls to 227,858 (47.4\%), a reduction of 97,193 (20.3\%) edges. The overlay modifies 103,279 edges totalling 5,833.8~km (25.0\% of network length), with the majority (90,312) experiencing a one-level increase, 6,105 a two-level increase, and 7,030 a three-level increase. Uncontrolled crossings account for most upgrades (97,055 edges), reflecting the prevalence of priority junctions where cyclists must yield to or merge with motor traffic without signal protection. Roundabout approaches contribute 5,132 upgrades, typically elevating links to LTS~3 or~4, consistent with evidence that multi-arm roundabouts represent one of the most stressful cycling environments in the UK road network \parencite{davies1997,reid2011,departmentfortransport2024}. Signalised junctions produce the fewest changes, as they inherently provide temporal separation between turning motor vehicles and cyclists. The extent to which junction enhancement fragments otherwise continuous low-stress sub-networks is examined in Section~\ref{sec:results-fragmentation}.
+The distribution above reflects the final classification after
+junction stress enhancement, which substantially reshapes the LTS
+profile: the LTS~1 share falls from 67.7\% to 47.4\% of edges, with
+103,279 edges totalling 5,834\,km (25.0\% of network length)
+modified. Uncontrolled crossings account for most elevations (97,055
+edges), with roundabout approaches contributing a further 5,132
+elevations, typically to LTS~3 or~4, consistent with evidence that
+multi-arm roundabouts represent one of the most stressful cycling
+environments in the UK road network \parencite{davies1997,reid2011,departmentfortransport2024}. Panel~D (dotted segments) shows that Local Streets dominate
+the junction elevation effect: 4,490\,km of Local Street length is
+elevated from LTS~1 to LTS~2 at junctions, representing 77.0\% of
+all junction-elevated network length. This confirms that uncontrolled
+Local Street junctions are the primary structural barrier fragmenting
+the low-stress network, a mechanism examined further in
+Section~\ref{sec:results-fragmentation}.
 
 \section{Stress-Based Network Density}
 \label{sec:results-density}
 
+Figure~\ref{fig:lts_density} presents absolute density (km/km\textsuperscript{2}) and
+relative density (\% of local network length) of each LTS level
+across 1,718 LSOAs in West Midlands. LTS~1 and~2 have median
+absolute densities of 13.9 and 12.3\,km/km\textsuperscript{2},
+substantially higher than LTS~3 (3.0) and LTS~4 (3.6), but the
+spatial pattern is broadly consistent across all four levels: all
+show higher values in urban areas and lower values in rural areas,
+indicating that absolute density primarily captures total network
+density rather than the structural prevalence of any particular
+stress level. Relative density reveals more meaningful
+differentiation. LTS~1 and LTS~2 have mean relative densities of
+41.6\% and 37.3\%, with a combined LTS~$\leq$~2 mean of 78.9\%,
+indicating that in most LSOAs over three-quarters of the local
+network is low-stress. The relative density maps for LTS~1 and
+LTS~3/4 show broadly inverse spatial patterns, localising the
+urban--rural disparity identified in Section~5.2 to individual LSOAs.
+
+To contextualise these findings in terms of population exposure,
+Census 2021 usual resident population at LSOA level
+\parencite{officefornationalstatistics2021} is joined to the density measures. Nearly
+two-thirds of the region's population (64.7\%, approximately 1.89
+million residents) reside in LSOAs where low-stress segments
+constitute at least 75\% of local network length. This suggests that
+most of the West Midlands population lives within neighbourhoods
+where local streets are predominantly low-stress. However, local
+density does not guarantee network connectivity: LTS~$\leq$~2
+segments may be locally abundant yet disconnected from one another
+by high-stress junctions and arterial barriers, a fragmentation
+problem examined in Section~\ref{sec:results-fragmentation}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.96\textwidth]{Figure/wm_lts_density_by_lsoa.jpg}
+  \caption{Absolute density (km/km\textsuperscript{2}, left) and relative
+  density (\% of local network length, right) of each LTS level across
+  1,718 LSOAs.}
+  \label{fig:lts_density}
+\end{figure}
+
 \section{Stress-Based Network Fragmentation}
 \label{sec:results-fragmentation}
+
+Figure~\ref{fig:fragmentation} presents the component size
+distribution across cumulative LTS thresholds. The rank-size plot
+(Panel~A) shows distributions steepening markedly at lower stress
+levels: the LCCs at LTS~1 and $\leq$~2 reach only 181.9 and
+517.5\,km, compared to 2,972.6 and 10,634.6\,km at
+LTS~$\leq$~3 and~$\leq$~4. Panel~B captures the trade-off between
+network length and fragmentation: as the threshold relaxes, total
+length increases while component count decreases as higher-stress
+edges bridge isolated clusters. The length-weighted KDE (Panel~C)
+quantifies the cyclist's experience: at LTS~1 after junction
+enhancement the distribution peaks at 0.33\,km, meaning a randomly
+selected LTS~1 segment typically belongs to a component spanning only
+a few hundred metres. At LTS~$\leq$~2 the peak shifts to 9.1\,km,
+yet most network length remains fragmented across mid-size components
+rather than consolidated into a connected backbone.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Figure/wm_lts_fragmentation.png}
+    \caption{Network fragmentation analysis across LTS thresholds. (A) Zipf plot of connected component sizes ranked by total length. (B) Trade-off between component count and network length, comparing link-level and junction-enhanced classifications. (C) Length-weighted kernel density estimates of component sizes, illustrating the shift from short, isolated fragments at LTS~1 toward a connected network at higher thresholds.}
+    \label{fig:fragmentation}
+\end{figure}
+
+\begin{table}[h]
+    \centering
+    \caption{Network fragmentation metrics by LTS threshold, computed on the largest connected component of the full cyclable network (LTS~$\leq$~4, 10,634.6~km).}
+    \label{tab:fragmentation}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{llrrrrr}
+        \toprule
+        LTS Threshold & Network & Length (km) & Components & Mean size (km) & LCC (km) & LCC share (\%) \\
+        \midrule
+        \multirow{2}{*}{$\leq$ 1} & Link-level          & 6,329.0 & 18,732 & 0.34 & 311.8    & 4.9  \\
+                                   & Junction-enhanced   & 4,955.6 & 26,176 & 0.19 & 181.9    & 3.7  \\
+        \addlinespace
+        \multirow{2}{*}{$\leq$ 2} & Link-level          & 8,128.2 &  8,993 & 0.90 & 634.4    & 7.8  \\
+                                   & Junction-enhanced   & 7,996.9 &  9,637 & 0.83 & 517.5    & 6.5  \\
+        \addlinespace
+        \multirow{2}{*}{$\leq$ 3} & Link-level          & 9,184.4 &  4,841 & 1.90 & 3,276.7  & 35.7 \\
+                                   & Junction-enhanced   & 9,083.4 &  5,260 & 1.73 & 2,972.6  & 32.7 \\
+        \addlinespace
+        \multirow{2}{*}{$\leq$ 4} & Link-level          & 10,634.6 &     1 & 10,634.6 & 10,634.6 & 100.0 \\
+                                   & Junction-enhanced   & 10,634.6 &     1 & 10,634.6 & 10,634.6 & 100.0 \\
+        \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
+Table~\ref{tab:fragmentation} reports precise fragmentation metrics
+computed on the LCC of the full cyclable network (LTS~$\leq$~4,
+10,634.6\,km). At LTS~$\leq$~1, the sub-network fragments into
+26,176 connected components with a mean size of 0.19\,km; its LCC
+spans just 181.9\,km (3.7\% of sub-network length). Relaxing the
+threshold to LTS~$\leq$~2 reduces the component count to 9,637 but
+the LCC share rises only to 6.5\% (517.5\,km), confirming that the
+low-stress network remains severely fragmented. A qualitative
+transition occurs at LTS~$\leq$~3, where the LCC absorbs
+approximately a third of the sub-network (32.7\%), reflecting the
+incorporation of arterial links that bridge previously isolated
+clusters.
+
+Junctions are a critical source of low-stress network fragmentation.
+When junction stress is incorporated, the LTS~1 component count
+increases by 39.7\% (18,732 to 26,176) while total network length
+contracts by 27.7\% (6,329.0 to 4,955.6\,km), as high-stress
+crossings sever links that previously connected adjacent low-stress
+clusters. The LCC contracts correspondingly from 311.8 to 181.9\,km
+(4.9\% to 3.7\%), and mean component size halves from 0.34 to
+0.19\,km. The effect persists at LTS~$\leq$~2, where components
+decrease from 9,637 to 8,993 and the LCC share drops from 7.8\% to
+6.5\%. These results demonstrate that the apparent abundance of
+low-stress infrastructure identified in
+Section~\ref{sec:results-density} does not translate into usable
+continuous routes.
 
 \section{Stress-Based Network Reach}
 \label{sec:results-reach}
 
+Figure~\ref{fig:network-reach} maps the directed network reach at the 8~km threshold across
+four cumulative LTS levels. At LTS~1, reach is negligible: the median LSOA records just
+0.1~km, and 37.0\% of LSOAs have zero reach entirely, reflecting the severe fragmentation
+documented in Section~\ref{sec:results-fragmentation}. Relaxing to LTS~$\leq$~2 improves reach
+substantially (median 10.6~km, mean 37.5~km), but 9.5\% of LSOAs still register zero reach
+and the distribution remains heavily right-skewed. Spatially, higher-reach LSOAs at
+LTS~$\leq$~2 align with the extended off-road corridors identified in Section~\ref{sec:results-composition},
+most notably the Birmingham Canal Main Line towpath into Sandwell, confirming that low-stress
+reach at this threshold depends on proximity to a small number of continuous traffic-free
+routes. A qualitative shift occurs at LTS~$\leq$~3 (median 61.3~km, 4.2\% zero reach), and
+at LTS~$\leq$~4 the network delivers near-universal coverage. The contrast between
+LTS~$\leq$~2 and $\leq$~4 quantifies the connectivity penalty imposed on stress-averse
+cyclists: the median reach at LTS~$\leq$~2 is just 0.7\% of that available to cyclists
+willing to tolerate all stress levels.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Figure/network_reach.png}
+    \caption{Directed network reach at an 8~km threshold across four cumulative LTS levels, mapped at LSOA resolution. Each panel shows the total length of network reachable from each LSOA within the stress threshold, with summary statistics. Solid and dashed vertical lines on the histograms mark the median and mean respectively.}
+    \label{fig:network-reach}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Figure/od_connectivity_combined.png}
+    \caption{OD connectivity at low traffic stress. Top: nearest-school accessibility by LSOA, showing the population share whose nearest school is reachable at LTS~1 and cumulatively at LTS~$\leq$~2. Bottom: flow-weighted commuting connectivity by origin MSOA at LTS~$\leq$~2 (left) and LTS~$\leq$~3 (right). }
+    \label{fig:od-connectivity}
+\end{figure}
+
+While network reach quantifies how far a cyclist can travel from any given point, it does not
+capture whether specific destinations are actually reachable. To test this, two demand-oriented
+analyses (Figure~\ref{fig:od-connectivity}) are applied, each targeting a user group central to
+the LTN~1/20 ``cycling for all'' principle: short-distance school accessibility for children
+(LTS~1) and commuting for mainstream adults (LTS~$\leq$~2). At LTS~1, only 4.1\% of the
+region's population can reach their nearest school via a route within the stress threshold
+deemed suitable for children. LTS~1 school access is scattered across urban LSOAs with no
+distinct clustering, arising where schools happen to fall within short residential or off-road
+segments. At LTS~$\leq$~2, school accessibility reaches 65.4\%, but over a third of the
+population remains without a low-stress school route. The commuting analysis reinforces this:
+of inter-MSOA OD pairs within 8~km straight-line distance, only 13.0\% of commuting flow is
+connected at LTS~$\leq$~2, and those connected pairs face a median detour of
+1.76$\times$ the unconstrained shortest path (flow-weighted mean 2.46$\times$). Spatially,
+LTS~$\leq$~2 connectivity is highest in Sandwell, Dudley, and western Birmingham, reflecting
+the continuous off-road corridors, but remains near zero across southern Birmingham, Solihull,
+and Coventry. A qualitative transition occurs at LTS~$\leq$~3, where 50.8\% of flow becomes
+connected with a reduced median detour of 1.49$\times$. These results indicate that the
+network fails to deliver adequate low-stress connectivity for either school trips or commutes;
+even where low-stress routes exist, substantial detours roughly double journey distance
+relative to unconstrained routing.
+
 \section{Network Growth}
 \label{sec:results-growth}
+
+As set out in Section~\ref{sec:method-growth}, the three strategies
+select upgrade edges by different logics: Random draws uniformly from
+the candidate pool, Connectivity prioritises edges that merge distinct
+components into the LCC, and Betweenness Centrality (BC) selects edges
+with the highest topological demand proxy. Figure~\ref{fig:growth_curves} presents the
+growth curves for all three strategies across the full candidate pool.
+For LCC share, connectivity reaches 0.85 within approximately
+2{,}000\,km of upgrades, whereas Betweenness Centrality requires
+approximately 2{,}800\,km and Random approximately 3{,}300\,km. The
+separation is more pronounced for demand-weighted connectivity metric:
+connectivity reaches 0.6 at approximately 1{,}500\,km, while Betweenness Centrality and
+Random achieve only 0.28 and 0.01 respectively at the same upgrade
+length. Figure~\ref{fig:growth_curves} zooms into the first 100\,km, corresponding to a
+realistic short-term investment horizon. The divergence between
+strategies is starker at this scale. Connectivity improves steadily
+from the first step. Betweenness Centrality strategy shows almost no
+change in the first 20\,km before beginning a slower ascent and Random
+remains near the baseline throughout.
+
+All three strategies converge toward similar terminal values (LCC
+share 0.86, demand-weighted connectivity 0.71), but the paths to
+convergence differ substantially. The upgrade length required for
+connectivity to reach an LCC share of 0.8 is roughly half that
+required by Random. In any realistic budget-constrained planning
+horizon, the choice of selection logic determines not whether the
+network eventually becomes connected, but how quickly meaningful
+connectivity is achieved.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{Figure/growth_curves_combined.png}
+    \caption[Network growth curves under three upgrade strategies]{%
+        Low-stress network growth under the Connectivity (purple), Betweenness
+        Centrality (BC, blue), and Random (grey; mean of ten runs, shaded band
+        showing run-wise min--max) strategies. Panels (a) and (b) show the full
+        upgrade sequence; panels (c) and (d) zoom into the first 100\,km at
+        per-link resolution.}
+    \label{fig:growth_curves}
+\end{figure}
+

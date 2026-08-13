@@ -280,7 +280,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Code/09_network_growth_simulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../Code/09_network_growth_simulation.ipynb" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Network Growth Simulation</span></a>
   </div>
 </li>
@@ -369,7 +369,7 @@ window.Quarto = {
 <section id="load-input-data" class="level2">
 <h2 class="anchored" data-anchor-id="load-input-data">1. Load Input Data</h2>
 <p>The link-level LTS classification adapts the Mekuria et al.&nbsp;(2012) framework by replacing its North American thresholds with those from LTN 1/20, the statutory design standard for cycling infrastructure in England and Northern Ireland. Although the breadth of CLoS’s 25 subcriteria prevents the tool from capturing population-level acceptability, the core subcriteria under the Safety principle, addressing motor traffic speed (Criterion 10), volume (Criterion 11), segregation provision and carriageway width (Criterion 12), are constructed on CROW-derived logic that classifies conditions by the interaction between prevailing speed, traffic volume, facility type, and available width (CROW, 2016), directly consistent with the LTS framework. It is this subset that the present study selects for link-level LTS assignment.</p>
-<p>LTN 1/20 further supplements these subcriteria with a speed-volume-facility matrix defining which traffic conditions require protected, lane-based, or mixed-traffic provision for “most people” to cycle. This population logic maps directly onto the LTS framework: conditions that LTN 1/20 deems suitable for most people, including children, correspond to LTS 1; conditions that exclude some potential users correspond to LTS 2; conditions suitable for few people correspond to LTS 3; and conditions triggering a critical safety failure correspond to LTS 4 (Figure X).</p>
+<p>LTN 1/20 further supplements these subcriteria with a speed-volume-facility matrix defining which traffic conditions require protected, lane-based, or mixed-traffic provision for “most people” to cycle. This population logic maps directly onto the LTS framework conditions that LTN 1/20 deems suitable for most people, including children, correspond to LTS 1; conditions that exclude some potential users correspond to LTS 2; conditions suitable for few people correspond to LTS 3; and conditions triggering a critical safety failure correspond to LTS 4 (Figure X).</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -452,31 +452,31 @@ window.Quarto = {
 <li>Thresholds are derived from the CLoS Safety subcriteria (Criteria 9–12, 15) in LTN 1/20 Appendix A, supplemented by the speed-volume-facility matrix in Figure 4.1, which the CLoS itself references as complementary guidance for determining appropriate separation levels.</li>
 <li>Motor traffic speed is represented throughout by the estimated 85th percentile speed (V85), consistent with the measurement basis specified in LTN 1/20 Criteria 9 and 10. V85 is estimated from OS NGD average speed data (see Section 4.2).</li>
 <li>Motor traffic volume is expressed as Annual Average Daily Traffic (AADT), used as a proxy for the passenger car unit (PCU) thresholds specified in LTN 1/20 Criterion 11. LTN 1/20 additionally specifies HGV composition thresholds (&gt;5% for critical fail, 2–5% for score 0); these could not be applied due to the absence of network-wide vehicle composition data and are acknowledged as a limitation.</li>
-<li>Rural exception: mixed traffic segments with V85 ≤30 mph and AADT ≤1,000 are classified as LTS 1, following LTN 1/20 Figure 4.1 Note 3.</li>
+<li>Rural exception - mixed traffic segments with V85 ≤30 mph and AADT ≤1,000 are classified as LTS 1, following LTN 1/20 Figure 4.1 Note 3.</li>
 </ol>
 <section id="speed" class="level3">
 <h3 class="anchored" data-anchor-id="speed">Speed</h3>
-<p>Prevailing speed is represented by the estimated 85th percentile speed (V85), consistent with the measurement basis specified in CLoS. V85 is preferred over posted speed limits because actual operating speeds frequently diverge from the limit depending on road geometry and enforcement, offering a more reliable measure of cycling stress (Fitzpatrick and Program, 2003; European Commission, 2021; Department for Transport, 2025). #### 85th Percentile Speed The OS NGD Average and Indicative Speed dataset (Basemap, via PSGA) provides two relevant fields:</p>
+<p>Prevailing speed is represented by the estimated 85th percentile speed (V85), consistent with the measurement basis specified in CLoS. V85 is preferred over posted speed limits because actual operating speeds frequently diverge from the limit depending on road geometry and enforcement, offering a more reliable measure of cycling stress (Fitzpatrick and Program, 2003; European Commission, 2021; Department for Transport, 2025). #### 85th Percentile Speed The OS NGD Average and Indicative Speed dataset (Basemap, via PSGA) provides two relevant fields</p>
 <ul>
-<li><strong><code>indicativespeedlimit_mph</code></strong>: the posted speed limit derived from road signage. This provides a legal upper bound but does not reflect actual driving speeds.</li>
+<li><strong><code>indicativespeedlimit_mph</code></strong> the posted speed limit derived from road signage. This provides a legal upper bound but does not reflect actual driving speeds.</li>
 <li><strong><code>averagespeed_*_kph</code></strong>: observed mean vehicle speeds from in-vehicle telematic systems, disaggregated by time period (8 weekday periods, 5 weekend periods) and direction of travel.</li>
 </ul>
 <p>However, <strong>individual vehicle speed distributions are not available</strong> from this dataset. The 85th percentile speed cannot be calculated directly, as it requires the full distribution (or at minimum the standard deviation) of individual vehicle speeds at each link.</p>
 <section id="estimation-approach-dmrb-ca-185" class="level4">
 <h4 class="anchored" data-anchor-id="estimation-approach-dmrb-ca-185">Estimation Approach: DMRB CA 185</h4>
 <p>To bridge this gap, this study applies the estimation method set out in the Design Manual for Roads and Bridges (DMRB) CA 185 <em>Vehicle Speed Measurement</em> (National Highways, 2019).</p>
-<p>DMRB CA 185 Equation 3.1.2a defines the 85th percentile speed as:</p>
+<p>DMRB CA 185 Equation 3.1.2a defines the 85th percentile speed as</p>
 <p><span class="math display">\[p_{85} = m + s\]</span></p>
 <p>where <span class="math inline">\(m\)</span> is the mean speed and <span class="math inline">\(s\)</span> is the standard deviation of measured vehicle speeds. This formula is based on the established finding that speed distributions are “to all intents and purposes normal (Gaussian)”, and that the 85th percentile lies approximately one standard deviation above the mean (Note 1 to Equation 3.1.2a).</p>
-<p>Since the standard deviation is not available from the OS NGD average speed data, it is estimated using the empirical relationship given in Note 3 to Equation 3.1.2a:</p>
+<p>Since the standard deviation is not available from the OS NGD average speed data, it is estimated using the empirical relationship given in Note 3 to Equation 3.1.2a</p>
 <p><span class="math display">\[s \approx \frac{m}{6}\]</span></p>
-<p>Substituting into Equation 3.1.2a:</p>
+<p>Substituting into Equation 3.1.2a</p>
 <p><span class="math display">\[p_{85} = m + \frac{m}{6} = \frac{7m}{6}\]</span></p>
 </section>
 </section>
 <section id="width" class="level3">
 <h3 class="anchored" data-anchor-id="width">Width</h3>
-<p>OS NGD provides carriageway width at the link level through average and minimum width attributes. For cycle lanes, this study uses the separately recorded modal lane width rather than the minimum, as it better captures typical conditions along a segment. For mixed traffic on single carriageways, average road width is used to assess the critical nearside lane width range of 3.2 to 3.9 m associated with elevated close-pass risk: on one-way roads, total width serves directly as lane width; on two-way roads, lane width is approximated as half the total width, with the override applied only where AADT exceeds 5,000, as lower volumes allow drivers to overtake via the opposing lane. Segments triggering this override are classified as LTS 4.</p>
+<p>OS NGD provides carriageway width at the link level through average and minimum width attributes. For cycle lanes, this study uses the separately recorded modal lane width rather than the minimum, as it better captures typical conditions along a segment. For mixed traffic on single carriageways, average road width is used to assess the critical nearside lane width range of 3.2 to 3.9 m associated with elevated close-pass risk - on one-way roads, total width serves directly as lane width; on two-way roads, lane width is approximated as half the total width, with the override applied only where AADT exceeds 5,000, as lower volumes allow drivers to overtake via the opposing lane. Segments triggering this override are classified as LTS 4.</p>
 </section>
 <section id="traffic-volume" class="level3">
 <h3 class="anchored" data-anchor-id="traffic-volume">Traffic Volume</h3>
@@ -862,7 +862,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="mandatory-and-advisory-cycle-lanes" class="level3">
 <h3 class="anchored" data-anchor-id="mandatory-and-advisory-cycle-lanes">2.4 Mandatory and Advisory Cycle Lanes</h3>
-<p>Mandatory and advisory cycle lanes are classified using the same three-component non-compensatory approach: cycle lane width, motor traffic volume (AADT), and prevailing speed (V85). Each component is independently translated into an LTS score, and the overall classification is determined by the worst-performing criterion.</p>
+<p>Mandatory and advisory cycle lanes are classified using the same three-component non-compensatory approach - cycle lane width, motor traffic volume (AADT), and prevailing speed (V85). Each component is independently translated into an LTS score, and the overall classification is determined by the worst-performing criterion.</p>
 <p>Cycle lane width is represented using the modal width (<code>cyclelaneinfo_modalwidth_m</code>) rather than the minimum. While minimum width reflects the most constrained sections of a facility, modal width better represents the typical conditions experienced by cyclists along a route.</p>
 <table class="caption-top table">
 <thead>
@@ -1003,7 +1003,7 @@ Name: count, dtype: int64</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Two additional modifiers are applied after the base classification:</p>
+<p>Two additional modifiers are applied after the base classification</p>
 <p><strong>Rural exception (LTN 1/20 Figure 4.1 Note 3):</strong> Mixed traffic segments with V85 ≤30 mph and AADT ≤1,000 are classified as LTS 1, recognising that achieving operating speeds of 20 mph may be impractical in rural settings and that shared routes with speeds of up to 30 mph may still be considered generally acceptable where motor traffic flows are very low.</p>
 <p><strong>Critical-width override (LTN 1/20 Criterion 12):</strong> On single carriageway roads, nearside lane widths within the 3.2–3.9 m range are associated with elevated close-pass risk. For one-way roads, total width serves directly as lane width. For two-way roads, lane width is approximated as half the total width, with the override applied only where AADT exceeds 5,000, as lower volumes allow drivers to overtake via the opposing lane. Segments triggering this override are classified as LTS 4.</p>
 <div id="d2cff085" class="cell" data-execution_count="9">

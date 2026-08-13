@@ -251,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Code/09_network_growth_simulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../Code/09_network_growth_simulation.ipynb" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Network Growth Simulation</span></a>
   </div>
 </li>
@@ -365,7 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td><code>dft_traffic_counts_aadf.csv</code></td>
-<td><a href="https://roadtraffic.dft.gov.uk/downloads">DfT Road Traffic Statistics</a></td>
+<td><a href="https://roadtraffic.dft.gov.uk/downloads">DfT Road Traffic Statistics</a>https://roadtraffic.dft.gov.uk/downloads)</td>
 <td>Official AADF count point data, used here for <strong>A Roads</strong> which are not covered by the minor road prediction model</td>
 </tr>
 </tbody>
@@ -373,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="aadt-assignment-strategy" class="level3">
 <h3 class="anchored" data-anchor-id="aadt-assignment-strategy">AADT Assignment Strategy</h3>
-<p>AADT is projected to all links in the cycleable network. The two AADT sources serve complementary roles, determined by road classification:</p>
+<p>AADT is projected to all links in the cycleable network. The two AADT sources serve complementary roles, determined by road classification</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -470,7 +470,7 @@ DfT count points in study area: 656</code></pre>
 <h2 class="anchored" data-anchor-id="join-traffic-volume-to-cycleable-network">2. Join Traffic Volume to Cycleable Network</h2>
 <section id="minor-roads-predicted-aadt" class="level3">
 <h3 class="anchored" data-anchor-id="minor-roads-predicted-aadt">2.1 Minor Roads — Predicted AADT</h3>
-<p>The predicted AADT model (Morley &amp; Gulliver, 2016) outputs AADT estimates on an OSM-derived road network covering four road classes: <code>residential</code>, <code>tertiary</code>, <code>unclassified</code>, and <code>secondary</code>. These are joined to the OS NGD cycleable network via <strong>spatial nearest-neighbour matching</strong> (centroid-to-nearest-line, 30m threshold).</p>
+<p>The predicted AADT model (Morley &amp; Gulliver, 2016) outputs AADT estimates on an OSM-derived road network covering four road classes - <code>residential</code>, <code>tertiary</code>, <code>unclassified</code>, and <code>secondary</code>. These are joined to the OS NGD cycleable network via <strong>spatial nearest-neighbour matching</strong> (centroid-to-nearest-line, 30m threshold).</p>
 <p>The 30m threshold accounts for minor geometric discrepancies between the OSM and OS NGD networks while avoiding cross-contamination from adjacent roads. Predicted AADT is assigned only to <strong>non-A Road</strong> links; A Roads are handled separately in Section 2.2.</p>
 <div id="7ac48953" class="cell" data-execution_count="15">
 <details class="code-fold">
@@ -521,19 +521,19 @@ DfT count points in study area: 656</code></pre>
 <p>A Roads are not covered by the minor road prediction model, which uses <code>nearest_major_aadt</code> as an input feature (Morley &amp; Gulliver, 2016), creating a circular dependency if applied to major roads. Instead, AADT is obtained from the DfT Annual Average Daily Flow (AADF) count point data — the official UK source for major road traffic volumes.</p>
 <section id="dft-link-level-data-structure" class="level4">
 <h4 class="anchored" data-anchor-id="dft-link-level-data-structure">DfT Link-Level Data Structure</h4>
-<p>The DfT major road network is divided into <strong>links</strong>, defined as continuous road sections between major junctions. Each link has a uniquely referenced <strong>Count Point (CP)</strong> where traffic is counted or estimated (<a href="https://assets.publishing.service.gov.uk/media/63332990e90e0711d82ae0ed/annual-methodology-note.pdf">DfT, Road Traffic Estimates Methodology Note</a>). The DfT provides AADF estimates for every link on the motorway and A-road network, derived from manual traffic counts expanded to annual averages using Automatic Traffic Counter (ATC) data. Where a count has not been conducted in the current year, the AADF is estimated from the previous year’s value using regional growth factors.</p>
-<p>It should be noted that DfT’s traffic estimates at the individual road link level are less robust than regional or national aggregates, as they are not always based on up-to-date counts at each location (<a href="https://roadtraffic.dft.gov.uk/about">DfT, Data Disclaimer</a>).</p>
+<p>The DfT major road network is divided into <strong>links</strong>, defined as continuous road sections between major junctions. Each link has a uniquely referenced <strong>Count Point (CP)</strong> where traffic is counted or estimated (<a href="https://assets.publishing.service.gov.uk/media/63332990e90e0711d82ae0ed/annual-methodology-note.pdf">DfT, Road Traffic Estimates Methodology Note</a>).https://assets.publishing.service.gov.uk/media/63332990e90e0711d82ae0ed/annual-methodology-note.pdf)). The DfT provides AADF estimates for every link on the motorway and A-road network, derived from manual traffic counts expanded to annual averages using Automatic Traffic Counter (ATC) data. Where a count has not been conducted in the current year, the AADF is estimated from the previous year’s value using regional growth factors.</p>
+<p>It should be noted that DfT’s traffic estimates at the individual road link level are less robust than regional or national aggregates, as they are not always based on up-to-date counts at each location (<a href="https://roadtraffic.dft.gov.uk/about">DfT, Data Disclaimer</a>).https://roadtraffic.dft.gov.uk/about)).</p>
 </section>
 <section id="assignment-method" class="level4">
 <h4 class="anchored" data-anchor-id="assignment-method">Assignment Method</h4>
-<p>Since the OS NGD road network is segmented at a finer granularity than the DfT link network (multiple OS NGD links fall within a single DfT link), a <strong>linear referencing</strong> approach is used to assign DfT AADT to each OS NGD A Road link:</p>
+<p>Since the OS NGD road network is segmented at a finer granularity than the DfT link network (multiple OS NGD links fall within a single DfT link), a <strong>linear referencing</strong> approach is used to assign DfT AADT to each OS NGD A Road link</p>
 <ol type="1">
 <li>For each road number (e.g.&nbsp;A38), all OS NGD links are merged into a continuous centreline using <code>shapely.ops.linemerge</code>.</li>
 <li>All DfT count points on the same road number (nationally, not clipped to the study area, to ensure boundary roads are covered) are projected onto this centreline, producing a 1D position for each count point.</li>
 <li>Each OS NGD link’s centroid is similarly projected onto the centreline.</li>
 <li>Each OS NGD link is assigned the AADT of the <strong>nearest count point along the road</strong> (by 1D distance), ensuring that the assignment follows the road’s geometry rather than Euclidean proximity, which could cross-contaminate between parallel roads.</li>
 </ol>
-<p>This method respects the DfT’s own link-level data structure: OS NGD segments within the same DfT link (i.e.&nbsp;between the same pair of major junctions) receive the same AADT value.</p>
+<p>This method respects the DfT’s own link-level data structure - OS NGD segments within the same DfT link (i.e.&nbsp;between the same pair of major junctions) receive the same AADT value.</p>
 <p>For one road (A4545, 41 links) where no DfT count point exists, AADT was assigned from the nearest matched A Road link by spatial proximity.</p>
 <div id="34aee2c7" class="cell" data-execution_count="16">
 <details class="code-fold">
