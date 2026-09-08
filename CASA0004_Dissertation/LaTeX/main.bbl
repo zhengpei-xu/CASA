@@ -3229,6 +3229,74 @@
       \endverb
       \keyw{Cycling,Mental mapping,Perceived risk,Safety}
     \endentry
+    \entry{mattioli2020}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=fefbbbfde907d4c91e6f9f2ce7e9627a}{%
+           family={Mattioli},
+           familyi={M\bibinitperiod},
+           given={Giulio},
+           giveni={G\bibinitperiod}}}%
+        {{hash=391c1ebbdcf1d3e614dbeb5d8557bcf4}{%
+           family={Roberts},
+           familyi={R\bibinitperiod},
+           given={Cameron},
+           giveni={C\bibinitperiod}}}%
+        {{hash=de3591480a0d5e92684712394fc0e6ae}{%
+           family={Steinberger},
+           familyi={S\bibinitperiod},
+           given={Julia\bibnamedelima K.},
+           giveni={J\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=9cfdbb87832f22734d1601a08280c077}{%
+           family={Brown},
+           familyi={B\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{d4678c9110990a72d29f276494e02b38}
+      \strng{fullhash}{45578cca6f770270d7537eb63732f7d0}
+      \strng{fullhashraw}{45578cca6f770270d7537eb63732f7d0}
+      \strng{bibnamehash}{45578cca6f770270d7537eb63732f7d0}
+      \strng{authorbibnamehash}{45578cca6f770270d7537eb63732f7d0}
+      \strng{authornamehash}{d4678c9110990a72d29f276494e02b38}
+      \strng{authorfullhash}{45578cca6f770270d7537eb63732f7d0}
+      \strng{authorfullhashraw}{45578cca6f770270d7537eb63732f7d0}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Research on car dependence exposes the difficulty of moving away from a car-dominated, high-carbon transport system, but neglects the political-economic factors underpinning car-dependent societies. Yet these factors are key constraints to attempts to ‘decouple' human well-being from energy use and climate change emissions. In this critical review paper, we identify some of the main political-economic factors behind car dependence, drawing together research from several fields. Five key constituent elements of what we call the ‘car-dependent transport system’ are identified: i) the automotive industry; ii) the provision of car infrastructure; iii) the political economy of urban sprawl; iv) the provision of public transport; v) cultures of car consumption. Using the ‘systems of provision’ approach within political economy, we locate the part played by each element within the key dynamic processes of the system as a whole. Such processes encompass industrial structure, political-economic relations, the built environment, and cultural feedback loops. We argue that linkages between these processes are crucial to maintaining car dependence and thus create carbon lock-in. In developing our argument we discuss several important characteristics of car-dependent transport systems: the role of integrated socio-technical aspects of provision, the opportunistic use of contradictory economic arguments serving industrial agendas, the creation of an apolitical façade around pro-car decision-making, and the ‘capture’ of the state within the car-dependent transport system. Through uncovering the constituents, processes and characteristics of car-dependent transport systems, we show that moving past the automobile age will require an overt and historically aware political program of research and action.}
+      \field{day}{1}
+      \field{issn}{2214-6296}
+      \field{journaltitle}{Energy Research \& Social Science}
+      \field{month}{8}
+      \field{shortjournal}{Energy Research \& Social Science}
+      \field{shorttitle}{The Political Economy of Car Dependence}
+      \field{title}{The Political Economy of Car Dependence: {{A}} Systems of Provision Approach}
+      \field{urlday}{23}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{volume}{66}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{101486}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.erss.2020.101486
+      \endverb
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/MDJAFI3A/Mattioli et al. - 2020 - The political economy of car dependence A systems of provision approach.pdf;/Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/LU5IDHYE/S2214629620300633.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S2214629620300633
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S2214629620300633
+      \endverb
+      \keyw{Automobility,Automotive industry,Car culture,Carbon lock-in,Road building,Transport}
+    \endentry
     \entry{mccahill2008}{article}{}{}
       \name{author}{2}{}{%
         {{hash=4e4948797e3e29b993c5e368b4032bfb}{%
@@ -3886,10 +3954,10 @@
       \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/4NMQ52JJ/report.html
       \endverb
       \verb{urlraw}
-      \verb https://www.nomisweb.co.uk/reports/lmp/comb/1853882375/report.aspx?utm_source=chatgpt.com
+      \verb https://www.nomisweb.co.uk/reports/lmp/comb/1853882375/report.aspx
       \endverb
       \verb{url}
-      \verb https://www.nomisweb.co.uk/reports/lmp/comb/1853882375/report.aspx?utm_source=chatgpt.com
+      \verb https://www.nomisweb.co.uk/reports/lmp/comb/1853882375/report.aspx
       \endverb
     \endentry
     \entry{ordnancesurvey2025}{online}{}{}
@@ -3949,6 +4017,175 @@
       \verb https://docs.os.uk/osngd/using-os-ngd-data/os-ngd-transport/cycle-lanes/how-cycle-lane-data-are-created
       \endverb
     \endentry
+    \entry{ordnancesurvey2026c}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=d967d4e3518002937534dd235071fc3b}{%
+           family={{Ordnance Survey}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \name{shortauthor}{1}{}{%
+        {{hash=17bc10091293fdc562a6db69940ee924}{%
+           family={OS},
+           familyi={O\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {OS National Geographic Databas}%
+      }
+      \list{publisher}{1}{%
+        {Ordnance Survey}%
+      }
+      \strng{namehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{fullhash}{d967d4e3518002937534dd235071fc3b}
+      \strng{fullhashraw}{d967d4e3518002937534dd235071fc3b}
+      \strng{bibnamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{authorbibnamehash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authornamehash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authorfullhash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authorfullhashraw}{d967d4e3518002937534dd235071fc3b}
+      \strng{shortauthorbibnamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthornamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthorfullhash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthorfullhashraw}{17bc10091293fdc562a6db69940ee924}
+      \field{extraname}{2}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradate}{1}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{shortauthor}
+      \field{labeltitlesource}{title}
+      \field{day}{12}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{title}{Cycle {{Lane}} | {{OS National Geographic Database}}}
+      \field{urlday}{20}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{year}{2026}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/ISSNT7WM/cycle-lane.html
+      \endverb
+      \verb{urlraw}
+      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/cycle-lane
+      \endverb
+      \verb{url}
+      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/cycle-lane
+      \endverb
+    \endentry
+    \entry{ordnancesurvey2026d}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=d967d4e3518002937534dd235071fc3b}{%
+           family={{Ordnance Survey}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \name{shortauthor}{1}{}{%
+        {{hash=17bc10091293fdc562a6db69940ee924}{%
+           family={OS},
+           familyi={O\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Ordnance Survey}%
+      }
+      \strng{namehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{fullhash}{d967d4e3518002937534dd235071fc3b}
+      \strng{fullhashraw}{d967d4e3518002937534dd235071fc3b}
+      \strng{bibnamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{authorbibnamehash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authornamehash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authorfullhash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authorfullhashraw}{d967d4e3518002937534dd235071fc3b}
+      \strng{shortauthorbibnamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthornamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthorfullhash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthorfullhashraw}{17bc10091293fdc562a6db69940ee924}
+      \field{extraname}{3}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradate}{2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{shortauthor}
+      \field{labeltitlesource}{title}
+      \field{day}{28}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{title}{Cyclelanedescriptionvalue | {{OS National Geographic Database}}}
+      \field{urlday}{20}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{year}{2026}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/P6LFPDRC/cyclelanedescriptionvalue.html
+      \endverb
+      \verb{urlraw}
+      \verb https://docs.os.uk/osngd/code-lists/code-lists-overview/cyclelanedescriptionvalue
+      \endverb
+      \verb{url}
+      \verb https://docs.os.uk/osngd/code-lists/code-lists-overview/cyclelanedescriptionvalue
+      \endverb
+    \endentry
+    \entry{ordnancesurvey2026}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=d967d4e3518002937534dd235071fc3b}{%
+           family={{Ordnance Survey}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \name{shortauthor}{1}{}{%
+        {{hash=17bc10091293fdc562a6db69940ee924}{%
+           family={OS},
+           familyi={O\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {OS National Geographic Databas}%
+      }
+      \list{publisher}{1}{%
+        {Ordnance Survey}%
+      }
+      \strng{namehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{fullhash}{d967d4e3518002937534dd235071fc3b}
+      \strng{fullhashraw}{d967d4e3518002937534dd235071fc3b}
+      \strng{bibnamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{authorbibnamehash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authornamehash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authorfullhash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authorfullhashraw}{d967d4e3518002937534dd235071fc3b}
+      \strng{shortauthorbibnamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthornamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthorfullhash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthorfullhashraw}{17bc10091293fdc562a6db69940ee924}
+      \field{extraname}{4}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradate}{3}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{shortauthor}
+      \field{labeltitlesource}{title}
+      \field{day}{30}
+      \field{langid}{english}
+      \field{month}{4}
+      \field{title}{Highway {{Dedication}} | {{OS National Geographic Database}}}
+      \field{type}{OS National Geographic Databas}
+      \field{urlday}{20}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{year}{2026}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/5E47YAGF/highway-dedication.html
+      \endverb
+      \verb{urlraw}
+      \verb https://docs.os.uk/osngd/data-structure/transport/rami/highway-dedication
+      \endverb
+      \verb{url}
+      \verb https://docs.os.uk/osngd/data-structure/transport/rami/highway-dedication
+      \endverb
+    \endentry
     \entry{ordnancesurvey2026e}{online}{}{}
       \name{author}{1}{}{%
         {{hash=d967d4e3518002937534dd235071fc3b}{%
@@ -3978,10 +4215,10 @@
       \strng{shortauthornamehash}{17bc10091293fdc562a6db69940ee924}
       \strng{shortauthorfullhash}{17bc10091293fdc562a6db69940ee924}
       \strng{shortauthorfullhashraw}{17bc10091293fdc562a6db69940ee924}
-      \field{extraname}{2}
+      \field{extraname}{5}
       \field{sortinit}{O}
       \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
-      \field{extradate}{1}
+      \field{extradate}{4}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{}
       \field{labelnamesource}{shortauthor}
@@ -4005,6 +4242,121 @@
       \endverb
       \verb{url}
       \verb https://www.ordnancesurvey.co.uk/news/new-national-cycle-lane-data
+      \endverb
+    \endentry
+    \entry{ordnancesurvey2026b}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=d967d4e3518002937534dd235071fc3b}{%
+           family={{Ordnance Survey}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \name{shortauthor}{1}{}{%
+        {{hash=17bc10091293fdc562a6db69940ee924}{%
+           family={OS},
+           familyi={O\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {OS National Geographic Databas}%
+      }
+      \list{publisher}{1}{%
+        {Ordnance Survey}%
+      }
+      \strng{namehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{fullhash}{d967d4e3518002937534dd235071fc3b}
+      \strng{fullhashraw}{d967d4e3518002937534dd235071fc3b}
+      \strng{bibnamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{authorbibnamehash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authornamehash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authorfullhash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authorfullhashraw}{d967d4e3518002937534dd235071fc3b}
+      \strng{shortauthorbibnamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthornamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthorfullhash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthorfullhashraw}{17bc10091293fdc562a6db69940ee924}
+      \field{extraname}{6}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradate}{5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{shortauthor}
+      \field{labeltitlesource}{title}
+      \field{day}{29}
+      \field{langid}{english}
+      \field{month}{4}
+      \field{title}{Path {{Link}} | {{OS National Geographic Database}}}
+      \field{type}{OS National Geographic Databas}
+      \field{urlday}{20}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{year}{2026}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/6G3DWR4Y/path-link.html
+      \endverb
+      \verb{urlraw}
+      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/path-link
+      \endverb
+      \verb{url}
+      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/path-link
+      \endverb
+    \endentry
+    \entry{ordnancesurvey2026a}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=d967d4e3518002937534dd235071fc3b}{%
+           family={{Ordnance Survey}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \name{shortauthor}{1}{}{%
+        {{hash=17bc10091293fdc562a6db69940ee924}{%
+           family={OS},
+           familyi={O\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {OS National Geographic Databas}%
+      }
+      \list{publisher}{1}{%
+        {Ordnance Survey}%
+      }
+      \strng{namehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{fullhash}{d967d4e3518002937534dd235071fc3b}
+      \strng{fullhashraw}{d967d4e3518002937534dd235071fc3b}
+      \strng{bibnamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{authorbibnamehash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authornamehash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authorfullhash}{d967d4e3518002937534dd235071fc3b}
+      \strng{authorfullhashraw}{d967d4e3518002937534dd235071fc3b}
+      \strng{shortauthorbibnamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthornamehash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthorfullhash}{17bc10091293fdc562a6db69940ee924}
+      \strng{shortauthorfullhashraw}{17bc10091293fdc562a6db69940ee924}
+      \field{extraname}{7}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradate}{6}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{shortauthor}
+      \field{labeltitlesource}{title}
+      \field{day}{29}
+      \field{langid}{english}
+      \field{month}{4}
+      \field{title}{Road {{Link}} | {{OS National Geographic Database}}}
+      \field{urlday}{20}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{year}{2026}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/D25LS9LB/road-link.html
+      \endverb
+      \verb{urlraw}
+      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/road-link
+      \endverb
+      \verb{url}
+      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/road-link
       \endverb
     \endentry
     \entry{pais2022}{article}{}{}
@@ -4989,300 +5341,6 @@
       \verb https://www.nature.com/articles/s43588-022-00318-w
       \endverb
       \keyw{Civil engineering,Complex networks,Scientific data}
-    \endentry
-    \entry{ordnancesurvey2026c}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=1f5b972c004d019e7288b426b3f78448}{%
-           family={Survey},
-           familyi={S\bibinitperiod},
-           given={Ordnance},
-           giveni={O\bibinitperiod}}}%
-      }
-      \name{shortauthor}{1}{}{%
-        {{hash=17bc10091293fdc562a6db69940ee924}{%
-           family={OS},
-           familyi={O\bibinitperiod}}}%
-      }
-      \list{organization}{1}{%
-        {OS National Geographic Databas}%
-      }
-      \list{publisher}{1}{%
-        {Ordnance Survey}%
-      }
-      \strng{namehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{fullhash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{fullhashraw}{1f5b972c004d019e7288b426b3f78448}
-      \strng{bibnamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{authorbibnamehash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authornamehash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authorfullhash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authorfullhashraw}{1f5b972c004d019e7288b426b3f78448}
-      \strng{shortauthorbibnamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthornamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthorfullhash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthorfullhashraw}{17bc10091293fdc562a6db69940ee924}
-      \field{extraname}{3}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{extradate}{2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{shortauthor}
-      \field{labeltitlesource}{title}
-      \field{day}{12}
-      \field{langid}{english}
-      \field{month}{3}
-      \field{title}{Cycle {{Lane}} | {{OS National Geographic Database}}}
-      \field{urlday}{20}
-      \field{urlmonth}{6}
-      \field{urlyear}{2026}
-      \field{year}{2026}
-      \field{dateera}{ce}
-      \field{urldateera}{ce}
-      \verb{file}
-      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/ISSNT7WM/cycle-lane.html
-      \endverb
-      \verb{urlraw}
-      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/cycle-lane
-      \endverb
-      \verb{url}
-      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/cycle-lane
-      \endverb
-    \endentry
-    \entry{ordnancesurvey2026d}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=1f5b972c004d019e7288b426b3f78448}{%
-           family={Survey},
-           familyi={S\bibinitperiod},
-           given={Ordnance},
-           giveni={O\bibinitperiod}}}%
-      }
-      \name{shortauthor}{1}{}{%
-        {{hash=17bc10091293fdc562a6db69940ee924}{%
-           family={OS},
-           familyi={O\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Ordnance Survey}%
-      }
-      \strng{namehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{fullhash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{fullhashraw}{1f5b972c004d019e7288b426b3f78448}
-      \strng{bibnamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{authorbibnamehash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authornamehash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authorfullhash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authorfullhashraw}{1f5b972c004d019e7288b426b3f78448}
-      \strng{shortauthorbibnamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthornamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthorfullhash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthorfullhashraw}{17bc10091293fdc562a6db69940ee924}
-      \field{extraname}{4}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{extradate}{3}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{shortauthor}
-      \field{labeltitlesource}{title}
-      \field{day}{28}
-      \field{langid}{english}
-      \field{month}{1}
-      \field{title}{Cyclelanedescriptionvalue | {{OS National Geographic Database}}}
-      \field{urlday}{20}
-      \field{urlmonth}{6}
-      \field{urlyear}{2026}
-      \field{year}{2026}
-      \field{dateera}{ce}
-      \field{urldateera}{ce}
-      \verb{file}
-      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/P6LFPDRC/cyclelanedescriptionvalue.html
-      \endverb
-      \verb{urlraw}
-      \verb https://docs.os.uk/osngd/code-lists/code-lists-overview/cyclelanedescriptionvalue
-      \endverb
-      \verb{url}
-      \verb https://docs.os.uk/osngd/code-lists/code-lists-overview/cyclelanedescriptionvalue
-      \endverb
-    \endentry
-    \entry{ordnancesurvey2026}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=1f5b972c004d019e7288b426b3f78448}{%
-           family={Survey},
-           familyi={S\bibinitperiod},
-           given={Ordnance},
-           giveni={O\bibinitperiod}}}%
-      }
-      \name{shortauthor}{1}{}{%
-        {{hash=17bc10091293fdc562a6db69940ee924}{%
-           family={OS},
-           familyi={O\bibinitperiod}}}%
-      }
-      \list{organization}{1}{%
-        {OS National Geographic Databas}%
-      }
-      \list{publisher}{1}{%
-        {Ordnance Survey}%
-      }
-      \strng{namehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{fullhash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{fullhashraw}{1f5b972c004d019e7288b426b3f78448}
-      \strng{bibnamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{authorbibnamehash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authornamehash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authorfullhash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authorfullhashraw}{1f5b972c004d019e7288b426b3f78448}
-      \strng{shortauthorbibnamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthornamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthorfullhash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthorfullhashraw}{17bc10091293fdc562a6db69940ee924}
-      \field{extraname}{5}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{extradate}{4}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{shortauthor}
-      \field{labeltitlesource}{title}
-      \field{day}{30}
-      \field{langid}{english}
-      \field{month}{4}
-      \field{title}{Highway {{Dedication}} | {{OS National Geographic Database}}}
-      \field{type}{OS National Geographic Databas}
-      \field{urlday}{20}
-      \field{urlmonth}{6}
-      \field{urlyear}{2026}
-      \field{year}{2026}
-      \field{dateera}{ce}
-      \field{urldateera}{ce}
-      \verb{file}
-      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/5E47YAGF/highway-dedication.html
-      \endverb
-      \verb{urlraw}
-      \verb https://docs.os.uk/osngd/data-structure/transport/rami/highway-dedication
-      \endverb
-      \verb{url}
-      \verb https://docs.os.uk/osngd/data-structure/transport/rami/highway-dedication
-      \endverb
-    \endentry
-    \entry{ordnancesurvey2026b}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=1f5b972c004d019e7288b426b3f78448}{%
-           family={Survey},
-           familyi={S\bibinitperiod},
-           given={Ordnance},
-           giveni={O\bibinitperiod}}}%
-      }
-      \name{shortauthor}{1}{}{%
-        {{hash=17bc10091293fdc562a6db69940ee924}{%
-           family={OS},
-           familyi={O\bibinitperiod}}}%
-      }
-      \list{organization}{1}{%
-        {OS National Geographic Databas}%
-      }
-      \list{publisher}{1}{%
-        {Ordnance Survey}%
-      }
-      \strng{namehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{fullhash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{fullhashraw}{1f5b972c004d019e7288b426b3f78448}
-      \strng{bibnamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{authorbibnamehash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authornamehash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authorfullhash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authorfullhashraw}{1f5b972c004d019e7288b426b3f78448}
-      \strng{shortauthorbibnamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthornamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthorfullhash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthorfullhashraw}{17bc10091293fdc562a6db69940ee924}
-      \field{extraname}{6}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{extradate}{5}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{shortauthor}
-      \field{labeltitlesource}{title}
-      \field{day}{29}
-      \field{langid}{english}
-      \field{month}{4}
-      \field{title}{Path {{Link}} | {{OS National Geographic Database}}}
-      \field{type}{OS National Geographic Databas}
-      \field{urlday}{20}
-      \field{urlmonth}{6}
-      \field{urlyear}{2026}
-      \field{year}{2026}
-      \field{dateera}{ce}
-      \field{urldateera}{ce}
-      \verb{file}
-      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/6G3DWR4Y/path-link.html
-      \endverb
-      \verb{urlraw}
-      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/path-link
-      \endverb
-      \verb{url}
-      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/path-link
-      \endverb
-    \endentry
-    \entry{ordnancesurvey2026a}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=1f5b972c004d019e7288b426b3f78448}{%
-           family={Survey},
-           familyi={S\bibinitperiod},
-           given={Ordnance},
-           giveni={O\bibinitperiod}}}%
-      }
-      \name{shortauthor}{1}{}{%
-        {{hash=17bc10091293fdc562a6db69940ee924}{%
-           family={OS},
-           familyi={O\bibinitperiod}}}%
-      }
-      \list{organization}{1}{%
-        {OS National Geographic Databas}%
-      }
-      \list{publisher}{1}{%
-        {Ordnance Survey}%
-      }
-      \strng{namehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{fullhash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{fullhashraw}{1f5b972c004d019e7288b426b3f78448}
-      \strng{bibnamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{authorbibnamehash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authornamehash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authorfullhash}{1f5b972c004d019e7288b426b3f78448}
-      \strng{authorfullhashraw}{1f5b972c004d019e7288b426b3f78448}
-      \strng{shortauthorbibnamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthornamehash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthorfullhash}{17bc10091293fdc562a6db69940ee924}
-      \strng{shortauthorfullhashraw}{17bc10091293fdc562a6db69940ee924}
-      \field{extraname}{7}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{extradate}{6}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{shortauthor}
-      \field{labeltitlesource}{title}
-      \field{day}{29}
-      \field{langid}{english}
-      \field{month}{4}
-      \field{title}{Road {{Link}} | {{OS National Geographic Database}}}
-      \field{urlday}{20}
-      \field{urlmonth}{6}
-      \field{urlyear}{2026}
-      \field{year}{2026}
-      \field{dateera}{ce}
-      \field{urldateera}{ce}
-      \verb{file}
-      \verb /Users/pippin/Library/CloudStorage/OneDrive-Personal/Zotero/storage/D25LS9LB/road-link.html
-      \endverb
-      \verb{urlraw}
-      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/road-link
-      \endverb
-      \verb{url}
-      \verb https://docs.os.uk/osngd/data-structure/transport/transport-network/road-link
-      \endverb
     \endentry
     \entry{szell2022}{article}{}{}
       \name{author}{5}{}{%

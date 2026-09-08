@@ -6,10 +6,10 @@
 
 This chapter presents the analytical framework for classifying and evaluating the West Midlands cycling network by Level of Traffic Stress (Figure~\ref{fig:methods}). Sections~\ref{sec:method-extraction}--\ref{sec:method-junctionlts} construct the directed, stress-classified network: extracting cyclable segments from OS NGD, assigning link-level LTS, and propagating junction stress with LTN 1/20's criteria. Section~\ref{sec:method-analysis} uses this network to test connectivity against LTN 1/20's “Cycling for all” principle through density, fragmentation, and reach analyses. Section~\ref{sec:method-growth} compares three network growth strategies to inform upgrade prioritisation.
 
-\begin{figure}[htbp]
+\begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{Figure/methods.jpg}
-  \caption{Analytical framework. LTN 1/20 design criteria (left) supply the classification thresholds operationalised on OS NGD Transport data (right). The classified network is then evaluated against LTN 1/20's "Cycling for All" principle through connectivity analysis and network growth simulation.}
+  \caption[Analytical framework]{Analytical framework.}
   \label{fig:methods}
 \end{figure}
 
@@ -127,7 +127,7 @@ Mixed traffic         &
 
 The link-level LTS classification begins with facility type and proceeds through three primary variables: prevailing speed, road width, and motor traffic volume. OS~NGD provides carriageway or cycle lane width at the link level through average and minimum width attributes. For cycle lanes, this study uses the separately recorded modal lane width rather than the minimum, as it better captures typical conditions along a segment. For mixed traffic on single carriageways, average road width is used to assess the critical nearside lane width range of 3.2 to 3.9\,m associated with elevated close-pass risk\footnote{On one-way roads, total width serves directly as lane width; on two-way roads, lane width is approximated as half the total width, with the override applied only where AADT exceeds 5,000, as lower volumes allow drivers to overtake via the opposing lane.}. Segments triggering this override are classified as LTS~4.
 
-Prevailing speed is represented by the estimated 85th percentile speed ($V_{85}$), consistent with the measurement basis specified in LTN~1/20. $V_{85}$ is preferred over posted speed limits as actual operating speeds frequently diverge from the limit depending on road geometry and enforcement, offering a more reliable measure of cycling stress \parencite{fitzpatrick2003, europeancommission2021, departmentfortransport2025b}. $V_{85}$ was estimated from the OS~NGD average speed dataset (RAMI), which provides mean vehicle speeds derived from probe vehicle data across multiple time periods. The mean of observed average speeds across all available time periods was used as the representative link speed, and $V_{85}$ was calculated by applying a 7/6 multiplier derived from CA~185 \textit{Vehicle speed measurement} \parencite{nationalhighways2019}, which defines $V_{85}$ as the mean speed plus one standard deviation and estimates the standard deviation as approximately one-sixth of the mean under the assumption of a normal speed distribution.
+Prevailing speed is represented by the estimated 85th percentile speed ($V_{85}$), consistent with the measurement basis specified in LTN~1/20. $V_{85}$ is preferred over official speed limits as actual operating speeds frequently diverge from the limit depending on road geometry and enforcement, offering a more reliable measure of cycling stress \parencite{fitzpatrick2003, europeancommission2021, departmentfortransport2025b}. $V_{85}$ was estimated from the OS~NGD average speed dataset (RAMI), which provides mean vehicle speeds derived from probe vehicle data across multiple time periods. The mean of observed average speeds across all available time periods was used as the representative link speed, and $V_{85}$ was calculated by applying a 7/6 multiplier derived from CA~185 \textit{Vehicle speed measurement} \parencite{nationalhighways2019}, which defines $V_{85}$ as the mean speed plus one standard deviation and estimates the standard deviation as approximately one-sixth of the mean under the assumption of a normal speed distribution.
 
 OS~NGD does not include motor traffic volume attributes. To address this, major road volumes were obtained directly from DfT annual average daily traffic (AADT) count point data, while minor road volumes were estimated following the methodology of \parencite{morley2016}. A Poisson GLM was constructed using road network characteristics extracted via pgRouting on the England OSM network as predictors and DfT count point observations as the dependent variable. Five-fold cross-validation ($n = 3{,}695$ count points) yields an $R^2$ of $0.604 \pm 0.019$ and Spearman's $\rho$ of $0.803 \pm 0.015$, considered sufficient for the coarse-grained LTS classification task. Predicted and observed AADT values were assigned to OS~NGD links via nearest-network spatial join. For the small number of links where no match was achieved, volume was imputed using the median AADT of the corresponding road classification to ensure network-wide coverage.
 
@@ -201,7 +201,7 @@ approach geometry, and off-carriageway cycle facility provision. Each roundabout
 
   \smallskip
   {\footnotesize \textit{Note.} When traffic lights are present, the LTS value is
-  reduced by one level to a minimum of LTS 2.}
+  reduced by one level to a minimum of LTS 2; roundabouts with both a segregated cycle facility and traffic signal control are classified as LTS 1}
 \end{table}
 
 The junction classification operates at the (link, junction node) pair level. The
@@ -280,7 +280,7 @@ prior information, averaged over 10 independent runs. The connectivity strategy
 greedily expands the LCC by prioritising adjacent edges that merge distinct
 components, adapted from the component-merging logic of \textcite{nateraorozco2020}
 but operating at single-edge granularity. Edge betweenness centrality is
-computed on the full undirected street network using Networkit's parallelised
+computed on the full undirected street network using NetworKit's parallelised
 Brandes algorithm \parencite{staudt2016}, serving as a topological proxy for
 latent cycling demand \parencite{mccahill2008,kirkley2018,szell2022}. Two
 metrics are computed at regular intervals during the growth process. LCC share

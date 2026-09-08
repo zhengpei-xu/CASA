@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex elsarticle-template-harv"] 1786641608.41813 "elsarticle-template-harv.aux" "elsarticle-template-harv.bbl" "elsarticle-template-harv" 1786641620.15452 0
-  "./elsarticle-harv.bst" 1712404712 30002 58b59416722968003776982d370174f4 ""
-  "./references.bib" 1786635587.06804 28336 3bfedea1c9c67cdbe692d273d0b2cec8 ""
-  "elsarticle-template-harv.aux" 1786641619.9894 20533 1a0c9473149f1a06958146f9057f1400 "pdflatex"
+["bibtex elsarticle-template-harv"] 1787064263.8905 "elsarticle-template-harv.aux" "elsarticle-template-harv.bbl" "elsarticle-template-harv" 1787065051.91628 0
+  "./elsarticle-harv.bst" 1786645037.48597 30002 58b59416722968003776982d370174f4 ""
+  "./references.bib" 1786645038.01302 28336 3bfedea1c9c67cdbe692d273d0b2cec8 ""
+  "elsarticle-template-harv.aux" 1787065051.75099 18486 bd4dda413785e290e17b3df67d0bf7c2 "pdflatex"
   (generated)
   "elsarticle-template-harv.bbl"
   "elsarticle-template-harv.blg"
   (rewritten before read)
-["pdflatex"] 1786641608.48635 "/Users/pippin/github/CASA/CASA0004_Dissertation/elsarticle/elsarticle-template-harv.tex" "elsarticle-template-harv.pdf" "elsarticle-template-harv" 1786641620.15463 0
-  "/Users/pippin/github/CASA/CASA0004_Dissertation/elsarticle/elsarticle-template-harv.tex" 1786641596.40408 55754 03506af7c51caec95bd44cd12437700b ""
+["pdflatex"] 1787065049.19894 "/Users/pippin/github/CASA/CASA0004_Dissertation/elsarticle/elsarticle-template-harv.tex" "elsarticle-template-harv.pdf" "elsarticle-template-harv" 1787065051.91639 0
+  "/Users/pippin/github/CASA/CASA0004_Dissertation/elsarticle/elsarticle-template-harv.tex" 1787065049.00444 58593 ed4c4d4eda0bad595890b867775fd4a2 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -124,17 +124,18 @@
   "/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1785685069 5573038 b99aad5e4898a9034e953632f940512b ""
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1785684958 3636769 2595a2afe8b460270581236590cc1c48 ""
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
-  "elsarticle-template-harv.aux" 1786641619.9894 20533 1a0c9473149f1a06958146f9057f1400 "pdflatex"
-  "elsarticle-template-harv.bbl" 1786641608.48479 29768 c21f2479484279916939efd013a70a76 "bibtex elsarticle-template-harv"
-  "elsarticle-template-harv.out" 1786641619.99019 5258 a4992eda312d61c9207215b84892ebfe "pdflatex"
-  "elsarticle-template-harv.spl" 1786641608.59996 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "elsarticle-template-harv.tex" 1786641596.40408 55754 03506af7c51caec95bd44cd12437700b ""
-  "figure/network_reach.png" 1786021587.94959 1001468 9cdd608baf7889cf89c4822fcd6ed521 ""
-  "figure/od_connectivity_combined.png" 1786357547.70938 2392121 b2df2a16e115b1571f6ea0af92194885 ""
-  "figure/study_area_map.png" 1786612838.20849 3168980 abc8d24d320b108c39b6e8fd6fa49566 ""
-  "figure/wm_facility_types.png" 1786632730.93757 33135579 6b1f2c44a42e3a966fb409a476d9c924 ""
-  "figure/wm_lts.png" 1786634852.24444 41552393 51ed7187f14ee9d73e4da70c4909d1e4 ""
-  "figure/wm_lts_fragmentation.png" 1786016961.09253 813640 80df3804149c373940f1229b19e4e32a ""
+  "elsarticle-template-harv.aux" 1787065051.75099 18486 bd4dda413785e290e17b3df67d0bf7c2 "pdflatex"
+  "elsarticle-template-harv.bbl" 1787064263.9618 29768 c21f2479484279916939efd013a70a76 "bibtex elsarticle-template-harv"
+  "elsarticle-template-harv.out" 1787065051.75175 5369 0ed85a21dcfa7f90323d88037193f491 "pdflatex"
+  "elsarticle-template-harv.spl" 1787065049.33148 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "elsarticle-template-harv.tex" 1787065049.00444 58593 ed4c4d4eda0bad595890b867775fd4a2 ""
+  "figure/lts_profile.png" 1786895468.64229 95558 900cce6c5eb35e9726e5099fa42c9863 ""
+  "figure/network_reach.png" 1786645037.75068 1001468 9cdd608baf7889cf89c4822fcd6ed521 ""
+  "figure/od_connectivity_combined.png" 1786645037.75615 2392121 b2df2a16e115b1571f6ea0af92194885 ""
+  "figure/study_area_map.png" 1786645037.7614 3168980 abc8d24d320b108c39b6e8fd6fa49566 ""
+  "figure/wm_facility_types.jpg" 1786806677.78666 4177345 f42a2dfe34d535e4d60f6608266f7e7c ""
+  "figure/wm_lts.jpg" 1786806714.71044 4483057 cd616ae029a81cfcb4002fd41d556d64 ""
+  "figure/wm_lts_fragmentation.png" 1786645038.01192 813640 80df3804149c373940f1229b19e4e32a ""
   (generated)
   "elsarticle-template-harv.aux"
   "elsarticle-template-harv.log"

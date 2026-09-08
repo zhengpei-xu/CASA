@@ -1,7 +1,7 @@
 \contentsline {chapter}{Abstract}{i}{chapter*.1}%
 \contentsline {chapter}{Declaration}{ii}{chapter*.2}%
 \contentsline {chapter}{Acknowledgements}{iii}{chapter*.3}%
-\contentsline {chapter}{List of Acronyms and Abbreviations}{ix}{chapter*.7}%
+\contentsline {chapter}{List of Acronyms and Abbreviations}{viii}{chapter*.7}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Literature Review}{3}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Infrastructure Quality, Perceived Safety, and Cycling Participation}{3}{section.2.1}%
@@ -12,6 +12,7 @@
 \contentsline {chapter}{\numberline {3}Study Area and Data}{10}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Study Area: The West Midlands}{10}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Data Sources: Overview}{11}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Statement of Ethics}{12}{section.3.3}%
 \contentsline {chapter}{\numberline {4}Methodology}{13}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Cyclable Network Extraction and Infrastructure Classification}{13}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Link-level LTS classification}{15}{section.4.2}%
@@ -24,17 +25,17 @@
 \contentsline {section}{\numberline {5.3}Stress-Based Network Density}{24}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Stress-Based Network Fragmentation}{26}{section.5.4}%
 \contentsline {section}{\numberline {5.5}Stress-Based Network Reach}{29}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Network Growth}{32}{section.5.6}%
-\contentsline {chapter}{\numberline {6}Discussion}{34}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Evaluating ``Cycling for All'': Network Connectivity Against LTN 1/20 Objectives}{34}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Junction Stress and the Structural Severance of the Low-Stress Network}{35}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Network Growth and Implications}{36}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Assessing OS NGD Cycle Lane Data: A First Independent Comparison with OpenStreetMap}{37}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Limitations and Future Work}{38}{section.6.5}%
-\contentsline {chapter}{\numberline {7}Conclusion}{40}{chapter.7}%
-\contentsline {chapter}{Bibliography}{42}{chapter*.29}%
-\contentsline {chapter}{\numberline {A}Supplementary Material}{54}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Traffic Volume Prediction}{54}{section.A.1}%
-\contentsline {section}{\numberline {A.2}OSM and OS Birmingham Comparison}{54}{section.A.2}%
-\contentsline {section}{\numberline {A.3}LTN 1/20's CLoS Web Assessment Tool for West Midlands}{54}{section.A.3}%
-\contentsline {chapter}{\numberline {B}Research Log}{55}{appendix.B}%
+\contentsline {section}{\numberline {5.6}Network Growth}{31}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Discussion}{33}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Evaluating ``Cycling for All'': Network Connectivity Against LTN 1/20 Objectives}{33}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Junction Stress and the Structural Severance of the Low-Stress Network}{34}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Network Growth and Implications}{35}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Assessing OS NGD Cycle Lane Data: A First Independent Comparison with OpenStreetMap}{36}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Limitations and Future Work}{37}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Conclusion}{39}{chapter.7}%
+\contentsline {chapter}{Bibliography}{41}{chapter*.29}%
+\contentsline {chapter}{\numberline {A}Supplementary Material}{53}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Traffic Volume Prediction}{53}{section.A.1}%
+\contentsline {section}{\numberline {A.2}OS NGD and OSM Birmingham comparison}{55}{section.A.2}%
+\contentsline {section}{\numberline {A.3}LTN 1/20 CLoS Web Assessment Tool for the West Midlands}{56}{section.A.3}%
+\contentsline {chapter}{\numberline {B}Research Log}{57}{appendix.B}%

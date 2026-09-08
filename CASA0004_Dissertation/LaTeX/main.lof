@@ -1,19 +1,19 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1}{\ignorespaces Structure of the LTN 1/20 evaluation framework, comprising the Cycling Level of Service (CLoS) and the Junction Assessment Tool (JAT), and their combined role in determining Active Travel England funding eligibility. Compiled by author from Department for Transport \blx@tocontentsinit {0}\textcite {departmentfortransport2020a}.}}{5}{figure.caption.9}%
+\contentsline {figure}{\numberline {1}{\ignorespaces Structure of the LTN 1/20 evaluation framework}}{5}{figure.caption.9}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2}{\ignorespaces Study Area: The West Midlands. Left: location within England. Right: population distribution across the seven constituent metropolitan boroughs (Census 2021), with hatched areas indicating rural Output Areas (OAs).}}{11}{figure.caption.11}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Study area: The West Midlands}}{11}{figure.caption.11}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3}{\ignorespaces Analytical framework. LTN 1/20 design criteria (left) supply the classification thresholds operationalised on OS NGD Transport data (right). The classified network is then evaluated against LTN 1/20's "Cycling for All" principle through connectivity analysis and network growth simulation.}}{13}{figure.caption.13}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Analytical framework}}{13}{figure.caption.13}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4}{\ignorespaces Directed cyclable network by facility type, showing the higher-separation facility where provision differs by direction. (a)~Mixed traffic and off-road paths dominate regionally; segregated infrastructure concentrates along radial corridors into Birmingham and Coventry. (b)~In central Birmingham, segregated tracks follow a handful of arterials while off-road paths form several long, continuous corridors through the urban area.}}{23}{figure.caption.20}%
-\contentsline {figure}{\numberline {5}{\ignorespaces Final Level of Traffic Stress classification across the directed cyclable network after junction stress enhancement. Each physical road link carries two directed edges that may receive different junction-enhanced LTS scores; where the two directions disagree, the map displays the higher value, as layers are drawn in ascending LTS order. (a)~High-stress edges (LTS~3--4) form a continuous arterial grid enclosing low-stress residential clusters. (b)~At street level, LTS~1 clusters appear as isolated pockets enclosed by high-stress arterial corridors. }}{25}{figure.caption.21}%
-\contentsline {figure}{\numberline {6}{\ignorespaces LTS distribution across the directed cyclable network. (A)~Overall network composition by length, with urban and rural shares distinguished by hatching. (B)~Population and area context for the urban--rural split. (C)~LTS composition within urban and rural areas separately. (D)~LTS composition by road hierarchy, with junction-elevated segments (dotted) distinguished from link-level classifications (solid).}}{26}{figure.caption.22}%
-\contentsline {figure}{\numberline {7}{\ignorespaces Absolute density (km/km\textsuperscript {2}, left) and relative density (\% of local network length, right) of each LTS level across 1,718 LSOAs.}}{27}{figure.caption.23}%
-\contentsline {figure}{\numberline {8}{\ignorespaces Network fragmentation analysis across LTS thresholds. (A) Zipf plot of connected component sizes ranked by total length. (B) Trade-off between component count and network length, comparing link-level and junction-enhanced classifications. (C) Length-weighted kernel density estimates of component sizes, illustrating the shift from short, isolated fragments at LTS~1 toward a connected network at higher thresholds.}}{28}{figure.caption.24}%
-\contentsline {figure}{\numberline {9}{\ignorespaces Directed network reach at an 8~km threshold across four cumulative LTS levels, mapped at LSOA resolution. Each panel shows the total length of network reachable from each LSOA within the stress threshold, with summary statistics. Solid and dashed vertical lines on the histograms mark the median and mean respectively.}}{30}{figure.caption.26}%
-\contentsline {figure}{\numberline {10}{\ignorespaces OD connectivity at low traffic stress. Top: nearest-school accessibility by LSOA, showing the population share whose nearest school is reachable at LTS~1 and cumulatively at LTS~$\leq $~2. Bottom: flow-weighted commuting connectivity by origin MSOA at LTS~$\leq $~2 (left) and LTS~$\leq $~3 (right). }}{31}{figure.caption.27}%
-\contentsline {figure}{\numberline {11}{\ignorespaces Network growth curves under three upgrade strategies}}{33}{figure.caption.28}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Directed cyclable network by facility type}}{23}{figure.caption.20}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Level of Traffic Stress classification}}{25}{figure.caption.21}%
+\contentsline {figure}{\numberline {6}{\ignorespaces LTS distribution across the directed cyclable network}}{26}{figure.caption.22}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Absolute and relative density with 4 LTS thresholds}}{27}{figure.caption.23}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Network fragmentation analysis across LTS thresholds}}{28}{figure.caption.24}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Directed network reach}}{30}{figure.caption.26}%
+\contentsline {figure}{\numberline {10}{\ignorespaces OD connectivity at low traffic stress}}{30}{figure.caption.27}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Network growth curves under three upgrade strategies}}{32}{figure.caption.28}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

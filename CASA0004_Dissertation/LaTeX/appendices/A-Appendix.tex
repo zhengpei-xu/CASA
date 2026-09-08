@@ -7,14 +7,73 @@
 \section{Traffic Volume Prediction}
 \label{app:traffic-volume}
 
-% TODO: Poisson GLM specification, AADT estimation details, etc.
+OS~NGD Transport does not include traffic volume for minor roads, so AADT is estimated for all English minor roads following the routing-importance method of \parencite{morley2016} and joined to the OS~NGD network; major roads use observed DfT AADT directly. Routing importance is derived by partitioning the England OSM network into zones bounded by major roads (via pgRouting on a PostGIS topology of 2,996,810 segments) and running one-to-many Dijkstra from each zone's boundary entry points to every internal minor-road endpoint, standardised by the number of minor edges in the zone.
 
-\section{OSM and OS Birmingham Comparison}
+A Poisson GLM with log link relates observed AADT to routing importance and contextual predictors:
+
+\begin{equation}
+\label{eq:aadt-glm}
+\log \mathbb{E}[\text{AADT}_i] 
+= \beta_0 
++ \beta_1 \log(1 + I_i) 
++ \beta_2 \log(1 + A^{\text{major}}_i) 
++ \beta_3 \mathbb{1}_{\text{urban}}(i) 
++ \sum_{c \in C} \gamma_c \mathbb{1}_{c}(i),
+\end{equation}
+
+\noindent where $I_i$ is the routing importance of link $i$; $A^{\text{major}}_i$ is the observed AADT at the nearest DfT major road count point; $\mathbb{1}_{\text{urban}}(i)$ is a binary indicator from the ONS 2021 OA Rural--Urban Classification; and $\{\mathbb{1}_c(i)\}$ are dummies for OSM road class $c \in \{\text{secondary, tertiary, residential, unclassified}\}$.
+
+Trained on 3,695 DfT AADT minor road count points (categories MCU and MB), five-fold cross-validation yields $R^2 = 0.604 \pm 0.019$ and Spearman's $\rho = 0.803 \pm 0.015$, comparable to \parencite{morley2016}. Rank-order accuracy is the relevant metric because LTS classification depends on AADT thresholds rather than exact volumes. West Midlands predictions are joined to OS~NGD Road Links via nearest-network spatial join on midpoints; unmatched links (35,815 of 444,016, 8.1\%) are imputed by the median predicted AADT of their OS~NGD road classification (Fig.~\ref{fig:aadt-sources}). The resulting AADT surface (Fig.~\ref{fig:aadt-final}) shows the expected pattern of high volumes on the arterial grid decaying into low-volume residential interiors.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Figure/aadt.png}
+    \caption[]{AADT data source composition across the West Midlands. Major road links (red, 25,792) use observed DfT AADT directly; minor road links (blue, 382,409) receive modelled AADT from the Poisson GLM via nearest-network join to routed OSM; unmatched OS~NGD minor links (orange, 35,815) are imputed by their road-class median.}
+    \label{fig:aadt-sources}
+\end{figure}
+
+\vspace{-1em}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Figure/aadt_final.png}
+    \caption[]{Final AADT assigned to the West Midlands cyclable network. The colour scale is clipped at 12,500 vehicles per day to preserve contrast on residential streets; the arterial grid at LTS~4-triggering volumes ($\geq 10{,}000$) is clearly visible against the low-volume interiors that populate the LTS~1--2 residential fabric.}
+    \label{fig:aadt-final}
+\end{figure}
+
+\clearpage
+
+\section{OS NGD and OSM Birmingham comparison}
 \label{app:osm-os-comparison}
 
-% TODO: cycle lane coverage comparison (63 km OS NGD vs 255 km OSM vs 139 km TfWM), etc.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Figure/os_infra.png}
+    \caption[]{Cycling facility classification in Birmingham city centre derived from OS~NGD. Off-Road and Shared Use are merged into a single green class to reconcile the taxonomy asymmetry with OSM (see Fig.~\ref{fig:comparison-osm}).}
+    \label{fig:comparison-osngd}
+\end{figure}
 
-\section{LTN 1/20's CLoS Web Assessment Tool for West Midlands}
+\vspace{-1em}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Figure/osm_infra.png}
+    \caption[]{Cycling facility classification in Birmingham city centre derived from OpenStreetMap, using the same extent and symbolisation as Fig.~\ref{fig:comparison-osngd}. OSM records substantially more advisory and mandatory cycle lane provision along radial arterials, while OS~NGD provides finer differentiation of physically separated facility types.}
+    \label{fig:comparison-osm}
+\end{figure}
+
+\clearpage
+
+\section{LTN 1/20 CLoS Web Assessment Tool for the West Midlands}
 \label{app:clos-tool}
 
-% TODO: screenshots, architecture, link to zhengpei-xu.github.io/ltn1-20-assessment-tool-wm
+As a second deliverable of this study developed in collaboration with Transport for West Midlands, an interactive web-based CLoS Assessment Tool has been produced and is publicly accessible at \url{https://zhengpei-xu.github.io/ltn1-20-assessment-tool-wm/web/} (Fig.~\ref{fig:web-tool}). The tool provides a map-based interface that allows practitioners to explore Cycling Level of Service scores derived from LTN~1/20 criteria across the entire West Midlands Combined Authority road network. CLoS scoring is pre-computed for 183,923 individual road links, providing a consistent, network-wide baseline that has not previously been available at this scale. Users can click any two points to generate the lowest-stress route between them, view directional CLoS scores broken down by the five LTN~1/20 principles (Safety, Attractiveness, Comfort, Directness, Coherence), and inspect link-level details including detour ratio, gradient and network length.
+
+The tool is designed for three groups of users. Scheme promoters and feasibility teams in the seven metropolitan boroughs can use it for early-stage desktop screening, identifying problem corridors before committing budget to site surveys. TfWM strategy and data teams can use it as a shared quality baseline for cross-authority comparison and for monitoring change over time as new schemes are delivered. Assessors preparing formal CLoS audits for Active Travel England's Route Check process can use it to pre-screen corridors so that site effort is focused where it is most needed. Its advantage over existing audit tools is scale and consistency: rather than assessing one scheme at a time by hand, the tool applies uniform, LTN~1/20-anchored criteria to every link in the region, enabling comparable evaluation across boroughs, corridors and time periods within a single interface.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Figure/web_tool.png}
+    \caption[]{The LTN~1/20 CLoS Web Assessment Tool for the West Midlands, showing a computed shortest directed route between two user-selected points with overall proxy CLoS score. The tool is publicly accessible at \url{https://zhengpei-xu.github.io/ltn1-20-assessment-tool-wm/web/}.}
+    \label{fig:web-tool}
+\end{figure}

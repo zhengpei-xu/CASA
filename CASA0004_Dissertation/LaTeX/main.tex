@@ -99,7 +99,11 @@
 % ---------- Bibliography: Harvard author-year via biblatex ----------
 \usepackage[backend=biber, style=authoryear, maxcitenames=2, maxbibnames=99, uniquename=false, uniquelist=false]{biblatex}
 \addbibresource{references.bib}
+% Keep URL and access date for @online entries only
+\DeclareFieldFormat[online]{url}{\url{#1}}
+\DeclareFieldFormat[online]{urldate}{\mkbibbrackets{Accessed\space#1}}
 
+\renewcommand{\nameyeardelim}{\addcomma\space}
 % ---------- Python / general code chunk design ----------
 \usepackage{listings}
 
@@ -130,14 +134,14 @@
 \setstretch{1.3}
 
 % ---------- Metadata ----------
-\newcommand{\dissertationtitle}{Adapting Level of Traffic Stress for England: A Network-Scale Cycling Infrastructure Assessment for the West Midlands}
+\newcommand{\dissertationtitle}{Adapting Level of Traffic Stress for England: A Network-Scale Cycling Infrastructure Assessment in the West Midlands}
 \newcommand{\authorname}{Zhengpei Xu}
 \newcommand{\studentnumber}{25034404}
 \newcommand{\modulecode}{CASA0004}   
 \newcommand{\moduletitle}{MRes Dissertation}
 \newcommand{\supervisorname}{Prof Duncan Smith}
 \newcommand{\submissiondate}{August 2026}
-\newcommand{\wordcount}{XX,XXX}
+\newcommand{\wordcount}{11,743}
 \newcommand{\repourl}{https://zhengpei-xu.github.io/CASA/CASA0004_Dissertation/docs/}
 
 % ============================================================
@@ -173,6 +177,7 @@
 \input{chapters/07-conclusion}
 
 % ---------- Bibliography ----------
+%TC:ignore
 \clearpage
 \printbibliography[heading=bibintoc, title={Bibliography}]
 
@@ -180,5 +185,6 @@
 \appendix
 \input{appendices/A-Appendix}
 \input{appendices/B-research-log}
+%TC:endignore
 
 \end{document}
