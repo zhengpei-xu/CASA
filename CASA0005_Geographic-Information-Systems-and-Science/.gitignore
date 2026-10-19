@@ -211,9 +211,7 @@ __marimo__/
 .httr-oauth
 .DS_Store
 .quarto
-<<<<<<< HEAD
 
-gi
 *.tif
 *.tiff
 
@@ -227,7 +225,6 @@ gi
 *.geoparquet
 
 
-*.RDataTmp
+*.RDataTmp*
 *.RData
 data/
->>>>>>> 00531bad6b4c8498d2720c02a8dcf819889074be

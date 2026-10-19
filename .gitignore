@@ -217,3 +217,8 @@ dft-road-casualty-statistics-vehicle-last-5-years.csv
 *.parquet
 CASA0006_Data-Science-for-Spatial-Systems/Code/cache/
 *.pdf
+
+# OS / editor / notebook junk
+.DS_Store
+.ipynb_checkpoints/
+.virtual_documents/
